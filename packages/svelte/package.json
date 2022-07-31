@@ -1,0 +1,19 @@
+{
+  "name": "@whyframe/svelte",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    }
+  },
+  "peerDependencies": {
+    "svelte": "^3.49.0"
+  },
+  "dependencies": {
+    "magic-string": "^0.26.2"
+  },
+  "devDependencies": {
+    "svelte": "^3.49.0"
+  }
+}
