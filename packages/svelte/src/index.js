@@ -20,7 +20,7 @@ export function whyframeSvelte() {
       const ast = parse(code)
 
       // prettier-ignore
-      const scriptCode = ast.script ? code.slice(ast.script.start, ast.script.end) : ''
+      const scriptCode = ast.instance ? code.slice(ast.instance.start, ast.instance.end) : ''
       // prettier-ignore
       const moduleScriptCode = ast.module ? code.slice(ast.module.start, ast.module.end) : ''
       const cssCode = ast.css ? code.slice(ast.css.start, ast.css.end) : ''
@@ -112,15 +112,18 @@ ${cssCode}`
         return '\0' + id
       }
       if (id.includes('-whyframe-')) {
-        return id
+        // NOTE: this gets double resolved for some reason
+        if (id.startsWith(process.cwd())) {
+          return id
+        } else {
+          // TODO: resolve with root?
+          return path.join(process.cwd(), id)
+        }
       }
     },
     load(id) {
       if (id.startsWith('\0whyframe:') || id.includes('-whyframe-')) {
-        // TODO: resolve with root?
-        const virtualId = id.includes('-whyframe-')
-          ? path.join(process.cwd(), id)
-          : id.slice(1)
+        const virtualId = id.includes('-whyframe-') ? id : id.slice(1)
         return virtualIdToCode.get(virtualId)
       }
     },
