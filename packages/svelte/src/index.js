@@ -28,12 +28,14 @@ export function whyframe(options) {
  * }} options
  * @returns {import('vite').Plugin}
  */
-export function whyframeCore() {
+export function whyframeCore(options) {
   return {
     name: 'whyframe:core',
     config(_, { command }) {
       if (command === 'build') {
-        const input = {}
+        const input = {
+          main: '/index.html' // TODO: check exist and resolve root
+        }
         if (options.templateHtml) {
           for (const [key, value] of Object.entries(options.templateHtml)) {
             input[`whyframe-${key}`] = path.resolve(value)
@@ -154,7 +156,7 @@ export function whyframeSvelte(options) {
 
             s.appendLeft(
               node.start + `<iframe`.length,
-              ` src="/${iframeSrc}" on:load={${onLoad}}`
+              ` src="${iframeSrc}" on:load={${onLoad}}`
             )
 
             virtualIdToCode.set(
