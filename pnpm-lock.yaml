@@ -12,10 +12,12 @@ importers:
     specifiers:
       magic-string: ^0.26.2
       svelte: ^3.49.0
+      vite: ^3.0.4
     dependencies:
       magic-string: 0.26.2
     devDependencies:
       svelte: 3.49.0
+      vite: 3.0.4
 
   playground/vite-svelte:
     specifiers:

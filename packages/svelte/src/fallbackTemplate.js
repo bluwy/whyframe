@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import path from 'node:path'
 
 export const fallbackTemplateId = 'whyframe:fallback-template.html'
 

@@ -2,10 +2,100 @@ import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { parse, walk } from 'svelte/compiler'
 import MagicString from 'magic-string'
+import {
+  fallbackTemplateBuildPath,
+  fallbackTemplateId,
+  fallbackTemplatePlugin
+} from './fallbackTemplate.js'
 
-export function whyframeSvelte() {
+/**
+ * @param {{
+ *  templateHtml?: Record<string, string>
+ * }} options
+ * @returns {import('vite').Plugin}
+ */
+export function whyframe(options) {
+  return [
+    whyframeCore(options),
+    whyframeSvelte(options),
+    options.templateHtml ? null : fallbackTemplatePlugin()
+  ]
+}
+
+/**
+ * @param {{
+ *  templateHtml?: Record<string, string>
+ * }} options
+ * @returns {import('vite').Plugin}
+ */
+export function whyframeCore() {
+  return {
+    name: 'whyframe:core',
+    config(_, { command }) {
+      if (command === 'build') {
+        const input = {}
+        if (options.templateHtml) {
+          for (const [key, value] of Object.entries(options.templateHtml)) {
+            input[`whyframe-${key}`] = path.resolve(value)
+          }
+        } else {
+          input['whyframe-fallback-template'] = fallbackTemplateBuildPath
+        }
+        return {
+          build: {
+            rollupOptions: {
+              input
+            }
+          }
+        }
+      }
+    },
+    resolveId(id) {
+      if (id === 'whyframe:app') {
+        return '\0whyframe:app'
+      }
+    },
+    load(id) {
+      if (id === '\0whyframe:app') {
+        return `\
+let isReadying = false
+
+export function createApp(el) {
+  if (isReadying) return
+  isReadying = true
+  if (window.__whyframe_app_url) {
+    ready(el)
+  } else {
+    window.addEventListener('whyframe:ready', () => ready(el), { once: true })
+  }
+}
+
+async function ready(el) {
+  const { createInternalApp } = await import(/* @vite-ignore */ window.__whyframe_app_url)
+  await createInternalApp(el)
+  isReadying = false
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    isReadying = false // an error may happen in ready, so we reset to remount the app
+  })
+}`
+      }
+    }
+  }
+}
+
+/**
+ * @param {{
+ *  templateHtml: Record<string, string>
+ * }} options
+ * @returns {import('vite').Plugin}
+ */
+export function whyframeSvelte(options) {
   // TODO: invalidate stale
   const virtualIdToCode = new Map()
+
   return {
     name: 'whyframe:svelte',
     enforce: 'pre',
@@ -28,7 +118,7 @@ export function whyframeSvelte() {
       const baseHash = getHash(scriptCode + moduleScriptCode + cssCode)
 
       walk(ast.html, {
-        enter(node) {
+        enter: (node) => {
           if (
             node.type === 'Element' &&
             node.name === 'iframe' &&
@@ -42,39 +132,39 @@ export function whyframeSvelte() {
               iframeContentEnd
             )
             s.remove(iframeContentStart, iframeContentEnd)
+
             const finalHash = getHash(baseHash + iframeContent)
-            const virtualIframeHtml = `whyframe:html-${finalHash}.html`
+
+            const iframeSrc =
+              node.attributes
+                .find((a) => a.name === 'why-template') // TODO: use src
+                ?.value.find((v) => v.type === 'Text')?.data ||
+              options.templateHtml?.default ||
+              fallbackTemplateId
+
             const virtualEntryJs = `whyframe:entry-${finalHash}.js`
             const virtualComponent = `${id}-whyframe-${finalHash}.svelte`
-            // const importVar = `__WHYFRAME_${finalHash}__`
-            // imports.set(virtualIframeHtml, importVar)
+
+            const onLoad = `function() {
+              const t = () => import('${virtualEntryJs}')
+              const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
+              this.contentWindow.__whyframe_app_url = importUrl;
+              this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
+            }`
+
             s.appendLeft(
               node.start + `<iframe`.length,
-              ` src="/${virtualIframeHtml}"`
+              ` src="/${iframeSrc}" on:load={${onLoad}}`
             )
-            virtualIdToCode.set(
-              virtualIframeHtml,
-              `\
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>iframe</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module">
-      import "${virtualEntryJs}"
-    </script>
-  </body>
-</html>`
-            )
+
             virtualIdToCode.set(
               virtualEntryJs,
               `\
 import App from '${virtualComponent}'
-new App({ target: document.getElementById('app') })`
+
+export function createInternalApp(el) {
+  new App({ target: el })
+}`
             )
             virtualIdToCode.set(
               virtualComponent,
@@ -91,7 +181,11 @@ ${cssCode}`
       if (imports.size) {
         let importText = ''
         for (const [path, importName] of imports.entries()) {
-          importText += `import ${importName} from "${path}";`
+          if (importName) {
+            importText += `import ${importName} from "${path}";`
+          } else {
+            importText += `import "${path}";`
+          }
         }
         if (ast.module) {
           s.appendLeft(ast.module.content.start, importText)
@@ -123,29 +217,9 @@ ${cssCode}`
     },
     load(id) {
       if (id.startsWith('\0whyframe:') || id.includes('-whyframe-')) {
-        const virtualId = id.includes('-whyframe-') ? id : id.slice(1)
-        return virtualIdToCode.get(virtualId)
+        if (id.startsWith('\0')) id = id.slice(1)
+        return virtualIdToCode.get(id)
       }
-    },
-    configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
-        if (req.url.startsWith('/whyframe:')) {
-          let html = virtualIdToCode.get(req.url.slice(1))
-          if (html) {
-            html = await server.transformIndexHtml(
-              req.url,
-              html,
-              req.originalUrl
-            )
-            res.setHeader('Content-Type', 'text/html')
-            res.end(html)
-          } else {
-            next()
-          }
-        } else {
-          next()
-        }
-      })
     }
   }
 }
