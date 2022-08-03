@@ -1,11 +1,11 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-export const fallbackTemplateId = 'whyframe:fallback-template.html'
+export const fallbackTemplateId = 'whyframe-template-default.html'
 
 export const fallbackTemplateBuildPath = path.resolve(
   process.cwd(),
-  '__whyframe-temp.html'
+  fallbackTemplateId
 )
 
 /**
@@ -24,7 +24,11 @@ const fallbackTemplateHtml = `\
     <title>whyframe</title>
   </head>
   <body>
-    <div id="whyframe-app"></div>
+    <div id="app"></div>
+    <script type="module">
+      import { createApp } from 'whyframe:app'
+      createApp(document.getElementById('app'))
+    </script>
   </body>
 </html>`
 
