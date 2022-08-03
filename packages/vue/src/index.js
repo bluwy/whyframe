@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { createFilter } from 'vite'
-import { isTemplateNode, parse, traverseNode } from '@vue/compiler-dom'
+import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
 
 /**
@@ -36,7 +36,7 @@ export function whyframeVue(options) {
 
       // collect code needed for virtual imports, assume all these have side effects
       const notTemplateTags = ast.children.filter(
-        (node) => !isTemplateNode(node)
+        (node) => node.tag !== 'template'
       )
       const notTemplateCode = notTemplateTags
         .map((node) => node.loc.source)
@@ -48,8 +48,10 @@ export function whyframeVue(options) {
       /** @type {string[]} */
       const virtualIds = []
 
-      const templateNode = ast.children.find((node) => isTemplateNode(node))
-      traverseNode(templateNode, {
+      /** @type {string[]} */
+      const scriptCode = []
+
+      transform(ast, {
         nodeTransforms: [
           (node) => {
             if (
@@ -58,9 +60,9 @@ export function whyframeVue(options) {
               node.children.length > 0
             ) {
               // extract iframe html
-              const iframeContentStart = node.children[0].start
+              const iframeContentStart = node.children[0].loc.start.offset
               const iframeContentEnd =
-                node.children[node.children.length - 1].end
+                node.children[node.children.length - 1].loc.end.offset
               const iframeContent = code.slice(
                 iframeContentStart,
                 iframeContentEnd
@@ -83,31 +85,50 @@ export function whyframeVue(options) {
 
               virtualIds.push(virtualEntry, virtualComponent)
 
+              const eventHandler = `__whyframe_${finalHash}`
+              scriptCode.push(`const ${eventHandler} = ${iframeOnLoad}`)
               s.appendLeft(
-                node.start + `<iframe`.length,
-                ` src="${iframeSrc}" on:load={${iframeOnLoad}}`
+                node.loc.start.offset + `<iframe`.length,
+                ` src="${iframeSrc}" @load="${eventHandler}"`
               )
 
               virtualIdToCode.set(
                 virtualEntry,
                 `\
+import { createApp } from 'vue'
 import App from '${virtualComponent}'
 
 export function createInternalApp(el) {
-  new App({ target: el })
+  createApp(App).mount(el)
 }`
               )
               // TODO: better sourcemaps
               virtualIdToCode.set(
                 virtualComponent,
                 `\
+<template>
 ${iframeContent}
+</template>
 ${notTemplateCode}`
               )
             }
           }
         ]
       })
+
+      const scriptSetupNode = notTemplateTags.find(
+        (node) =>
+          node.tag === 'script' && node.props.some((p) => p.name === 'setup')
+      )
+      const injectCode = `\n${scriptCode.join('\n')}\n`
+      if (scriptSetupNode) {
+        s.prependLeft(
+          scriptSetupNode.loc.end.offset - `</script>`.length,
+          injectCode
+        )
+      } else {
+        s.append(`<script setup>${injectCode}</script>`)
+      }
 
       // save virtual imports for invalidation when file updates
       vueIdToVirtualIds.set(id, virtualIds)

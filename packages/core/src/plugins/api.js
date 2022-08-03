@@ -35,19 +35,19 @@ export function apiPlugin(options) {
             preserveSignature: 'strict'
           })
           return `\
-function () {
-  this.contentWindow.__whyframe_app_url = import.meta.ROLLUP_FILE_URL_${refId}
-  this.contentWindow.dispatchEvent(new Event('whyframe:ready'))
+(e) => {
+  e.target.contentWindow.__whyframe_app_url = import.meta.ROLLUP_FILE_URL_${refId}
+  e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         } else {
           // Cheekily exploits Vite's import analysis to get the transformed URL
           // to be loaded by the iframe. This works because files are served as is.
           return `\
-function () {
+(e) => {
   const t = () => import('${virtualEntry}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  this.contentWindow.__whyframe_app_url = importUrl
-  this.contentWindow.dispatchEvent(new Event('whyframe:ready'))
+  e.target.contentWindow.__whyframe_app_url = importUrl
+  e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         }
       }
