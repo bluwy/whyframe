@@ -4,4 +4,5 @@ export interface Options {
 
 export interface Api {
   getIframeSrc: (templateKey?: string) => string
+  getIframeLoadHandler: (virtualEntry: string) => string
 }
