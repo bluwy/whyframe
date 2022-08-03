@@ -5,4 +5,4 @@ export interface Options {
   exclude?: FilterPattern
 }
 
-export function whyframeSvelte(options: Options): Plugin
+export function whyframeSvelte(options?: Options): Plugin

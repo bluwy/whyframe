@@ -5,4 +5,4 @@ export interface Options {
   exclude?: FilterPattern
 }
 
-export function whyframeVue(options: Options): Plugin
+export function whyframeVue(options?: Options): Plugin
