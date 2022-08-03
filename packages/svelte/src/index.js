@@ -149,10 +149,7 @@ export function whyframeSvelte(options) {
             const onLoad = `\
 function() {
   const t = () => import('${virtualEntryJs}')
-  let importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  if (importUrl.startsWith('.')) {
-    importUrl = new URL(importUrl, import.meta.url).pathname
-  }
+  const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
   this.contentWindow.__whyframe_app_url = importUrl;
   this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
 }`
