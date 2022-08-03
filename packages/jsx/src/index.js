@@ -18,7 +18,7 @@ export function whyframeJsx(options) {
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
 
-  const parse = Parser.extend(jsx()).parse
+  const acorn = Parser.extend(jsx())
 
   return {
     name: 'whyframe:jsx',
@@ -36,12 +36,16 @@ export function whyframeJsx(options) {
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
-      const ast = parse(code)
+      const ast = acorn.parse(code, {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      })
 
       /** @type {string[]} */
       const virtualIds = []
 
       let topLevelFnNode
+      let isExport
 
       walk(ast, {
         leave(node) {
@@ -50,9 +54,10 @@ export function whyframeJsx(options) {
             node.type === 'ArrowFunctionExpression'
           ) {
             topLevelFnNode = null
+            isExport = null
           }
         },
-        enter(node) {
+        enter(node, parent) {
           if (
             node.type === 'FunctionDeclaration' ||
             node.type === 'ArrowFunctionExpression'
@@ -62,6 +67,12 @@ export function whyframeJsx(options) {
               this.skip()
             } else {
               topLevelFnNode = node
+              if (
+                parent.type === 'ExportNamedDeclaration' ||
+                parent.type === 'ExportDefaultDeclaration'
+              ) {
+                isExport = parent
+              }
             }
             return
           }
@@ -85,17 +96,21 @@ export function whyframeJsx(options) {
             )
             s.remove(iframeContentStart, iframeContentEnd)
 
+            const outScope = isExport || topLevelFnNode
             // crawl out of fn, get top to fn start
-            const topCode = code.slice(0, topLevelFnNode.start)
+            const topCode = code.slice(0, outScope.start)
             // crawl out of fn, get fn end to bottom
-            const bottomCode = code.slice(topLevelFnNode.end)
+            const bottomCode = code.slice(outScope.end)
             // crawl to fn body, get body start to jsx
             const fnBody = topLevelFnNode.body.body
             const returnStatement = fnBody.findIndex(
-              (c) => c.type === 'ReturnStatement' && c.argument === node
+              (c) =>
+                c.type === 'ReturnStatement' &&
+                astContainsNode(c.argument, node)
             )
             if (returnStatement === -1) {
-              throw new Error('Could not find return statement')
+              this.skip()
+              return
             }
             const fnCode =
               returnStatement > 0
@@ -105,19 +120,23 @@ export function whyframeJsx(options) {
 ${topCode}
 export function WhyframeApp() {
   ${fnCode}
-  return
+  return (
+    <>
+      ${iframeContent}
+    </>
+  )
 }
 ${bottomCode}`
 
             // derive final hash per iframe
-            const finalHash = getHash(baseHash + iframeContent)
+            const finalHash = getHash(virtualComponentCode)
 
             // get iframe src
             // TODO: unify special treatment for why-template somewhere
             const customTemplateKey = node.openingElement.attributes.find(
               (a) => a.name.name === 'whyTemplate'
             )?.value.value
-            const virtualEntry = `whyframe:entry-${finalHash}`
+            const virtualEntry = `whyframe:entry-${finalHash}.jsx`
             const virtualComponent = `${id}-whyframe-${finalHash}.jsx`
             const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
             const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry)
@@ -125,8 +144,8 @@ ${bottomCode}`
             virtualIds.push(virtualEntry, virtualComponent)
 
             s.appendLeft(
-              node.loc.start.offset + `<iframe`.length,
-              ` src="${iframeSrc}" @load="${iframeOnLoad}"`
+              node.start + `<iframe`.length,
+              ` src="${iframeSrc}" onLoad={${iframeOnLoad}}`
             )
 
             virtualIdToCode.set(
@@ -221,4 +240,18 @@ export function createInternalApp(el) {
   render(() => <WhyframeApp />, el)
 }`
   }
+}
+
+// TODO: optimize
+function astContainsNode(ast, node) {
+  let found = false
+  walk(ast, {
+    enter(n) {
+      if (node === n) {
+        found = true
+        this.skip()
+      }
+    }
+  })
+  return found
 }
