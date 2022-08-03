@@ -107,7 +107,6 @@ export function whyframeSvelte(options) {
 
       // parse instances of `<WhyFrame></WhyFrame>` and extract them out as a virtual import
       const s = new MagicString(code)
-      const imports = new Map()
 
       const ast = parse(code)
 
@@ -147,12 +146,16 @@ export function whyframeSvelte(options) {
             const virtualEntryJs = `whyframe:entry-${finalHash}.js`
             const virtualComponent = `${id}-whyframe-${finalHash}.svelte`
 
-            const onLoad = `function() {
-              const t = () => import('${virtualEntryJs}')
-              const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-              this.contentWindow.__whyframe_app_url = importUrl;
-              this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
-            }`
+            const onLoad = `\
+function() {
+  const t = () => import('${virtualEntryJs}')
+  let importUrl = t.toString().match(/['"](.*?)['"]/)[1]
+  if (importUrl.startsWith('.')) {
+    importUrl = new URL(importUrl, import.meta.url).pathname
+  }
+  this.contentWindow.__whyframe_app_url = importUrl;
+  this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
+}`
 
             s.appendLeft(
               node.start + `<iframe`.length,
@@ -179,24 +182,6 @@ ${cssCode}`
           }
         }
       })
-
-      if (imports.size) {
-        let importText = ''
-        for (const [path, importName] of imports.entries()) {
-          if (importName) {
-            importText += `import ${importName} from "${path}";`
-          } else {
-            importText += `import "${path}";`
-          }
-        }
-        if (ast.module) {
-          s.appendLeft(ast.module.content.start, importText)
-        } else if (ast.instance) {
-          s.appendLeft(ast.instance.content.start, importText)
-        } else {
-          s.append(`<script>${importText}</script>`)
-        }
-      }
 
       return {
         code: s.toString(),
