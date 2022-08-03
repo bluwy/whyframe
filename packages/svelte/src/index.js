@@ -8,10 +8,9 @@ import MagicString from 'magic-string'
  * @type {import('.').whyframeSvelte}
  */
 export function whyframeSvelte(options) {
-  // TODO: invalidate stale
   const virtualIdToCode = new Map()
-  /** @type {boolean} */
-  let isBuild
+  // secondary map to track stale virtual ids on hot update
+  const svelteIdToVirtualIds = new Map()
   /** @type {import('@whyframe/core').Api} */
   let whyframeApi
 
@@ -20,9 +19,6 @@ export function whyframeSvelte(options) {
   return {
     name: 'whyframe:svelte',
     enforce: 'pre',
-    config(_, { command }) {
-      isBuild = command === 'build'
-    },
     configResolved(c) {
       whyframeApi = c.plugins.find((p) => p.name === 'whyframe:api')?.api
       if (!whyframeApi) {
@@ -31,7 +27,7 @@ export function whyframeSvelte(options) {
       }
     },
     transform(code, id) {
-      if (!filter(id)) return
+      if (!filter(id) || id.includes('-whyframe-')) return
 
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -47,6 +43,9 @@ export function whyframeSvelte(options) {
 
       // Generate initial hash
       const baseHash = getHash(scriptCode + moduleScriptCode + cssCode)
+
+      /** @type {string[]} */
+      const virtualIds = []
 
       walk(ast.html, {
         enter: (node) => {
@@ -79,6 +78,8 @@ export function whyframeSvelte(options) {
             const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
             const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry)
 
+            virtualIds.push(virtualEntry, virtualComponent)
+
             s.appendLeft(
               node.start + `<iframe`.length,
               ` src="${iframeSrc}" on:load={${iframeOnLoad}}`
@@ -93,6 +94,7 @@ export function createInternalApp(el) {
   new App({ target: el })
 }`
             )
+            // TODO: better sourcemaps
             virtualIdToCode.set(
               virtualComponent,
               `\
@@ -104,6 +106,9 @@ ${cssCode}`
           }
         }
       })
+
+      // save virtual imports for invalidation when file updates
+      svelteIdToVirtualIds.set(id, virtualIds)
 
       return {
         code: s.toString(),
@@ -125,9 +130,24 @@ ${cssCode}`
       }
     },
     load(id) {
-      if (id.startsWith('\0whyframe:entry') || id.includes('-whyframe-')) {
-        if (id.startsWith('\0')) id = id.slice(1)
-        return virtualIdToCode.get(id)
+      if (id.startsWith('\0whyframe:entry')) {
+        return virtualIdToCode.get(id.slice(1))
+      }
+      if (id.includes('-whyframe-')) {
+        return {
+          code: virtualIdToCode.get(id),
+          map: { mappings: '' }
+        }
+      }
+    },
+    handleHotUpdate({ file }) {
+      // Remove stale virtual ids
+      // NOTE: hot update always come first before transform
+      if (svelteIdToVirtualIds.has(file)) {
+        const staleVirtualIds = svelteIdToVirtualIds.get(file)
+        for (const id of staleVirtualIds) {
+          virtualIdToCode.delete(id)
+        }
       }
     }
   }
