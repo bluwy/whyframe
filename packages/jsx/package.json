@@ -1,0 +1,26 @@
+{
+  "name": "@whyframe/jsx",
+  "private": true,
+  "type": "module",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@whyframe/core": "workspace:*",
+    "vite": "^3.0.4"
+  },
+  "dependencies": {
+    "acorn": "^8.8.0",
+    "acorn-jsx": "^5.3.2",
+    "estree-walker": "^3.0.1",
+    "magic-string": "^0.26.2"
+  },
+  "devDependencies": {
+    "@whyframe/core": "workspace:*",
+    "vite": "^3.0.4"
+  }
+}
