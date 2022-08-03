@@ -97,10 +97,14 @@ if (import.meta.hot) {
 export function whyframeSvelte(options) {
   // TODO: invalidate stale
   const virtualIdToCode = new Map()
+  let isBuild = false
 
   return {
     name: 'whyframe:svelte',
     enforce: 'pre',
+    config(_, { command }) {
+      isBuild = command === 'build'
+    },
     transform(code, id) {
       // TODO: filter
       if (!id.endsWith('.svelte')) return
@@ -146,13 +150,33 @@ export function whyframeSvelte(options) {
             const virtualEntryJs = `whyframe:entry-${finalHash}.js`
             const virtualComponent = `${id}-whyframe-${finalHash}.svelte`
 
-            const onLoad = `\
+            let onLoad
+            if (isBuild) {
+              // Emit as chunk to emulate an entrypoint for HTML to load
+              // https://rollupjs.org/guide/en/#thisemitfile
+              const refId = this.emitFile({
+                type: 'chunk',
+                id: virtualEntryJs,
+                // Vite sets false since it assumes we're operating an app,
+                // but in fact this acts as a semi-library that needs the exports right
+                preserveSignature: 'strict'
+              })
+              onLoad = `\
+function() {
+  this.contentWindow.__whyframe_app_url = import.meta.ROLLUP_FILE_URL_${refId};
+  this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
+}`
+            } else {
+              // Cheekily exploits Vite's import analysis to get the transformed URL
+              // to be loaded by the iframe. This works because files are served as is.
+              onLoad = `\
 function() {
   const t = () => import('${virtualEntryJs}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
   this.contentWindow.__whyframe_app_url = importUrl;
   this.contentWindow.dispatchEvent(new Event('whyframe:ready'));
 }`
+            }
 
             s.appendLeft(
               node.start + `<iframe`.length,
