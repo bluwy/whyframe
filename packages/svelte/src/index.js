@@ -18,7 +18,7 @@ export function whyframe(options) {
   return [
     whyframeCore(options),
     whyframeSvelte(options),
-    options.templateHtml ? null : fallbackTemplatePlugin()
+    fallbackTemplatePlugin()
   ]
 }
 
@@ -31,17 +31,17 @@ export function whyframe(options) {
 export function whyframeCore(options) {
   return {
     name: 'whyframe:core',
-    config(_, { command }) {
+    config(c, { command }) {
       if (command === 'build') {
-        const input = {
-          main: '/index.html' // TODO: check exist and resolve root
-        }
+        const haveExistingInput = c.build?.rollupOptions?.input
+        const input = haveExistingInput ? {} : { index: 'index.html' }
+
         if (options.templateHtml) {
           for (const [key, value] of Object.entries(options.templateHtml)) {
-            input[`whyframe-${key}`] = path.resolve(value)
+            input[`whyframe-template-${key}`] = value
           }
         } else {
-          input['whyframe-fallback-template'] = fallbackTemplateBuildPath
+          input['whyframe-template-default'] = fallbackTemplateBuildPath
         }
         return {
           build: {
@@ -117,7 +117,7 @@ export function whyframeSvelte(options) {
       // TODO: filter
       if (!id.endsWith('.svelte')) return
 
-      // parse instances of `<WhyFrame></WhyFrame>` and extract them out as a virtual import
+      // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       const ast = parse(code)
