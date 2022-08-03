@@ -1,3 +1,5 @@
+import { templateDefaultBuildPath } from './template.js'
+
 /**
  * @param {import('..').Options} [options]
  * @returns {import('vite').Plugin}
@@ -18,7 +20,7 @@ export function corePlugin(options) {
         }
         // also write builtin default template if user didn't specify their own
         if (!options?.templateHtml || !options.templateHtml.default) {
-          input['whyframe-template-default'] = fallbackTemplateBuildPath
+          input['whyframe-template-default'] = templateDefaultBuildPath
         }
 
         return {

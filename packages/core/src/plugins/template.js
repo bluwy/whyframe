@@ -40,7 +40,7 @@ function templateServePlugin() {
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        if (req.url.includes(templateDefaultId)) {
+        if (req.url.endsWith(templateDefaultId)) {
           const html = await server.transformIndexHtml(
             req.url,
             templateDefaultHtml,
@@ -68,7 +68,7 @@ function templateBuildPlugin() {
         await fs.writeFile(templateDefaultBuildPath, templateDefaultHtml)
       } catch {
         // TODO: use debug
-        console.log('Failed to write fallback template')
+        console.log('Failed to write default template')
       }
     },
     async buildEnd() {
@@ -76,7 +76,7 @@ function templateBuildPlugin() {
         await fs.rm(templateDefaultBuildPath)
       } catch {
         // TODO: use debug
-        console.log('Failed to remove fallback template')
+        console.log('Failed to remove default template')
       }
     }
   }
