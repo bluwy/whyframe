@@ -17,7 +17,7 @@
   <Counter />
 </iframe>
 
-<iframe why title="World">
+<iframe why title="World" why-template="basic">
   <p>Max 10</p>
   <Counter {max} on:max={warn} />
 </iframe>

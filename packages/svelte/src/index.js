@@ -25,7 +25,7 @@ export function whyframe(options) {
 /**
  * @param {{
  *  templateHtml?: Record<string, string>
- * }} options
+ * }} [options]
  * @returns {import('vite').Plugin}
  */
 export function whyframeCore(options) {
@@ -36,7 +36,7 @@ export function whyframeCore(options) {
         const haveExistingInput = c.build?.rollupOptions?.input
         const input = haveExistingInput ? {} : { index: 'index.html' }
 
-        if (options.templateHtml) {
+        if (options?.templateHtml) {
           for (const [key, value] of Object.entries(options.templateHtml)) {
             input[`whyframe-template-${key}`] = value
           }
@@ -148,11 +148,11 @@ export function whyframeSvelte(options) {
 
             const finalHash = getHash(baseHash + iframeContent)
 
+            const customTemplateKey = node.attributes
+              .find((a) => a.name === 'why-template') // TODO: use src
+              ?.value.find((v) => v.type === 'Text')?.data
             const iframeSrc =
-              node.attributes
-                .find((a) => a.name === 'why-template') // TODO: use src
-                ?.value.find((v) => v.type === 'Text')?.data ||
-              options.templateHtml?.default ||
+              options?.templateHtml?.[customTemplateKey || 'default'] ||
               fallbackTemplateId
 
             const virtualEntryJs = `whyframe:entry-${finalHash}.js`

@@ -6,7 +6,11 @@ import { whyframe } from '@whyframe/svelte'
 export default defineConfig({
   plugins: [
     inspect(),
-    whyframe({ templateHtml: { default: './src/frames/basic/index.html' } }),
+    whyframe({
+      templateHtml: {
+        basic: './src/frames/basic/index.html'
+      }
+    }),
     svelte()
   ]
 })
