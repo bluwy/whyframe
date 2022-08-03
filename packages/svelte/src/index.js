@@ -36,13 +36,17 @@ export function whyframeCore(options) {
         const haveExistingInput = c.build?.rollupOptions?.input
         const input = haveExistingInput ? {} : { index: 'index.html' }
 
+        // add each template as input for Vite to process
         if (options?.templateHtml) {
           for (const [key, value] of Object.entries(options.templateHtml)) {
             input[`whyframe-template-${key}`] = value
           }
-        } else {
+        }
+        // also write builtin default template if user didn't specify their own
+        if (!options?.templateHtml || !options.templateHtml.default) {
           input['whyframe-template-default'] = fallbackTemplateBuildPath
         }
+
         return {
           build: {
             rollupOptions: {
