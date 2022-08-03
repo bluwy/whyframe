@@ -10,24 +10,28 @@ importers:
 
   packages/svelte:
     specifiers:
+      '@whyframe/core': workspace:*
       magic-string: ^0.26.2
       svelte: ^3.49.0
       vite: ^3.0.4
     dependencies:
       magic-string: 0.26.2
     devDependencies:
+      '@whyframe/core': link:../core
       svelte: 3.49.0
       vite: 3.0.4
 
   playground/vite-svelte:
     specifiers:
       '@sveltejs/vite-plugin-svelte': ^1.0.1
+      '@whyframe/core': workspace:*
       '@whyframe/svelte': workspace:*
       svelte: ^3.49.0
       vite: ^3.0.4
       vite-plugin-inspect: ^0.6.0
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.49.0+vite@3.0.4
+      '@whyframe/core': link:../../packages/core
       '@whyframe/svelte': link:../../packages/svelte
       svelte: 3.49.0
       vite: 3.0.4

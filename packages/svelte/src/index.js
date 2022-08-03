@@ -2,120 +2,29 @@ import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { parse, walk } from 'svelte/compiler'
 import MagicString from 'magic-string'
-import {
-  fallbackTemplateBuildPath,
-  fallbackTemplateId,
-  fallbackTemplatePlugin
-} from './fallbackTemplate.js'
 
 /**
- * @param {{
- *  templateHtml?: Record<string, string>
- * }} options
  * @returns {import('vite').Plugin}
  */
-export function whyframe(options) {
-  return [
-    whyframeCore(options),
-    whyframeSvelte(options),
-    fallbackTemplatePlugin()
-  ]
-}
-
-/**
- * @param {{
- *  templateHtml?: Record<string, string>
- * }} [options]
- * @returns {import('vite').Plugin}
- */
-export function whyframeCore(options) {
-  return {
-    name: 'whyframe:core',
-    config(c, { command }) {
-      if (command === 'build') {
-        const haveExistingInput = c.build?.rollupOptions?.input
-        const input = haveExistingInput ? {} : { index: 'index.html' }
-
-        // add each template as input for Vite to process
-        if (options?.templateHtml) {
-          for (const [key, value] of Object.entries(options.templateHtml)) {
-            input[`whyframe-template-${key}`] = value
-          }
-        }
-        // also write builtin default template if user didn't specify their own
-        if (!options?.templateHtml || !options.templateHtml.default) {
-          input['whyframe-template-default'] = fallbackTemplateBuildPath
-        }
-
-        return {
-          build: {
-            rollupOptions: {
-              input
-            }
-          }
-        }
-      }
-    },
-    resolveId(id) {
-      if (id === 'whyframe:app') {
-        return '\0whyframe:app'
-      }
-    },
-    load(id) {
-      if (id === '\0whyframe:app') {
-        return `\
-let isReadying = false
-
-export async function createApp(el) {
-  if (isReadying) return
-  isReadying = true
-
-  return new Promise((resolve, reject) => {
-    if (window.__whyframe_app_url) {
-      ready(el).then(resolve, reject)
-    } else {
-      window.addEventListener(
-        'whyframe:ready',
-        () => ready(el).then(resolve, reject),
-        { once: true }
-      )
-    }
-  })
-}
-
-async function ready(el) {
-  const { createInternalApp } = await import(/* @vite-ignore */ window.__whyframe_app_url)
-  const result = await createInternalApp(el)
-  isReadying = false
-  return result
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(() => {
-    isReadying = false // an error may happen in ready, so we reset to remount the app
-  })
-}`
-      }
-    }
-  }
-}
-
-/**
- * @param {{
- *  templateHtml: Record<string, string>
- * }} options
- * @returns {import('vite').Plugin}
- */
-export function whyframeSvelte(options) {
+export function whyframeSvelte() {
   // TODO: invalidate stale
   const virtualIdToCode = new Map()
   let isBuild = false
+  /** @type {import('@whyframe/core').Api} */
+  let whyframeApi
 
   return {
     name: 'whyframe:svelte',
     enforce: 'pre',
     config(_, { command }) {
       isBuild = command === 'build'
+    },
+    configResolved(c) {
+      whyframeApi = c.plugins.find((p) => p.name === 'whyframe:api')?.api
+      if (!whyframeApi) {
+        // TODO: maybe fail safe
+        throw new Error('whyframe() plugin is not installed')
+      }
     },
     transform(code, id) {
       // TODO: filter
@@ -155,9 +64,7 @@ export function whyframeSvelte(options) {
             const customTemplateKey = node.attributes
               .find((a) => a.name === 'why-template') // TODO: use src
               ?.value.find((v) => v.type === 'Text')?.data
-            const iframeSrc =
-              options?.templateHtml?.[customTemplateKey || 'default'] ||
-              fallbackTemplateId
+            const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
 
             const virtualEntryJs = `whyframe:entry-${finalHash}.js`
             const virtualComponent = `${id}-whyframe-${finalHash}.svelte`
