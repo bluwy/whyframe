@@ -1,4 +1,4 @@
-import { fallbackTemplateId } from './template.js'
+import { templateDefaultId } from './template.js'
 
 /**
  * @param {import('..').Options} [options]
@@ -12,7 +12,7 @@ export function apiPlugin(options) {
       getIframeSrc(templateKey) {
         return (
           options?.templateHtml?.[templateKey || 'default'] ||
-          fallbackTemplateId
+          templateDefaultId
         )
       }
     }

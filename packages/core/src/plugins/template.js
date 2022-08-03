@@ -1,21 +1,20 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-export const fallbackTemplateId = 'whyframe-template-default.html'
-
-export const fallbackTemplateBuildPath = path.resolve(
+export const templateDefaultId = 'whyframe-template-default.html'
+export const templateDefaultBuildPath = path.resolve(
   process.cwd(),
-  fallbackTemplateId
+  templateDefaultId
 )
 
 /**
  * @returns {import('vite').Plugin[]}
  */
-export function fallbackTemplatePlugin() {
-  return [fallbackTemplateServePlugin(), fallbackTemplateBuildPlugin()]
+export function templatePlugin() {
+  return [templateServePlugin(), templateBuildPlugin()]
 }
 
-const fallbackTemplateHtml = `\
+const templateDefaultHtml = `\
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,16 +34,16 @@ const fallbackTemplateHtml = `\
 /**
  * @returns {import('vite').Plugin}
  */
-function fallbackTemplateServePlugin() {
+function templateServePlugin() {
   return {
-    name: 'whyframe:fallback-template:serve',
+    name: 'whyframe:template:serve',
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        if (req.url.includes(fallbackTemplateId)) {
+        if (req.url.includes(templateDefaultId)) {
           const html = await server.transformIndexHtml(
             req.url,
-            fallbackTemplateHtml,
+            templateDefaultHtml,
             req.originalUrl
           )
           res.setHeader('Content-Type', 'text/html')
@@ -60,13 +59,13 @@ function fallbackTemplateServePlugin() {
 /**
  * @returns {import('vite').Plugin}
  */
-function fallbackTemplateBuildPlugin() {
+function templateBuildPlugin() {
   return {
-    name: 'whyframe:fallback-template:build',
+    name: 'whyframe:template:build',
     apply: 'build',
     async buildStart() {
       try {
-        await fs.writeFile(fallbackTemplateBuildPath, fallbackTemplateHtml)
+        await fs.writeFile(templateDefaultBuildPath, templateDefaultHtml)
       } catch {
         // TODO: use debug
         console.log('Failed to write fallback template')
@@ -74,7 +73,7 @@ function fallbackTemplateBuildPlugin() {
     },
     async buildEnd() {
       try {
-        await fs.rm(fallbackTemplateBuildPath)
+        await fs.rm(templateDefaultBuildPath)
       } catch {
         // TODO: use debug
         console.log('Failed to remove fallback template')

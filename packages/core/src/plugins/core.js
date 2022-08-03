@@ -2,7 +2,7 @@
  * @param {import('..').Options} [options]
  * @returns {import('vite').Plugin}
  */
-export function whyframeCore(options) {
+export function corePlugin(options) {
   return {
     name: 'whyframe:core',
     config(c, { command }) {
