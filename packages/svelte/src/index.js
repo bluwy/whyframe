@@ -62,20 +62,28 @@ export function whyframeCore(options) {
         return `\
 let isReadying = false
 
-export function createApp(el) {
+export async function createApp(el) {
   if (isReadying) return
   isReadying = true
-  if (window.__whyframe_app_url) {
-    ready(el)
-  } else {
-    window.addEventListener('whyframe:ready', () => ready(el), { once: true })
-  }
+
+  return new Promise((resolve, reject) => {
+    if (window.__whyframe_app_url) {
+      ready(el).then(resolve, reject)
+    } else {
+      window.addEventListener(
+        'whyframe:ready',
+        () => ready(el).then(resolve, reject),
+        { once: true }
+      )
+    }
+  })
 }
 
 async function ready(el) {
   const { createInternalApp } = await import(/* @vite-ignore */ window.__whyframe_app_url)
-  await createInternalApp(el)
+  const result = await createInternalApp(el)
   isReadying = false
+  return result
 }
 
 if (import.meta.hot) {
