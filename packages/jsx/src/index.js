@@ -1,8 +1,7 @@
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { createFilter } from 'vite'
-import { Parser } from 'acorn'
-import jsx from 'acorn-jsx'
+import { parse } from '@babel/parser'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
 
@@ -18,8 +17,6 @@ export function whyframeJsx(options) {
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
 
-  const acorn = Parser.extend(jsx())
-
   return {
     name: 'whyframe:jsx',
     enforce: 'pre',
@@ -33,12 +30,32 @@ export function whyframeJsx(options) {
     transform(code, id) {
       if (!filter(id) || id.includes('-whyframe-')) return
 
+      const isTs = path.extname(id).startsWith('.t')
+
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
-      const ast = acorn.parse(code, {
-        ecmaVersion: 'latest',
-        sourceType: 'module'
+      /** @type {import('@babel/parser').ParserPlugin[]} */
+      const plugins = [
+        'jsx',
+        'importMeta',
+        // This plugin is applied before esbuild transforms the code,
+        // so we need to enable some stage 3 syntax that is supported in
+        // TypeScript and some environments already.
+        'topLevelAwait',
+        'classProperties',
+        'classPrivateProperties',
+        'classPrivateMethods'
+      ]
+
+      if (isTs) {
+        plugins.push('typescript')
+      }
+
+      // TODO: look into swc
+      const ast = parse(code, {
+        sourceType: 'module',
+        plugins
       })
 
       /** @type {string[]} */
@@ -83,7 +100,7 @@ export function whyframeJsx(options) {
             node.type === 'JSXElement' &&
             node.openingElement.name.name === 'iframe' &&
             node.openingElement.attributes.some(
-              (attr) => attr.name.name === 'why'
+              (attr) => attr.type === 'JSXAttribute' && attr.name.name === 'why'
             ) &&
             node.children.length > 0
           ) {

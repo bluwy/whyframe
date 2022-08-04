@@ -14,8 +14,7 @@
     "vite": "^3.0.4"
   },
   "dependencies": {
-    "acorn": "^8.8.0",
-    "acorn-jsx": "^5.3.2",
+    "@babel/parser": "^7.18.10",
     "estree-walker": "^3.0.1",
     "magic-string": "^0.26.2"
   },
