@@ -31,6 +31,7 @@ export function whyframeJsx(options) {
       if (!filter(id) || id.includes('-whyframe-')) return
 
       const isTs = path.extname(id).startsWith('.t')
+      const ctx = this
 
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -156,7 +157,7 @@ ${bottomCode}`
             const virtualEntry = `whyframe:entry-${finalHash}.jsx`
             const virtualComponent = `${id}-whyframe-${finalHash}.jsx`
             const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
-            const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry)
+            const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry, ctx)
 
             virtualIds.push(virtualEntry, virtualComponent)
 

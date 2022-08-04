@@ -80,8 +80,10 @@ export function whyframeVue(options) {
               const virtualEntry = `whyframe:entry-${finalHash}`
               const virtualComponent = `${id}-whyframe-${finalHash}.vue`
               const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
-              const iframeOnLoad =
-                whyframeApi.getIframeLoadHandler(virtualEntry)
+              const iframeOnLoad = whyframeApi.getIframeLoadHandler(
+                virtualEntry,
+                this
+              )
 
               virtualIds.push(virtualEntry, virtualComponent)
 

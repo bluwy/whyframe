@@ -76,7 +76,10 @@ export function whyframeSvelte(options) {
             const virtualEntry = `whyframe:entry-${finalHash}`
             const virtualComponent = `${id}-whyframe-${finalHash}.svelte`
             const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
-            const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry)
+            const iframeOnLoad = whyframeApi.getIframeLoadHandler(
+              virtualEntry,
+              this
+            )
 
             virtualIds.push(virtualEntry, virtualComponent)
 

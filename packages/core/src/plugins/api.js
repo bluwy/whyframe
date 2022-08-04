@@ -20,14 +20,14 @@ export function apiPlugin(options) {
           options?.templateHtml?.[templateKey || 'default'] || templateDefaultId
         )
       },
-      getIframeLoadHandler(virtualEntry) {
+      getIframeLoadHandler(virtualEntry, ctx) {
         // To let the iframe src know what to render, we pass a url through
         // window.__whyframe_app_url to inform of it. This needs special handling
         // in dev and build as Vite works differently.
         if (isBuild) {
           // Emit as chunk to emulate an entrypoint for HTML to load
           // https://rollupjs.org/guide/en/#thisemitfile
-          const refId = this.emitFile({
+          const refId = ctx.emitFile({
             type: 'chunk',
             id: virtualEntry,
             // Vite sets false since it assumes we're operating an app,

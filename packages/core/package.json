@@ -8,5 +8,11 @@
       "types": "./src/index.d.ts",
       "import": "./src/index.js"
     }
+  },
+  "peerDependencies": {
+    "vite": "^3.0.4"
+  },
+  "devDependencies": {
+    "vite": "^3.0.4"
   }
 }
