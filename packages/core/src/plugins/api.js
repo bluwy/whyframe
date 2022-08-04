@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto'
+import path from 'node:path'
 import { templateDefaultId } from './template.js'
 
 /**

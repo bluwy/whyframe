@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import { createFilter } from 'vite'
 import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
@@ -7,11 +6,8 @@ import MagicString from 'magic-string'
  * @type {import('.').whyframeVue}
  */
 export function whyframeVue(options) {
-  const virtualIdToCode = new Map()
-  // secondary map to track stale virtual ids on hot update
-  const vueIdToVirtualIds = new Map()
   /** @type {import('@whyframe/core').Api} */
-  let whyframeApi
+  let api
 
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
 
@@ -19,15 +15,17 @@ export function whyframeVue(options) {
     name: 'whyframe:vue',
     enforce: 'pre',
     configResolved(c) {
-      whyframeApi = c.plugins.find((p) => p.name === 'whyframe:api')?.api
-      if (!whyframeApi) {
+      api = c.plugins.find((p) => p.name === 'whyframe:api')?.api
+      if (!api) {
         // TODO: maybe fail safe
         throw new Error('whyframe() plugin is not installed')
       }
     },
     transform(code, id) {
-      if (!filter(id) || id.includes('-whyframe-')) return
+      if (!filter(id) || id.includes('__whyframe-')) return
       if (!code.includes('<iframe')) return
+
+      const ctx = this
 
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -43,7 +41,7 @@ export function whyframeVue(options) {
         .join('\n')
 
       // Generate initial hash
-      const baseHash = whyframeApi.getHash(notTemplateCode)
+      const baseHash = api.getHash(notTemplateCode)
 
       /** @type {string[]} */
       const scriptCode = []
@@ -67,15 +65,9 @@ export function whyframeVue(options) {
               s.remove(iframeContentStart, iframeContentEnd)
 
               // derive final hash per iframe
-              const finalHash = whyframeApi.getHash(baseHash + iframeContent)
+              const finalHash = api.getHash(baseHash + iframeContent)
 
-              // get iframe src
-              // TODO: unify special treatment for why-template somewhere
-              const customTemplateKey = node.props.find(
-                (a) => a.name === 'why-template'
-              )?.value.content
-
-              const entryComponentId = whyframeApi.createEntryComponent(
+              const entryComponentId = api.createEntryComponent(
                 id,
                 finalHash,
                 '.vue',
@@ -86,7 +78,7 @@ ${iframeContent}
 ${notTemplateCode}`
               )
 
-              const entryId = whyframeApi.createEntry(
+              const entryId = api.createEntry(
                 id,
                 finalHash,
                 '.js',
@@ -99,12 +91,14 @@ export function createApp(el) {
 }`
               )
 
-              const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
-              const iframeOnLoad = whyframeApi.getIframeLoadHandler(
-                virtualEntry,
-                this
-              )
+              // inject template props
+              const templateName = node.props.find(
+                (a) => a.name === 'why-template'
+              )?.value.content
+              const iframeSrc = api.getIframeSrc(templateName)
+              const iframeOnLoad = api.getIframeLoadHandler(ctx, entryId)
 
+              // generate temp variables to inject and use
               const eventHandler = `__whyframe_${finalHash}`
               scriptCode.push(`const ${eventHandler} = ${iframeOnLoad}`)
               s.appendLeft(

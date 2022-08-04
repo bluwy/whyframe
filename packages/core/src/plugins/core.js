@@ -60,8 +60,8 @@ export async function createApp(el) {
 }
 
 async function ready(el) {
-  const { createInternalApp } = await import(/* @vite-ignore */ window.__whyframe_app_url)
-  const result = await createInternalApp(el)
+  const data = await import(/* @vite-ignore */ window.__whyframe_app_url)
+  const result = await data.createApp(el)
   isReadying = false
   return result
 }
