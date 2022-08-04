@@ -30,11 +30,12 @@ export function whyframeJsx(options) {
       const ext = path.extname(id)
       const ctx = this
 
-      // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
+      // parse instances of `<iframe why="true"></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       /** @type {import('@babel/parser').ParserPlugin[]} */
-      const plugins = [
+      const parserPlugins = [
+        ...options?.parserOptions?.plugins,
         'jsx',
         'importMeta',
         // This plugin is applied before esbuild transforms the code,
@@ -45,15 +46,14 @@ export function whyframeJsx(options) {
         'classPrivateProperties',
         'classPrivateMethods'
       ]
-
       if (ext.startsWith('.t')) {
-        plugins.push('typescript')
+        parserPlugins.push('typescript')
       }
 
-      // TODO: look into swc
       const ast = parse(code, {
+        ...options?.parserOptions,
         sourceType: 'module',
-        plugins
+        plugins: parserPlugins
       })
 
       /** @type {import('estree-walker').BaseNode | null} */

@@ -30,7 +30,7 @@ export function whyframeVue(options) {
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
-      const ast = parse(code)
+      const ast = parse(code, options?.parserOptions)
 
       // collect code needed for virtual imports, assume all these have side effects
       const notTemplateTags = ast.children.filter(
