@@ -29,6 +29,7 @@ export function whyframeJsx(options) {
     },
     transform(code, id) {
       if (!filter(id) || id.includes('-whyframe-')) return
+      if (!code.includes('<iframe')) return
 
       const isTs = path.extname(id).startsWith('.t')
       const ctx = this
@@ -157,7 +158,10 @@ ${bottomCode}`
             const virtualEntry = `whyframe:entry-${finalHash}.jsx`
             const virtualComponent = `${id}-whyframe-${finalHash}.jsx`
             const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
-            const iframeOnLoad = whyframeApi.getIframeLoadHandler(virtualEntry, ctx)
+            const iframeOnLoad = whyframeApi.getIframeLoadHandler(
+              virtualEntry,
+              ctx
+            )
 
             virtualIds.push(virtualEntry, virtualComponent)
 
@@ -179,9 +183,11 @@ ${bottomCode}`
       // save virtual imports for invalidation when file updates
       jsxIdToVirtualIds.set(id, virtualIds)
 
-      return {
-        code: s.toString(),
-        map: s.generateMap({ hires: true })
+      if (s.hasChanged()) {
+        return {
+          code: s.toString(),
+          map: s.generateMap({ hires: true })
+        }
       }
     },
     resolveId(id) {

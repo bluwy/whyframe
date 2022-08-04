@@ -28,6 +28,7 @@ export function whyframeVue(options) {
     },
     transform(code, id) {
       if (!filter(id) || id.includes('-whyframe-')) return
+      if (!code.includes('<iframe')) return
 
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -135,9 +136,11 @@ ${notTemplateCode}`
       // save virtual imports for invalidation when file updates
       vueIdToVirtualIds.set(id, virtualIds)
 
-      return {
-        code: s.toString(),
-        map: s.generateMap({ hires: true })
+      if (s.hasChanged()) {
+        return {
+          code: s.toString(),
+          map: s.generateMap({ hires: true })
+        }
       }
     },
     resolveId(id) {
