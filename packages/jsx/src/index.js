@@ -35,7 +35,8 @@ export function whyframeJsx(options) {
 
       /** @type {import('@babel/parser').ParserPlugin[]} */
       const parserPlugins = [
-        ...options?.parserOptions?.plugins,
+        // NOTE: got `(intermediate value) is not iterable` error if spread without fallback empty array
+        ...(options.parserOptions?.plugins ?? []),
         'jsx',
         'importMeta',
         // This plugin is applied before esbuild transforms the code,
@@ -51,8 +52,9 @@ export function whyframeJsx(options) {
       }
 
       const ast = parse(code, {
-        ...options?.parserOptions,
+        ...options.parserOptions,
         sourceType: 'module',
+        allowAwaitOutsideFunction: true,
         plugins: parserPlugins
       })
 
