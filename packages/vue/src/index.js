@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto'
-import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
@@ -44,10 +43,7 @@ export function whyframeVue(options) {
         .join('\n')
 
       // Generate initial hash
-      const baseHash = getHash(notTemplateCode)
-
-      /** @type {string[]} */
-      const virtualIds = []
+      const baseHash = whyframeApi.getHash(notTemplateCode)
 
       /** @type {string[]} */
       const scriptCode = []
@@ -71,22 +67,43 @@ export function whyframeVue(options) {
               s.remove(iframeContentStart, iframeContentEnd)
 
               // derive final hash per iframe
-              const finalHash = getHash(baseHash + iframeContent)
+              const finalHash = whyframeApi.getHash(baseHash + iframeContent)
 
               // get iframe src
               // TODO: unify special treatment for why-template somewhere
               const customTemplateKey = node.props.find(
                 (a) => a.name === 'why-template'
               )?.value.content
-              const virtualEntry = `whyframe:entry-${finalHash}`
-              const virtualComponent = `${id}-whyframe-${finalHash}.vue`
+
+              const entryComponentId = whyframeApi.createEntryComponent(
+                id,
+                finalHash,
+                '.vue',
+                `\
+<template>
+${iframeContent}
+</template>
+${notTemplateCode}`
+              )
+
+              const entryId = whyframeApi.createEntry(
+                id,
+                finalHash,
+                '.js',
+                `\
+import { createApp as _createApp } from 'vue'
+import App from '${entryComponentId}'
+
+export function createApp(el) {
+  _createApp(App).mount(el)
+}`
+              )
+
               const iframeSrc = whyframeApi.getIframeSrc(customTemplateKey)
               const iframeOnLoad = whyframeApi.getIframeLoadHandler(
                 virtualEntry,
                 this
               )
-
-              virtualIds.push(virtualEntry, virtualComponent)
 
               const eventHandler = `__whyframe_${finalHash}`
               scriptCode.push(`const ${eventHandler} = ${iframeOnLoad}`)
@@ -94,31 +111,13 @@ export function whyframeVue(options) {
                 node.loc.start.offset + `<iframe`.length,
                 ` src="${iframeSrc}" @load="${eventHandler}"`
               )
-
-              virtualIdToCode.set(
-                virtualEntry,
-                `\
-import { createApp } from 'vue'
-import App from '${virtualComponent}'
-
-export function createInternalApp(el) {
-  createApp(App).mount(el)
-}`
-              )
-              // TODO: better sourcemaps
-              virtualIdToCode.set(
-                virtualComponent,
-                `\
-<template>
-${iframeContent}
-</template>
-${notTemplateCode}`
-              )
             }
           }
         ]
       })
 
+      // inject event handlers to <script setup>
+      // TODO: double check if this is right
       const scriptSetupNode = notTemplateTags.find(
         (node) =>
           node.tag === 'script' && node.props.some((p) => p.name === 'setup')
@@ -133,54 +132,12 @@ ${notTemplateCode}`
         s.append(`<script setup>${injectCode}</script>`)
       }
 
-      // save virtual imports for invalidation when file updates
-      vueIdToVirtualIds.set(id, virtualIds)
-
       if (s.hasChanged()) {
         return {
           code: s.toString(),
           map: s.generateMap({ hires: true })
         }
       }
-    },
-    resolveId(id) {
-      if (id.startsWith('whyframe:entry')) {
-        return '\0' + id
-      }
-      // TODO: something more sane
-      if (id.includes('-whyframe-')) {
-        // NOTE: this gets double resolved for some reason
-        if (id.startsWith(process.cwd())) {
-          return id
-        } else {
-          return path.join(process.cwd(), id)
-        }
-      }
-    },
-    load(id) {
-      if (id.startsWith('\0whyframe:entry')) {
-        return virtualIdToCode.get(id.slice(1))
-      }
-      if (id.includes('-whyframe-')) {
-        return {
-          code: virtualIdToCode.get(id),
-          map: { mappings: '' }
-        }
-      }
-    },
-    handleHotUpdate({ file }) {
-      // Remove stale virtual ids
-      // NOTE: hot update always come first before transform
-      if (vueIdToVirtualIds.has(file)) {
-        const staleVirtualIds = vueIdToVirtualIds.get(file)
-        for (const id of staleVirtualIds) {
-          virtualIdToCode.delete(id)
-        }
-      }
     }
   }
-}
-
-function getHash(text) {
-  return createHash('sha256').update(text).digest('hex').substring(0, 8)
 }

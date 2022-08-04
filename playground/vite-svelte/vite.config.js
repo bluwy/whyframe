@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     inspect(),
     whyframe({
-      templateHtml: {
+      template: {
         basic: './src/frames/basic/index.html'
       }
     }),

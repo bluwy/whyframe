@@ -13,13 +13,13 @@ export function corePlugin(options) {
         const input = haveExistingInput ? {} : { index: 'index.html' }
 
         // add each template as input for Vite to process
-        if (options?.templateHtml) {
-          for (const [key, value] of Object.entries(options.templateHtml)) {
+        if (options?.template) {
+          for (const [key, value] of Object.entries(options.template)) {
             input[`whyframe-template-${key}`] = value
           }
         }
         // also write builtin default template if user didn't specify their own
-        if (!options?.templateHtml || !options.templateHtml.default) {
+        if (!options?.template || !options.template.default) {
           input['whyframe-template-default'] = templateDefaultBuildPath
         }
 
