@@ -8,10 +8,13 @@ import MagicString from 'magic-string'
 export function whyframeSvelte(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
+  /** @type {Parameters<import('@whyframe/core').Api['getIframeLoadHandler']>[0]} */
+  let ctx
 
   const filter = createFilter(options?.include || /\.svelte$/, options?.exclude)
 
-  return {
+  /** @type {import('vite').Plugin} */
+  const plugin = {
     name: 'whyframe:svelte',
     enforce: 'pre',
     configResolved(c) {
@@ -20,6 +23,9 @@ export function whyframeSvelte(options) {
         // TODO: maybe fail safe
         throw new Error('whyframe() plugin is not installed')
       }
+    },
+    buildStart() {
+      ctx = this
     },
     transform(code, id) {
       if (!filter(id) || id.includes('__whyframe-')) return
@@ -107,4 +113,17 @@ export function createApp(el) {
       }
     }
   }
+
+  // convert to vite-plugin-svelte's api so typescript etc are already preprocessed
+  const _transform = plugin.transform
+  delete plugin.transform
+  plugin.api = {
+    sveltePreprocess: {
+      markup({ content, filename }) {
+        return _transform.apply(ctx, [content, filename])
+      }
+    }
+  }
+
+  return plugin
 }
