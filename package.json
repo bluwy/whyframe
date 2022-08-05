@@ -1,5 +1,13 @@
 {
   "name": "@whyframe/monorepo",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "lint": "prettier **/*.{js,ts,jsx,tsx,css,md,vue,svelte} --check --cache",
+    "format": "prettier **/*.{js,ts,jsx,tsx,css,md,vue,svelte} --write --cache"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.7.0"
+  }
 }
