@@ -81,7 +81,7 @@ export function apiPlugin(options) {
     resolveId(id) {
       // see createEntry for id signature
       if (id.startsWith('whyframe:entry')) {
-        return '\0' + id
+        return '__' + id
       }
       // see createEntryComponent for id signature
       if (id.includes('__whyframe-')) {
@@ -94,13 +94,17 @@ export function apiPlugin(options) {
       }
     },
     load(id) {
+      let virtualId
       // see createEntry for id signature
-      if (id.startsWith('\0whyframe:entry')) {
-        return virtualIdToCode.get(id.slice(1))
+      if (id.startsWith('__whyframe:entry')) {
+        virtualId = id.slice(2)
       }
       // see createEntryComponent for id signature
       if (id.includes('__whyframe-')) {
-        const code = virtualIdToCode.get(id)
+        virtualId = id
+      }
+      if (virtualId) {
+        const code = virtualIdToCode.get(virtualId)
         if (typeof code === 'string') {
           return { code, map: { mappings: '' } }
         } else {

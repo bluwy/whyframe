@@ -24,7 +24,12 @@ export function whyframeJsx(options) {
       }
     },
     transform(code, id) {
-      if (!filter(id) || id.includes('__whyframe-')) return
+      if (
+        !filter(id) ||
+        id.includes('__whyframe-') ||
+        id.includes('__whyframe:')
+      )
+        return
       if (!code.includes('<iframe')) return
 
       const ext = path.extname(id)
