@@ -10,7 +10,7 @@
   }
 </script>
 
-<h1>whyframe</h1>
+<h1>Svelte</h1>
 
 <iframe why title="Hello">
   <p>Click to increment!</p>

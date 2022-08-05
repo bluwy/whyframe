@@ -11,7 +11,7 @@ function warn() {
 </script>
 
 <template>
-  <h1>whyframe</h1>
+  <h1>Vue</h1>
 
   <iframe why title="Hello">
     <p>Click to increment!</p>

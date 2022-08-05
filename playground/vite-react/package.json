@@ -1,5 +1,5 @@
 {
-  "name": "@whyframe/playground-vite-svelte",
+  "name": "@whyframe/playground-vite-react",
   "private": true,
   "type": "module",
   "scripts": {

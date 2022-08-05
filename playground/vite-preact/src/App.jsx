@@ -11,7 +11,7 @@ export function App() {
 
   return (
     <>
-      <h1>whyframe</h1>
+      <h1>Preact</h1>
 
       <iframe why="true" title="Hello">
         <p>Click to increment!</p>
