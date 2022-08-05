@@ -15,7 +15,7 @@ const increment = () => {
   if (props.max !== 0 && count.value >= props.max) {
     emit('max')
     document.body.style.backgroundColor = 'pink'
-    alert('too many clicks')
+    alert('🚨 YOU HAVE BEEN WARNED 🚨')
     return
   }
   count.value++
@@ -23,5 +23,29 @@ const increment = () => {
 </script>
 
 <template>
-  <button @click="increment">count is {{ count }}</button>
+  <button @click="increment">Count is {{ count }}</button>
 </template>
+
+<style scoped>
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.25s;
+}
+
+button:hover {
+  background-color: #ced1ff;
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+</style>

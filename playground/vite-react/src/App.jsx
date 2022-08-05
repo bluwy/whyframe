@@ -11,15 +11,15 @@ export function App() {
 
   return (
     <>
-      <h1>Test</h1>
+      <h1>whyframe</h1>
 
       <iframe why="true" title="Hello">
         <p>Click to increment!</p>
         <Counter />
       </iframe>
 
-      <iframe why="true" title="World" why-template="basic">
-        <p>Max 10</p>
+      <iframe why="true" title="World" whyTemplate="basic">
+        <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
       </iframe>
     </>

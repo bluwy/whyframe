@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { counter } from './Counter.module.css'
 
 export function Counter({ max = 10, onMax }) {
   const [count, setCount] = useState(0)
@@ -7,11 +8,15 @@ export function Counter({ max = 10, onMax }) {
     if (max !== 0 && count >= max) {
       onMax?.()
       document.body.style.backgroundColor = 'pink'
-      alert('too many clicks')
+      alert('🚨 YOU HAVE BEEN WARNED 🚨')
       return
     }
     setCount(count + 1)
   }
 
-  return <button onClick={increment}>count is {count}</button>
+  return (
+    <button className={counter} onClick={increment}>
+      Count is {count}
+    </button>
+  )
 }

@@ -11,7 +11,7 @@ function warn() {
 </script>
 
 <template>
-  <h1>Test</h1>
+  <h1>whyframe</h1>
 
   <iframe why title="Hello">
     <p>Click to increment!</p>
@@ -19,7 +19,7 @@ function warn() {
   </iframe>
 
   <iframe why title="World" why-template="basic">
-    <p>Max 10</p>
+    <p>Do not go over {{ max }}</p>
     <Counter :max="max" @max="warn" />
   </iframe>
 </template>
