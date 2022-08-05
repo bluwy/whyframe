@@ -18,7 +18,7 @@ export function App() {
         <Counter />
       </iframe>
 
-      <iframe why="true" title="World" whyTemplate="basic">
+      <iframe why="true" title="World" why-template="basic">
         <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
       </iframe>

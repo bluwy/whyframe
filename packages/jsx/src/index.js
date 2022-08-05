@@ -168,7 +168,7 @@ export function whyframeJsx(options) {
 
             // inject template props
             const templateName = node.openingElement.attributes.find(
-              (a) => a.name.name === 'whyTemplate'
+              (a) => a.name.name === 'why-template'
             )?.value.value
             const iframeSrc = api.getIframeSrc(templateName)
             const iframeOnLoad = api.getIframeLoadHandler(ctx, entryId)
