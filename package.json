@@ -9,5 +9,10 @@
   "devDependencies": {
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": ["@babel/core"]
+    }
   }
 }
