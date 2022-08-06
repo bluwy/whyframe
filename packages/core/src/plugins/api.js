@@ -41,8 +41,8 @@ export function apiPlugin(options) {
         )
       },
       getIframeLoadHandler(entryId, hash, templateName) {
-        // To let the iframe src know what to render, we pass a url through
-        // window.__whyframe_app_url to inform of it. This needs special handling
+        // to let the iframe src know what to render, we pass a url through
+        // window.__whyframe_app_url to inform of it. this needs special handling
         // in dev and build as Vite works differently.
         if (isBuild) {
           templateName ||= 'default'
@@ -56,7 +56,7 @@ export function apiPlugin(options) {
   e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         } else {
-          // Cheekily exploits Vite's import analysis to get the transformed URL
+          // cheekily exploit Vite's import analysis to get the transformed URL
           // to be loaded by the iframe. This works because files are served as is.
           return `\
 (e) => {
@@ -71,14 +71,20 @@ export function apiPlugin(options) {
         // example: whyframe:entry-123456.jsx
         const entryId = `whyframe:entry-${hash}${ext}`
         virtualIdToCode.set(entryId, code)
-        originalIdToVirtualIds.set(originalId, entryId)
+        // original id tracking is only needed in dev for hot reloads
+        if (!isBuild) {
+          originalIdToVirtualIds.set(originalId, entryId)
+        }
         return entryId
       },
       createEntryComponent(originalId, hash, ext, code) {
         // example: /User/bjorn/foo/bar/App.svelte__whyframe-123456.svelte
         const entryComponentId = `${originalId}__whyframe-${hash}${ext}`
         virtualIdToCode.set(entryComponentId, code)
-        originalIdToVirtualIds.set(originalId, entryComponentId)
+        // original id tracking is only needed in dev for hot reloads
+        if (!isBuild) {
+          originalIdToVirtualIds.set(originalId, entryComponentId)
+        }
         return entryComponentId
       }
     },
@@ -127,12 +133,4 @@ export function apiPlugin(options) {
       }
     }
   }
-}
-
-function getEntryId(hash, ext) {
-  return `whyframe:entry-${hash}${ext}`
-}
-
-function getEntryComponentId(originalId, hash, ext) {
-  return `${originalId}__whyframe-${hash}${ext}`
 }

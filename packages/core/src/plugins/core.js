@@ -61,12 +61,10 @@ export function corePlugin(options) {
         // use simplified implementation in dev
         if (!isBuild) return devCode
 
-        // For builds, things get complicated. We need to wait for all
-        // files to be loaded, then we can
         const templateName = id.slice('\0whyframe:app-'.length)
 
-        // wait for all modules loaded before getting the entry ids related to
-        // this template
+        // wait for all modules loaded before getting the entry ids
+        // related to this template
         allModulesLoaded ??= waitForAllModulesLoaded(this)
 
         const hashToId = api._getEntryIds(templateName)
