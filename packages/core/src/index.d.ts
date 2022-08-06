@@ -10,7 +10,7 @@ export interface Options {
    * entrypoint of your app. The only thing to make sure is that you call
    * this somewhere in the html's script:
    * ```ts
-   * import { createApp } from 'whyframe:app'
+   * import { createApp } from 'whyframe:app-basic'
    * // ...do something...
    * // finally mount the app to a dom element
    * createApp(document.getElementById('app'))
@@ -20,6 +20,10 @@ export interface Options {
 }
 
 export interface Api {
+  /**
+   * @internal
+   */
+  _getEntryIds: (templateName?: string) => string
   /**
    * Return an 8 character hash safe to use in urls and ids
    */

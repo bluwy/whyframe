@@ -96,7 +96,11 @@ export function createApp(el) {
               .find((a) => a.name === 'why-template')
               ?.value.find((v) => v.type === 'Text')?.data
             const iframeSrc = api.getIframeSrc(templateName)
-            const iframeOnLoad = api.getIframeLoadHandler(ctx, entryId)
+            const iframeOnLoad = api.getIframeLoadHandler(
+              entryId,
+              finalHash,
+              templateName
+            )
             s.appendLeft(
               node.start + `<iframe`.length,
               ` src="${iframeSrc}" on:load={${iframeOnLoad}}`

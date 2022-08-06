@@ -17,6 +17,11 @@ export function apiPlugin(options) {
   /** @type {boolean} */
   let isBuild
 
+  // template name to record of hash to id, used for final import map
+  // generation of `whyframe:app-${templateName}`
+  /** @type {Map<string, Record<string, string>>} */
+  const buildEntryIds = new Map()
+
   return {
     name: 'whyframe:api',
     config(_, { command }) {
@@ -24,6 +29,9 @@ export function apiPlugin(options) {
     },
     /** @type {import('..').Api} */
     api: {
+      _getEntryIds(templateName) {
+        return buildEntryIds.get(templateName || 'default') || {}
+      },
       getHash(text) {
         return createHash('sha256').update(text).digest('hex').substring(0, 8)
       },
@@ -32,23 +40,19 @@ export function apiPlugin(options) {
           options?.template?.[templateName || 'default'] || templateDefaultId
         )
       },
-      getIframeLoadHandler(ctx, entryId) {
+      getIframeLoadHandler(entryId, hash, templateName) {
         // To let the iframe src know what to render, we pass a url through
         // window.__whyframe_app_url to inform of it. This needs special handling
         // in dev and build as Vite works differently.
         if (isBuild) {
-          // Emit as chunk to emulate an entrypoint for HTML to load
-          // https://rollupjs.org/guide/en/#thisemitfile
-          const refId = ctx.emitFile({
-            type: 'chunk',
-            id: entryId,
-            // Vite sets false since it assumes we're operating an app,
-            // but in fact this acts as a semi-library that needs the exports right
-            preserveSignature: 'strict'
-          })
+          templateName ||= 'default'
+          if (!buildEntryIds.has(templateName)) {
+            buildEntryIds.set(templateName, {})
+          }
+          buildEntryIds.get(templateName)[hash] = entryId
           return `\
 (e) => {
-  e.target.contentWindow.__whyframe_app_url = import.meta.ROLLUP_FILE_URL_${refId}
+  e.target.contentWindow.__whyframe_app_hash = '${hash}'
   e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         } else {
@@ -58,7 +62,7 @@ export function apiPlugin(options) {
 (e) => {
   const t = () => import('${entryId}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  e.target.contentWindow.__whyframe_app_url = importUrl
+  e.target.contentWindow.__whyframe_app_hash = importUrl
   e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         }
