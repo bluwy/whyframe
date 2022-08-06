@@ -31,8 +31,6 @@ export function whyframeSvelte(options) {
       if (!filter(id) || id.includes('__whyframe-')) return
       if (!code.includes('<iframe')) return
 
-      const ctx = this
-
       // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 

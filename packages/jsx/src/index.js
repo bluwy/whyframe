@@ -33,7 +33,6 @@ export function whyframeJsx(options) {
       if (!code.includes('<iframe')) return
 
       const ext = path.extname(id)
-      const ctx = this
 
       // parse instances of `<iframe why="true"></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -176,7 +175,11 @@ export function whyframeJsx(options) {
               (a) => a.name.name === 'why-template'
             )?.value.value
             const iframeSrc = api.getIframeSrc(templateName)
-            const iframeOnLoad = api.getIframeLoadHandler(ctx, entryId)
+            const iframeOnLoad = api.getIframeLoadHandler(
+              entryId,
+              finalHash,
+              templateName
+            )
             s.appendLeft(
               node.start + `<iframe`.length,
               ` src="${iframeSrc}" onLoad={${iframeOnLoad}}`
