@@ -42,7 +42,7 @@ export function apiPlugin(options) {
       },
       getIframeLoadHandler(entryId, hash, templateName) {
         // to let the iframe src know what to render, we pass a url through
-        // window.__whyframe_app_url to inform of it. this needs special handling
+        // window.__whyframe_app_url__ to inform of it. this needs special handling
         // in dev and build as Vite works differently.
         if (isBuild) {
           templateName ||= 'default'
@@ -52,7 +52,7 @@ export function apiPlugin(options) {
           buildEntryIds.get(templateName)[hash] = entryId
           return `\
 (e) => {
-  e.target.contentWindow.__whyframe_app_hash = '${hash}'
+  e.target.contentWindow.__whyframe_app_hash__ = '${hash}'
   e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         } else {
@@ -62,7 +62,7 @@ export function apiPlugin(options) {
 (e) => {
   const t = () => import('${entryId}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  e.target.contentWindow.__whyframe_app_hash = importUrl
+  e.target.contentWindow.__whyframe_app_hash__ = importUrl
   e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
 }`
         }

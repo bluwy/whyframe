@@ -94,8 +94,6 @@ export function corePlugin(options) {
   }
 }
 
-async function waitForAllModulesLoaded(ctx) {}
-
 const devCode = `\
 let isReadying = false
 
@@ -104,7 +102,7 @@ export async function createApp(el) {
   isReadying = true
 
   return new Promise((resolve, reject) => {
-    if (window.__whyframe_app_url) {
+    if (window.__whyframe_app_url__) {
       ready(el).then(resolve, reject)
     } else {
       window.addEventListener(
@@ -117,7 +115,7 @@ export async function createApp(el) {
 }
 
 async function ready(el) {
-  const data = await import(/* @vite-ignore */ window.__whyframe_app_url)
+  const data = await import(/* @vite-ignore */ window.__whyframe_app_url__)
   const result = await data.createApp(el)
   isReadying = false
   return result
@@ -139,7 +137,7 @@ export async function createApp(el) {
   isReadying = true
 
   return new Promise((resolve, reject) => {
-    if (window.__whyframe_app_hash) {
+    if (window.__whyframe_app_hash__) {
       ready(el).then(resolve, reject)
     } else {
       window.addEventListener(
@@ -152,7 +150,7 @@ export async function createApp(el) {
 }
 
 async function ready(el) {
-  const app = hashToImportMap[window.__whyframe_app_hash]
+  const app = hashToImportMap[window.__whyframe_app_hash__]
   if (!app) throw new Error('no app found')
   const data = await app()
   const result = await data.createApp(el)
