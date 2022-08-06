@@ -62,7 +62,7 @@ export function apiPlugin(options) {
 (e) => {
   const t = () => import('${entryId}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  e.target.contentWindow.__whyframe_app_hash__ = importUrl
+  e.target.contentWindow.__whyframe_app_url__ = importUrl
   e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
 }`
         }
