@@ -65,8 +65,22 @@ export function corePlugin(options) {
 
         // wait for all modules loaded before getting the entry ids
         // related to this template
-        allModulesLoaded ??= waitForAllModulesLoaded(this)
+        // NOTE: sharing this between templates doesn't seem to wait long enough
+        const seen = new Set()
+        let modulesToWait = []
+        do {
+          modulesToWait = []
+          for (const id of this.getModuleIds()) {
+            if (seen.has(id)) continue
+            seen.add(id)
+            if (id.startsWith('\0')) continue
+            modulesToWait.push(this.load({ id }))
+          }
+          // TODO: timeout if too long
+          await Promise.all(modulesToWait)
+        } while (modulesToWait.length > 0)
 
+        // generate hash to import map
         const hashToId = api._getEntryIds(templateName)
         let final = ''
         for (const [hash, id] of Object.entries(hashToId)) {
@@ -80,21 +94,7 @@ export function corePlugin(options) {
   }
 }
 
-async function waitForAllModulesLoaded(ctx) {
-  const seen = new Set()
-  let modulesToWait = []
-  do {
-    modulesToWait = []
-    for (const id of ctx.getModuleIds()) {
-      if (seen.has(id)) continue
-      seen.add(id)
-      if (id.startsWith('\0')) continue
-      modulesToWait.push(ctx.load({ id }))
-    }
-    // TODO: timeout if too long
-    await Promise.all(modulesToWait)
-  } while (modulesToWait.length > 0)
-}
+async function waitForAllModulesLoaded(ctx) {}
 
 const devCode = `\
 let isReadying = false
