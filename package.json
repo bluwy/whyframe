@@ -8,11 +8,14 @@
   },
   "devDependencies": {
     "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.7.0"
+    "prettier-plugin-svelte": "^2.7.0",
+    "svelte": "^3.49.0"
   },
   "pnpm": {
     "peerDependencyRules": {
-      "ignoreMissing": ["@babel/core"]
+      "ignoreMissing": [
+        "@babel/core"
+      ]
     }
   }
 }

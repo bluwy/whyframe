@@ -6,9 +6,11 @@ importers:
     specifiers:
       prettier: ^2.7.1
       prettier-plugin-svelte: ^2.7.0
+      svelte: ^3.49.0
     devDependencies:
       prettier: 2.7.1
-      prettier-plugin-svelte: 2.7.0_prettier@2.7.1
+      prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
+      svelte: 3.49.0
 
   packages/core:
     specifiers:
@@ -1586,13 +1588,14 @@ packages:
   /preact/10.10.1:
     resolution: {integrity: sha512-cXljG59ylGtSLismoLojXPAGvnh2ipQr3BYz9KZQr+1sdASCT+sR/v8dSMDS96xGCdtln2wHfAHCnLJK+XcBNg==}
 
-  /prettier-plugin-svelte/2.7.0_prettier@2.7.1:
+  /prettier-plugin-svelte/2.7.0_o3ioganyptcsrh6x4hnxvjkpqi:
     resolution: {integrity: sha512-fQhhZICprZot2IqEyoiUYLTRdumULGRvw0o4dzl5jt0jfzVWdGqeYW27QTWAeXhoupEZJULmNoH3ueJwUWFLIA==}
     peerDependencies:
       prettier: ^1.16.4 || ^2.0.0
       svelte: ^3.2.0
     dependencies:
       prettier: 2.7.1
+      svelte: 3.49.0
     dev: true
 
   /prettier/2.7.1:
