@@ -53,7 +53,7 @@ export function apiPlugin(options) {
           return `\
 (e) => {
   e.target.contentWindow.__whyframe_app_hash__ = '${hash}'
-  e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
+  e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
 }`
         } else {
           // cheekily exploit Vite's import analysis to get the transformed URL
@@ -63,7 +63,7 @@ export function apiPlugin(options) {
   const t = () => import('${entryId}')
   const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
   e.target.contentWindow.__whyframe_app_hash__ = importUrl
-  e.target.contentWindow.dispatchEvent(new Event('whyframe:ready'))
+  e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
 }`
         }
       },
