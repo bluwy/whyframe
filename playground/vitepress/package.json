@@ -1,0 +1,20 @@
+{
+	"name": "@whyframe/playground-vitepress",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vitepress dev",
+		"build": "vitepress build",
+		"serve": "vitepress serve"
+	},
+	"dependencies": {
+		"vue": "^3.2.37"
+	},
+	"devDependencies": {
+		"@whyframe/core": "workspace:*",
+		"@whyframe/vue": "workspace:*",
+		"vite": "^3.0.0",
+		"vite-plugin-inspect": "^0.6.0",
+		"vitepress": "1.0.0-alpha.4"
+	}
+}

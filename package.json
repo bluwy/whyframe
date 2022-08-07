@@ -14,7 +14,11 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
-        "@babel/core"
+        "@algolia/client-search",
+        "@babel/core",
+        "@types/react",
+        "react",
+        "react-dom"
       ]
     }
   }
