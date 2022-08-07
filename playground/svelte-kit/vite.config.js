@@ -5,5 +5,14 @@ import { whyframe } from '@whyframe/core'
 import { whyframeSvelte } from '@whyframe/svelte'
 
 export default defineConfig({
-  plugins: [inspect(), sveltekit(), whyframe(), whyframeSvelte()]
+  plugins: [
+    inspect(),
+    sveltekit(),
+    whyframe({
+      template: {
+        basic: '/frames/basic'
+      }
+    }),
+    whyframeSvelte()
+  ]
 })
