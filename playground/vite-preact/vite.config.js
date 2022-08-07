@@ -9,12 +9,20 @@ export default defineConfig({
     inspect(),
     whyframe({
       template: {
-        basic: './src/frames/basic/index.html'
+        basic: '/frames/basic'
       }
     }),
     whyframeJsx({
       framework: 'preact'
     }),
     preact()
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      input: {
+        whyframeBasic: 'frames/basic/index.html',
+        index: 'index.html'
+      }
+    }
+  }
 })

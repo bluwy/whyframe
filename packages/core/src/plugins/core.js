@@ -11,30 +11,15 @@ export function corePlugin(options) {
   /** @type {import('..').Api} */
   let api
 
-  // wait for all modules loaded (best effort) before generating
-  // final import map for `whyframe:app-${templateName}`
-  /** @type {Promise<any> | undefined} */
-  let allModulesLoaded
-
   return {
     name: 'whyframe:core',
     config(c, { command }) {
       isBuild = command === 'build'
-      if (isBuild) {
+      // write default template if user didn't specify their own
+      if (isBuild && !options?.template?.default) {
         const haveExistingInput = c.build?.rollupOptions?.input
         const input = haveExistingInput ? {} : { index: 'index.html' }
-
-        // add each template as input for Vite to process
-        if (options?.template) {
-          for (const [key, value] of Object.entries(options.template)) {
-            input[`whyframe-template-${key}`] = value
-          }
-        }
-        // also write builtin default template if user didn't specify their own
-        if (!options?.template || !options.template.default) {
-          input['whyframe-template-default'] = templateDefaultBuildPath
-        }
-
+        input['whyframe-template-default'] = templateDefaultBuildPath
         return {
           build: {
             rollupOptions: {
