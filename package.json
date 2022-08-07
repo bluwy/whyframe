@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "prettier **/*.{js,ts,jsx,tsx,css,md,vue,svelte} --check --cache",
-    "format": "prettier **/*.{js,ts,jsx,tsx,css,md,vue,svelte} --write --cache"
+    "lint": "prettier **/*.{js,ts,jsx,css,vue,svelte} --check --cache",
+    "format": "prettier **/*.{js,ts,jsx,css,vue,svelte} --write --cache"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
