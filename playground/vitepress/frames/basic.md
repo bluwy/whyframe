@@ -1,5 +1,1 @@
----
-layout: page
----
-
-Empty
+<!-- Empty file to render FrameBasicLayout.vue -->
