@@ -34,7 +34,7 @@ export function whyframeJsx(options) {
 
       const ext = path.extname(id)
 
-      // parse instances of `<iframe why="true"></iframe>` and extract them out as a virtual import
+      // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       /** @type {import('@babel/parser').ParserPlugin[]} */
@@ -103,7 +103,7 @@ export function whyframeJsx(options) {
             node.type === 'JSXElement' &&
             node.openingElement.name.name === 'iframe' &&
             node.openingElement.attributes.some(
-              (attr) => attr.type === 'JSXAttribute' && attr.name.name === 'why'
+              (attr) => attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
             ) &&
             node.children.length > 0
           ) {
@@ -172,7 +172,7 @@ export function whyframeJsx(options) {
 
             // inject template props
             const templateName = node.openingElement.attributes.find(
-              (a) => a.name.name === 'why-template'
+              (a) => a.name.name === 'data-why-template'
             )?.value.value
             const iframeSrc = api.getIframeSrc(templateName)
             const iframeOnLoad = api.getIframeLoadHandler(

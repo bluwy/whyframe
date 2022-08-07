@@ -25,7 +25,7 @@ export function whyframeVue(options) {
       if (!filter(id) || id.includes('__whyframe-')) return
       if (!code.includes('<iframe')) return
 
-      // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
+      // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       const ast = parse(code, options?.parserOptions)
@@ -49,7 +49,7 @@ export function whyframeVue(options) {
           (node) => {
             if (
               node.tag === 'iframe' &&
-              node.props.find((a) => a.name === 'why') &&
+              node.props.find((a) => a.name === 'data-why') &&
               node.children.length > 0
             ) {
               // extract iframe html
@@ -91,7 +91,7 @@ export function createApp(el) {
 
               // inject template props
               const templateName = node.props.find(
-                (a) => a.name === 'why-template'
+                (a) => a.name === 'data-why-template'
               )?.value.content
               const iframeSrc = api.getIframeSrc(templateName)
               const iframeOnLoad = api.getIframeLoadHandler(

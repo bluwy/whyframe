@@ -13,12 +13,12 @@ function warn() {
 <template>
   <h1>Vue</h1>
 
-  <iframe why title="Hello">
+  <iframe data-why title="Hello">
     <p>Click to increment!</p>
     <Counter />
   </iframe>
 
-  <iframe why title="World" why-template="basic">
+  <iframe data-why title="World" data-why-template="basic">
     <p>Do not go over {{ max }}</p>
     <Counter :max="max" @max="warn" />
   </iframe>

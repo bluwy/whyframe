@@ -19,7 +19,7 @@ body {
   text-align: center;
 }
 
-iframe[why] {
+iframe[data-why] {
   display: inline-block;
   border: none;
   box-shadow: 2.7px 3.2px 3.6px rgba(0, 0, 0, 0.024),

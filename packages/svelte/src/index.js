@@ -31,7 +31,7 @@ export function whyframeSvelte(options) {
       if (!filter(id) || id.includes('__whyframe-')) return
       if (!code.includes('<iframe')) return
 
-      // parse instances of `<iframe why></iframe>` and extract them out as a virtual import
+      // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       const ast = parse(code)
@@ -51,7 +51,7 @@ export function whyframeSvelte(options) {
           if (
             node.type === 'Element' &&
             node.name === 'iframe' &&
-            node.attributes.find((a) => a.name === 'why') &&
+            node.attributes.find((a) => a.name === 'data-why') &&
             node.children.length > 0
           ) {
             // extract iframe html
@@ -91,7 +91,7 @@ export function createApp(el) {
 
             // inject template props
             const templateName = node.attributes
-              .find((a) => a.name === 'why-template')
+              .find((a) => a.name === 'data-why-template')
               ?.value.find((v) => v.type === 'Text')?.data
             const iframeSrc = api.getIframeSrc(templateName)
             const iframeOnLoad = api.getIframeLoadHandler(

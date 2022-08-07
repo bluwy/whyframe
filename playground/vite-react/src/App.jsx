@@ -13,12 +13,12 @@ export function App() {
     <>
       <h1>React</h1>
 
-      <iframe why="true" title="Hello">
+      <iframe data-why title="Hello">
         <p>Click to increment!</p>
         <Counter />
       </iframe>
 
-      <iframe why="true" title="World" why-template="basic">
+      <iframe data-why title="World" data-why-template="basic">
         <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
       </iframe>
