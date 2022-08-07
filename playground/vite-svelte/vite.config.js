@@ -13,7 +13,13 @@ export default defineConfig({
       }
     }),
     whyframeSvelte(),
-    svelte()
+    svelte({
+      onwarn(warning, handler) {
+        // https://github.com/sveltejs/svelte/pull/7768
+        if (warning.message.includes('CustomEvent')) return
+        handler(warning)
+      }
+    })
   ],
   build: {
     rollupOptions: {
