@@ -9,7 +9,7 @@ export default defineConfig({
     inspect(),
     whyframe({
       template: {
-        basic: '/frames/basic'
+        basic: '/frames/basic/index.html'
       }
     }),
     whyframeJsx({

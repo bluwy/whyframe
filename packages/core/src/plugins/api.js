@@ -52,19 +52,19 @@ export function apiPlugin(options) {
           buildEntryIds.get(templateName)[hash] = entryId
           return `\
 (e) => {
-  e.target.contentWindow.__whyframe_app_hash__ = '${hash}'
+  e.target.contentWindow.__whyframe_app_hash__ = '${hash}';
   e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
-}`
+}`.replace(/\n/g, '')
         } else {
           // cheekily exploit Vite's import analysis to get the transformed URL
           // to be loaded by the iframe. This works because files are served as is.
           return `\
 (e) => {
-  const t = () => import('${entryId}')
-  const importUrl = t.toString().match(/['"](.*?)['"]/)[1]
-  e.target.contentWindow.__whyframe_app_url__ = importUrl
+  const t = () => import('${entryId}');
+  const importUrl = t.toString().match(/['"](.*?)['"]/)[1];
+  e.target.contentWindow.__whyframe_app_url__ = importUrl;
   e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
-}`
+}`.replace(/\n/g, '')
         }
       },
       createEntry(originalId, hash, ext, code) {
