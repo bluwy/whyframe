@@ -10,9 +10,13 @@ export function whyframeVue(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
 
+  /** @type {boolean} */
+  let isVitepress = false
+
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
 
-  return {
+  /** @type {import('vite').Plugin} */
+  const plugin = {
     name: 'whyframe:vue',
     enforce: 'pre',
     configResolved(c) {
@@ -20,6 +24,22 @@ export function whyframeVue(options) {
       if (!api) {
         // TODO: maybe fail safe
         throw new Error('whyframe() plugin is not installed')
+      }
+
+      // special case: the vitepress plugin and vue plugin are added side-by-side,
+      // which causes problems for us as we use vue's compiler to extract iframes.
+      // by default, our plugin runs before vitepress, which we only see plain md.
+      // we need to see the transformed md -> vue instead, which is between the vitepress
+      // plugin and the vue plugin. for us to do so, we move ourself to after vitepress.
+      const vitepress = c.plugins.findIndex((p) => p.name === 'vitepress')
+      if (vitepress !== -1) {
+        isVitepress = true
+        const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:vue')
+        if (myIndex !== -1) {
+          c.plugins.splice(myIndex, 1)
+          c.plugins.splice(vitepress, 0, plugin)
+          delete plugin.enforce
+        }
       }
     },
     transform(code, id) {
@@ -66,7 +86,7 @@ export function whyframeVue(options) {
               const entryComponentId = api.createEntryComponent(
                 id,
                 finalHash,
-                path.extname(id),
+                isVitepress ? '.vue' : path.extname(id),
                 `\
 <template>
 ${iframeContent}
@@ -113,4 +133,6 @@ export function createApp(el) {
       }
     }
   }
+
+  return plugin
 }
