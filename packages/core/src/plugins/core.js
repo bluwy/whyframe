@@ -80,65 +80,20 @@ export function corePlugin(options) {
 }
 
 const devCode = `\
-let isReadying = false
-
 export async function createApp(el) {
-  if (isReadying) return
-  isReadying = true
-
-  return new Promise((resolve, reject) => {
-    if (window.__whyframe_app_url__) {
-      ready(el).then(resolve, reject)
-    } else {
-      window.addEventListener(
-        'whyframe:ready',
-        () => ready(el).then(resolve, reject),
-        { once: true }
-      )
-    }
-  })
-}
-
-async function ready(el) {
-  const data = await import(/* @vite-ignore */ window.__whyframe_app_url__)
+  const url = window.frameElement.dataset.whyframeAppUrl
+  const data = await import(/* @vite-ignore */ url)
   const result = await data.createApp(el)
-  isReadying = false
   return result
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(() => {
-    isReadying = false // an error may happen in ready, so we reset to remount the app
-  })
 }`
 
 const buildCode = `\
-let isReadying = false
-
 const hashToImportMap = __whyframe_hash_to_import_map__
-
 export async function createApp(el) {
-  if (isReadying) return
-  isReadying = true
-
-  return new Promise((resolve, reject) => {
-    if (window.__whyframe_app_hash__) {
-      ready(el).then(resolve, reject)
-    } else {
-      window.addEventListener(
-        'whyframe:ready',
-        () => ready(el).then(resolve, reject),
-        { once: true }
-      )
-    }
-  })
-}
-
-async function ready(el) {
-  const app = hashToImportMap[window.__whyframe_app_hash__]
-  if (!app) throw new Error('no app found')
-  const data = await app()
+  const hash = window.frameElement.dataset.whyframeAppHash
+  const importApp = hashToImportMap[hash]
+  if (!importApp) throw new Error('no app found')
+  const data = await importApp()
   const result = await data.createApp(el)
-  isReadying = false
   return result
 }`

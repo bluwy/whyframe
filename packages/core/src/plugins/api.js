@@ -35,37 +35,26 @@ export function apiPlugin(options) {
       getHash(text) {
         return createHash('sha256').update(text).digest('hex').substring(0, 8)
       },
-      getIframeSrc(templateName) {
-        return (
-          options?.template?.[templateName || 'default'] || templateDefaultId
-        )
-      },
-      getIframeLoadHandler(entryId, hash, templateName) {
-        // to let the iframe src know what to render, we pass a url through
-        // window.__whyframe_app_url__ to inform of it. this needs special handling
-        // in dev and build as Vite works differently.
+      getIframeAttrs(entryId, hash, templateName) {
+        templateName ||= 'default'
+
+        let attrsStr = ''
+
+        const templateUrl =
+          options?.template?.[templateName] || templateDefaultId
+        attrsStr += ` src="${templateUrl}"`
+
         if (isBuild) {
-          templateName ||= 'default'
           if (!buildEntryIds.has(templateName)) {
             buildEntryIds.set(templateName, {})
           }
           buildEntryIds.get(templateName)[hash] = entryId
-          return `\
-(e) => {
-  e.target.contentWindow.__whyframe_app_hash__ = '${hash}';
-  e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
-}`.replace(/\n/g, '')
+          attrsStr += ` data-whyframe-app-hash="${hash}"`
         } else {
-          // cheekily exploit Vite's import analysis to get the transformed URL
-          // to be loaded by the iframe. This works because files are served as is.
-          return `\
-(e) => {
-  const t = () => import('${entryId}');
-  const importUrl = t.toString().match(/['"](.*?)['"]/)[1];
-  e.target.contentWindow.__whyframe_app_url__ = importUrl;
-  e.target.contentWindow.dispatchEvent(new CustomEvent('whyframe:ready'))
-}`.replace(/\n/g, '')
+          attrsStr += ` data-whyframe-app-url="/@id/__${entryId}"`
         }
+
+        return attrsStr
       },
       createEntry(originalId, hash, ext, code) {
         // example: whyframe:entry-123456.jsx

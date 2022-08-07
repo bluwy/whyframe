@@ -4,7 +4,6 @@ declare module 'whyframe:app-*' {
   export const createApp: (el: HTMLElement) => void
 }
 
-type PluginContext = ThisParameterType<NonNullable<Plugin['resolveId']>>
 type LoadResult = Awaited<ReturnType<NonNullable<Plugin['load']>>>
 
 export interface Options {
@@ -33,19 +32,12 @@ export interface Api {
    */
   getHash: (text: string) => string
   /**
-   * Get the template html depending on the user's option. Will return
-   * a default virtual html if no template is found. Usually injected
-   * after the `<iframe` tag.
+   * Get inline code for the iframe attrs as string to directly inject.
    */
-  getIframeSrc: (templateName?: string) => string
-  /**
-   * Get inline code for the iframe load handler function. This is ensured
-   * to be one line. Usually injected after the `<iframe` tag.
-   */
-  getIframeLoadHandler: (
-    ctx: PluginContext,
-    entryHash: string,
-    entryExt: string
+  getIframeAttrs: (
+    entryId: string,
+    hash: string,
+    templateName: string
   ) => string
   /**
    * Create a whyframe entry that's imported by the iframe load handler.
