@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
@@ -41,9 +42,6 @@ export function whyframeVue(options) {
       // Generate initial hash
       const baseHash = api.getHash(notTemplateCode)
 
-      /** @type {string[]} */
-      const scriptCode = []
-
       transform(ast, {
         nodeTransforms: [
           (node) => {
@@ -68,7 +66,7 @@ export function whyframeVue(options) {
               const entryComponentId = api.createEntryComponent(
                 id,
                 finalHash,
-                '.vue',
+                path.extname(id),
                 `\
 <template>
 ${iframeContent}
@@ -93,40 +91,19 @@ export function createApp(el) {
               const templateName = node.props.find(
                 (a) => a.name === 'data-why-template'
               )?.value.content
-              const iframeSrc = api.getIframeSrc(templateName)
-              const iframeOnLoad = api.getIframeLoadHandler(
+              const iframeAttrs = api.getIframeAttrs(
                 entryId,
                 finalHash,
                 templateName
               )
-
-              // generate temp variables to inject and use
-              const eventHandler = `__whyframe_${finalHash}`
-              scriptCode.push(`const ${eventHandler} = ${iframeOnLoad}`)
               s.appendLeft(
                 node.loc.start.offset + `<iframe`.length,
-                ` src="${iframeSrc}" @load="${eventHandler}"`
+                iframeAttrs
               )
             }
           }
         ]
       })
-
-      // inject event handlers to <script setup>
-      // TODO: double check if this is right
-      const scriptSetupNode = notTemplateTags.find(
-        (node) =>
-          node.tag === 'script' && node.props.some((p) => p.name === 'setup')
-      )
-      const injectCode = `\n${scriptCode.join('\n')}\n`
-      if (scriptSetupNode) {
-        s.prependLeft(
-          scriptSetupNode.loc.end.offset - `</script>`.length,
-          injectCode
-        )
-      } else {
-        s.append(`<script setup>${injectCode}</script>`)
-      }
 
       if (s.hasChanged()) {
         return {

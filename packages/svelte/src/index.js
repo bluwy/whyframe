@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, walk } from 'svelte/compiler'
 import MagicString from 'magic-string'
@@ -69,7 +70,7 @@ export function whyframeSvelte(options) {
             const entryComponentId = api.createEntryComponent(
               id,
               finalHash,
-              '.svelte',
+              path.extname(id),
               `\
 ${moduleScriptCode}
 ${scriptCode}
@@ -93,16 +94,12 @@ export function createApp(el) {
             const templateName = node.attributes
               .find((a) => a.name === 'data-why-template')
               ?.value.find((v) => v.type === 'Text')?.data
-            const iframeSrc = api.getIframeSrc(templateName)
-            const iframeOnLoad = api.getIframeLoadHandler(
+            const iframeAttrs = api.getIframeAttrs(
               entryId,
               finalHash,
               templateName
             )
-            s.appendLeft(
-              node.start + `<iframe`.length,
-              ` src="${iframeSrc}" on:load={${iframeOnLoad}}`
-            )
+            s.appendLeft(node.start + `<iframe`.length, iframeAttrs)
           }
         }
       })

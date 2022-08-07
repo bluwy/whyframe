@@ -103,7 +103,8 @@ export function whyframeJsx(options) {
             node.type === 'JSXElement' &&
             node.openingElement.name.name === 'iframe' &&
             node.openingElement.attributes.some(
-              (attr) => attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
+              (attr) =>
+                attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
             ) &&
             node.children.length > 0
           ) {
@@ -174,16 +175,12 @@ export function whyframeJsx(options) {
             const templateName = node.openingElement.attributes.find(
               (a) => a.name.name === 'data-why-template'
             )?.value.value
-            const iframeSrc = api.getIframeSrc(templateName)
-            const iframeOnLoad = api.getIframeLoadHandler(
+            const iframeAttrs = api.getIframeAttrs(
               entryId,
               finalHash,
               templateName
             )
-            s.appendLeft(
-              node.start + `<iframe`.length,
-              ` src="${iframeSrc}" onLoad={${iframeOnLoad}}`
-            )
+            s.appendLeft(node.start + `<iframe`.length, iframeAttrs)
           }
         }
       })
