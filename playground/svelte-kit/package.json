@@ -1,5 +1,5 @@
 {
-	"name": "@whyframe/playground-vite-preact",
+	"name": "@whyframe/playground-svelte-kit",
 	"private": true,
 	"type": "module",
 	"scripts": {
