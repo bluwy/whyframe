@@ -1,11 +1,11 @@
 {
 	"name": "@whyframe/playground-vitepress",
 	"private": true,
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
-		"dev": "vitepress dev",
+		"dev": "vitepress dev --port 4173",
 		"build": "vitepress build",
-		"serve": "vitepress serve"
+		"preview": "vitepress serve --port 5173"
 	},
 	"dependencies": {
 		"vue": "^3.2.37"
