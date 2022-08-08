@@ -5,7 +5,6 @@ import { createApp } from 'whyframe:app-basic'
 const el = ref()
 
 onMounted(() => {
-  console.log(el)
   createApp(el.value)
 })
 </script>

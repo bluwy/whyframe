@@ -1,5 +1,9 @@
 lockfileVersion: 5.4
 
+overrides:
+  vitepress>@vitejs/plugin-vue: ^3.0.0
+  vitepress>vite: ^3.0.0
+
 importers:
 
   .:
@@ -889,17 +893,6 @@ packages:
       vite: 3.0.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@vitejs/plugin-vue/2.3.3_vite@2.9.14+vue@3.2.37:
-    resolution: {integrity: sha512-SmQLDyhz+6lGJhPELsBdzXGc+AcaT8stgkbiTFGpXPe8Tl1tJaBw1A6pxDqDuRsVkD8uscrkx3hA7QDOoKYtyw==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      vite: ^2.5.10
-      vue: ^3.2.25
-    dependencies:
-      vite: 2.9.14
-      vue: 3.2.37
     dev: true
 
   /@vitejs/plugin-vue/3.0.1_vite@3.0.4+vue@3.2.37:
@@ -2132,30 +2125,6 @@ packages:
       - supports-color
     dev: true
 
-  /vite/2.9.14:
-    resolution: {integrity: sha512-P/UCjSpSMcE54r4mPak55hWAZPlyfS369svib/gpmz8/01L822lMPOJ/RYW6tLCe1RPvMvOsJ17erf55bKp4Hw==}
-    engines: {node: '>=12.2.0'}
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-    dependencies:
-      esbuild: 0.14.51
-      postcss: 8.4.14
-      resolve: 1.22.1
-      rollup: 2.77.2
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /vite/3.0.4:
     resolution: {integrity: sha512-NU304nqnBeOx2MkQnskBQxVsa0pRAH5FphokTGmyy8M3oxbvw7qAXts2GORxs+h/2vKsD+osMhZ7An6yK6F1dA==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -2190,12 +2159,12 @@ packages:
     dependencies:
       '@docsearch/css': 3.2.0
       '@docsearch/js': 3.2.0
-      '@vitejs/plugin-vue': 2.3.3_vite@2.9.14+vue@3.2.37
+      '@vitejs/plugin-vue': 3.0.1_vite@3.0.4+vue@3.2.37
       '@vue/devtools-api': 6.2.1
       '@vueuse/core': 8.9.4_vue@3.2.37
       body-scroll-lock: 4.0.0-beta.0
       shiki: 0.10.1
-      vite: 2.9.14
+      vite: 3.0.4
       vue: 3.2.37
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -2206,6 +2175,7 @@ packages:
       - react-dom
       - sass
       - stylus
+      - terser
     dev: true
 
   /vscode-oniguruma/1.6.2:

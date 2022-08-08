@@ -12,6 +12,10 @@
     "svelte": "^3.49.0"
   },
   "pnpm": {
+    "overrides": {
+      "vitepress>@vitejs/plugin-vue": "^3.0.0",
+      "vitepress>vite": "^3.0.0"
+    },
     "peerDependencyRules": {
       "ignoreMissing": [
         "@algolia/client-search",

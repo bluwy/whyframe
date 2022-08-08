@@ -59,7 +59,9 @@ export function corePlugin(options) {
             if (seen.has(id)) continue
             seen.add(id)
             if (id.startsWith('\0')) continue
-            modulesToWait.push(this.load({ id }))
+            const info = this.getModuleInfo(id)
+            if (info?.isExternal) continue
+            modulesToWait.push(this.load({ id }).catch(() => {}))
           }
           // TODO: timeout if too long
           await Promise.all(modulesToWait)

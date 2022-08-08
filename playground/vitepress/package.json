@@ -3,9 +3,9 @@
 	"private": true,
 	"type": "commonjs",
 	"scripts": {
-		"dev": "vitepress dev --port 4173",
+		"dev": "vitepress dev --port 5173",
 		"build": "vitepress build",
-		"preview": "vitepress serve --port 5173"
+		"preview": "vitepress serve --port 4173"
 	},
 	"dependencies": {
 		"vue": "^3.2.37"

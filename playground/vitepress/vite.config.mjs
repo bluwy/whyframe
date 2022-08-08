@@ -8,11 +8,23 @@ export default defineConfig({
     inspect(),
     whyframe({
       template: {
-        basic: '/frames/basic/index.html'
+        default: '/frames/basic', // vitepress doesn't support whyframe default template
+        basic: '/frames/basic'
       }
     }),
     whyframeVue({
       include: /\.(?:vue|md)$/
     })
-  ]
+  ],
+  ssr: {
+    format: 'cjs'
+  },
+  legacy: {
+    buildSsrCjsExternalHeuristics: true
+  },
+  optimizeDeps: {
+    // vitepress is aliased with replacement `join(DIST_CLIENT_PATH, '/index')`
+    // This needs to be excluded from optimization
+    exclude: ['vitepress']
+  }
 })
