@@ -17,10 +17,10 @@ export function apiPlugin(options) {
   /** @type {boolean} */
   let isBuild
 
-  // template name to record of hash to id, used for final import map
+  // template url to record of hash to id, used for final import map
   // generation of `whyframe:app-${templateName}`
   /** @type {Map<string, Record<string, string>>} */
-  const buildEntryIds = new Map()
+  const templateUrlToEntryIds = new Map()
 
   return {
     name: 'whyframe:api',
@@ -30,7 +30,9 @@ export function apiPlugin(options) {
     /** @type {import('..').Api} */
     api: {
       _getEntryIds(templateName) {
-        return buildEntryIds.get(templateName || 'default') || {}
+        const templateUrl =
+          options?.template?.[templateName || 'default'] || templateDefaultId
+        return templateUrlToEntryIds.get(templateUrl) || {}
       },
       getHash(text) {
         return createHash('sha256').update(text).digest('hex').substring(0, 8)
@@ -45,10 +47,10 @@ export function apiPlugin(options) {
         attrsStr += ` src="${templateUrl}"`
 
         if (isBuild) {
-          if (!buildEntryIds.has(templateName)) {
-            buildEntryIds.set(templateName, {})
+          if (!templateUrlToEntryIds.has(templateUrl)) {
+            templateUrlToEntryIds.set(templateUrl, {})
           }
-          buildEntryIds.get(templateName)[hash] = entryId
+          templateUrlToEntryIds.get(templateUrl)[hash] = entryId
           attrsStr += ` data-whyframe-app-hash="${hash}"`
         } else {
           attrsStr += ` data-whyframe-app-url="/@id/__${entryId}"`
