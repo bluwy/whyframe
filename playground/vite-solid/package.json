@@ -1,0 +1,21 @@
+{
+  "name": "@whyframe/playground-vite-solid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "solid-js": "^1.4.8"
+  },
+  "devDependencies": {
+    "@whyframe/core": "workspace:*",
+    "@whyframe/jsx": "workspace:*",
+    "babel-preset-solid": "^1.4.8",
+    "vite": "^3.0.4",
+    "vite-plugin-inspect": "^0.6.0",
+    "vite-plugin-solid": "^2.3.0"
+  }
+}

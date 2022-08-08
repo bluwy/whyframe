@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { counter } from './Counter.module.css'
 
-export function Counter({ max = 10, onMax }) {
+export function Counter({ max = 0, onMax }) {
   const [count, setCount] = useState(0)
 
   const increment = () => {
