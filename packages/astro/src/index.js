@@ -47,11 +47,14 @@ export function whyframeAstro(options) {
       const ast = (await parse(code, { position: true })).ast
 
       // collect code needed for virtual imports, assume all these have side effects
-      const frontmatterCode =
+      let frontmatterCode =
         ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
 
       // generate initial hash
       const baseHash = api.getHash(frontmatterCode)
+
+      // shim Astro global
+      frontmatterCode = shimAstro + '\n\n' + frontmatterCode
 
       walk(ast, {
         enter(node) {
@@ -65,7 +68,7 @@ export function whyframeAstro(options) {
             /** @type {import('.').Options['defaultFramework']} */
             const framework =
               node.attributes.find((a) => a.name === 'data-why').value ||
-              options.defaultFramework
+              options?.defaultFramework
 
             if (!framework) {
               // TODO: generate frame
@@ -234,7 +237,10 @@ ${iframeHtmlCode}`
     case 'solid':
     case 'preact':
     case 'react':
+      const source = framework === 'solid' ? 'solid-js' : framework
       return `\
+/** @jsxImportSource ${source} */
+
 ${contextCode}
 
 export function WhyframeApp() {
@@ -246,3 +252,12 @@ export function WhyframeApp() {
 }`
   }
 }
+
+// TODO: dont be lazy
+const shimAstro = `\
+const Astro = {
+  site: undefined,
+  generator: 'whyframe',
+  glob: () => [],
+  resolve: (s) => s
+}`
