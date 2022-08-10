@@ -3,11 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "prettier **/*.{js,ts,jsx,css,vue,svelte} --check --cache",
-    "format": "prettier **/*.{js,ts,jsx,css,vue,svelte} --write --cache"
+    "lint": "prettier **/*.{js,ts,jsx,css,md,vue,svelte,astro} --check --cache --ignore-path .gitignore",
+    "format": "prettier **/*.{js,ts,jsx,css,md,vue,svelte,astro} --write --cache --ignore-path .gitignore"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.4.1",
     "prettier-plugin-svelte": "^2.7.0",
     "svelte": "^3.49.0"
   },
