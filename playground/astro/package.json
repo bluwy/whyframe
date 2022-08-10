@@ -7,10 +7,24 @@
 		"build": "astro build",
 		"preview": "astro preview"
 	},
+	"dependencies": {
+		"preact": "^10.10.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"solid-js": "^1.4.8",
+		"vue": "^3.2.37"
+	},
 	"devDependencies": {
+		"@astrojs/preact": "^1.0.0",
+		"@astrojs/react": "^1.0.0",
+		"@astrojs/solid-js": "^1.0.0",
 		"@astrojs/svelte": "^0.5.1",
+		"@astrojs/vue": "^1.0.0",
 		"@whyframe/astro": "file:../../packages/astro",
 		"@whyframe/core": "file:../../packages/core",
+		"@whyframe/jsx": "file:../../packages/jsx",
+		"@whyframe/svelte": "file:../../packages/svelte",
+		"@whyframe/vue": "file:../../packages/vue",
 		"astro": "^1.0.0-rc.7",
 		"svelte": "^3.49.0",
 		"vite-plugin-inspect": "^0.6.0"
