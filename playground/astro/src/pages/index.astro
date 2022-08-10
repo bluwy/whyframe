@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Counter from '../components/Counter.svelte';
+
+const max = 10
+---
+
+<Layout title="Astro">
+  <h1>Astro</h1>
+
+  <iframe data-why="svelte" title="Hello">
+    <p>Click to increment!</p>
+    <Counter client:load />
+  </iframe>
+
+  <iframe data-why="svelte" title="World" data-why-template="basic">
+    <p>Do not go over {max}</p>
+    <Counter client:load {max} />
+  </iframe>
+</Layout>
