@@ -16,6 +16,21 @@ importers:
       prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
       svelte: 3.49.0
 
+  packages/astro:
+    specifiers:
+      '@astrojs/compiler': ^0.23.1
+      '@whyframe/core': workspace:*
+      estree-walker: ^3.0.1
+      magic-string: ^0.26.2
+      vite: ^3.0.4
+    dependencies:
+      '@astrojs/compiler': 0.23.1
+      estree-walker: 3.0.1
+      magic-string: 0.26.2
+    devDependencies:
+      '@whyframe/core': link:../core
+      vite: 3.0.4
+
   packages/core:
     specifiers:
       vite: ^3.0.4
@@ -308,6 +323,10 @@ packages:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.14
     dev: true
+
+  /@astrojs/compiler/0.23.1:
+    resolution: {integrity: sha512-KsoDrASGwTKZoWXbjy8SlIeoDv7y1OfBJtHVLuPuzhConA8e0SZpGzFqIuVRfG4bhisSTptZLDQZ7oxwgPv2jA==}
+    dev: false
 
   /@babel/code-frame/7.18.6:
     resolution: {integrity: sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==}

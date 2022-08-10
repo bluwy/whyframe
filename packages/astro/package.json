@@ -1,0 +1,24 @@
+{
+  "name": "@whyframe/astro",
+  "private": true,
+  "type": "module",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@whyframe/core": "workspace:*"
+  },
+  "dependencies": {
+    "@astrojs/compiler": "^0.23.1",
+    "estree-walker": "^3.0.1",
+    "magic-string": "^0.26.2"
+  },
+  "devDependencies": {
+    "@whyframe/core": "workspace:*",
+    "vite": "^3.0.4"
+  }
+}
