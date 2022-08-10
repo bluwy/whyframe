@@ -18,7 +18,7 @@
 </script>
 
 <button on:click={increment}>
-  Count is {count}
+  Count is {count} (svelte)
 </button>
 
 <style>

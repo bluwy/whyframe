@@ -1,6 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Counter from '../components/Counter.svelte'
+import CounterSvelte from '../components/Counter.svelte'
+import CounterVue from '../components/Counter.vue'
+import {Counter as CounterSolid} from '../components/CounterSolid.jsx'
+import {Counter as CounterPreact} from '../components/CounterPreact.jsx'
+import {Counter as CounterReact} from '../components/CounterReact.jsx'
 
 const max = 10
 ---
@@ -8,11 +12,43 @@ const max = 10
 <Layout title="Astro">
   <h1>Astro</h1>
 
+  <h2>Svelte</h2>
   <iframe data-why title="Hello">
-    <p>Click to increment!</p> <Counter client:load />
+    <p>Click to increment!</p> <CounterSvelte />
+  </iframe>
+  <iframe data-why="svelte" title="World" data-why-template="basic">
+    <p>Do not go over {max}</p> <CounterSvelte {max} />
   </iframe>
 
-  <iframe data-why="svelte" title="World" data-why-template="basic">
-    <p>Do not go over {max}</p> <Counter client:load {max} />
+  <h2>Vue</h2>
+  <iframe data-why="vue" title="Hello">
+    <p>Click to increment!</p> <CounterVue />
+  </iframe>
+  <iframe data-why="vue" title="World" data-why-template="basic">
+    <p>Do not go over {{max}}</p> <CounterVue :max="max" />
+  </iframe>
+
+  <h2>Solid</h2>
+  <iframe data-why="solid" title="Hello">
+    <p>Click to increment!</p> <CounterSolid />
+  </iframe>
+  <iframe data-why="solid" title="World" data-why-template="basic">
+    <p>Do not go over {max}</p> <CounterSolid max={max} />
+  </iframe>
+
+  <h2>Preact</h2>
+  <iframe data-why="preact" title="Hello">
+    <p>Click to increment!</p> <CounterPreact />
+  </iframe>
+  <iframe data-why="preact" title="World" data-why-template="basic">
+    <p>Do not go over {max}</p> <CounterPreact max={max} />
+  </iframe>
+
+  <h2>React</h2>
+  <iframe data-why="react" title="Hello">
+    <p>Click to increment!</p> <CounterReact />
+  </iframe>
+  <iframe data-why="react" title="World" data-why-template="basic">
+    <p>Do not go over {max}</p> <CounterReact max={max} />
   </iframe>
 </Layout>

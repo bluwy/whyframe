@@ -6,6 +6,10 @@ import MagicString from 'magic-string'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
 
+// credit: Vite
+const importsRE =
+  /(?<!\/\/.*)(?<=^|;|\*\/)\s*import(?!\s+type)([\w*{}\n\r\t, ]+)from\s*\s*("[^"]+"|'[^']+')\s*(?=$|;|\/\/|\/\*)/gm
+
 /**
  * @type {import('.').whyframeAstro}
  */
@@ -49,6 +53,22 @@ export function whyframeAstro(options) {
       // collect code needed for virtual imports, assume all these have side effects
       let frontmatterCode =
         ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
+
+      // this removes imports from .astro files, in most cases this isn't needed,
+      // but svelte seems to treat the styles in the .astro file as side-effectful
+      // and include it in the iframe
+      if (frontmatterCode) {
+        const toPrependCode = []
+        frontmatterCode = frontmatterCode.replace(importsRE, (ori, m1, m2) => {
+          if (m2.slice(0, -1).endsWith('.astro')) {
+            toPrependCode.push(`const ${m1} = {}`)
+            return ''
+          } else {
+            return ori
+          }
+        })
+        frontmatterCode = toPrependCode.join('\n') + '\n' + frontmatterCode
+      }
 
       // generate initial hash
       const baseHash = api.getHash(frontmatterCode)
@@ -110,7 +130,7 @@ export function whyframeAstro(options) {
                 ? '.svelte'
                 : framework === 'vue'
                 ? '.vue'
-                : path.extname(id),
+                : '.tsx',
               createEntryComponent(frontmatterCode, iframeContent, framework)
             )
 
