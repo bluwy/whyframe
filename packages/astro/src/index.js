@@ -4,6 +4,8 @@ import { parse } from '@astrojs/compiler'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
 
+const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
+
 /**
  * @type {import('.').whyframeAstro}
  */
@@ -48,7 +50,7 @@ export function whyframeAstro(options) {
       const frontmatterCode =
         ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
 
-      // Generate initial hash
+      // generate initial hash
       const baseHash = api.getHash(frontmatterCode)
 
       walk(ast, {
@@ -60,18 +62,11 @@ export function whyframeAstro(options) {
             node.children.length > 0
           ) {
             // .astro requires a value for data-why to render as a specific framework
-            // TODO: allow specifying a default framework
-            const framework = node.attributes.find(
-              (a) => a.name === 'data-why'
-            ).value
+            /** @type {import('.').Options['defaultFramework']} */
+            const framework =
+              node.attributes.find((a) => a.name === 'data-why').value ||
+              options.defaultFramework
 
-            const knownFrameworks = [
-              'svelte',
-              'vue',
-              'solid',
-              'preact',
-              'react'
-            ]
             if (!framework) {
               // TODO: generate frame
               console.warn(
@@ -113,7 +108,7 @@ export function whyframeAstro(options) {
                 : framework === 'vue'
                 ? '.vue'
                 : path.extname(id),
-              createEntryComponent(framework, frontmatterCode, iframeContent)
+              createEntryComponent(frontmatterCode, iframeContent, framework)
             )
 
             const entryId = api.createEntry(
@@ -164,22 +159,9 @@ function getEntryExtension(framework) {
   }
 }
 
-function getFrameworkExtension(framework) {
-  switch (framework) {
-    case 'svelte':
-      return '.js'
-    case 'vue':
-      return '.js'
-    case 'solid':
-    case 'preact':
-    case 'react':
-      return '.jsx'
-  }
-}
-
 /**
  * @param {string} entryId
- * @param {import('.').Options['framework']} framework
+ * @param {import('.').Options['defaultFramework']} framework
  */
 function createEntry(entryId, framework) {
   switch (framework) {
@@ -226,7 +208,12 @@ export function createApp(el) {
   }
 }
 
-function createEntryComponent(framework, contextCode, iframeHtmlCode) {
+/**
+ * @param {string} contextCode
+ * @param {string} iframeHtmlCode
+ * @param {import('.').Options['defaultFramework']} framework
+ */
+function createEntryComponent(contextCode, iframeHtmlCode, framework) {
   switch (framework) {
     case 'svelte':
       return `\
