@@ -65,3 +65,5 @@ export interface Api {
     code: LoadResult
   ) => string
 }
+
+export function whyframe(options?: Options): Plugin[]

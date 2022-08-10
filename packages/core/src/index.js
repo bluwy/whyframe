@@ -3,8 +3,7 @@ import { corePlugin } from './plugins/core.js'
 import { templatePlugin } from './plugins/template.js'
 
 /**
- * @param {import('.').Options} options
- * @returns {import('vite').Plugin}
+ * @type {import('.').whyframe}
  */
 export function whyframe(options) {
   return [apiPlugin(options), corePlugin(options), templatePlugin()]
