@@ -20,6 +20,6 @@
   "devDependencies": {
     "@whyframe/core": "workspace:*",
     "svelte": "^3.49.0",
-    "vite": "^3.0.4"
+    "vite": "^3.0.5"
   }
 }
