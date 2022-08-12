@@ -1,0 +1,17 @@
+{
+	"name": "@whyframe/playground-nuxt",
+	"private": true,
+	"type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "@whyframe/core": "file:../../packages/core",
+    "@whyframe/vue": "file:../../packages/vue",
+    "nuxt": "3.0.0-rc.8",
+    "vite-plugin-inspect": "^0.6.0"
+  }
+}
