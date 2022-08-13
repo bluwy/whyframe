@@ -54,13 +54,13 @@ export function apiPlugin(options) {
           templateUrlToEntryIds.get(templateUrl)[hash] = entryId
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeHash' : 'data-whyframe-app-hash',
+            name: isComponent ? 'whyframeAppId' : 'data-whyframe-app-id',
             value: hash
           })
         } else {
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeUrl' : 'data-whyframe-app-url',
+            name: isComponent ? 'whyframeAppId' : 'data-whyframe-app-id',
             value: `/@id/__${entryId}`
           })
         }
@@ -68,25 +68,17 @@ export function apiPlugin(options) {
       },
       getProxyIframeAttrs() {
         /** @type {import('..').Attr[]} */
-        const attrs = []
-        attrs.push({ type: 'dynamic', name: 'src', value: 'whyframeSrc' })
-        if (isBuild) {
-          attrs.push({
+        return [
+          { type: 'dynamic', name: 'src', value: 'whyframeSrc' },
+          {
             type: 'dynamic',
-            name: 'data-whyframe-app-hash',
-            value: 'whyframeHash'
-          })
-        } else {
-          attrs.push({
-            type: 'dynamic',
-            name: 'data-whyframe-app-url',
-            value: 'whyframeUrl'
-          })
-        }
-        return attrs
+            name: 'data-whyframe-app-id',
+            value: 'whyframeAppId'
+          }
+        ]
       },
       getProxyPropNames() {
-        return ['whyframeSrc', 'whyframeHash', 'whyframeUrl']
+        return ['whyframeSrc', 'whyframeAppId']
       },
       createEntry(originalId, hash, ext, code) {
         // example: whyframe:entry-123456.jsx
