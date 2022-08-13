@@ -126,7 +126,10 @@ export function createApp(el) {
               templateName,
               isIframeComponent
             )
-            s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
+            const injectOffset = isIframeComponent
+              ? 1 + node.name.length
+              : `<iframe`.length
+            s.appendLeft(node.start + injectOffset, stringifyAttrs(attrs))
           }
         }
       })
