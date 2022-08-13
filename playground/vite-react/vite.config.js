@@ -13,7 +13,8 @@ export default defineConfig({
       }
     }),
     whyframeJsx({
-      framework: 'react'
+      framework: 'react',
+      components: [{ name: 'Story', path: './src/Story.jsx', export: 'Story' }]
     }),
     react()
   ],

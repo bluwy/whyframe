@@ -12,6 +12,15 @@ export function whyframeJsx(options) {
   let api
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
+  const componentNames = options?.components?.map((c) => c.name) ?? []
+  const componentPaths =
+    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
+
+  function componentPathToExport(p) {
+    return options?.components?.find(
+      (c) => c.path === p || path.resolve(c.path) === p
+    )?.export
+  }
 
   return {
     name: 'whyframe:jsx',
@@ -30,7 +39,14 @@ export function whyframeJsx(options) {
         id.includes('__whyframe:')
       )
         return
-      if (!code.includes('<iframe')) return
+      if (
+        !code.includes('<iframe') &&
+        componentNames.every((n) => !code.includes(`<${n}`))
+      )
+        return
+
+      const isProxyMode = componentPaths.includes(id)
+      const proxyExport = isProxyMode ? componentPathToExport(id) : null
 
       const ext = path.extname(id)
 
@@ -98,24 +114,45 @@ export function whyframeJsx(options) {
           }
 
           // only detect jsx in fn
-          if (
-            topLevelFnNode &&
+          if (!topLevelFnNode) return
+
+          // proxy mode happens on per function basis that is exported, not per file
+          const isActualProxyMode =
+            isProxyMode &&
+            (proxyExport === 'default'
+              ? exportNode?.type === 'ExportDefaultDeclaration'
+              : topLevelFnNode.id?.name === proxyExport)
+
+          const isIframeElement =
             node.type === 'JSXElement' &&
             node.openingElement.name.name === 'iframe' &&
             node.openingElement.attributes.some(
               (attr) =>
                 attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
-            ) &&
-            node.children.length > 0
-          ) {
-            // extract iframe html
-            const iframeContentStart = node.children[0].start
-            const iframeContentEnd = node.children[node.children.length - 1].end
-            const iframeContent = code.slice(
-              iframeContentStart,
-              iframeContentEnd
             )
-            s.remove(iframeContentStart, iframeContentEnd)
+
+          if (isActualProxyMode) {
+            if (isIframeElement) {
+              const attrs = api.getProxyIframeAttrs()
+              s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
+              this.skip()
+            }
+            return
+          }
+
+          const isIframeComponent =
+            node.type === 'JSXElement' &&
+            componentNames.includes(node.openingElement.name.name)
+
+          if (isIframeElement || isIframeComponent) {
+            // extract iframe html
+            let iframeContent = ''
+            if (node.children.length > 0) {
+              const start = node.children[0].start
+              const end = node.children[node.children.length - 1].end
+              iframeContent = code.slice(start, end)
+              s.remove(start, end)
+            }
 
             // ====== start: extract outer code
             const outScope = exportNode || topLevelFnNode
@@ -172,15 +209,22 @@ export function whyframeJsx(options) {
             )
 
             // inject template props
+            const templatePropName = isIframeComponent
+              ? 'whyTemplate'
+              : 'data-why-template'
             const templateName = node.openingElement.attributes.find(
-              (a) => a.name.name === 'data-why-template'
+              (a) => a.name.name === templatePropName
             )?.value.value
-            const iframeAttrs = api.getIframeAttrs(
+            const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
-              templateName
+              templateName,
+              isIframeComponent
             )
-            s.appendLeft(node.start + `<iframe`.length, iframeAttrs)
+            const injectOffset = isIframeComponent
+              ? 1 + node.openingElement.name.name.length
+              : `<iframe`.length
+            s.appendLeft(node.start + injectOffset, stringifyAttrs(attrs))
           }
         }
       })
@@ -241,4 +285,19 @@ function astContainsNode(ast, node) {
     }
   })
   return found
+}
+
+/**
+ * @param {import('@whyframe/core').Attr[]} attrs
+ */
+function stringifyAttrs(attrs) {
+  let str = ''
+  for (const attr of attrs) {
+    if (attr.type === 'static') {
+      str += ` ${attr.name}="${attr.value}"`
+    } else {
+      str += ` ${attr.name}={arguments[0].${attr.value}}`
+    }
+  }
+  return str
 }
