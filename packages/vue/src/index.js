@@ -14,6 +14,9 @@ export function whyframeVue(options) {
   let isVitepress = false
 
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
+  const componentNames = options?.components?.map((c) => c.name) ?? []
+  const componentPaths =
+    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -44,7 +47,13 @@ export function whyframeVue(options) {
     },
     transform(code, id) {
       if (!filter(id) || id.includes('__whyframe-')) return
-      if (!code.includes('<iframe')) return
+      if (
+        !code.includes('<iframe') &&
+        componentNames.every((n) => !code.includes(`<${n}`))
+      )
+        return
+
+      const isProxyMode = componentPaths.includes(id)
 
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -65,20 +74,34 @@ export function whyframeVue(options) {
       transform(ast, {
         nodeTransforms: [
           (node) => {
-            if (
+            const isIframeElement =
               node.tag === 'iframe' &&
-              node.props.find((a) => a.name === 'data-why') &&
-              node.children.length > 0
-            ) {
+              node.props.find((a) => a.name === 'data-why')
+
+            if (isProxyMode) {
+              // proxy mode only process iframe elements
+              if (isIframeElement) {
+                const attrs = api.getProxyIframeAttrs()
+                s.appendLeft(
+                  node.loc.start.offset + `<iframe`.length,
+                  stringifyAttrs(attrs)
+                )
+              }
+              return
+            }
+
+            const isIframeComponent = componentNames.includes(node.tag)
+
+            if (isIframeElement || isIframeComponent) {
               // extract iframe html
-              const iframeContentStart = node.children[0].loc.start.offset
-              const iframeContentEnd =
-                node.children[node.children.length - 1].loc.end.offset
-              const iframeContent = code.slice(
-                iframeContentStart,
-                iframeContentEnd
-              )
-              s.remove(iframeContentStart, iframeContentEnd)
+              let iframeContent = ''
+              if (node.children.length > 0) {
+                const start = node.children[0].loc.start.offset
+                const end =
+                  node.children[node.children.length - 1].loc.end.offset
+                iframeContent = code.slice(start, end)
+                s.remove(start, end)
+              }
 
               // derive final hash per iframe
               const finalHash = api.getHash(baseHash + iframeContent)
@@ -108,17 +131,24 @@ export function createApp(el) {
               )
 
               // inject template props
+              const templatePropName = isIframeComponent
+                ? 'whyTemplate'
+                : 'data-why-template'
               const templateName = node.props.find(
-                (a) => a.name === 'data-why-template'
+                (a) => a.name === templatePropName
               )?.value.content
-              const iframeAttrs = api.getIframeAttrs(
+              const attrs = api.getMainIframeAttrs(
                 entryId,
                 finalHash,
-                templateName
+                templateName,
+                isIframeComponent
               )
+              const injectOffset = isIframeComponent
+                ? 1 + node.tag.length
+                : `<iframe`.length
               s.appendLeft(
-                node.loc.start.offset + `<iframe`.length,
-                iframeAttrs
+                node.loc.start.offset + injectOffset,
+                stringifyAttrs(attrs)
               )
             }
           }
@@ -135,4 +165,19 @@ export function createApp(el) {
   }
 
   return plugin
+}
+
+/**
+ * @param {import('@whyframe/core').Attr[]} attrs
+ */
+function stringifyAttrs(attrs) {
+  let str = ''
+  for (const attr of attrs) {
+    if (attr.type === 'static') {
+      str += ` ${attr.name}="${attr.value}"`
+    } else {
+      str += ` :${attr.name}="$attrs.${attr.value} || $props.${attr.value}"`
+    }
+  }
+  return str
 }

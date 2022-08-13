@@ -12,7 +12,9 @@ export default defineConfig({
         basic: '/frames/basic/index.html'
       }
     }),
-    whyframeVue(),
+    whyframeVue({
+      components: [{ name: 'Story', path: './src/Story.vue' }]
+    }),
     vue()
   ],
   build: {
