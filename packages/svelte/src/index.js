@@ -131,19 +131,6 @@ export function createApp(el) {
         }
       })
 
-      if (isProxyMode) {
-        if (ast.instance) {
-          const start = ast.instance.content.start
-          const code = api
-            .getProxyPropNames()
-            .map((n) => `export let ${n} = undefined;`)
-            .join('')
-          s.prependRight(start, code)
-        } else {
-          s.prepend(`<script>${code}</script>`)
-        }
-      }
-
       if (s.hasChanged()) {
         return {
           code: s.toString(),
@@ -176,7 +163,7 @@ function stringifyAttrs(attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}="${attr.value}"`
     } else {
-      str += ` ${attr.name}={${attr.value}}`
+      str += ` ${attr.name}={$$props.${attr.value}}`
     }
   }
   return str
