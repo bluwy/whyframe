@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { createApp } from 'whyframe:app-basic'
+import { createApp } from 'whyframe:app'
 
 const el = ref()
 

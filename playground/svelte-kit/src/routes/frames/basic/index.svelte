@@ -1,5 +1,5 @@
 <script>
-  import { createApp } from 'whyframe:app-basic'
+  import { createApp } from 'whyframe:app'
   import './style.css'
 
   /**

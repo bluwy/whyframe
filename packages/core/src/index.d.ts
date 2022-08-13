@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 
-declare module 'whyframe:app-*' {
+declare module 'whyframe:app' {
   export const createApp: (el: HTMLElement) => void
 }
 
@@ -19,7 +19,7 @@ export interface Options {
    * entrypoint of your app. The only thing to make sure is that you call
    * this somewhere in the html's script:
    * ```ts
-   * import { createApp } from 'whyframe:app-basic'
+   * import { createApp } from 'whyframe:app'
    * // ...do something...
    * // finally mount the app to a dom element
    * createApp(document.getElementById('app'))
@@ -32,7 +32,7 @@ export interface Api {
   /**
    * @internal
    */
-  _getEntryIds: (templateName?: string) => string
+  _getHashToEntryIds: () => Map<string, string>
   /**
    * Return an 8 character hash safe to use in urls and ids
    */

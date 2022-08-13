@@ -1,3 +1,3 @@
-import { createApp } from 'whyframe:app-basic'
+import { createApp } from 'whyframe:app'
 
 createApp(document.getElementById('app'))

@@ -25,7 +25,7 @@ const templateDefaultHtml = `\
   <body>
     <div id="app"></div>
     <script type="module">
-      import { createApp } from 'whyframe:app-default'
+      import { createApp } from 'whyframe:app'
       createApp(document.getElementById('app'))
     </script>
   </body>

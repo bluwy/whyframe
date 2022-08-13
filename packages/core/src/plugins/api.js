@@ -17,10 +17,9 @@ export function apiPlugin(options) {
   /** @type {boolean} */
   let isBuild
 
-  // template url to record of hash to id, used for final import map
-  // generation of `whyframe:app-${templateName}`
-  /** @type {Map<string, Record<string, string>>} */
-  const templateUrlToEntryIds = new Map()
+  // used for final import map  generation
+  /** @type {Map<string, string>} */
+  const hashToEntryIds = new Map()
 
   return {
     name: 'whyframe:api',
@@ -29,10 +28,8 @@ export function apiPlugin(options) {
     },
     /** @type {import('..').Api} */
     api: {
-      _getEntryIds(templateName) {
-        const templateUrl =
-          options?.template?.[templateName || 'default'] || templateDefaultId
-        return templateUrlToEntryIds.get(templateUrl) || {}
+      _getHashToEntryIds() {
+        return hashToEntryIds
       },
       getHash(text) {
         return createHash('sha256').update(text).digest('hex').substring(0, 8)
@@ -40,18 +37,14 @@ export function apiPlugin(options) {
       getMainIframeAttrs(entryId, hash, templateName, isComponent) {
         /** @type {import('..').Attr[]} */
         const attrs = []
-        const templateUrl =
-          options?.template?.[templateName || 'default'] || templateDefaultId
         attrs.push({
           type: 'static',
           name: isComponent ? 'whyframeSrc' : 'src',
-          value: templateUrl
+          value:
+            options?.template?.[templateName || 'default'] || templateDefaultId
         })
         if (isBuild) {
-          if (!templateUrlToEntryIds.has(templateUrl)) {
-            templateUrlToEntryIds.set(templateUrl, {})
-          }
-          templateUrlToEntryIds.get(templateUrl)[hash] = entryId
+          hashToEntryIds.set(hash, entryId)
           attrs.push({
             type: 'static',
             name: isComponent ? 'whyframeAppId' : 'data-whyframe-app-id',

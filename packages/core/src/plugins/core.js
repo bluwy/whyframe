@@ -37,24 +37,24 @@ export function corePlugin(options) {
       }
     },
     resolveId(id) {
-      if (id.startsWith('whyframe:app')) {
-        return '\0' + id
+      if (id === 'whyframe:app') {
+        return '\0whyframe:app'
+      }
+      if (id === 'whyframe:build-data') {
+        return '\0whyframe:build-data'
       }
     },
     async load(id) {
-      if (id.startsWith('\0whyframe:app')) {
-        // use simplified implementation in dev
-        if (!isBuild) return devCode
-
-        const templateName = id.slice('\0whyframe:app-'.length)
-
+      if (id === '\0whyframe:app') {
+        return isBuild ? buildCode : devCode
+      }
+      if (id === '\0whyframe:build-data') {
         // wait for all modules loaded before getting the entry ids
-        // related to this template
-        // NOTE: sharing this between templates doesn't seem to wait long enough
         const seen = new Set()
         let modulesToWait = []
         do {
           modulesToWait = []
+          console.log(this.getModuleIds())
           for (const id of this.getModuleIds()) {
             if (seen.has(id)) continue
             seen.add(id)
@@ -68,14 +68,14 @@ export function corePlugin(options) {
         } while (modulesToWait.length > 0)
 
         // generate hash to import map
-        const hashToId = api._getEntryIds(templateName)
+        const hashToId = api._getHashToEntryIds()
+        console.log(hashToId)
         let final = ''
-        for (const [hash, id] of Object.entries(hashToId)) {
+        for (const [hash, id] of hashToId) {
           final += `"${hash}": () => import("${id}"), `
         }
-        final = `{${final}}`
-
-        return buildCode.replace('__whyframe_hash_to_import_map__', final)
+        console.log(final)
+        return `export default {${final}}`
       }
     }
   }
@@ -90,7 +90,7 @@ export async function createApp(el) {
 }`
 
 const buildCode = `\
-const hashToImportMap = __whyframe_hash_to_import_map__
+import hashToImportMap from 'whyframe:build-data'
 export async function createApp(el) {
   const hash = window.frameElement.dataset.whyframeAppId
   const importApp = hashToImportMap[hash]
