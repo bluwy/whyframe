@@ -13,6 +13,8 @@ export default defineConfig({
         basic: '/frames/basic'
       }
     }),
-    whyframeSvelte()
+    whyframeSvelte({
+      components: [{ name: 'Story', path: './src/lib/Story.svelte' }]
+    })
   ]
 })

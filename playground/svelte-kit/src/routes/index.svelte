@@ -1,5 +1,6 @@
 <script>
   import Counter from '$lib/Counter.svelte'
+  import Story from '$lib/Story.svelte'
 
   const max = 10
 
@@ -21,3 +22,13 @@
   <p>Do not go over {max}</p>
   <Counter {max} on:max={warn} />
 </iframe>
+
+<Story title="Foo">
+  <p>Click to increment!</p>
+  <Counter />
+</Story>
+
+ <Story whyTemplate="basic" title="Bar">
+  <p>Do not go over {max}</p>
+  <Counter {max} on:max={warn} />
+</Story>
