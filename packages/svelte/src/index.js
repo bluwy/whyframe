@@ -13,6 +13,9 @@ export function whyframeSvelte(options) {
   let ctx
 
   const filter = createFilter(options?.include || /\.svelte$/, options?.exclude)
+  const componentNames = options?.components?.map((c) => c.name) ?? []
+  const componentPaths =
+    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -30,7 +33,13 @@ export function whyframeSvelte(options) {
     },
     transform(code, id) {
       if (!filter(id) || id.includes('__whyframe-')) return
-      if (!code.includes('<iframe')) return
+      if (
+        !code.includes('<iframe') &&
+        componentNames.every((n) => !code.includes(`<${n}`))
+      )
+        return
+
+      const isProxyMode = componentPaths.includes(id)
 
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -49,20 +58,34 @@ export function whyframeSvelte(options) {
 
       walk(ast.html, {
         enter(node) {
-          if (
+          const isIframeElement =
             node.type === 'Element' &&
             node.name === 'iframe' &&
-            node.attributes.find((a) => a.name === 'data-why') &&
-            node.children.length > 0
-          ) {
+            node.attributes.find((a) => a.name === 'data-why')
+
+          if (isProxyMode) {
+            // proxy mode only process iframe elements
+            if (isIframeElement) {
+              const attrs = api.getProxyIframeAttrs()
+              s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
+              this.skip()
+            }
+            return
+          }
+
+          const isIframeComponent =
+            node.type === 'InlineComponent' &&
+            componentNames.includes(node.name)
+
+          if (isIframeElement || isIframeComponent) {
             // extract iframe html
-            const iframeContentStart = node.children[0].start
-            const iframeContentEnd = node.children[node.children.length - 1].end
-            const iframeContent = code.slice(
-              iframeContentStart,
-              iframeContentEnd
-            )
-            s.remove(iframeContentStart, iframeContentEnd)
+            let iframeContent = ''
+            if (node.children.length > 0) {
+              const start = node.children[0].start
+              const end = node.children[node.children.length - 1].end
+              iframeContent = code.slice(start, end)
+              s.remove(start, end)
+            }
 
             // derive final hash per iframe
             const finalHash = api.getHash(baseHash + iframeContent)
@@ -91,18 +114,46 @@ export function createApp(el) {
             )
 
             // inject template props
+            const templatePropName = isIframeComponent
+              ? 'whyTemplate'
+              : 'data-why-template'
             const templateName = node.attributes
-              .find((a) => a.name === 'data-why-template')
+              .find((a) => a.name === templatePropName)
               ?.value.find((v) => v.type === 'Text')?.data
-            const iframeAttrs = api.getIframeAttrs(
+            const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
-              templateName
+              templateName,
+              isIframeComponent
             )
-            s.appendLeft(node.start + `<iframe`.length, iframeAttrs)
+            s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
           }
         }
       })
+
+      if (isProxyMode) {
+        if (ast.instance) {
+          const start = ast.instance.content.start
+          s.prependRight(
+            start,
+            `\
+export let whyframeSrc = null
+export let whyframeHash = null
+export let whyframeUrl = null
+`
+          )
+        } else {
+          s.prepend(
+            `\
+<script>
+  export let whyframeSrc = null
+  export let whyframeHash = null
+  export let whyframeUrl = null
+</script>
+`
+          )
+        }
+      }
 
       if (s.hasChanged()) {
         return {
@@ -125,4 +176,19 @@ export function createApp(el) {
   }
 
   return plugin
+}
+
+/**
+ * @param {import('@whyframe/core').Attr[]} attrs
+ */
+function stringifyAttrs(attrs) {
+  let str = ''
+  for (const attr of attrs) {
+    if (attr.type === 'static') {
+      str += ` ${attr.name}="${attr.value}"`
+    } else {
+      str += ` ${attr.name}={${attr.value}}`
+    }
+  }
+  return str
 }

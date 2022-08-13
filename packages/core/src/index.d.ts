@@ -6,6 +6,12 @@ declare module 'whyframe:app-*' {
 
 type LoadResult = Awaited<ReturnType<NonNullable<Plugin['load']>>>
 
+export interface Attr {
+  type: 'static' | 'dynamic'
+  name: string
+  value: string
+}
+
 export interface Options {
   /**
    * A map of template names to actual html in the filesystem. These html
@@ -31,14 +37,13 @@ export interface Api {
    * Return an 8 character hash safe to use in urls and ids
    */
   getHash: (text: string) => string
-  /**
-   * Get inline code for the iframe attrs as string to directly inject.
-   */
-  getIframeAttrs: (
+  getMainIframeAttrs: (
     entryId: string,
     hash: string,
-    templateName: string
-  ) => string
+    templateName: string,
+    isComponent: boolean,
+  ) => Attr[]
+  getProxyIframeAttrs: () => Attr[]
   /**
    * Create a whyframe entry that's imported by the iframe load handler.
    * This entry must conform to this export dts:

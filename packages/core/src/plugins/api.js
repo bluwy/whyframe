@@ -37,6 +37,54 @@ export function apiPlugin(options) {
       getHash(text) {
         return createHash('sha256').update(text).digest('hex').substring(0, 8)
       },
+      getMainIframeAttrs(entryId, hash, templateName, isComponent) {
+        /** @type {import('..').Attr[]} */
+        const attrs = []
+        const templateUrl =
+          options?.template?.[templateName || 'default'] || templateDefaultId
+        attrs.push({
+          type: 'static',
+          name: isComponent ? 'whyframeSrc' : 'src',
+          value: templateUrl
+        })
+        if (isBuild) {
+          if (!templateUrlToEntryIds.has(templateUrl)) {
+            templateUrlToEntryIds.set(templateUrl, {})
+          }
+          templateUrlToEntryIds.get(templateUrl)[hash] = entryId
+          attrs.push({
+            type: 'static',
+            name: isComponent ? 'whyframeHash' : 'data-whyframe-app-hash',
+            value: hash
+          })
+        } else {
+          attrs.push({
+            type: 'static',
+            name: isComponent ? 'whyframeUrl' : 'data-whyframe-app-url',
+            value: `/@id/__${entryId}`
+          })
+        }
+        return attrs
+      },
+      getProxyIframeAttrs() {
+        /** @type {import('..').Attr[]} */
+        const attrs = []
+        attrs.push({ type: 'dynamic', name: 'src', value: 'whyframeSrc' })
+        if (isBuild) {
+          attrs.push({
+            type: 'dynamic',
+            name: 'data-whyframe-app-hash',
+            value: 'whyframeHash'
+          })
+        } else {
+          attrs.push({
+            type: 'dynamic',
+            name: 'data-whyframe-app-url',
+            value: 'whyframeUrl'
+          })
+        }
+        return attrs
+      },
       getIframeAttrs(entryId, hash, templateName) {
         templateName ||= 'default'
 
