@@ -37,14 +37,23 @@ export interface Api {
    * Return an 8 character hash safe to use in urls and ids
    */
   getHash: (text: string) => string
+  /**
+   * Get the main iframe attrs, including `<iframe>` and custom `<Story>`.
+   * This should be differentiated via `isComponent`.
+   */
   getMainIframeAttrs: (
     entryId: string,
     hash: string,
     templateName: string,
-    isComponent: boolean,
+    isComponent: boolean
   ) => Attr[]
+  /**
+   * If you're using a custom `<Story>` component, the `<iframe>` within it
+   * needs to be processed differently. In short, it needs to received props
+   * of `<Story>` and pass it to the `<iframe>` (aka proxying). This will generate
+   * the attrs required for this interaction.
+   */
   getProxyIframeAttrs: () => Attr[]
-  getProxyPropNames: () => string[]
   /**
    * Create a whyframe entry that's imported by the iframe load handler.
    * This entry must conform to this export dts:

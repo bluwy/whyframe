@@ -77,9 +77,6 @@ export function apiPlugin(options) {
           }
         ]
       },
-      getProxyPropNames() {
-        return ['whyframeSrc', 'whyframeAppId']
-      },
       createEntry(originalId, hash, ext, code) {
         // example: whyframe:entry-123456.jsx
         const entryId = `whyframe:entry-${hash}${ext}`
