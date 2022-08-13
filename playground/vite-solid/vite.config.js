@@ -13,7 +13,8 @@ export default defineConfig({
       }
     }),
     whyframeJsx({
-      framework: 'solid'
+      framework: 'solid',
+      components: [{ name: 'Story', path: './src/Story.jsx', export: 'Story' }]
     }),
     solid()
   ],

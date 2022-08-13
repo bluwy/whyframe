@@ -13,7 +13,8 @@ export default defineConfig({
       }
     }),
     whyframeJsx({
-      framework: 'preact'
+      framework: 'preact',
+      components: [{ name: 'Story', path: './src/Story.jsx', export: 'Story' }]
     }),
     preact()
   ],
