@@ -85,26 +85,8 @@ export function apiPlugin(options) {
         }
         return attrs
       },
-      getIframeAttrs(entryId, hash, templateName) {
-        templateName ||= 'default'
-
-        let attrsStr = ''
-
-        const templateUrl =
-          options?.template?.[templateName] || templateDefaultId
-        attrsStr += ` src="${templateUrl}"`
-
-        if (isBuild) {
-          if (!templateUrlToEntryIds.has(templateUrl)) {
-            templateUrlToEntryIds.set(templateUrl, {})
-          }
-          templateUrlToEntryIds.get(templateUrl)[hash] = entryId
-          attrsStr += ` data-whyframe-app-hash="${hash}"`
-        } else {
-          attrsStr += ` data-whyframe-app-url="/@id/__${entryId}"`
-        }
-
-        return attrsStr
+      getProxyPropNames() {
+        return ['whyframeSrc', 'whyframeHash', 'whyframeUrl']
       },
       createEntry(originalId, hash, ext, code) {
         // example: whyframe:entry-123456.jsx

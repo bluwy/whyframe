@@ -134,24 +134,13 @@ export function createApp(el) {
       if (isProxyMode) {
         if (ast.instance) {
           const start = ast.instance.content.start
-          s.prependRight(
-            start,
-            `\
-export let whyframeSrc = null
-export let whyframeHash = null
-export let whyframeUrl = null
-`
-          )
+          const code = api
+            .getProxyPropNames()
+            .map((n) => `export let ${n} = undefined;`)
+            .join('')
+          s.prependRight(start, code)
         } else {
-          s.prepend(
-            `\
-<script>
-  export let whyframeSrc = null
-  export let whyframeHash = null
-  export let whyframeUrl = null
-</script>
-`
-          )
+          s.prepend(`<script>${code}</script>`)
         }
       }
 

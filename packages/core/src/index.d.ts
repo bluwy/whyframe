@@ -44,6 +44,7 @@ export interface Api {
     isComponent: boolean,
   ) => Attr[]
   getProxyIframeAttrs: () => Attr[]
+  getProxyPropNames: () => string[]
   /**
    * Create a whyframe entry that's imported by the iframe load handler.
    * This entry must conform to this export dts:
