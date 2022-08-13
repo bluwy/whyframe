@@ -13,7 +13,8 @@ export default defineConfig({
       }
     }),
     whyframeVue({
-      include: /\.(?:vue|md)$/
+      include: /\.(?:vue|md)$/,
+      components: [{ name: 'Story', path: './components/Story.vue' }]
     })
   ],
   ssr: {

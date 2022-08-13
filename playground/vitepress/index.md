@@ -1,5 +1,6 @@
 <script setup>
 import Counter from './components/Counter.vue'
+import Story from './components/Story.vue'
 
 const max = 10
 
@@ -21,3 +22,13 @@ function warn() {
   <p>Do not go over {{ max }}</p>
   <Counter :max="max" @max="warn" />
 </iframe>
+
+<Story title="Foo">
+  <p>Click to increment!</p>
+  <Counter />
+</Story>
+
+<Story whyTemplate="basic" title="Bar">
+  <p>Do not go over {{ max }}</p>
+  <Counter :max="max" @max="warn" />
+</Story>
