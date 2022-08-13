@@ -18,6 +18,9 @@ export function whyframeAstro(options) {
   let api
 
   const filter = createFilter(options?.include || /\.astro$/, options?.exclude)
+  const componentNames = options?.components?.map((c) => c.name) ?? []
+  const componentPaths =
+    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -43,7 +46,13 @@ export function whyframeAstro(options) {
     },
     async transform(code, id) {
       if (!filter(id) || id.includes('__whyframe-')) return
-      if (!code.includes('<iframe')) return
+      if (
+        !code.includes('<iframe') &&
+        componentNames.every((n) => !code.includes(`<${n}`))
+      )
+        return
+
+      const isProxyMode = componentPaths.includes(id)
 
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -78,22 +87,40 @@ export function whyframeAstro(options) {
 
       walk(ast, {
         enter(node) {
-          if (
+          const isIframeElement =
             node.type === 'element' &&
             node.name === 'iframe' &&
-            node.attributes.find((a) => a.name === 'data-why') &&
-            node.children.length > 0
-          ) {
+            node.attributes.find((a) => a.name === 'data-why')
+
+          if (isProxyMode) {
+            // proxy mode only process iframe elements
+            if (isIframeElement) {
+              const attrs = api.getProxyIframeAttrs()
+              s.appendLeft(
+                node.position.start.offset + `<iframe`.length,
+                stringifyAttrs(attrs)
+              )
+              this.skip()
+            }
+            return
+          }
+
+          const isIframeComponent =
+            node.type === 'component' && componentNames.includes(node.name)
+
+          if (isIframeElement || isIframeComponent) {
             // .astro requires a value for data-why to render as a specific framework
+            const whyPropName = isIframeComponent ? 'why' : 'data-why'
+
             /** @type {import('.').Options['defaultFramework']} */
             const framework =
-              node.attributes.find((a) => a.name === 'data-why').value ||
+              node.attributes.find((a) => a.name === whyPropName)?.value ||
               options?.defaultFramework
 
             if (!framework) {
               // TODO: generate frame
               console.warn(
-                `<iframe data-why> in .astro files must specify a value for data-why, e.g. <iframe data-why="svelte">. ` +
+                `<${node.name} ${whyPropName}> in .astro files must specify a value for ${whyPropName}, e.g. <${node.name} ${whyPropName}="svelte">. ` +
                   `Supported frameworks include ${knownFrameworks
                     .map((f) => `"${f}"`)
                     .join(', ')}.`
@@ -103,7 +130,7 @@ export function whyframeAstro(options) {
             if (!knownFrameworks.includes(framework)) {
               // TODO: generate frame
               console.warn(
-                `<iframe data-why="${framework}"> isn't supported. ` +
+                `<${node.name} ${whyPropName}="${framework}"> isn't supported. ` +
                   `Supported frameworks include ${knownFrameworks
                     .map((f) => `"${f}"`)
                     .join(', ')}.`
@@ -112,13 +139,14 @@ export function whyframeAstro(options) {
             }
 
             // extract iframe html
-            const iframeContentStart = node.children[0].position.start.offset
-            const iframeContentEnd = node.position.end.offset - `</`.length // astro position ends until </
-            const iframeContent = code.slice(
-              iframeContentStart,
-              iframeContentEnd
-            )
-            s.remove(iframeContentStart, iframeContentEnd)
+            // TODO: Astro to framework generation
+            let iframeContent = ''
+            if (node.children.length > 0) {
+              const start = node.children[0].position.start.offset
+              const end = node.position.end.offset - `</`.length // astro position ends until </
+              iframeContent = code.slice(start, end)
+              s.remove(start, end)
+            }
 
             // derive final hash per iframe
             const finalHash = api.getHash(baseHash + iframeContent)
@@ -142,17 +170,24 @@ export function whyframeAstro(options) {
             )
 
             // inject template props
+            const templatePropName = isIframeComponent
+              ? 'whyTemplate'
+              : 'data-why-template'
             const templateName = node.attributes.find(
-              (a) => a.name === 'data-why-template'
+              (a) => a.name === templatePropName
             )?.value
-            const iframeAttrs = api.getIframeAttrs(
+            const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
-              templateName
+              templateName,
+              isIframeComponent
             )
+            const injectOffset = isIframeComponent
+              ? 1 + node.name.length
+              : `<iframe`.length
             s.appendLeft(
-              node.position.start.offset + `<iframe`.length,
-              iframeAttrs
+              node.position.start.offset + injectOffset,
+              stringifyAttrs(attrs)
             )
           }
         }
@@ -241,7 +276,7 @@ function createEntryComponent(contextCode, iframeHtmlCode, framework) {
     case 'svelte':
       return `\
 <script>
-    ${contextCode}
+  ${contextCode}
 </script>
 
 ${iframeHtmlCode}`
@@ -281,3 +316,18 @@ const Astro = {
   glob: () => [],
   resolve: (s) => s
 }`
+
+/**
+ * @param {import('@whyframe/core').Attr[]} attrs
+ */
+function stringifyAttrs(attrs) {
+  let str = ''
+  for (const attr of attrs) {
+    if (attr.type === 'static') {
+      str += ` ${attr.name}="${attr.value}"`
+    } else {
+      str += ` ${attr.name}={Astro.props.${attr.value}}`
+    }
+  }
+  return str
+}

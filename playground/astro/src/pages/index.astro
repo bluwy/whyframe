@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Story from '../components/Story.astro'
 import CounterSvelte from '../components/Counter.svelte'
 import CounterVue from '../components/Counter.vue'
 import { Counter as CounterSolid } from '../components/CounterSolid.jsx'
@@ -51,4 +52,14 @@ const max = 10
   <iframe data-why="react" title="World" data-why-template="basic">
     <p>Do not go over {max}</p> <CounterReact max={max} />
   </iframe>
+
+  <Story title="Hello">
+    <p>Click to increment!</p>
+    <CounterSvelte />
+  </Story>
+
+  <Story title="World" whyTemplate="basic">
+    <p>Do not go over {max}</p>
+    <CounterSvelte {max} />
+  </Story>
 </Layout>

@@ -11,8 +11,6 @@ const emit = defineEmits(['max'])
 
 const count = ref(0)
 
-console.log(props)
-
 const increment = () => {
   if (props.max !== 0 && count.value >= props.max) {
     emit('max')

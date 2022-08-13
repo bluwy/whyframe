@@ -22,7 +22,8 @@ export default defineConfig({
         }
       }),
       whyframeAstro({
-        defaultFramework: 'svelte'
+        defaultFramework: 'svelte',
+        components: [{name: 'Story', path: './src/components/Story.astro'}]
       }),
       whyframeSvelte(),
       whyframeVue(),
