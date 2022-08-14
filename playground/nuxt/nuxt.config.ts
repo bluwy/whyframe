@@ -14,7 +14,9 @@ export default defineNuxtConfig({
           basic: '/frames/basic'
         }
       }),
-      whyframeVue()
+      whyframeVue({
+        components: [{ name: 'Story', path: './components/Story.vue' }]
+      })
     ]
   }
 })
