@@ -1,5 +1,5 @@
 {
-	"name": "@whyframe/playground-astro",
+  "name": "@whyframe/docs",
 	"private": true,
 	"type": "module",
 	"scripts": {

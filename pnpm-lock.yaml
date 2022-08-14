@@ -18,6 +18,47 @@ importers:
       prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
       svelte: 3.49.0
 
+  docs:
+    specifiers:
+      '@astrojs/preact': ^1.0.2
+      '@astrojs/react': ^1.0.0
+      '@astrojs/solid-js': ^1.0.0
+      '@astrojs/svelte': ^1.0.0
+      '@astrojs/vue': ^1.0.0
+      '@whyframe/astro': workspace:*
+      '@whyframe/core': workspace:*
+      '@whyframe/jsx': workspace:*
+      '@whyframe/svelte': workspace:*
+      '@whyframe/vue': workspace:*
+      astro: ^1.0.4
+      preact: ^10.10.2
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      solid-js: ^1.4.8
+      svelte: ^3.49.0
+      vite-plugin-inspect: ^0.6.0
+      vue: ^3.2.37
+    dependencies:
+      preact: 10.10.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      solid-js: 1.4.8
+      vue: 3.2.37
+    devDependencies:
+      '@astrojs/preact': 1.0.2_preact@10.10.2
+      '@astrojs/react': 1.0.0_biqbaboplfbrettd7655fr4n2y
+      '@astrojs/solid-js': 1.0.0_solid-js@1.4.8
+      '@astrojs/svelte': 1.0.0_svelte@3.49.0
+      '@astrojs/vue': 1.0.0_vue@3.2.37
+      '@whyframe/astro': link:../packages/astro
+      '@whyframe/core': link:../packages/core
+      '@whyframe/jsx': link:../packages/jsx
+      '@whyframe/svelte': link:../packages/svelte
+      '@whyframe/vue': link:../packages/vue
+      astro: 1.0.5
+      svelte: 3.49.0
+      vite-plugin-inspect: 0.6.0
+
   packages/astro:
     specifiers:
       '@astrojs/compiler': ^0.23.3
@@ -87,11 +128,11 @@ importers:
       '@astrojs/solid-js': ^1.0.0
       '@astrojs/svelte': ^1.0.0
       '@astrojs/vue': ^1.0.0
-      '@whyframe/astro': file:../../packages/astro
-      '@whyframe/core': file:../../packages/core
-      '@whyframe/jsx': file:../../packages/jsx
-      '@whyframe/svelte': file:../../packages/svelte
-      '@whyframe/vue': file:../../packages/vue
+      '@whyframe/astro': workspace:*
+      '@whyframe/core': workspace:*
+      '@whyframe/jsx': workspace:*
+      '@whyframe/svelte': workspace:*
+      '@whyframe/vue': workspace:*
       astro: ^1.0.4
       preact: ^10.10.2
       react: ^18.2.0
@@ -112,27 +153,27 @@ importers:
       '@astrojs/solid-js': 1.0.0_solid-js@1.4.8
       '@astrojs/svelte': 1.0.0_svelte@3.49.0
       '@astrojs/vue': 1.0.0_vue@3.2.37
-      '@whyframe/astro': file:packages/astro_@whyframe+core@0.0.1
-      '@whyframe/core': file:packages/core
-      '@whyframe/jsx': file:packages/jsx_@whyframe+core@0.0.1
-      '@whyframe/svelte': file:packages/svelte_qtgwlmxi5p6gy5gxezt6t6znea
-      '@whyframe/vue': file:packages/vue_@whyframe+core@0.0.1
+      '@whyframe/astro': link:../../packages/astro
+      '@whyframe/core': link:../../packages/core
+      '@whyframe/jsx': link:../../packages/jsx
+      '@whyframe/svelte': link:../../packages/svelte
+      '@whyframe/vue': link:../../packages/vue
       astro: 1.0.5
       svelte: 3.49.0
       vite-plugin-inspect: 0.6.0
 
   playground/nuxt:
     specifiers:
-      '@whyframe/core': file:../../packages/core
-      '@whyframe/vue': file:../../packages/vue
+      '@whyframe/core': workspace:*
+      '@whyframe/vue': workspace:*
       nuxt: 3.0.0-rc.8
       vite-plugin-inspect: ^0.6.0
       vue: ^3.2.37
     dependencies:
       vue: 3.2.37
     devDependencies:
-      '@whyframe/core': file:packages/core
-      '@whyframe/vue': file:packages/vue_@whyframe+core@0.0.1
+      '@whyframe/core': link:../../packages/core
+      '@whyframe/vue': link:../../packages/vue
       nuxt: 3.0.0-rc.8
       vite-plugin-inspect: 0.6.0
 
@@ -7023,6 +7064,9 @@ packages:
     peerDependencies:
       svelte: ^3.24
       typescript: ^4.1.2
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       dedent-js: 1.0.1
       pascal-case: 3.1.2
@@ -8189,82 +8233,4 @@ packages:
 
   /zwitch/2.0.2:
     resolution: {integrity: sha512-JZxotl7SxAJH0j7dN4pxsTV6ZLXoLdGME+PsjkL/DaBrVryK9kTGq06GfKrwcSOqypP+fdXGoCHE36b99fWVoA==}
-    dev: true
-
-  file:packages/astro_@whyframe+core@0.0.1:
-    resolution: {directory: packages/astro, type: directory}
-    id: file:packages/astro
-    name: '@whyframe/astro'
-    version: 0.0.1
-    peerDependencies:
-      '@whyframe/core': workspace:*
-    dependencies:
-      '@astrojs/compiler': 0.23.3
-      '@whyframe/core': file:packages/core
-      estree-walker: 3.0.1
-      magic-string: 0.26.2
-    dev: true
-
-  file:packages/core:
-    resolution: {directory: packages/core, type: directory}
-    name: '@whyframe/core'
-    version: 0.0.1
-    peerDependencies:
-      vite: ^3.0.4
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dev: true
-
-  file:packages/jsx_@whyframe+core@0.0.1:
-    resolution: {directory: packages/jsx, type: directory}
-    id: file:packages/jsx
-    name: '@whyframe/jsx'
-    version: 0.0.1
-    peerDependencies:
-      '@whyframe/core': workspace:*
-      vite: ^3.0.4
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      '@babel/parser': 7.18.11
-      '@whyframe/core': file:packages/core
-      estree-walker: 3.0.1
-      magic-string: 0.26.2
-    dev: true
-
-  file:packages/svelte_qtgwlmxi5p6gy5gxezt6t6znea:
-    resolution: {directory: packages/svelte, type: directory}
-    id: file:packages/svelte
-    name: '@whyframe/svelte'
-    version: 0.0.1
-    peerDependencies:
-      '@whyframe/core': workspace:*
-      svelte: ^3.49.0
-      vite: ^3.0.4
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      '@whyframe/core': file:packages/core
-      magic-string: 0.26.2
-      svelte: 3.49.0
-    dev: true
-
-  file:packages/vue_@whyframe+core@0.0.1:
-    resolution: {directory: packages/vue, type: directory}
-    id: file:packages/vue
-    name: '@whyframe/vue'
-    version: 0.0.1
-    peerDependencies:
-      '@whyframe/core': workspace:*
-      vite: ^3.0.4
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      '@vue/compiler-dom': 3.2.37
-      '@whyframe/core': file:packages/core
-      magic-string: 0.26.2
     dev: true
