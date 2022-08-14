@@ -1,6 +1,9 @@
 <script>
   /** @type {string}*/
   export let title
+
+  // Allow arbitrary props
+  $: $$props
 </script>
 
 <div>
