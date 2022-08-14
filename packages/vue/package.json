@@ -1,6 +1,9 @@
 {
   "name": "@whyframe/vue",
   "private": true,
+  "description": "Vue support for whyframe",
+  "version": "0.0.1",
+  "author": "Bjorn Lu",
   "type": "module",
   "types": "./src/index.d.ts",
   "exports": {
@@ -9,6 +12,20 @@
       "import": "./src/index.js"
     }
   },
+  "funding": "https://bjornlu.com/sponsor",
+  "homepage": "https://whyframe.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluwy/whyframe.git",
+    "directory": "packages/vue"
+  },
+  "bugs": {
+    "url": "https://github.com/bluwy/whyframe/issues"
+  },
+  "keywords": [
+    "whyframe",
+    "vue"
+  ],
   "peerDependencies": {
     "@whyframe/core": "workspace:*",
     "vite": "^3.0.4"

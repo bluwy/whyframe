@@ -1,6 +1,9 @@
 {
   "name": "@whyframe/core",
   "private": true,
+  "description": "Core library for whyframe",
+  "version": "0.0.1",
+  "author": "Bjorn Lu",
   "type": "module",
   "types": "./src/index.d.ts",
   "exports": {
@@ -10,11 +13,28 @@
     },
     "./pluginutils": {
       "types": "./src/pluginutils.d.ts",
-      "node": {
-        "import": "./src/pluginutils.js"
-      }
+      "import": "./src/pluginutils.js"
+    },
+    "./utils": {
+      "types": "./src/utils.d.ts",
+      "import": "./src/utils.js"
     }
   },
+  "funding": "https://bjornlu.com/sponsor",
+  "homepage": "https://whyframe.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluwy/whyframe.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/bluwy/whyframe/issues"
+  },
+  "keywords": [
+    "iframe",
+    "isolation",
+    "vite"
+  ],
   "peerDependencies": {
     "vite": "^3.0.4"
   },
