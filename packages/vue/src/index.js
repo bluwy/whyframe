@@ -2,7 +2,7 @@ import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
-import { hash } from '@whyframe/core/pluginutils'
+import { dedent, hash } from '@whyframe/core/pluginutils'
 
 /**
  * @type {import('.').whyframeVue}
@@ -142,6 +142,7 @@ export function createApp(el) {
                 entryId,
                 finalHash,
                 templateName,
+                dedent(iframeContent),
                 isIframeComponent
               )
               const injectOffset = isIframeComponent
@@ -175,10 +176,34 @@ function stringifyAttrs(attrs) {
   let str = ''
   for (const attr of attrs) {
     if (attr.type === 'static') {
-      str += ` ${attr.name}="${attr.value}"`
+      str += ` ${attr.name}=${JSON.stringify(escape(attr.value))}`
     } else {
       str += ` :${attr.name}="$attrs.${attr.value} || $props.${attr.value}"`
     }
   }
   return str
+}
+
+const ATTR_REGEX = /[&"]/g
+
+// credit: Svelte
+export function escape(value) {
+  const str = String(value)
+
+  const pattern = ATTR_REGEX
+  pattern.lastIndex = 0
+
+  let escaped = ''
+  let last = 0
+
+  while (pattern.test(str)) {
+    const i = pattern.lastIndex - 1
+    const ch = str[i]
+    escaped +=
+      str.substring(last, i) +
+      (ch === '&' ? '&amp;' : ch === '"' ? '&quot;' : '&lt;')
+    last = i + 1
+  }
+
+  return escaped + str.substring(last)
 }

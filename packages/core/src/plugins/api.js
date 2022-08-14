@@ -30,7 +30,7 @@ export function apiPlugin(options) {
       _getHashToEntryIds() {
         return hashToEntryIds
       },
-      getMainIframeAttrs(entryId, hash, templateName, isComponent) {
+      getMainIframeAttrs(entryId, hash, templateName, rawSource, isComponent) {
         /** @type {import('..').Attr[]} */
         const attrs = []
         attrs.push({
@@ -53,6 +53,12 @@ export function apiPlugin(options) {
             value: `/@id/__${entryId}`
           })
         }
+        // TODO: allow disable this to save bundle size?
+        attrs.push({
+          type: 'static',
+          name: isComponent ? 'whyframeRawSource' : 'data-whyframe-raw-source',
+          value: rawSource
+        })
         return attrs
       },
       getProxyIframeAttrs() {
@@ -63,6 +69,11 @@ export function apiPlugin(options) {
             type: 'dynamic',
             name: 'data-whyframe-app-id',
             value: 'whyframeAppId'
+          },
+          {
+            type: 'dynamic',
+            name: 'data-whyframe-raw-source',
+            value: 'whyframeRawSource'
           }
         ]
       },

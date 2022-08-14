@@ -2,7 +2,7 @@ import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, walk } from 'svelte/compiler'
 import MagicString from 'magic-string'
-import { hash } from '@whyframe/core/pluginutils'
+import { dedent, hash } from '@whyframe/core/pluginutils'
 
 /**
  * @type {import('.').whyframeSvelte}
@@ -125,6 +125,7 @@ export function createApp(el) {
               entryId,
               finalHash,
               templateName,
+              dedent(iframeContent),
               isIframeComponent
             )
             const injectOffset = isIframeComponent
@@ -165,7 +166,7 @@ function stringifyAttrs(attrs) {
   let str = ''
   for (const attr of attrs) {
     if (attr.type === 'static') {
-      str += ` ${attr.name}="${attr.value}"`
+      str += ` ${attr.name}=${JSON.stringify(attr.value)}`
     } else {
       str += ` ${attr.name}={$$props.${attr.value}}`
     }
