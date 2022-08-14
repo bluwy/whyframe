@@ -1,12 +1,15 @@
 {
-	"name": "@whyframe/playground-nuxt",
-	"private": true,
-	"type": "module",
+  "name": "@whyframe/playground-nuxt",
+  "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@whyframe/core": "file:../../packages/core",

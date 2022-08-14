@@ -23,7 +23,9 @@
         "@babel/core",
         "@types/react",
         "react",
-        "react-dom"
+        "react-dom",
+        "typescript",
+        "vite"
       ]
     }
   }
