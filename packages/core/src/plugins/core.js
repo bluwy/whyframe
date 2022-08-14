@@ -54,7 +54,6 @@ export function corePlugin(options) {
         let modulesToWait = []
         do {
           modulesToWait = []
-          console.log(this.getModuleIds())
           for (const id of this.getModuleIds()) {
             if (seen.has(id)) continue
             seen.add(id)
@@ -69,12 +68,10 @@ export function corePlugin(options) {
 
         // generate hash to import map
         const hashToId = api._getHashToEntryIds()
-        console.log(hashToId)
         let final = ''
         for (const [hash, id] of hashToId) {
           final += `"${hash}": () => import("${id}"), `
         }
-        console.log(final)
         return `export default {${final}}`
       }
     }
@@ -83,7 +80,7 @@ export function corePlugin(options) {
 
 const devCode = `\
 export async function createApp(el) {
-  const url = window.frameElement.dataset.whyframeAppId
+  const url = window.frameElement.dataset.whyAppId
   const data = await import(/* @vite-ignore */ url)
   const result = await data.createApp(el)
   return result
@@ -92,7 +89,7 @@ export async function createApp(el) {
 const buildCode = `\
 import hashToImportMap from 'whyframe:build-data'
 export async function createApp(el) {
-  const hash = window.frameElement.dataset.whyframeAppId
+  const hash = window.frameElement.dataset.whyAppId
   const importApp = hashToImportMap[hash]
   if (!importApp) throw new Error('no app found')
   const data = await importApp()

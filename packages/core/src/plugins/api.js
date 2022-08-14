@@ -43,20 +43,20 @@ export function apiPlugin(options) {
           hashToEntryIds.set(hash, entryId)
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeAppId' : 'data-whyframe-app-id',
+            name: isComponent ? 'whyframeAppId' : 'data-why-app-id',
             value: hash
           })
         } else {
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeAppId' : 'data-whyframe-app-id',
+            name: isComponent ? 'whyframeAppId' : 'data-why-app-id',
             value: `/@id/__${entryId}`
           })
         }
         // TODO: allow disable this to save bundle size?
         attrs.push({
           type: 'static',
-          name: isComponent ? 'whyframeRawSource' : 'data-whyframe-raw-source',
+          name: isComponent ? 'whyframeRawSource' : 'data-why-raw-source',
           value: rawSource
         })
         return attrs
@@ -67,12 +67,12 @@ export function apiPlugin(options) {
           { type: 'dynamic', name: 'src', value: 'whyframeSrc' },
           {
             type: 'dynamic',
-            name: 'data-whyframe-app-id',
+            name: 'data-why-app-id',
             value: 'whyframeAppId'
           },
           {
             type: 'dynamic',
-            name: 'data-whyframe-raw-source',
+            name: 'data-why-raw-source',
             value: 'whyframeRawSource'
           }
         ]

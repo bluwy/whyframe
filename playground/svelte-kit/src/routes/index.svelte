@@ -28,7 +28,7 @@
   <Counter />
 </Story>
 
- <Story whyTemplate="basic" title="Bar">
+<Story whyTemplate="basic" title="Bar">
   <p>Do not go over {max}</p>
   <Counter {max} on:max={warn} />
 </Story>
