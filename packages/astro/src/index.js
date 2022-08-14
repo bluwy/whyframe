@@ -3,6 +3,7 @@ import { createFilter } from 'vite'
 import { parse } from '@astrojs/compiler'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
+import { hash } from '@whyframe/core/pluginutils'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
 
@@ -80,7 +81,7 @@ export function whyframeAstro(options) {
       }
 
       // generate initial hash
-      const baseHash = api.getHash(frontmatterCode)
+      const baseHash = hash(frontmatterCode)
 
       // shim Astro global
       frontmatterCode = shimAstro + '\n\n' + frontmatterCode
@@ -149,7 +150,7 @@ export function whyframeAstro(options) {
             }
 
             // derive final hash per iframe
-            const finalHash = api.getHash(baseHash + iframeContent)
+            const finalHash = hash(baseHash + iframeContent)
 
             const entryComponentId = api.createEntryComponent(
               id,

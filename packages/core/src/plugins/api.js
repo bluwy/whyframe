@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { templateDefaultId } from './template.js'
 
@@ -30,9 +29,6 @@ export function apiPlugin(options) {
     api: {
       _getHashToEntryIds() {
         return hashToEntryIds
-      },
-      getHash(text) {
-        return createHash('sha256').update(text).digest('hex').substring(0, 8)
       },
       getMainIframeAttrs(entryId, hash, templateName, isComponent) {
         /** @type {import('..').Attr[]} */

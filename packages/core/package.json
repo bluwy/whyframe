@@ -7,6 +7,12 @@
     ".": {
       "types": "./src/index.d.ts",
       "import": "./src/index.js"
+    },
+    "./pluginutils": {
+      "types": "./src/pluginutils.d.ts",
+      "node": {
+        "import": "./src/pluginutils.js"
+      }
     }
   },
   "peerDependencies": {

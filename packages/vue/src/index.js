@@ -2,6 +2,7 @@ import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, transform } from '@vue/compiler-dom'
 import MagicString from 'magic-string'
+import { hash } from '@whyframe/core/pluginutils'
 
 /**
  * @type {import('.').whyframeVue}
@@ -69,7 +70,7 @@ export function whyframeVue(options) {
         .join('\n')
 
       // Generate initial hash
-      const baseHash = api.getHash(notTemplateCode)
+      const baseHash = hash(notTemplateCode)
 
       transform(ast, {
         nodeTransforms: [
@@ -104,7 +105,7 @@ export function whyframeVue(options) {
               }
 
               // derive final hash per iframe
-              const finalHash = api.getHash(baseHash + iframeContent)
+              const finalHash = hash(baseHash + iframeContent)
 
               const entryComponentId = api.createEntryComponent(
                 id,

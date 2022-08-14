@@ -2,6 +2,7 @@ import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse, walk } from 'svelte/compiler'
 import MagicString from 'magic-string'
+import { hash } from '@whyframe/core/pluginutils'
 
 /**
  * @type {import('.').whyframeSvelte}
@@ -54,7 +55,7 @@ export function whyframeSvelte(options) {
       const cssCode = ast.css ? code.slice(ast.css.start, ast.css.end) : ''
 
       // Generate initial hash
-      const baseHash = api.getHash(scriptCode + moduleScriptCode + cssCode)
+      const baseHash = hash(scriptCode + moduleScriptCode + cssCode)
 
       walk(ast.html, {
         enter(node) {
@@ -88,7 +89,7 @@ export function whyframeSvelte(options) {
             }
 
             // derive final hash per iframe
-            const finalHash = api.getHash(baseHash + iframeContent)
+            const finalHash = hash(baseHash + iframeContent)
 
             const entryComponentId = api.createEntryComponent(
               id,

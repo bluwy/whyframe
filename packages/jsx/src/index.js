@@ -3,6 +3,7 @@ import { createFilter } from 'vite'
 import { parse } from '@babel/parser'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
+import { hash } from '@whyframe/core/pluginutils'
 
 /**
  * @type {import('.').whyframeJsx}
@@ -180,7 +181,7 @@ export function whyframeJsx(options) {
             // ====== end: extract outer code
 
             // derive final hash per iframe
-            const finalHash = api.getHash(
+            const finalHash = hash(
               topCode + bottomCode + fnCode + iframeContent
             )
 
