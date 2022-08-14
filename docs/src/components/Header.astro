@@ -1,0 +1,84 @@
+---
+import logo from '@/assets/logo.svg'
+import { appName, headerLinks } from '@/utils/constants';
+
+const isHero = Astro.props.isHero
+---
+
+<header>
+  <div class="wrapper docs-container">
+    {!isHero && (
+    <div class="logo">
+      <img src={logo} alt="logo" height="40">
+      <p>{appName}</p>
+    </div>
+    )}
+  </div>
+
+  <nav>
+    <ul>
+      {headerLinks.map(({ title, url }) => (
+      <li>
+        <a class={Astro.url.pathname.includes(url) ? 'active' : undefined} href={url} target={url.startsWith('http')
+          ? '_blank' : undefined}>{title}</a>
+      </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<div class="spacing"></div>
+
+<style>
+  header {
+    position: fixed;
+    background-color: var(--dark);
+    width: 100%;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .logo>img {
+    margin-right: 0.3rem;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem 0;padding: 0;
+
+  }
+
+  ul>li>a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ul>li>a.active {
+    font-weight: bold;
+  }
+
+
+
+  .spacing {
+    height: 3.5rem;
+  }
+</style>

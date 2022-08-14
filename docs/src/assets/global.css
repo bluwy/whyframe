@@ -1,0 +1,28 @@
+:root {
+  --dark: #1e1e1e;
+  --light: #efefef;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--dark);
+  color: var(--light);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.docs-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}

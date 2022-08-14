@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'astro/config'
 import svelte from '@astrojs/svelte'
 import vue from '@astrojs/vue'
@@ -41,6 +42,11 @@ export default defineConfig({
         include: /\.react\.jsx$/,
         framework: 'react'
       })
-    ]
+    ],
+    resolve: {
+      alias: {
+        '@': path.resolve('./src')
+      }
+    }
   }
 })
