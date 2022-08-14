@@ -184,11 +184,8 @@ export function whyframeAstro(options) {
               dedent(iframeContent),
               isIframeComponent
             )
-            const injectOffset = isIframeComponent
-              ? 1 + node.name.length
-              : `<iframe`.length
             s.appendLeft(
-              node.position.start.offset + injectOffset,
+              node.position.start.offset + node.name.length + 1,
               stringifyAttrs(attrs, framework)
             )
           }

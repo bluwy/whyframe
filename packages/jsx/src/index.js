@@ -223,10 +223,10 @@ export function whyframeJsx(options) {
               dedent(iframeContent),
               isIframeComponent
             )
-            const injectOffset = isIframeComponent
-              ? 1 + node.openingElement.name.name.length
-              : `<iframe`.length
-            s.appendLeft(node.start + injectOffset, stringifyAttrs(attrs))
+            s.appendLeft(
+              node.start + node.openingElement.name.name.length + 1,
+              stringifyAttrs(attrs)
+            )
           }
         }
       })
