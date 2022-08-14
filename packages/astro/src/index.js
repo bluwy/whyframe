@@ -3,7 +3,7 @@ import { createFilter } from 'vite'
 import { parse } from '@astrojs/compiler'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
-import { dedent, hash } from '@whyframe/core/pluginutils'
+import { dedent, escapeAttr, hash } from '@whyframe/core/pluginutils'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
 
@@ -189,7 +189,7 @@ export function whyframeAstro(options) {
               : `<iframe`.length
             s.appendLeft(
               node.position.start.offset + injectOffset,
-              stringifyAttrs(attrs)
+              stringifyAttrs(attrs, framework)
             )
           }
         }
@@ -321,12 +321,14 @@ const Astro = {
 
 /**
  * @param {import('@whyframe/core').Attr[]} attrs
+ * @param {import('.').Options['defaultFramework']} framework
  */
-function stringifyAttrs(attrs) {
+function stringifyAttrs(attrs, framework) {
   let str = ''
+  const escape = framework === 'vue' ? escapeAttr : (s) => s
   for (const attr of attrs) {
     if (attr.type === 'static') {
-      str += ` ${attr.name}=${JSON.stringify(attr.value)}`
+      str += ` ${attr.name}=${JSON.stringify(escape(attr.value))}`
     } else {
       str += ` ${attr.name}={Astro.props.${attr.value}}`
     }
