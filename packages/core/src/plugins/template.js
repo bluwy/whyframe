@@ -8,10 +8,13 @@ export const templateDefaultBuildPath = path.resolve(
 )
 
 /**
+ * @param {import('..').Options} [options]
  * @returns {import('vite').Plugin[]}
  */
-export function templatePlugin() {
-  return [templateServePlugin(), templateBuildPlugin()]
+export function templatePlugin(options) {
+  if (!options?.template?.default) {
+    return [templateServePlugin(), templateBuildPlugin()]
+  }
 }
 
 const templateDefaultHtml = `\

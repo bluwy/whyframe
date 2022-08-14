@@ -18,6 +18,7 @@ export default defineConfig({
       inspect(),
       whyframe({
         template: {
+          default: '/frames/basic',
           basic: '/frames/basic'
         }
       }),
