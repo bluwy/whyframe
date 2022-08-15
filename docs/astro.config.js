@@ -20,6 +20,7 @@ export default defineConfig({
       whyframe({
         template: {
           default: '/frames/basic',
+          hero: '/frames/hero',
           basic: '/frames/basic'
         }
       }),

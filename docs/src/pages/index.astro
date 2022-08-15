@@ -1,43 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import logo from '@/assets/logo.svg'
+import HeroDemo from '@/components/HeroDemo.astro';
 ---
 
 <Layout title="whyframe" isHero>
-  <section class="hero">
-    <img class="logo-img" src={logo} alt="whyframe logo" height="200">
-    <!-- prettier-ignore -->
-    <h1 class="logo-text"><span>why</span><span>frame</span></h1>
-    <p class="tagline">iframes that just work</p>
-  </section>
+  <HeroDemo />
 </Layout>
-
-<style>
-  .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .logo-img {
-    margin: 1rem;
-  }
-
-  .logo-text {
-    margin: 0;
-    white-space: pre-line;
-    font-weight: 500;
-    font-size: 2.2rem;
-    line-height: normal;
-  }
-
-  .logo-text span:first-child {
-    font-weight: 100;
-    margin-right: 2px;
-  }
-
-  .tagline {
-    opacity: .8;
-  }
-</style>
