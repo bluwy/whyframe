@@ -1,3 +1,4 @@
+import { builtinModules } from 'node:module'
 import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse } from '@astrojs/compiler'
@@ -6,6 +7,8 @@ import MagicString from 'magic-string'
 import { dedent, escapeAttr, hash } from '@whyframe/core/pluginutils'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
+
+const knownNodeImports = ['astro/components']
 
 // credit: Vite
 const importsRE =
@@ -19,6 +22,9 @@ export function whyframeAstro(options) {
   let api
 
   const filter = createFilter(options?.include || /\.astro$/, options?.exclude)
+  const importExcludeFilter = options?.importExclude
+    ? createFilter(options?.importExclude, undefined, { resolve: false })
+    : () => false
   const componentNames = options?.components?.map((c) => c.name) ?? []
   const componentPaths =
     options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
@@ -64,21 +70,27 @@ export function whyframeAstro(options) {
       let frontmatterCode =
         ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
 
-      // this removes imports from .astro files, in most cases this isn't needed,
-      // but svelte seems to treat the styles in the .astro file as side-effectful
-      // and include it in the iframe
+      // we're transferring frontmatter code to framework code (node => browser).
+      // so remove potential node imports that may break
       if (frontmatterCode) {
-        const toPrependCode = []
         frontmatterCode = frontmatterCode.replace(importsRE, (ori, m1, m2) => {
-          if (m2.slice(0, -1).endsWith('.astro')) {
-            toPrependCode.push(`const ${m1} = {}`)
+          /** @type {string} */
+          const importSpecifier = m2.slice(1, -1)
+          if (
+            importSpecifier.endsWith('.astro') ||
+            importSpecifier.startsWith('node:') ||
+            builtinModules.includes(importSpecifier) ||
+            knownNodeImports.includes(importSpecifier) ||
+            importExcludeFilter(importSpecifier)
+          ) {
             return ''
           } else {
             return ori
           }
         })
-        frontmatterCode = toPrependCode.join('\n') + '\n' + frontmatterCode
       }
+
+      console.log(frontmatterCode)
 
       // generate initial hash
       const baseHash = hash(frontmatterCode)

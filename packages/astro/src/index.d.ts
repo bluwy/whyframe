@@ -12,6 +12,10 @@ export interface Options {
    * If `data-why` has no value, use this fallback instead.
    */
   defaultFramework: 'svelte' | 'vue' | 'solid' | 'preact' | 'react'
+  /**
+   * Custom import specifiers to exclude during code extraction
+   */
+  importExclude?: FilterPattern
   components?: Component[]
 }
 
