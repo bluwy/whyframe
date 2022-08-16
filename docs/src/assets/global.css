@@ -1,7 +1,13 @@
 :root {
   --dark: #1e1e1e;
   --light: #efefef;
-  --primary: #ffac24;
+  --primary-light: #ffed24;
+  --primary: #ffca24;
+  --primary-dark: #ffac24;
+  --gray-light: #bababa;
+  --gray: #707070;
+  --gray-dark: #3d3d3d;
+  color-scheme: dark light;
 }
 
 *,
@@ -26,4 +32,49 @@ body,
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
+}
+
+.link,
+.markdown a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+button,
+.button {
+  cursor: pointer;
+  background-color: var(--gray-dark);
+  color: var(--light);
+  border: none;
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+button:active,
+.button:hover,
+.button:active {
+  background-color: var(--gray);
+}
+
+button.large,
+.button.large {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+}
+
+button.primary,
+.button.primary {
+  background-color: var(--primary-dark);
+  color: var(--dark);
+}
+
+button.primary:hover,
+button.primary:active,
+.button.primary:hover,
+.button.primary:active {
+  background-color: var(--primary);
 }

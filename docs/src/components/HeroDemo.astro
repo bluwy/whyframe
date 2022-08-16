@@ -11,9 +11,10 @@ const code = `\
 ---
 
 <section class="docs-container">
-  <h1 class="headline">What you <span>write</span> is what you <span>get</span></h1>
+  <h1 class="headline">
+    What you <span>write</span> is what you <span>get</span>
+  </h1>
   <div class="wrapper">
-
     <div class="code-block">
       <Code code={code} lang="html" />
     </div>
@@ -26,55 +27,40 @@ const code = `\
       </iframe>
     </div>
   </div>
-
-  <p class="explainer">whyframe makes iframes <span>just work</span>, with the magic of bundlers</p>
 </section>
 
 <style>
   .headline {
     font-size: 3rem;
     text-align: center;
-    margin: 3rem;
+    margin: 3rem 0;
   }
 
-  .headline>span {
-    color: var(--primary)
+  .headline > span {
+    color: var(--primary);
   }
-
-  .explainer {
-    text-align: center;
-    font-size: 1.3rem;
-    margin: 3.3rem;
-    opacity: .8;
-  }
-
-  .explainer>span {
-    color: var(--primary)
-  }
-
 
   .wrapper {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: 3rem 0;
   }
 
   .code-block {
-    padding: .3rem 1rem;
+    padding: 0.3rem 1rem;
     background-color: #0d1117;
     /* shiki */
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     font-size: 1.2em;
-    box-shadow:
-      0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
+    font-weight: 600;
+    box-shadow: 0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
       0px 0px 5.3px 2px rgba(255, 172, 36, 0.04),
       0px 0px 10px 2px rgba(255, 172, 36, 0.05),
       0px 0px 17.9px 2px rgba(255, 172, 36, 0.06),
       0px 0px 33.4px 2px rgba(255, 172, 36, 0.072),
       0px 0px 80px 2px rgba(255, 172, 36, 0.1);
-
-
   }
 
   .dash {
@@ -86,28 +72,25 @@ const code = `\
     padding: 1rem;
     background-color: #0d1117;
     /* shiki */
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     box-shadow: 0 0 12px 8px var(--light);
-    box-shadow:
-      0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
+    box-shadow: 0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
       0px 0px 5.3px 2px rgba(255, 172, 36, 0.04),
       0px 0px 10px 2px rgba(255, 172, 36, 0.05),
       0px 0px 17.9px 2px rgba(255, 172, 36, 0.06),
       0px 0px 33.4px 2px rgba(255, 172, 36, 0.072),
       0px 0px 80px 2px rgba(255, 172, 36, 0.1);
-
-
   }
 
   iframe {
     border: none;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     display: block;
     margin: 0;
   }
 
   p {
     margin-top: 0;
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
   }
 </style>

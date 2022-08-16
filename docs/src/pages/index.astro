@@ -1,8 +1,116 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import HeroDemo from '@/components/HeroDemo.astro';
+import Layout from '@/layouts/Layout.astro'
+import HeroDemo from '@/components/HeroDemo.astro'
+import Card from '@/components/Card.astro'
 ---
 
 <Layout title="whyframe" isHero>
   <HeroDemo />
+
+  <section class="docs-container">
+    <div class="intro">
+      <p class="explainer">
+        Nest HTML within iframes and whyframe will render it for you with true
+        isolation
+      </p>
+
+      <div class="buttons">
+        <a class="button large primary" href="/docs/getting-started"
+          >Get started
+        </a>
+        <a class="button large" href="/docs/how-it-works">How it works</a>
+      </div>
+    </div>
+  </section>
+  <section class="docs-container">
+    <div class="cards">
+      <Card>
+        <span slot="title">Just works</span>
+        <span>
+          Out-of-the-box support for Vite, SvelteKit, Astro, VitePress, and many
+          other frameworks.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Highly flexible</span>
+        <span>
+          Unlike Storybook and friends, you own your iframe. Make it whatever
+          you want.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Performant</span>
+        <span>
+          HTML is rendered with your framework of choice as-is. Everything else
+          is done in compile-time.
+        </span>
+      </Card>
+    </div>
+  </section>
+
+  <section class="docs-container">
+    <p class="sponsors-text">
+      whyframe is made possible thanks to these fine folks
+    </p>
+    <p class="sponsors-support">
+      <a class="link" href="https://patreon.com/bluwy">
+        Support me on Patreon!
+      </a>
+    </p>
+    <p class="sponsors-img">
+      <a href="https://bjornlu.com/sponsors.svg">
+        <img src="https://bjornlu.com/sponsors.svg" alt="Sponsors" />
+      </a>
+    </p>
+  </section>
 </Layout>
+
+<style>
+  .intro {
+    margin: 4rem 0;
+  }
+
+  .explainer {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 3.3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .explainer > span {
+    color: var(--primary-light);
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .sponsors-text {
+    opacity: 0.8;
+    text-align: center;
+    margin-top: 8rem;
+    margin-bottom: 0.7rem;
+    font-size: 1.3rem;
+  }
+
+  .sponsors-support {
+    opacity: 0.8;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 0.7rem;
+  }
+
+  .sponsors-img {
+    text-align: center;
+  }
+</style>

@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>whyframe</title>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>whyframe</title>
-</head>
+  <body>
+    <div id="app"></div>
+    <script>
+      import { createApp } from 'whyframe:app'
 
-<body>
-  <div id="app"></div>
-  <script>
-    import { createApp } from 'whyframe:app'
+      createApp(document.getElementById('app'))
+    </script>
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-    createApp(document.getElementById('app'))
-  </script>
-  <style is:global>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+      html,
+      body,
+      #app {
+        font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
-    html,
-    body,
-    #app {
-      font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    body {
-      background-color: #ffac24;
-      transition: background-color 0.2s ease;
-    }
-  </style>
-</body>
-
+      body {
+        background-color: #222222;
+        transition: background-color 0.2s ease;
+      }
+    </style>
+  </body>
 </html>

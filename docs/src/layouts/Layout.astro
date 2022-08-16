@@ -1,25 +1,23 @@
 ---
 import '../assets/global.css'
-import Header from "../components/Header.astro";
-
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
 ---
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.png" />
+    <title>{Astro.props.title}</title>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/favicon.png" />
-  <title>{Astro.props.title}</title>
-</head>
-
-<body>
-  <div id="app">
-    <Header isHero={Astro.props.isHero} />
-    <slot />
-  </div>
-</body>
-
+  <body>
+    <div id="app">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+  </body>
 </html>
-
