@@ -1,5 +1,6 @@
 ---
 import logo from '@/assets/logo.svg'
+import github from '@/assets/github.svg'
 import { appName, headerLinks } from '@/utils/constants'
 ---
 
@@ -19,7 +20,7 @@ import { appName, headerLinks } from '@/utils/constants'
                 href={url}
                 target={url.startsWith('http') ? '_blank' : undefined}
               >
-                {title}
+                {title === 'GitHub' ? <img src={github} alt="GitHub" height="24" /> : title}
               </a>
             </li>
           ))
@@ -77,6 +78,11 @@ import { appName, headerLinks } from '@/utils/constants'
 
   ul > li > a.active {
     font-weight: bold;
+  }
+
+  ul img {
+    display: block;
+    filter: invert(1);
   }
 
   .spacing {
