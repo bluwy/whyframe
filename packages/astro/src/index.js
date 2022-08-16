@@ -90,8 +90,6 @@ export function whyframeAstro(options) {
         })
       }
 
-      console.log(frontmatterCode)
-
       // generate initial hash
       const baseHash = hash(frontmatterCode)
 
