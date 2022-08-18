@@ -39,7 +39,7 @@
     "magic-string": "^0.26.2"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:*",
-    "vite": "^3.0.7"
+    "@whyframe/core": "workspace:0.0.1",
+    "vite": "^3.0.8"
   }
 }

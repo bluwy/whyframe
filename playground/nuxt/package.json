@@ -12,8 +12,8 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:*",
-    "@whyframe/vue": "workspace:*",
+    "@whyframe/core": "workspace:0.0.1",
+    "@whyframe/vue": "workspace:0.0.1",
     "nuxt": "3.0.0-rc.8",
     "vite-plugin-inspect": "^0.6.0"
   }

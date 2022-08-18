@@ -3,18 +3,18 @@
 	"private": true,
 	"type": "commonjs",
 	"scripts": {
-		"dev": "vitepress dev --port 5173",
+		"dev": "vitepress dev",
 		"build": "vitepress build",
-		"preview": "vitepress serve --port 4173"
+		"preview": "vitepress serve"
 	},
 	"dependencies": {
 		"vue": "^3.2.37"
 	},
 	"devDependencies": {
-		"@whyframe/core": "workspace:*",
-		"@whyframe/vue": "workspace:*",
-		"vite": "^3.0.7",
+		"@whyframe/core": "workspace:0.0.1",
+		"@whyframe/vue": "workspace:0.0.1",
+		"vite": "^3.0.8",
 		"vite-plugin-inspect": "^0.6.0",
-		"vitepress": "1.0.0-alpha.4"
+		"vitepress": "^1.0.0-alpha.8"
 	}
 }
