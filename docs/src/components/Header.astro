@@ -6,10 +6,10 @@ import { appName, headerLinks } from '@/utils/constants'
 
 <header>
   <div class="wrapper docs-container">
-    <div class="logo">
+    <a class="logo" href="/">
       <img src={logo} alt="logo" height="40" />
       <p>{appName}</p>
-    </div>
+    </a>
     <nav>
       <ul>
         {
@@ -20,7 +20,11 @@ import { appName, headerLinks } from '@/utils/constants'
                 href={url}
                 target={url.startsWith('http') ? '_blank' : undefined}
               >
-                {title === 'GitHub' ? <img src={github} alt="GitHub" height="24" /> : title}
+                {title === 'GitHub' ? (
+                  <img src={github} alt="GitHub" height="24" />
+                ) : (
+                  title
+                )}
               </a>
             </li>
           ))
@@ -45,8 +49,8 @@ import { appName, headerLinks } from '@/utils/constants'
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
   }
+
 
   .logo {
     display: flex;
@@ -54,6 +58,8 @@ import { appName, headerLinks } from '@/utils/constants'
     justify-content: center;
     align-items: center;
     font-weight: 500;
+    color: var(--light);
+    text-decoration: none;
   }
 
   .logo > img {
@@ -77,7 +83,7 @@ import { appName, headerLinks } from '@/utils/constants'
   }
 
   ul > li > a.active {
-    font-weight: bold;
+    font-weight: 500;
   }
 
   ul img {

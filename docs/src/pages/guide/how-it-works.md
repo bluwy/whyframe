@@ -5,11 +5,11 @@ layout: ../../layouts/DocsLayout.astro
 
 # How it works
 
-## Simple
+## Simple explanation
 
 The gist of its secret sauce is that `whyframe` extracts out the code within the `iframe`, which is processed as a separate module by the bundler, and the `iframe` would then load an HTML with a custom script that loads that separate module as a new entrypoint.
 
-## Detailed
+## Detailed explanation
 
 To be specific, `iframe` extraction is done per UI framework, e.g. Svelte, Vue, JSX, using their own respective parsers. Besides the code within the `iframe`, additional side-effects like styles, imports, state, needs to be extracted as well so that variable references aren't lost.
 
