@@ -1,3 +1,8 @@
+---
+title: Getting started
+layout: ../../layouts/DocsLayout.astro
+---
+
 # Vite
 
 All features are supported in Vite.

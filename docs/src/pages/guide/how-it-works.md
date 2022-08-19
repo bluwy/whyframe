@@ -1,3 +1,8 @@
+---
+title: Getting started
+layout: ../../layouts/DocsLayout.astro
+---
+
 # How it works
 
 ## Simple

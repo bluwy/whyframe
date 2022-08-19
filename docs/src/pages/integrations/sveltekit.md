@@ -1,3 +1,8 @@
+---
+title: Getting started
+layout: ../../layouts/DocsLayout.astro
+---
+
 # SvelteKit
 
 All features are supported in SvelteKit.

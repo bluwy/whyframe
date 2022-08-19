@@ -1,3 +1,8 @@
+---
+title: Getting started
+layout: ../../layouts/DocsLayout.astro
+---
+
 # VitePress
 
 All features are supported in VitePress, except for the fallback `iframe` HTML feature, which will be covered in the [Setup](#setup) section.
