@@ -21,14 +21,22 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
         <LeftSidebar url={Astro.url} />
         <main class="docs-container">
           <slot />
+          <Footer />
         </main>
       </div>
-      <Footer />
     </div>
     <style>
       .content {
         display: flex;
         flex-direction: row;
+      }
+
+      .content {
+        height: calc(100% - 4rem);
+      }
+
+      main {
+        height: 100%;
       }
     </style>
   </body>

@@ -17,7 +17,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
               {section.children?.map((child) => (
                 <li class="nav-link">
                   <a
-                    href={`${Astro.site?.pathname}${child.url}`}
+                    href={child.url}
                     aria-current={
                       Astro.url.pathname === child.url ? 'page' : 'false'
                     }
@@ -56,7 +56,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
   #left-sidebar-nav {
     position: fixed;
     margin-right: 1rem;
-    flex: 0 1 0;
+    flex: 0 0 300px;
     width: 300px;
     max-width: 90vw;
     height: 100%;
@@ -66,11 +66,11 @@ import menuLeft from '../assets/menu-left.svg?raw'
     top: 0;
     left: 0;
     transform: translateX(-100%);
-		transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
-	
+
   #left-sidebar-nav.open {
-		transform: translateX(0);
+    transform: translateX(0);
   }
 
   #left-sidebar-underlay {
@@ -80,15 +80,15 @@ import menuLeft from '../assets/menu-left.svg?raw'
     left: 0;
     width: 100%;
     height: 100%;
-		background-color: var(--dark);
+    background-color: var(--dark);
     pointer-events: none;
-		opacity: 0;
-		transition: opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   #left-sidebar-underlay.open {
     pointer-events: all;
-		opacity: .3;
+    opacity: 0.3;
   }
 
   ul {
@@ -111,13 +111,13 @@ import menuLeft from '../assets/menu-left.svg?raw'
   .nav-group-title {
     font-size: 1.1em;
     font-weight: 500;
-    padding: 0.1rem 1rem;
+    padding: 0.1rem 1.2rem;
     margin-bottom: 0.2rem;
   }
 
   .nav-link a {
     font-size: 1rem;
-    padding: 0.3rem 1rem;
+    padding: 0.3rem 1.2rem;
     font: inherit;
     color: inherit;
     text-decoration: none;
@@ -157,5 +157,20 @@ import menuLeft from '../assets/menu-left.svg?raw'
     border-bottom-left-radius: 0;
     padding: 0.6rem;
     color: ;
+  }
+
+  @media (min-width: 768px) {
+    #left-sidebar-nav {
+      position: static;
+      display: block;
+      transform: none;
+      padding-top: 0;
+      background-color: #111111;
+    }
+
+    #left-sidebar-underlay,
+    #left-siderbar-button {
+      display: none;
+    }
   }
 </style>
