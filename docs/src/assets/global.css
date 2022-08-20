@@ -115,7 +115,7 @@ button.primary:active,
 
 .markdown-container p {
   color: var(--light-less);
-  line-height: 1.5;
+  line-height: 1.8;
 }
 
 .markdown-container ul,
@@ -126,6 +126,12 @@ button.primary:active,
 .markdown-container ul li,
 .markdown-container ol li {
   margin: 0.2rem 0;
+}
+
+.markdown-container .astro-code {
+  padding: 1rem;
+  border-radius: .5rem;
+  margin: 0 -1rem;
 }
 
 @media (min-width: 768px) {
