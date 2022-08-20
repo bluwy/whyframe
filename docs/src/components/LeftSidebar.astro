@@ -5,6 +5,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
 
 <!-- for click to close -->
 <div id="left-sidebar-underlay"></div>
+<div id="left-sidebar-desktop-spacer"></div>
 
 <nav id="left-sidebar-nav" aria-labelledby="grid-left">
   <ul class="nav-groups">
@@ -56,7 +57,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
   #left-sidebar-nav {
     position: fixed;
     margin-right: 1rem;
-    flex: 0 0 300px;
+
     width: 300px;
     max-width: 90vw;
     height: 100%;
@@ -161,16 +162,18 @@ import menuLeft from '../assets/menu-left.svg?raw'
 
   @media (min-width: 768px) {
     #left-sidebar-nav {
-      position: static;
-      display: block;
       transform: none;
-      padding-top: 0;
-      background-color: #111111;
+      background-color: var(--dark-more);
     }
 
     #left-sidebar-underlay,
     #left-siderbar-button {
       display: none;
+    }
+
+    #left-sidebar-desktop-spacer {
+      width: 300px;
+      flex: 0 0 300px;
     }
   }
 </style>

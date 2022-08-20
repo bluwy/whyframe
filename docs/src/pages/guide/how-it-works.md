@@ -21,15 +21,15 @@ Within the `iframe` HTML, `whyframe:app` is a custom script that's used to read 
 
 When I was building a Storybook alternative, component isolation has been an annoying problem to solve that had be stumped for weeks. Some of the ideas were:
 
-1. Manual runtime isolation and separation
+1. **Manual runtime isolation and separation**
 
 Problem: It doesn't work for every framework. The code output is only transferred and rendered into the iframe, interactions within the iframe are limited. Does not handle transferring styles well.
 
-2. Web components and the shadow DOM
+2. **Web components and the shadow DOM**
 
 Problem: The shadow DOM doesn't reduce complexity compared to an iframe. All caveats are transferred over, except style isolation, but it's still not perfect.
 
-3. Proprietary syntax to enforce simpler extraction
+3. **Proprietary syntax to enforce simpler extraction**
 
 Problem: Storybook calls this "Component Story Format" and it is non-ergonomic. It only works with JSX in mind, with other templating libraries not working well. Users shouldn't learn a new syntax too.
 

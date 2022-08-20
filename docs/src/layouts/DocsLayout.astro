@@ -19,7 +19,7 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
       <Header stretch />
       <div class="content">
         <LeftSidebar url={Astro.url} />
-        <main class="docs-container">
+        <main id="main-space" class="docs-container markdown-container">
           <slot />
           <Footer />
         </main>
@@ -35,8 +35,9 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
         height: calc(100% - 4rem);
       }
 
-      main {
+      #main-space {
         height: 100%;
+        padding: 0 3rem;
       }
     </style>
   </body>

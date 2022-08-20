@@ -17,11 +17,11 @@ export const sidebarGuideLinks = [
   {
     title: 'Integrations',
     children: [
-      { title: 'Vite', url: '/guide/integrations/vite' },
-      { title: 'SvelteKit', url: '/guide/integrations/sveltekit' },
-      { title: 'Astro', url: '/guide/integrations/astro' },
-      { title: 'VitePress', url: '/guide/integrations/vitepress' },
-      { title: 'Nuxt', url: '/guide/integrations/nuxr' }
+      { title: 'Vite', url: '/integrations/vite' },
+      { title: 'SvelteKit', url: '/integrations/sveltekit' },
+      { title: 'Astro', url: '/integrations/astro' },
+      { title: 'VitePress', url: '/integrations/vitepress' },
+      { title: 'Nuxt', url: '/integrations/nuxr' }
     ]
   }
 ]

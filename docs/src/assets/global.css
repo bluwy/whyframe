@@ -1,6 +1,8 @@
 :root {
   --dark: #1e1e1e;
+  --dark-more: #111111;
   --light: #efefef;
+  --light-less: #cfcfcf;
   --primary-light: #ffed24;
   --primary: #ffca24;
   --primary-dark: #ffac24;
@@ -28,6 +30,24 @@ body,
   margin: 0;
 }
 
+h1 {
+  font-weight: 500;
+  margin-top: 3rem;
+}
+h1:first-child {
+  margin-top: 1.5rem;
+}
+
+h2 {
+  font-weight: 500;
+  margin-top: 2rem;
+}
+
+h3 {
+  font-weight: 500;
+  margin-top: 1.5rem;
+}
+
 .docs-container {
   width: 100%;
   max-width: 852px;
@@ -41,9 +61,17 @@ body,
 }
 
 .link,
-.markdown a {
+.markdown-container a {
   color: var(--primary);
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover,
+.link:active,
+.markdown-container a:hover,
+.markdown-container a:active {
+  color: var(--primary-light);
 }
 
 button,
@@ -83,4 +111,25 @@ button.primary:active,
 .button.primary:hover,
 .button.primary:active {
   background-color: var(--primary);
+}
+
+.markdown-container p {
+  color: var(--light-less);
+  line-height: 1.5;
+}
+
+.markdown-container ul,
+.markdown-container ol {
+  padding-left: 1.2rem;
+}
+
+.markdown-container ul li,
+.markdown-container ol li {
+  margin: 0.2rem 0;
+}
+
+@media (min-width: 768px) {
+  .markdown-container p {
+    font-size: 1.1em;
+  }
 }
