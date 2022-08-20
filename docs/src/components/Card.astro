@@ -7,7 +7,7 @@
 
 <style>
   .card {
-    width: 300px;
+    width: calc(100% - 2rem);
     background-color: var(--gray-dark);
     padding: 1rem;
     border-radius: 0.5rem;
@@ -23,5 +23,11 @@
   p {
     opacity: 0.8;
     margin: 0.6rem 0 0;
+  }
+
+  @media (min-width: 768px) {
+    .card {
+      width: 300px;
+    }
   }
 </style>

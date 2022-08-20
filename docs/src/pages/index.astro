@@ -90,7 +90,9 @@ import Card from '@/components/Card.astro'
 
   .cards {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -111,5 +113,15 @@ import Card from '@/components/Card.astro'
 
   .sponsors-img {
     text-align: center;
+  }
+
+  .sponsors-img img {
+    max-width: calc(100vw - 2rem);
+  }
+
+  @media (min-width: 768px) {
+    .cards {
+      flex-direction: row;
+    }
   }
 </style>
