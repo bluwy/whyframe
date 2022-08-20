@@ -5,7 +5,7 @@ import { appName, headerLinks } from '@/utils/constants'
 ---
 
 <header>
-  <div class="wrapper docs-container">
+  <div class={`wrapper docs-container ${Astro.props.stretch ? 'stretch' : ''}`}>
     <a class="logo" href="/">
       <img src={logo} alt="logo" height="40" />
       <p>{appName}</p>
@@ -50,7 +50,6 @@ import { appName, headerLinks } from '@/utils/constants'
     justify-content: space-between;
     align-items: center;
   }
-
 
   .logo {
     display: flex;

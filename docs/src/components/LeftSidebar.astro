@@ -1,0 +1,161 @@
+---
+import { sidebarGuideLinks } from '../utils/constants'
+import menuLeft from '../assets/menu-left.svg?raw'
+---
+
+<!-- for click to close -->
+<div id="left-sidebar-underlay"></div>
+
+<nav id="left-sidebar-nav" aria-labelledby="grid-left">
+  <ul class="nav-groups">
+    {
+      sidebarGuideLinks.map((section) => (
+        <li>
+          <div class="nav-group">
+            <h2 class="nav-group-title">{section.title}</h2>
+            <ul>
+              {section.children?.map((child) => (
+                <li class="nav-link">
+                  <a
+                    href={`${Astro.site?.pathname}${child.url}`}
+                    aria-current={
+                      Astro.url.pathname === child.url ? 'page' : 'false'
+                    }
+                  >
+                    {child.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  <button id="left-siderbar-button" set:html={menuLeft}> </button>
+</nav>
+
+<script is:inline>
+  window.addEventListener('load', () => {
+    const nav = document.getElementById('left-sidebar-nav')
+    const underlay = document.getElementById('left-sidebar-underlay')
+    const button = document.getElementById('left-siderbar-button')
+
+    button.addEventListener('click', () => {
+      nav.classList.toggle('open')
+      underlay.classList.toggle('open')
+    })
+    underlay.addEventListener('click', () => {
+      nav.classList.remove('open')
+      underlay.classList.remove('open')
+    })
+  })
+</script>
+
+<style>
+  #left-sidebar-nav {
+    position: fixed;
+    margin-right: 1rem;
+    flex: 0 1 0;
+    width: 300px;
+    max-width: 90vw;
+    height: 100%;
+    background-color: var(--gray-dark);
+    padding-top: 4rem;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+		transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+	
+  #left-sidebar-nav.open {
+		transform: translateX(0);
+  }
+
+  #left-sidebar-underlay {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+		background-color: var(--dark);
+    pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  #left-sidebar-underlay.open {
+    pointer-events: all;
+		opacity: .3;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-groups {
+    height: 100%;
+    overflow-x: visible;
+    overflow-y: auto;
+    max-height: 100vh;
+  }
+
+  .nav-groups > li {
+    margin: 1.5rem 0;
+  }
+
+  .nav-group-title {
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 0.1rem 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .nav-link a {
+    font-size: 1rem;
+    padding: 0.3rem 1rem;
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+  }
+  .nav-link a:hover,
+  .nav-link a:focus {
+    opacity: 1;
+  }
+
+  .nav-link a[aria-current='page'] {
+    position: relative;
+    opacity: 1;
+    color: var(--primary);
+  }
+
+  .nav-link a[aria-current='page']::before {
+    position: absolute;
+    content: '';
+    top: 4px;
+    left: 0;
+    height: calc(100% - 8px);
+    width: 4px;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: var(--primary);
+  }
+
+  #left-siderbar-button {
+    position: absolute;
+    bottom: 2rem;
+    right: 0;
+    transform: translateX(100%);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0.6rem;
+    color: ;
+  }
+</style>

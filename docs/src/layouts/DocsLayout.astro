@@ -2,6 +2,7 @@
 import '../assets/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+import LeftSidebar from '@/components/LeftSidebar.astro'
 ---
 
 <!DOCTYPE html>
@@ -15,11 +16,20 @@ import Footer from '../components/Footer.astro'
 
   <body>
     <div id="app">
-      <Header />
-      <main class="docs-container">
-        <slot />
-      </main>
+      <Header stretch />
+      <div class="content">
+        <LeftSidebar url={Astro.url} />
+        <main class="docs-container">
+          <slot />
+        </main>
+      </div>
       <Footer />
     </div>
+    <style>
+      .content {
+        display: flex;
+        flex-direction: row;
+      }
+    </style>
   </body>
 </html>

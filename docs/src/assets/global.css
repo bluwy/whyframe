@@ -6,7 +6,7 @@
   --primary-dark: #ffac24;
   --gray-light: #bababa;
   --gray: #707070;
-  --gray-dark: #3d3d3d;
+  --gray-dark: #303030;
   color-scheme: dark light;
 }
 
@@ -32,6 +32,12 @@ body,
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.docs-container.stretch {
+  max-width: none;
+  margin: 0;
 }
 
 .link,
