@@ -17,7 +17,7 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
   <body>
     <div id="app">
       <Header stretch />
-      <div class="content">
+      <div class="docs-container stretch content">
         <LeftSidebar url={Astro.url} />
         <main id="main-space" class="docs-container markdown-container">
           <slot />
@@ -29,15 +29,16 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
       .content {
         display: flex;
         flex-direction: row;
-      }
-
-      .content {
-        height: calc(100% - 4rem);
+        height: calc(100% - 3.5rem);
       }
 
       #main-space {
         height: 100%;
         padding: 0 2rem;
+      }
+
+      #main-space > :global(h1:first-child) {
+        margin-top: 0.7rem;
       }
 
       @media (min-width: 768px) {

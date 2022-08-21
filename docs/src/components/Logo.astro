@@ -1,0 +1,25 @@
+---
+import logo from '@/assets/logo.svg'
+import { appName } from '@/utils/constants'
+---
+
+<a class="logo" href="/">
+  <img src={logo} alt="logo" height="40" />
+  <p>{appName}</p>
+</a>
+
+<style>
+  .logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: var(--light);
+    text-decoration: none;
+  }
+
+  .logo > img {
+    margin-right: 0.3rem;
+  }
+</style>

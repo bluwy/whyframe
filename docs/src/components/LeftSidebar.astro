@@ -1,6 +1,7 @@
 ---
 import { sidebarGuideLinks } from '../utils/constants'
 import menuLeft from '../assets/menu-left.svg?raw'
+import Logo from './Logo.astro'
 ---
 
 <!-- for click to close -->
@@ -8,6 +9,9 @@ import menuLeft from '../assets/menu-left.svg?raw'
 <div id="left-sidebar-desktop-spacer"></div>
 
 <nav id="left-sidebar-nav" aria-labelledby="grid-left">
+  <div class="logo-wrapper">
+    <Logo />
+  </div>
   <ul class="nav-groups">
     {
       sidebarGuideLinks.map((section) => (
@@ -57,13 +61,11 @@ import menuLeft from '../assets/menu-left.svg?raw'
   #left-sidebar-nav {
     position: fixed;
     margin-right: 1rem;
-
-    width: 300px;
+width: 300px;
     max-width: 90vw;
     height: 100%;
     background-color: var(--gray-dark);
-    padding-top: 4rem;
-    z-index: 9;
+    z-index: 11;
     top: 0;
     left: 0;
     transform: translateX(-100%);
@@ -92,6 +94,11 @@ import menuLeft from '../assets/menu-left.svg?raw'
     opacity: 0.3;
   }
 
+  .logo-wrapper {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
   ul {
     list-style-type: none;
     padding: 0;
@@ -106,7 +113,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
   }
 
   .nav-groups > li {
-    margin: 1.5rem 0;
+    margin: 1.2rem 0;
   }
 
   .nav-group-title {
@@ -114,6 +121,7 @@ import menuLeft from '../assets/menu-left.svg?raw'
     font-weight: 500;
     padding: 0.1rem 1.2rem;
     margin-bottom: 0.2rem;
+    margin-top: 0;
   }
 
   .nav-link a {
@@ -141,11 +149,11 @@ import menuLeft from '../assets/menu-left.svg?raw'
     position: absolute;
     content: '';
     top: 4px;
-    left: 0;
+    right: 0;
     height: calc(100% - 8px);
     width: 4px;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
     background-color: var(--primary);
   }
 
@@ -164,6 +172,9 @@ import menuLeft from '../assets/menu-left.svg?raw'
     #left-sidebar-nav {
       transform: none;
       background-color: var(--dark-more);
+      width: calc((100vw - 1248px) / 2 + 300px);
+    padding-left: calc((100vw - 1248px) / 2);
+    min-width: 300px
     }
 
     #left-sidebar-underlay,

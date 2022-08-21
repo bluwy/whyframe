@@ -1,15 +1,12 @@
 ---
-import logo from '@/assets/logo.svg'
 import github from '@/assets/github.svg'
-import { appName, headerLinks } from '@/utils/constants'
+import { headerLinks } from '@/utils/constants'
+import Logo from './Logo.astro'
 ---
 
 <header>
   <div class={`wrapper docs-container ${Astro.props.stretch ? 'stretch' : ''}`}>
-    <a class="logo" href="/">
-      <img src={logo} alt="logo" height="40" />
-      <p>{appName}</p>
-    </a>
+    <Logo />
     <nav>
       <ul>
         {
@@ -51,20 +48,6 @@ import { appName, headerLinks } from '@/utils/constants'
     align-items: center;
   }
 
-  .logo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    color: var(--light);
-    text-decoration: none;
-  }
-
-  .logo > img {
-    margin-right: 0.3rem;
-  }
-
   ul {
     list-style-type: none;
     display: flex;
@@ -72,7 +55,7 @@ import { appName, headerLinks } from '@/utils/constants'
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    margin: 1.2rem 0;
+    margin: 0;
     padding: 0;
   }
 
@@ -91,6 +74,6 @@ import { appName, headerLinks } from '@/utils/constants'
   }
 
   .spacing {
-    height: 4rem;
+    height: 3.5rem;
   }
 </style>
