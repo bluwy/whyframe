@@ -19,8 +19,10 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
       <Header stretch />
       <div class="docs-container stretch content">
         <LeftSidebar url={Astro.url} />
-        <main id="main-space" class="docs-container markdown-container">
-          <slot />
+        <main id="main-space" class="docs-container">
+          <div class="markdown-container">
+            <slot />
+          </div>
           <Footer />
         </main>
       </div>
@@ -37,7 +39,7 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
         padding: 0 2rem;
       }
 
-      #main-space > :global(h1:first-child) {
+      .markdown-container > :global(h1:first-child) {
         margin-top: 0.7rem;
       }
 
