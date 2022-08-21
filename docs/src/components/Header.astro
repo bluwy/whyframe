@@ -36,9 +36,11 @@ import Logo from './Logo.astro'
 <style>
   header {
     position: fixed;
-    background-color: var(--dark);
+    background-color: rgba(30, 30, 30, 80%); /* --dark */
     width: 100%;
     z-index: 10;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
   }
 
   .wrapper {

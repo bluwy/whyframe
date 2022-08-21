@@ -135,7 +135,7 @@ button.primary:active,
 
 .markdown-container blockquote {
   border-left: 4px solid var(--primary);
-  background-color: #ffc82420;
+  background-color: #ffc82420; /* --primary */
   padding: 0.2rem 1rem;
   margin: 0;
 }
