@@ -3,6 +3,7 @@ import '../assets/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import LeftSidebar from '@/components/LeftSidebar.astro'
+import TableOfContents from '@/components/TableOfContents.astro'
 ---
 
 <!DOCTYPE html>
@@ -25,6 +26,7 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
           </div>
           <Footer />
         </main>
+        <TableOfContents headings={Astro.props.headings} />
       </div>
     </div>
     <style>
@@ -36,7 +38,9 @@ import LeftSidebar from '@/components/LeftSidebar.astro'
 
       #main-space {
         height: 100%;
-        padding: 0 2rem;
+        padding: 0;
+        width: 100%;
+        min-width: 0;
       }
 
       .markdown-container > :global(h1:first-child) {

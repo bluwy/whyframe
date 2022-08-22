@@ -1,0 +1,135 @@
+---
+/** @type {import('astro').MarkdownHeading[]} */
+const headings = Astro.props.headings
+const h2s = headings.filter((h) => h.depth === 2)
+const htwoData = JSON.stringify(h2s.map((h) => h.slug))
+---
+
+<div id="toc-desktop-spacer"></div>
+
+<aside>
+  <h2>On this page</h2>
+  <ul>
+    {
+      h2s.map((h) => (
+        <li>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
+
+<script is:inline data-htwo={htwoData}>
+  const data = JSON.parse(document.currentScript.getAttribute('data-htwo'))
+  let enabled = false
+  let h2s = []
+  document.addEventListener('DOMContentLoaded', () => {
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('scroll', handleScroll)
+  })
+  function handleResize() {
+    enabled = window.innerWidth >= 1248
+    h2s = data
+      .map((slug) => {
+        const h2 = document.querySelector(`h2[id="${slug}"]`)
+        const toc = document.querySelector(`a[href="#${slug}"]`)
+        return {
+          h2,
+          toc,
+          top: h2.getBoundingClientRect().top
+        }
+      })
+      .reverse()
+    if (enabled) {
+      handleScroll
+    }
+  }
+  function handleScroll() {
+    if (!enabled) return
+    if (window.scrollY <= 0) {
+      for (const h of h2s) {
+        h.toc.classList.remove('active')
+      }
+    } else if (
+      window.scrollY >=
+      document.documentElement.scrollHeight -
+        document.documentElement.clientHeight
+    ) {
+      for (const h of h2s) {
+        h.toc.classList.remove('active')
+      }
+      h2s[0]?.toc.classList.add('active')
+    } else {
+      const level = window.scrollY + window.innerHeight * 0.25
+      let matched = false
+      for (const h of h2s) {
+        if (!matched && h.top < level) {
+          h.toc.classList.add('active')
+          matched = true
+        } else {
+          h.toc.classList.remove('active')
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  aside {
+    display: none;
+    width: 240px;
+    position: fixed;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    padding-top: 3.5rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin-top: 1.1rem;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    padding: 0.3rem 0;
+    font: inherit;
+    font-size: 0.95rem;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  a:hover,
+  a:focus {
+    opacity: 1;
+  }
+
+  a.active {
+    opacity: 1;
+    color: var(--primary);
+  }
+
+  @media (min-width: 1248px) {
+    aside {
+      display: block;
+      width: calc((100vw - 1248px) / 2 + 240px);
+      padding-right: calc((100vw - 1248px) / 2);
+      min-width: 240px;
+    }
+
+    #toc-desktop-spacer {
+      width: 240px;
+      flex: 0 0 240px;
+    }
+  }
+</style>
