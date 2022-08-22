@@ -16,7 +16,9 @@ const adjacentLink = getGuideAdjacentLink(currentPage)
 
 {
   adjacentLink && (
-    <section class="adjacent-section">
+    <section
+      class={`adjacent-section ${!adjacentLink.prevLink ? 'right' : 'left'}`}
+    >
       {adjacentLink.prevLink && (
         <a class="adjacent-box left" href={adjacentLink.prevLink.url}>
           <h2>Previous page</h2>
@@ -41,6 +43,7 @@ const adjacentLink = getGuideAdjacentLink(currentPage)
 
   .adjacent-section {
     display: flex;
+    flex-direction: column;
     margin-top: 2rem;
     gap: 1rem;
   }
@@ -60,6 +63,7 @@ const adjacentLink = getGuideAdjacentLink(currentPage)
   .adjacent-box > p {
     margin: 0;
     margin-top: 0.3rem;
+    display: block;
   }
 
   .adjacent-box.right {
@@ -78,5 +82,18 @@ const adjacentLink = getGuideAdjacentLink(currentPage)
     font-size: 0.8em;
     opacity: 0.7;
     color: var(--light);
+  }
+
+  @media (min-width: 768px) {
+    .adjacent-section {
+      flex-direction: row;
+    }
+
+    .adjacent-section.right {
+      justify-content: flex-end;
+    }
+    .adjacent-box {
+      width: 50%;
+    }
   }
 </style>
