@@ -1,5 +1,8 @@
 export const appName = 'whyframe'
 
+export const githubRepoDocsUrl =
+  'https://github.com/bluwy/whyframe/blob/master/docs/'
+
 export const headerLinks = [
   { title: 'Guide', url: '/guide/getting-started' },
   { title: 'API', url: '/api' },
@@ -25,3 +28,17 @@ export const sidebarGuideLinks = [
     ]
   }
 ]
+
+const guideLinks = sidebarGuideLinks.reduce((acc, { children }) => {
+  return acc.concat(children)
+}, [])
+
+export function getGuideAdjacentLink(url) {
+  const index = guideLinks.findIndex(({ url: linkUrl }) => linkUrl === url)
+  if (index === -1) {
+    return null
+  }
+  const nextLink = guideLinks[index + 1]
+  const prevLink = guideLinks[index - 1]
+  return { nextLink, prevLink }
+}

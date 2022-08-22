@@ -1,0 +1,82 @@
+---
+import { getGuideAdjacentLink, githubRepoDocsUrl } from '@/utils/constants'
+
+const currentPage = Astro.url.pathname
+const currentFile = `src/pages${currentPage.replace(/\/$/, '')}.md`
+const githubEditUrl = githubRepoDocsUrl + currentFile
+
+const adjacentLink = getGuideAdjacentLink(currentPage)
+---
+
+<p class="edit-on-github">
+  <a class="link" href={githubEditUrl} target="_blank">
+    <span>Edit this page on GitHub</span>
+  </a>
+</p>
+
+{
+  adjacentLink && (
+    <section class="adjacent-section">
+      {adjacentLink.prevLink && (
+        <a class="adjacent-box left" href={adjacentLink.prevLink.url}>
+          <h2>Previous page</h2>
+          <p>{adjacentLink.prevLink.title}</p>
+        </a>
+      )}
+      {adjacentLink.nextLink && (
+        <a class="adjacent-box right" href={adjacentLink.nextLink.url}>
+          <h2>Next page</h2>
+          <p>{adjacentLink.nextLink.title}</p>
+        </a>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .edit-on-github {
+    color: var(--primary);
+    margin-top: 3rem;
+  }
+
+  .adjacent-section {
+    display: flex;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .adjacent-box {
+    border: 1px solid var(--gray);
+    padding: 0.8rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    font-size: 1em;
+    color: var(--light);
+    text-decoration: none;
+    transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out,
+      background-color 0.2s ease-in-out;
+  }
+
+  .adjacent-box > p {
+    margin: 0;
+    margin-top: 0.3rem;
+  }
+
+  .adjacent-box.right {
+    text-align: right;
+  }
+
+  .adjacent-box:hover,
+  .adjacent-box:focus {
+    border-color: var(--primary);
+    background-color: #ffffff20;
+    color: var(--primary);
+  }
+
+  .adjacent-box > h2 {
+    margin: 0;
+    font-size: 0.8em;
+    opacity: 0.7;
+    color: var(--light);
+  }
+</style>
