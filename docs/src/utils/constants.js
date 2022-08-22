@@ -13,7 +13,8 @@ export const sidebarGuideLinks = [
     title: 'Introduction',
     children: [
       { title: 'Getting started', url: '/docs/getting-started' },
-      { title: 'How it works', url: '/docs/how-it-works' }
+      { title: 'How it works', url: '/docs/how-it-works' },
+      { title: 'Features', url: '/docs/features' }
     ]
   },
   {
@@ -32,6 +33,9 @@ const guideLinks = sidebarGuideLinks.reduce((acc, { children }) => {
   return acc.concat(children)
 }, [])
 
+/**
+ * @param {string} url
+ */
 export function getGuideAdjacentLink(url) {
   const index = guideLinks.findIndex(({ url: linkUrl }) => linkUrl === url)
   if (index === -1) {

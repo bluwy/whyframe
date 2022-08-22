@@ -21,18 +21,20 @@ Within the `iframe` HTML, `whyframe:app` is a custom script that's used to read 
 
 When I was building a Storybook alternative, component isolation has been an annoying problem to solve that had be stumped for weeks. Some of the ideas were:
 
-1. **Manual runtime isolation and separation**
+### 1. Manual runtime isolation and separation
 
 Problem: It doesn't work for every framework. The code output is only transferred and rendered into the iframe, interactions within the iframe are limited. Does not handle transferring styles well.
 
-2. **Web components and the shadow DOM**
+### 2. Web components and the shadow DOM
 
 Problem: The shadow DOM doesn't reduce complexity compared to an iframe. All caveats are transferred over, except style isolation, but it's still not perfect.
 
-3. **Proprietary syntax to enforce simpler extraction**
+### 3. Proprietary syntax to enforce simpler extraction
 
-Problem: Storybook calls this "Component Story Format" and it is non-ergonomic. It only works with JSX in mind, with other templating libraries not working well. Users shouldn't learn a new syntax too.
+Problem: It's another syntax to learn and not flexible enough. For example, Storybook introduced the "Component Story Format", bu it mainly works with JSX in mind, while other templating libraries not working well.
 
-After all these explorations, a feature in Svelte VSCode caught my interest -- the `Svelte: Extract component` command. Basically, when you highlight a specific markup, the command will then extract the markup as a separate Svelte component, and brings along `<script>` and `<style>` too.
+### 4. HTML extraction with tight bundler integration
 
-Now `whyframe` works on the same premise, except expanding for a different purpose.
+After all these explorations, a feature in Svelte VSCode caught my interest -- the `Svelte: Extract Component` command. It works by extracting the hihglighted markup as a separate Svelte component, and also brings along `<script>` and `<style>` too.
+
+`whyframe` works the same way internally but automates all of it under-the-hood!
