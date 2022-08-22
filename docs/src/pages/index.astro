@@ -24,24 +24,24 @@ import Card from '@/components/Card.astro'
   <section class="docs-container">
     <div class="cards">
       <Card>
-        <span slot="title">Just works</span>
+        <span slot="title">📦 Just works</span>
         <span>
-          Out-of-the-box support for Vite, SvelteKit, Astro, VitePress, and many
-          other frameworks.
+          Out-of-the-box support for Vite, SvelteKit, Astro, VitePress, and
+          Nuxt.
         </span>
       </Card>
       <Card>
-        <span slot="title">Highly flexible</span>
+        <span slot="title">🛠 Highly flexible</span>
         <span>
-          Unlike Storybook and friends, you own your iframe. Make it whatever
-          you want.
+          Wrap it with a component. Add custom styles and logic. Make it
+          whatever you want!
         </span>
       </Card>
       <Card>
-        <span slot="title">Performant</span>
+        <span slot="title">⚡️ Performant</span>
         <span>
-          HTML is rendered with your framework of choice as-is. Everything else
-          is done in compile-time.
+          Renders with your framework of choice as-is. Everything else is done
+          in compile-time.
         </span>
       </Card>
     </div>
@@ -122,6 +122,7 @@ import Card from '@/components/Card.astro'
   @media (min-width: 768px) {
     .cards {
       flex-direction: row;
+      align-items: stretch;
     }
   }
 </style>
