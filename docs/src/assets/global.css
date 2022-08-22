@@ -40,12 +40,12 @@ h1:first-child {
 
 h2 {
   font-weight: 500;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 h3 {
   font-weight: 500;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .docs-container {
@@ -146,6 +146,29 @@ button.primary:active,
 
 .markdown-container blockquote > *:last-child {
   margin-bottom: 0.5rem;
+}
+
+.markdown-container table {
+  border-collapse: collapse;
+}
+
+.markdown-container table th,
+.markdown-container table td {
+  border: 1px solid #bababa20;
+  padding: 0.5rem 0.8rem;
+}
+
+.markdown-container table th {
+  background-color: var(--dark-more);
+  font-weight: 500;
+}
+
+.markdown-container table td {
+  background-color: #ffffff10;
+}
+
+.markdown-container table tr:nth-child(even) td {
+  background-color: #ffffff20;
 }
 
 @media (min-width: 768px) {
