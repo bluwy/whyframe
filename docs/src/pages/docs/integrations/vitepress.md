@@ -1,6 +1,6 @@
 ---
 title: Getting started
-layout: ../../layouts/DocsLayout.astro
+layout: ../../../layouts/DocsLayout.astro
 ---
 
 # VitePress
@@ -11,7 +11,7 @@ All features are supported in VitePress, except for the fallback `iframe` HTML f
 
 > If you have an existing VitePress app, you can skip this step.
 
-You can create a new VitePress project following the [official guide](https://vitepress.vuejs.org/guide/getting-started).
+You can create a new VitePress project following the [official guide](https://vitepress.vuejs.org/docs/getting-started).
 
 `cd` into your project directory and install dependencies with `npm install`.
 
@@ -57,7 +57,7 @@ export default defineConfig({
 
 To setup `/frames/default`, it simply represents a route, e.g. `http://localhost:5173/frames/default`, that `whyframe` will use. To create the route in VitePress, an empty `/frames/default.md` file can be created.
 
-To let `whyframe` know how to mount the code within the `iframe`, we need to extend [VitePress' default theme](https://vitepress.vuejs.org/guide/theme-introduction#extending-the-default-theme). The goal is to apply our custom theme layout from scratch to not inherit [VitePress' special layouts](https://vitepress.vuejs.org/guide/theme-layout). Buckle up!
+To let `whyframe` know how to mount the code within the `iframe`, we need to extend [VitePress' default theme](https://vitepress.vuejs.org/docs/theme-introduction#extending-the-default-theme). The goal is to apply our custom theme layout from scratch to not inherit [VitePress' special layouts](https://vitepress.vuejs.org/docs/theme-layout). Buckle up!
 
 Create `.vitepress/theme/index.js` with this:
 

@@ -4,8 +4,7 @@ export const githubRepoDocsUrl =
   'https://github.com/bluwy/whyframe/blob/master/docs/'
 
 export const headerLinks = [
-  { title: 'Guide', url: '/guide/getting-started' },
-  { title: 'API', url: '/api' },
+  { title: 'Docs', url: '/docs/getting-started' },
   { title: 'GitHub', url: 'https://github.com/bluwy/whyframe' }
 ]
 
@@ -13,18 +12,18 @@ export const sidebarGuideLinks = [
   {
     title: 'Introduction',
     children: [
-      { title: 'Getting started', url: '/guide/getting-started' },
-      { title: 'How it works', url: '/guide/how-it-works' }
+      { title: 'Getting started', url: '/docs/getting-started' },
+      { title: 'How it works', url: '/docs/how-it-works' }
     ]
   },
   {
     title: 'Integrations',
     children: [
-      { title: 'Vite', url: '/integrations/vite' },
-      { title: 'SvelteKit', url: '/integrations/sveltekit' },
-      { title: 'Astro', url: '/integrations/astro' },
-      { title: 'VitePress', url: '/integrations/vitepress' },
-      { title: 'Nuxt', url: '/integrations/nuxt' }
+      { title: 'Vite', url: '/docs/integrations/vite' },
+      { title: 'SvelteKit', url: '/docs/integrations/sveltekit' },
+      { title: 'Astro', url: '/docs/integrations/astro' },
+      { title: 'VitePress', url: '/docs/integrations/vitepress' },
+      { title: 'Nuxt', url: '/docs/integrations/nuxt' }
     ]
   }
 ]

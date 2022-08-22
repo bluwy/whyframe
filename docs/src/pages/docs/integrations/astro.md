@@ -1,6 +1,6 @@
 ---
 title: Getting started
-layout: ../../layouts/DocsLayout.astro
+layout: ../../../layouts/DocsLayout.astro
 ---
 
 # Nuxt

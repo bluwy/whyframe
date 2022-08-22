@@ -1,27 +1,31 @@
 ---
 title: Getting started
-layout: ../../layouts/DocsLayout.astro
+layout: ../../../layouts/DocsLayout.astro
 ---
 
-# SvelteKit
+# Vite
 
-All features are supported in SvelteKit.
+All features are supported in Vite.
 
 ## Scaffold your app
 
-> If you have an existing SvelteKit app, you can skip this step.
+> If you have an existing Vite app, you can skip this step.
 
-Create a new SvelteKit project with:
+Create a new Vite project with:
 
 ```bash
-$ npm create svelte@latest
+$ npm create vite@latest
 ```
+
+Choose any framework of choice (except Lit) to start with! `whyframe` supports most UI frameworks out-of-the-box.
 
 `cd` into your project directory and install dependencies with `npm install`.
 
 ## Install
 
-`whyframe` comes in two packages, one for the core library and one for the UI framework, in this case, Svelte.
+`whyframe` comes in two packages, one for the core library and one for the UI framework.
+
+<!-- TODO: make toggle for frameworks? -->
 
 ```bash
 # Install the core library
@@ -29,6 +33,12 @@ $ npm install -D @whyframe/core
 
 # Install the Svelte integration
 $ npm install -D @whyframe/svelte
+
+# Or install the Vue integration
+$ npm install -D @whyframe/vue
+
+# Or install the JSX integration (includes Solid, Preact & React)
+$ npm install -D @whyframe/jsx
 ```
 
 ## Setup
@@ -37,26 +47,31 @@ $ npm install -D @whyframe/svelte
 
 ```js
 import { defineConfig } from 'vite'
-import { sveltekit } from '@sveltejs/kit/vite'
 import { whyframe } from '@whyframe/core'
 import { whyframeSvelte } from '@whyframe/svelte'
+import { whyframeVue } from '@whyframe/vue'
+import { whyframeJsx } from '@whyframe/jsx'
 
 export default defineConfig({
   plugins: [
-    sveltekit(),
-
     // Initialize core plugin
     whyframe(),
 
     // Initialize Svelte integration plugin
-    whyframeSvelte()
+    whyframeSvelte(),
+
+    // Or initialize Vue integration plugin
+    whyframeVue(),
+
+    // Or initialize JSX integration plugin (also specify the UI framework used)
+    whyframeJSX({ framework: 'solid' })
   ]
 })
 ```
 
 ## Usage
 
-In `src/routes/+page.svelte`, you can create an `iframe` like below:
+Depending on which UI framework you're using, you can edit `App.svelte`, `App.vue`, or `App.jsx` to start creating an `iframe`. For example:
 
 ```html
 <iframe data-why>

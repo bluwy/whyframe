@@ -9,8 +9,8 @@ layout: ../../layouts/DocsLayout.astro
 
 Check out the integration guides below to choose a flavour!
 
-- [Vite](/integrations/vite)
-- [SvelteKit](/integrations/sveltekit)
-- [Astro](/integrations/astro)
-- [VitePress](/integrations/vitepress)
-- [Nuxt](/integrations/nuxt)
+- [Vite](/docs/integrations/vite)
+- [SvelteKit](/docs/integrations/sveltekit)
+- [Astro](/docs/integrations/astro)
+- [VitePress](/docs/integrations/vitepress)
+- [Nuxt](/docs/integrations/nuxt)
