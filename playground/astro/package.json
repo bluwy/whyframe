@@ -26,6 +26,7 @@
 		"@whyframe/svelte": "workspace:0.0.1",
 		"@whyframe/vue": "workspace:0.0.1",
 		"astro": "^1.0.6",
+		"preact-render-to-string": "^5.2.2",
 		"svelte": "^3.49.0",
 		"vite-plugin-inspect": "^0.6.0"
 	}
