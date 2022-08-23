@@ -66,6 +66,10 @@ export function whyframeVue(options) {
       transform(ast, {
         nodeTransforms: [
           (node) => {
+            const isIframeElement =
+              node.tag === 'iframe' &&
+              node.props.find((a) => a.name === 'data-why')
+
             if (isIframeElement) {
               // if contains slot, it implies that it's accepting the component's
               // slot as iframe content, we need to proxy them
@@ -76,10 +80,9 @@ export function whyframeVue(options) {
               ) {
                 const attrs = api.getProxyIframeAttrs()
                 s.appendLeft(
-                  node.start + `<iframe`.length,
+                  node.loc.start.offset + `<iframe`.length,
                   stringifyAttrs(attrs)
                 )
-                this.skip()
                 return
               }
             }

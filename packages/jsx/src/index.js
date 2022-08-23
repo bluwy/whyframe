@@ -109,7 +109,7 @@ export function whyframeJsx(options) {
             // children as iframe content, we need to proxy them
             if (
               node.children?.some((c) =>
-                /(\{|\.)children\}$/.code.slice(c.start, c.end)
+                /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
               )
             ) {
               const attrs = api.getProxyIframeAttrs()

@@ -173,6 +173,7 @@ importers:
       '@whyframe/core': workspace:0.0.1
       '@whyframe/vue': workspace:0.0.1
       nuxt: 3.0.0-rc.8
+      ufo: ^0.8.5
       vite-plugin-inspect: ^0.6.0
       vue: ^3.2.37
     dependencies:
@@ -181,6 +182,7 @@ importers:
       '@whyframe/core': link:../../packages/core
       '@whyframe/vue': link:../../packages/vue
       nuxt: 3.0.0-rc.8
+      ufo: 0.8.5
       vite-plugin-inspect: 0.6.0
 
   playground/svelte-kit:
