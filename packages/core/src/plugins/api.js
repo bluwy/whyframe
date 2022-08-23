@@ -30,6 +30,17 @@ export function apiPlugin(options) {
       _getHashToEntryIds() {
         return hashToEntryIds
       },
+      isIframeComponent(componentName) {
+        return !!options.components?.includes(componentName)
+      },
+      moduleMayHaveIframe(id, code) {
+        return (
+          !id.includes('__whyframe:') &&
+          !id.includes('__whyframe-') &&
+          (code.includes('<iframe') ||
+            !!options.components?.some((n) => code.includes(`<${n}`)))
+        )
+      },
       getMainIframeAttrs(entryId, hash, templateName, rawSource, isComponent) {
         /** @type {import('..').Attr[]} */
         const attrs = []

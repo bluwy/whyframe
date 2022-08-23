@@ -33,12 +33,8 @@ export function whyframeSvelte(options) {
       ctx = this
     },
     transform(code, id) {
-      if (!filter(id) || id.includes('__whyframe-')) return
-      if (
-        !code.includes('<iframe') &&
-        componentNames.every((n) => !code.includes(`<${n}`))
-      )
-        return
+      if (!filter(id)) return
+      if (!api.moduleMayHaveIframe(id, code)) return
 
       const isProxyMode = componentPaths.includes(id)
 
@@ -75,8 +71,7 @@ export function whyframeSvelte(options) {
           }
 
           const isIframeComponent =
-            node.type === 'InlineComponent' &&
-            componentNames.includes(node.name)
+            node.type === 'InlineComponent' && api.isIframeComponent(node.name)
 
           if (isIframeElement || isIframeComponent) {
             // extract iframe html

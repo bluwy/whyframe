@@ -14,18 +14,14 @@ export interface Attr {
 
 export interface Options {
   /**
-   * A map of template names to actual html in the filesystem. These html
-   * will be passed to Vite to transform as is, leveraging it as another
-   * entrypoint of your app. The only thing to make sure is that you call
-   * this somewhere in the html's script:
-   * ```ts
-   * import { createApp } from 'whyframe:app'
-   * // ...do something...
-   * // finally mount the app to a dom element
-   * createApp(document.getElementById('app'))
-   * ```
+   * A map of template names to the serving url path.
    */
   template?: Record<string, string>
+  /**
+   * A list of component names that contains an `iframe` that renders
+   * what's passed into the component, e.g. via slots or children.
+   */
+  components?: string[]
 }
 
 export interface Api {
@@ -34,9 +30,13 @@ export interface Api {
    */
   _getHashToEntryIds: () => Map<string, string>
   /**
-   * Return an 8 character hash safe to use in urls and ids
+   * Check if a component name contains an iframe.
    */
-  getHash: (text: string) => string
+  isIframeComponent: (componentName: string) => boolean
+  /**
+   * A utility to check if a module may contain an iframe to quickly skip parsing.
+   */
+  moduleMayHaveIframe: (id: string, code: string) => boolean
   /**
    * Get the main iframe attrs, including `<iframe>` and custom `<Story>`.
    * This should be differentiated via `isComponent`.

@@ -47,12 +47,8 @@ export function whyframeVue(options) {
       }
     },
     transform(code, id) {
-      if (!filter(id) || id.includes('__whyframe-')) return
-      if (
-        !code.includes('<iframe') &&
-        componentNames.every((n) => !code.includes(`<${n}`))
-      )
-        return
+      if (!filter(id)) return
+      if (!api.moduleMayHaveIframe(id, code)) return
 
       const isProxyMode = componentPaths.includes(id)
 
@@ -91,7 +87,7 @@ export function whyframeVue(options) {
               return
             }
 
-            const isIframeComponent = componentNames.includes(node.tag)
+            const isIframeComponent = api.isIframeComponent(node.tag)
 
             if (isIframeElement || isIframeComponent) {
               // extract iframe html

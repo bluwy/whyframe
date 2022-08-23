@@ -34,17 +34,8 @@ export function whyframeJsx(options) {
       }
     },
     transform(code, id) {
-      if (
-        !filter(id) ||
-        id.includes('__whyframe-') ||
-        id.includes('__whyframe:')
-      )
-        return
-      if (
-        !code.includes('<iframe') &&
-        componentNames.every((n) => !code.includes(`<${n}`))
-      )
-        return
+      if (!filter(id)) return
+      if (!api.moduleMayHaveIframe(id, code)) return
 
       const isProxyMode = componentPaths.includes(id)
       const proxyExport = isProxyMode ? componentPathToExport(id) : null
@@ -143,7 +134,7 @@ export function whyframeJsx(options) {
 
           const isIframeComponent =
             node.type === 'JSXElement' &&
-            componentNames.includes(node.openingElement.name.name)
+            api.isIframeComponent(node.openingElement.name.name)
 
           if (isIframeElement || isIframeComponent) {
             // extract iframe html

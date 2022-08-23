@@ -52,12 +52,8 @@ export function whyframeAstro(options) {
       }
     },
     async transform(code, id) {
-      if (!filter(id) || id.includes('__whyframe-')) return
-      if (
-        !code.includes('<iframe') &&
-        componentNames.every((n) => !code.includes(`<${n}`))
-      )
-        return
+      if (!filter(id)) return
+      if (!api.moduleMayHaveIframe(id, code)) return
 
       const isProxyMode = componentPaths.includes(id)
 
@@ -117,7 +113,7 @@ export function whyframeAstro(options) {
           }
 
           const isIframeComponent =
-            node.type === 'component' && componentNames.includes(node.name)
+            node.type === 'component' && api.isIframeComponent(node.name)
 
           if (isIframeElement || isIframeComponent) {
             // .astro requires a value for data-why to render as a specific framework
