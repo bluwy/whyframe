@@ -10,11 +10,11 @@ export default defineConfig({
       template: {
         default: '/frames/basic', // vitepress doesn't support whyframe default template
         basic: '/frames/basic'
-      }
+      },
+      components: ['Story']
     }),
     whyframeVue({
       include: /\.(?:vue|md)$/,
-      components: [{ name: 'Story', path: './components/Story.vue' }]
     })
   ],
   ssr: {

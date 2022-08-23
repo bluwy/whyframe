@@ -10,11 +10,11 @@ export default defineConfig({
     whyframe({
       template: {
         basic: '/frames/basic/index.html'
-      }
+      },
+      components: ['Story']
     }),
     whyframeJsx({
       framework: 'preact',
-      components: [{ name: 'Story', path: './src/Story.jsx', export: 'Story' }]
     }),
     preact()
   ],

@@ -10,11 +10,10 @@ export default defineConfig({
     whyframe({
       template: {
         basic: '/frames/basic/index.html'
-      }
+      },
+      components: ['Story']
     }),
-    whyframeVue({
-      components: [{ name: 'Story', path: './src/Story.vue' }]
-    }),
+    whyframeVue(),
     vue()
   ],
   build: {

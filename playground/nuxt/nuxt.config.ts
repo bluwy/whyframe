@@ -12,11 +12,10 @@ export default defineNuxtConfig({
         template: {
           default: '/frames/basic', // nuxt doesn't support whyframe default template in build
           basic: '/frames/basic'
-        }
+        },
+        components: ['Story']
       }),
-      whyframeVue({
-        components: [{ name: 'Story', path: './components/Story.vue' }]
-      })
+      whyframeVue()
     ]
   }
 })

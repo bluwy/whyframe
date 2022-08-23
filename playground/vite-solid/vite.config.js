@@ -10,11 +10,11 @@ export default defineConfig({
     whyframe({
       template: {
         basic: '/frames/basic/index.html'
-      }
+      },
+      components: ['Story']
     }),
     whyframeJsx({
       framework: 'solid',
-      components: [{ name: 'Story', path: './src/Story.jsx', export: 'Story' }]
     }),
     solid()
   ],

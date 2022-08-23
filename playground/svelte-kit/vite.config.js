@@ -11,10 +11,9 @@ export default defineConfig({
     whyframe({
       template: {
         basic: '/frames/basic'
-      }
+      },
+      components: ['Story']
     }),
-    whyframeSvelte({
-      components: [{ name: 'Story', path: './src/lib/Story.svelte' }]
-    })
+    whyframeSvelte()
   ]
 })

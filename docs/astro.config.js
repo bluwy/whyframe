@@ -24,11 +24,11 @@ export default defineConfig({
           default: '/frames/basic',
           hero: '/frames/hero',
           basic: '/frames/basic'
-        }
+        },
+        components: ['Story']
       }),
       whyframeAstro({
-        defaultFramework: 'svelte',
-        components: [{ name: 'Story', path: './src/components/Story.astro' }]
+        defaultFramework: 'svelte'
       }),
       whyframeSvelte(),
       whyframeVue(),
