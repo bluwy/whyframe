@@ -26,6 +26,16 @@ export const sidebarGuideLinks = [
       { title: 'VitePress', url: '/docs/integrations/vitepress' },
       { title: 'Nuxt', url: '/docs/integrations/nuxt' }
     ]
+  },
+  {
+    title: 'Packages',
+    children: [
+      { title: '@whyframe/core', url: '/docs/packages/whyframe-core' },
+      { title: '@whyframe/svelte', url: '/docs/packages/whyframe-svelte' },
+      { title: '@whyframe/vue', url: '/docs/packages/whyframe-vue' },
+      { title: '@whyframe/jsx', url: '/docs/packages/whyframe-jsx' },
+      { title: '@whyframe/astro', url: '/docs/packages/whyframe-astro' }
+    ]
   }
 ]
 
