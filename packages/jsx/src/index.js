@@ -13,15 +13,6 @@ export function whyframeJsx(options) {
   let api
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
-  const componentNames = options?.components?.map((c) => c.name) ?? []
-  const componentPaths =
-    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
-
-  function componentPathToExport(p) {
-    return options?.components?.find(
-      (c) => c.path === p || path.resolve(c.path) === p
-    )?.export
-  }
 
   return {
     name: 'whyframe:jsx',
@@ -36,9 +27,6 @@ export function whyframeJsx(options) {
     transform(code, id) {
       if (!filter(id)) return
       if (!api.moduleMayHaveIframe(id, code)) return
-
-      const isProxyMode = componentPaths.includes(id)
-      const proxyExport = isProxyMode ? componentPathToExport(id) : null
 
       const ext = path.extname(id)
 
@@ -108,13 +96,6 @@ export function whyframeJsx(options) {
           // only detect jsx in fn
           if (!topLevelFnNode) return
 
-          // proxy mode happens on per function basis that is exported, not per file
-          const isActualProxyMode =
-            isProxyMode &&
-            (proxyExport === 'default'
-              ? exportNode?.type === 'ExportDefaultDeclaration'
-              : topLevelFnNode.id?.name === proxyExport)
-
           const isIframeElement =
             node.type === 'JSXElement' &&
             node.openingElement.name.name === 'iframe' &&
@@ -123,13 +104,19 @@ export function whyframeJsx(options) {
                 attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
             )
 
-          if (isActualProxyMode) {
-            if (isIframeElement) {
+          if (isIframeElement) {
+            // if contains children, it implies that it's accepting the component's
+            // children as iframe content, we need to proxy them
+            if (
+              node.children?.some((c) =>
+                /(\{|\.)children\}$/.code.slice(c.start, c.end)
+              )
+            ) {
               const attrs = api.getProxyIframeAttrs()
               s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
               this.skip()
+              return
             }
-            return
           }
 
           const isIframeComponent =

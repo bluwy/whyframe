@@ -25,9 +25,6 @@ export function whyframeAstro(options) {
   const importExcludeFilter = options?.importExclude
     ? createFilter(options?.importExclude, undefined, { resolve: false })
     : () => false
-  const componentNames = options?.components?.map((c) => c.name) ?? []
-  const componentPaths =
-    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -54,8 +51,6 @@ export function whyframeAstro(options) {
     async transform(code, id) {
       if (!filter(id)) return
       if (!api.moduleMayHaveIframe(id, code)) return
-
-      const isProxyMode = componentPaths.includes(id)
 
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -99,17 +94,22 @@ export function whyframeAstro(options) {
             node.name === 'iframe' &&
             node.attributes.find((a) => a.name === 'data-why')
 
-          if (isProxyMode) {
-            // proxy mode only process iframe elements
-            if (isIframeElement) {
+          if (isIframeElement) {
+            // if contains slot, it implies that it's accepting the component's
+            // slot as iframe content, we need to proxy them
+            if (
+              node.children?.some((c) =>
+                c.value?.trimLeft().startsWith('<slot')
+              )
+            ) {
               const attrs = api.getProxyIframeAttrs()
               s.appendLeft(
                 node.position.start.offset + `<iframe`.length,
                 stringifyAttrs(attrs)
               )
               this.skip()
+              return
             }
-            return
           }
 
           const isIframeComponent =

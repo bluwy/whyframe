@@ -15,9 +15,6 @@ export function whyframeVue(options) {
   let isVitepress = false
 
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
-  const componentNames = options?.components?.map((c) => c.name) ?? []
-  const componentPaths =
-    options?.components?.flatMap((c) => [c.path, path.resolve(c.path)]) ?? []
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -50,8 +47,6 @@ export function whyframeVue(options) {
       if (!filter(id)) return
       if (!api.moduleMayHaveIframe(id, code)) return
 
-      const isProxyMode = componentPaths.includes(id)
-
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
@@ -71,20 +66,22 @@ export function whyframeVue(options) {
       transform(ast, {
         nodeTransforms: [
           (node) => {
-            const isIframeElement =
-              node.tag === 'iframe' &&
-              node.props.find((a) => a.name === 'data-why')
-
-            if (isProxyMode) {
-              // proxy mode only process iframe elements
-              if (isIframeElement) {
+            if (isIframeElement) {
+              // if contains slot, it implies that it's accepting the component's
+              // slot as iframe content, we need to proxy them
+              if (
+                node.children?.some((c) =>
+                  c.content?.trimLeft().startsWith('<slot')
+                )
+              ) {
                 const attrs = api.getProxyIframeAttrs()
                 s.appendLeft(
-                  node.loc.start.offset + `<iframe`.length,
+                  node.start + `<iframe`.length,
                   stringifyAttrs(attrs)
                 )
+                this.skip()
+                return
               }
-              return
             }
 
             const isIframeComponent = api.isIframeComponent(node.tag)
