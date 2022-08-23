@@ -1,6 +1,6 @@
 <div class="card">
-  <h2><slot name="title" /></h2>
-  <p>
+  <h2 class="card-title"><slot name="title" /></h2>
+  <p class="card-desc">
     <slot />
   </p>
 </div>
@@ -13,14 +13,14 @@
     border-radius: 0.5rem;
   }
 
-  h2 {
+  .card-title {
     margin-top: 0;
     margin-bottom: 0.6rem;
     font-weight: 500;
     color: var(--primary);
   }
 
-  p {
+  .card-desc {
     opacity: 0.8;
     margin: 0.6rem 0 0;
   }
