@@ -14,6 +14,7 @@
   "devDependencies": {
     "@whyframe/core": "workspace:0.0.1",
     "@whyframe/vue": "workspace:0.0.1",
+    "node-fetch-native": "^0.1.4",
     "nuxt": "3.0.0-rc.8",
     "ufo": "^0.8.5",
     "vite-plugin-inspect": "^0.6.0"
