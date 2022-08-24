@@ -11,10 +11,10 @@
     "solid-js": "^1.4.8"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:0.0.1",
-    "@whyframe/jsx": "workspace:0.0.1",
+    "@whyframe/core": "workspace:*",
+    "@whyframe/jsx": "workspace:*",
     "babel-preset-solid": "^1.4.8",
-    "vite": "^3.0.8",
+    "vite": "^3.0.9",
     "vite-plugin-inspect": "^0.6.0",
     "vite-plugin-solid": "^2.3.0"
   }

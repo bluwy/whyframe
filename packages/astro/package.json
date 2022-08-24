@@ -27,7 +27,7 @@
     "astro"
   ],
   "peerDependencies": {
-    "@whyframe/core": "workspace:*"
+    "@whyframe/core": "workspace:^"
   },
   "dependencies": {
     "@astrojs/compiler": "^0.23.3",
@@ -35,7 +35,7 @@
     "magic-string": "^0.26.2"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:0.0.1",
-    "vite": "^3.0.8"
+    "@whyframe/core": "workspace:^",
+    "vite": "^3.0.9"
   }
 }

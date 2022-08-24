@@ -30,16 +30,16 @@
     "solid"
   ],
   "peerDependencies": {
-    "@whyframe/core": "workspace:*",
+    "@whyframe/core": "workspace:^",
     "vite": "^3.0.4"
   },
   "dependencies": {
-    "@babel/parser": "^7.18.11",
+    "@babel/parser": "^7.18.13",
     "estree-walker": "^3.0.1",
     "magic-string": "^0.26.2"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:0.0.1",
-    "vite": "^3.0.8"
+    "@whyframe/core": "workspace:^",
+    "vite": "^3.0.9"
   }
 }
