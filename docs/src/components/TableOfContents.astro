@@ -19,7 +19,7 @@ const h2s = headings.filter((h) => h.depth === 2)
   </ul>
 </aside>
 
-<script is:inline data-htwo={h2s.map((h) => h.slug)}>
+<script is:inline data-htwo={JSON.stringify(h2s.map((h) => h.slug))}>
   /** @type {string[]} */
   const data = JSON.parse(document.currentScript.getAttribute('data-htwo'))
   let enabled = false
