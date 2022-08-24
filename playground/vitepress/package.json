@@ -1,7 +1,7 @@
 {
 	"name": "@whyframe/playground-vitepress",
 	"private": true,
-	"type": "commonjs",
+	"type": "module",
 	"scripts": {
 		"dev": "vitepress dev",
 		"build": "vitepress build",

@@ -14,18 +14,7 @@ export default defineConfig({
       components: ['Story']
     }),
     whyframeVue({
-      include: /\.(?:vue|md)$/,
+      include: /\.(?:vue|md)$/
     })
-  ],
-  ssr: {
-    format: 'cjs'
-  },
-  legacy: {
-    buildSsrCjsExternalHeuristics: true
-  },
-  optimizeDeps: {
-    // vitepress is aliased with replacement `join(DIST_CLIENT_PATH, '/index')`
-    // This needs to be excluded from optimization
-    exclude: ['vitepress']
-  }
+  ]
 })
