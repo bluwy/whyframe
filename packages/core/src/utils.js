@@ -40,3 +40,13 @@ export function createIframeRpc(iframe) {
     }
   }
 }
+
+/** @type {import('./utils').getWhyframeRawSource} */
+export function getWhyframeRawSource(iframe) {
+  return iframe.dataset.whyRawSource
+}
+
+/** @type {import('./utils').reloadWhyframe} */
+export function reloadWhyframe(iframe) {
+  iframe.contentWindow.location.reload()
+}

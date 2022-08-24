@@ -5,3 +5,7 @@ export interface Rpc {
 }
 
 export function createIframeRpc(iframe?: HTMLIFrameElement): Rpc
+export function getWhyframeRawSource(
+  iframe: HTMLIFrameElement
+): string | undefined
+export function reloadWhyframe(iframe: HTMLIFrameElement): void
