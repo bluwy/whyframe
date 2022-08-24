@@ -32,19 +32,7 @@ export default defineConfig({
       }),
       whyframeSvelte(),
       whyframeVue(),
-      // what mad man
-      whyframeJsx({
-        include: /\.solid\.jsx$/,
-        framework: 'solid'
-      }),
-      whyframeJsx({
-        include: /\.preact\.jsx$/,
-        framework: 'preact'
-      }),
-      whyframeJsx({
-        include: /\.react\.jsx$/,
-        framework: 'react'
-      })
+      whyframeJsx()
     ],
     resolve: {
       alias: {

@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse } from '@babel/parser'
@@ -13,6 +14,7 @@ export function whyframeJsx(options) {
   let api
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
+  const fallbackFramework = options?.framework || guessFrameworkFromTsconfig()
 
   return {
     name: 'whyframe:jsx',
@@ -30,13 +32,25 @@ export function whyframeJsx(options) {
 
       const ext = path.extname(id)
 
+      const framework =
+        validateFramework(code.match(/@jsxImportSource\s*(\S+)/)[1]) ||
+        fallbackFramework
+
+      if (!framework) {
+        console.warn(
+          `Unable to determine JSX framework for ${id}. ` +
+            `Fix this by specifying a fallback framework in whyframeJsx's framework option. ` +
+            `Skipping whyframe transform.`
+        )
+      }
+
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
       /** @type {import('@babel/parser').ParserPlugin[]} */
       const parserPlugins = [
         // NOTE: got `(intermediate value) is not iterable` error if spread without fallback empty array
-        ...(options.parserOptions?.plugins ?? []),
+        ...(options?.parserOptions?.plugins ?? []),
         'jsx',
         'importMeta',
         // This plugin is applied before esbuild transforms the code,
@@ -52,7 +66,7 @@ export function whyframeJsx(options) {
       }
 
       const ast = parse(code, {
-        ...options.parserOptions,
+        ...options?.parserOptions,
         sourceType: 'module',
         allowAwaitOutsideFunction: true,
         plugins: parserPlugins
@@ -184,7 +198,7 @@ export function whyframeJsx(options) {
               id,
               finalHash,
               '.jsx',
-              createEntry(entryComponentId, options.framework)
+              createEntry(entryComponentId, framework)
             )
 
             // inject template props
@@ -216,6 +230,34 @@ export function whyframeJsx(options) {
         }
       }
     }
+  }
+}
+
+/**
+ * @return {import('.').Options['framework'] | undefined}
+ */
+function guessFrameworkFromTsconfig() {
+  try {
+    const tsconfig = fs.readFileSync(
+      path.join(process.cwd(), 'tsconfig.json'),
+      'utf8'
+    )
+    const source = tsconfig.match(/"jsxImportSource":\s*"(.*?)"/)[1]
+    return validateFramework(source)
+  } catch {}
+}
+
+/**
+ * @param {string} framework
+ * @return {import('.').Options['framework'] | undefined}
+ */
+function validateFramework(framework) {
+  if (framework === 'solid-js') {
+    return 'solid'
+  } else if (framework === 'preact') {
+    return 'preact'
+  } else if (framework === 'react') {
+    return 'react'
   }
 }
 

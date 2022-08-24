@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import { createSignal } from 'solid-js'
 import { counter } from './Counter.module.css'
 

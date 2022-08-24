@@ -1,3 +1,4 @@
+/** @jsxImportSource preact */
 import { useState } from 'preact/hooks'
 import { counter } from './Counter.module.css'
 

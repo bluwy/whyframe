@@ -5,8 +5,11 @@ export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
   parserOptions?: ParserOptions
-  // TODO: auto detect and configurable
-  framework: 'react' | 'preact' | 'solid'
+  /**
+   * Default framework to use if it can't be detected via a `@jsxImportSource <framework>`
+   * comment at the top of the JSX file, or from `jsxImportSource` option in tsconfig.json.
+   */
+  framework?: 'react' | 'preact' | 'solid'
 }
 
-export function whyframeJsx(options: Options): Plugin
+export function whyframeJsx(options?: Options): Plugin

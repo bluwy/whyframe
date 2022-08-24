@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import { useState } from 'react'
 import { counter } from './Counter.module.css'
 
