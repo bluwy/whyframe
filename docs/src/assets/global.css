@@ -152,7 +152,7 @@ button.primary:active,
   background-color: #ffc82420; /* --primary */
   color: var(--light);
   padding: 0.2rem 1rem;
-  margin: 0;
+  margin: 1rem 0;
 }
 
 .markdown-container blockquote p {

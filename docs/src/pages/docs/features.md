@@ -5,17 +5,19 @@ layout: ../../layouts/DocsLayout.astro
 
 # Features
 
-## HTML extraction
+## Component isolation
 
-`whyframe` works by extracting HTML within an `iframe` as a separate module. Non-HTML stuff like scripts and styles are also extracted as they may contain code used by the `iframe` content. See [How it works](/docs/how-it-works) for more details.
+`whyframe` allows you to develop components in isolation by simply wrapping it with an `iframe`.
 
-Due to it's naiveness, it may over extract scripts and styles that may cause compile-time or runtime warnings. And since HTML outside of the `iframe` is removed, scripts that references it may error.
+`whyframe` works by extracting HTML within an `iframe` as a separate module. Non-HTML code like scripts and styles are also extracted as they may contain code used by the `iframe` content. See [How it works](/docs/how-it-works) for more details.
+
+Due to it's naiveness, it may over extract scripts and styles that could cause compile-time or runtime warnings. And since the HTML surrounding the `iframe` is removed, scripts that reference them may throw an error.
 
 To prevent this, make sure your code have proper null-handling when accessing potentially removed HTML elements. This may improve in the future with better preliminary dead-code elimination.
 
 ## Custom templates
 
-By default, `@whyframe/core` provides a minimal HTML template used by an `iframe` to render the content. To change this, `@whyframe/core` has a `template` option to specify a custom template. Here's an example for Vite
+By default, `@whyframe/core` provides a minimal HTML template used by an `iframe` to render the content. To change this, `@whyframe/core` has a `template` option to use a different template instead:
 
 ```js
 export default defineConfig({
@@ -26,14 +28,13 @@ export default defineConfig({
         default: '/frames/default',
         special: '/frames/special'
       }
-    }),
-    vue()
+    })
   ],
   build: {
     rollupOptions: {
       input: {
-        // use the multi-page app (MPA) feature
-        whyframeBasic: 'frames/basic/index.html',
+        // use Vite's multi-page app (MPA) feature
+        whyframeDefault: 'frames/basic/index.html',
         whyframeSpecial: 'frames/special/index.html',
         index: 'index.html'
       }
@@ -42,31 +43,55 @@ export default defineConfig({
 })
 ```
 
-Then, you can specify which template to use using the `data-why-template` attribute.
+Then, you can specify which template to use with the `data-why-template` attribute.
 
 <!-- prettier-ignore -->
 ```html
+<iframe data-why>
+  I am default
+</iframe>
+
 <iframe data-why data-why-template="special">
-  I feel special
+  I am special
 </iframe>
 ```
 
-## Custom components
+## Abstracting components
 
-While `iframe`s are handy, for advanced use-cases it may be useful to abstract if out as a component so we can share the UI around the `iframe`, think a `<Story>` component that accepts content similar to an `iframe`, but has extra story features.
+Sometimes you have a specific style for an `iframe` that you'd like to abstract out as a component with your UI framework of choice. This can be handy if, for example, you're building a `<Story>` component, or a meta-framework using `whyframe`.
 
-`whyframe` allows this through configuration on the specific integration packages, which usually has the `components` option. For example, Svelte:
+This is supported out of the box with two requirements:
+
+1. The extracted `iframe` should only contain a `<slot />`, `{*.children}`, or `{children}`.
+
+```html
+<iframe data-why>
+  <!-- tells whyframe to take special care of this -->
+  <slot />
+</iframe>
+```
+
+2. The component names need to be registered on the `components` option.
 
 ```js
 export default defineConfig({
   plugins: [
-    whyframe(),
-    whyframeSvelte({
-      components: [{ name: 'Story', path: './src/components/Story.svelte' }]
-    }),
-    svelte()
+    whyframe({
+      // when whyframe sees a `<Story>` component, it knows that
+      // it'll contain an `iframe` with a `<slot />`
+      components: ['Story']
+    })
   ]
 })
 ```
 
-Whenever we're processing a Svelte component, we'd take special care for `<Story>` usages, which sets stores a different data internally to proxy over the actual file's `iframe`s.
+> Note: This is due to how module graphs are usually resolved top-down, as we compile components that uses `<Story>` first, before actually compiling the `Story` component.
+
+With this, you can simply use the `<Story>` component anywhere you like!
+
+<!-- prettier-ignore -->
+```html
+<Story>
+  I will be in an iframe
+</Story>
+```
