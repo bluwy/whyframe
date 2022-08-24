@@ -1,8 +1,7 @@
 ---
-/** @type {import('astro').MarkdownHeading[]} */
-const headings = Astro.props.headings
+import type { MarkdownHeading } from 'astro'
+const headings: MarkdownHeading[] = Astro.props.headings
 const h2s = headings.filter((h) => h.depth === 2)
-const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 ---
 
 <div id="toc-desktop-spacer"></div>
@@ -20,9 +19,11 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
   </ul>
 </aside>
 
-<script is:inline data-htwo={htwoData}>
+<script is:inline data-htwo={h2s.map((h) => h.slug)}>
+  /** @type {string[]} */
   const data = JSON.parse(document.currentScript.getAttribute('data-htwo'))
   let enabled = false
+  /** @type {{ toc: Element, top: number }[]} */
   let h2s = []
   document.addEventListener('DOMContentLoaded', () => {
     handleResize()
@@ -36,7 +37,6 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
         const h2 = document.querySelector(`h2[id="${slug}"]`)
         const toc = document.querySelector(`a[href="#${slug}"]`)
         return {
-          h2,
           toc,
           top: h2.getBoundingClientRect().top
         }
@@ -79,7 +79,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 <style>
   aside {
     display: none;
-    width: 240px;
+    width: 200px;
     position: fixed;
     height: 100%;
     z-index: 9;
@@ -122,14 +122,14 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
   @media (min-width: 1248px) {
     aside {
       display: block;
-      width: calc((100vw - 1248px) / 2 + 240px);
+      width: calc((100vw - 1248px) / 2 + 200px);
       padding-right: calc((100vw - 1248px) / 2);
-      min-width: 240px;
+      min-width: 200px;
     }
 
     #toc-desktop-spacer {
-      width: 240px;
-      flex: 0 0 240px;
+      width: 200px;
+      flex: 0 0 200px;
     }
   }
 </style>
