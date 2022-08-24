@@ -47,6 +47,7 @@ export interface Api {
     entryId: string,
     hash: string,
     templateName: string,
+    rawSource: string | undefined,
     isComponent: boolean
   ) => Attr[]
   /**

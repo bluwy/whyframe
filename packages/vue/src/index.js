@@ -68,7 +68,7 @@ export function whyframeVue(options) {
           (node) => {
             const isIframeElement =
               node.tag === 'iframe' &&
-              node.props.find((a) => a.name === 'data-why')
+              node.props.some((a) => a.name === 'data-why')
 
             if (isIframeElement) {
               // if contains slot, it implies that it's accepting the component's
@@ -138,11 +138,14 @@ export function createApp(el) {
               const templateName = node.props.find(
                 (a) => a.name === templatePropName
               )?.value.content
+              const shouldAddSource = node.props.some(
+                (a) => a.name === 'data-why-source'
+              )
               const attrs = api.getMainIframeAttrs(
                 entryId,
                 finalHash,
                 templateName,
-                dedent(iframeContent),
+                shouldAddSource ? dedent(iframeContent) :undefined,
                 isIframeComponent
               )
               s.appendLeft(

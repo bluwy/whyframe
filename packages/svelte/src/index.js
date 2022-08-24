@@ -53,7 +53,7 @@ export function whyframeSvelte(options) {
           const isIframeElement =
             node.type === 'Element' &&
             node.name === 'iframe' &&
-            node.attributes.find((a) => a.name === 'data-why')
+            node.attributes.some((a) => a.name === 'data-why')
 
           if (isIframeElement) {
             // if contains slot, it implies that it's accepting the component's
@@ -115,11 +115,14 @@ export function createApp(el) {
             const templateName = node.attributes
               .find((a) => a.name === templatePropName)
               ?.value.find((v) => v.type === 'Text')?.data
+            const shouldAddSource = node.attributes.some(
+              (a) => a.name === 'data-why-source'
+            )
             const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
               templateName,
-              dedent(iframeContent),
+              shouldAddSource ? dedent(iframeContent) : undefined,
               isIframeComponent
             )
             s.appendLeft(

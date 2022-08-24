@@ -208,11 +208,14 @@ export function whyframeJsx(options) {
             const templateName = node.openingElement.attributes.find(
               (a) => a.name.name === templatePropName
             )?.value.value
+            const shouldAddSource = node.openingElement.attributes.some(
+              (a) => a.name === 'data-why-source'
+            )
             const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
               templateName,
-              dedent(iframeContent),
+              shouldAddSource ? dedent(iframeContent) : undefined,
               isIframeComponent
             )
             s.appendLeft(

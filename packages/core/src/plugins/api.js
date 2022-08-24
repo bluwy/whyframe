@@ -64,12 +64,13 @@ export function apiPlugin(options) {
             value: `/@id/__${entryId}`
           })
         }
-        // TODO: allow disable this to save bundle size?
-        attrs.push({
-          type: 'static',
-          name: isComponent ? 'whyframeRawSource' : 'data-why-raw-source',
-          value: rawSource
-        })
+        if (rawSource) {
+          attrs.push({
+            type: 'static',
+            name: isComponent ? 'whyframeRawSource' : 'data-why-raw-source',
+            value: rawSource
+          })
+        }
         return attrs
       },
       getProxyIframeAttrs() {
