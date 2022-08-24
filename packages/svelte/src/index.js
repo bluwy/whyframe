@@ -101,7 +101,10 @@ ${cssCode}`
 import App from '${entryComponentId}'
 
 export function createApp(el) {
-  new App({ target: el })
+  const app = new App({ target: el })
+  return {
+    destroy: () => app.$destroy()
+  }
 }`
             )
 

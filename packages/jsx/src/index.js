@@ -275,6 +275,9 @@ import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
   ReactDOM.createRoot(el).render(<WhyframeApp />)
+  return {
+    destroy: () => ReactDOM.createRoot(el).unmount()
+  }
 }`
     case 'preact':
       return `\
@@ -283,6 +286,9 @@ import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
   render(<WhyframeApp />, el)
+  return {
+    destroy: () => render(null, el)
+  }
 }`
     case 'solid':
       return `\
@@ -290,7 +296,8 @@ import { render } from 'solid-js/web'
 import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
-  render(() => <WhyframeApp />, el)
+  const destroy = render(() => <WhyframeApp />, el)
+  return { destroy }
 }`
   }
 }

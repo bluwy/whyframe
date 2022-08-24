@@ -1,7 +1,9 @@
 import type { Plugin } from 'vite'
 
 declare module 'whyframe:app' {
-  export const createApp: (el: HTMLElement) => void
+  export const createApp: (el: HTMLElement) => {
+    destroy: () => void
+  }
 }
 
 type LoadResult = Awaited<ReturnType<NonNullable<Plugin['load']>>>

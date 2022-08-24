@@ -123,7 +123,11 @@ import { createApp as _createApp } from 'vue'
 import App from '${entryComponentId}'
 
 export function createApp(el) {
-  _createApp(App).mount(el)
+  const app = _createApp(App)
+  app.mount(el)
+  return {
+    destroy: () => app.unmount()
+  }
 }`
               )
 
