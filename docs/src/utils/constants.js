@@ -4,7 +4,7 @@ export const githubRepoDocsUrl =
   'https://github.com/bluwy/whyframe/blob/master/docs/'
 
 export const headerLinks = [
-  { title: 'Docs', url: '/docs/getting-started' },
+  { title: 'Docs', url: '/docs' },
   { title: 'GitHub', url: 'https://github.com/bluwy/whyframe' }
 ]
 
