@@ -1,33 +1,16 @@
-import { templateDefaultBuildPath } from './template.js'
-
 /**
- * @param {import('..').Options} [options]
  * @returns {import('vite').Plugin}
  */
-export function corePlugin(options) {
+export function corePlugin() {
   /** @type {boolean} */
   let isBuild
-
   /** @type {import('..').Api} */
   let api
 
   return {
     name: 'whyframe:core',
-    config(c, { command }) {
+    config(_, { command }) {
       isBuild = command === 'build'
-      // write default template if user didn't specify their own
-      if (isBuild && !options?.template?.default) {
-        const haveExistingInput = c.build?.rollupOptions?.input
-        const input = haveExistingInput ? {} : { index: 'index.html' }
-        input['whyframe-template-default'] = templateDefaultBuildPath
-        return {
-          build: {
-            rollupOptions: {
-              input
-            }
-          }
-        }
-      }
     },
     configResolved(c) {
       api = c.plugins.find((p) => p.name === 'whyframe:api')?.api

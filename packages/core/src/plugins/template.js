@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-export const templateDefaultId = 'whyframe-template-default.html'
+export const templateDefaultId = '__whyframe.html'
 export const templateDefaultBuildPath = path.resolve(
   process.cwd(),
   templateDefaultId
@@ -66,6 +66,19 @@ function templateBuildPlugin() {
   return {
     name: 'whyframe:template:build',
     apply: 'build',
+    config() {
+      // write default template if user didn't specify their own
+      const haveExistingInput = c.build?.rollupOptions?.input
+      const input = haveExistingInput ? {} : { index: 'index.html' }
+      input['__whyframe'] = templateDefaultBuildPath
+      return {
+        build: {
+          rollupOptions: {
+            input
+          }
+        }
+      }
+    },
     async buildStart() {
       try {
         await fs.writeFile(templateDefaultBuildPath, templateDefaultHtml)
