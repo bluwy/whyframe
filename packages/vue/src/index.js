@@ -78,16 +78,8 @@ export function whyframeVue(options) {
                   c.content?.trimLeft().startsWith('<slot')
                 )
               ) {
-                const attrNames = node.props.map((p) =>
-                  p.name !== 'bind' ? p.name : p.arg.content
-                )
-                const attrs = api
-                  .getProxyIframeAttrs()
-                  .filter((a) => !attrNames.includes(a.name))
-                s.appendLeft(
-                  node.loc.start.offset + `<iframe`.length,
-                  stringifyAttrs(attrs)
-                )
+                const attrs = api.getProxyIframeAttrs()
+                addAttrs(s, node, attrs)
                 return
               }
             }
@@ -137,23 +129,15 @@ export function createApp(el) {
               )
 
               // inject  props
-              /** @type {string[]} */
-              const attrNames = node.props.map((p) =>
-                p.name !== 'bind' ? p.name : p.arg.content
+              const attrs = api.getMainIframeAttrs(
+                entryId,
+                finalHash,
+                node.props.some((p) => p.name === 'data-why-source')
+                  ? dedent(iframeContent)
+                  : undefined,
+                isIframeComponent
               )
-              const shouldAddSource = attrNames.includes('data-why-source')
-              const attrs = api
-                .getMainIframeAttrs(
-                  entryId,
-                  finalHash,
-                  shouldAddSource ? dedent(iframeContent) : undefined,
-                  isIframeComponent
-                )
-                .filter((a) => !attrNames.includes(a.name))
-              s.appendLeft(
-                node.loc.start.offset + node.tag.length + 1,
-                stringifyAttrs(attrs)
-              )
+              addAttrs(s, node, attrs)
             }
           }
         ]
@@ -172,20 +156,54 @@ export function createApp(el) {
 }
 
 /**
+ * @param {MagicString} s
+ * @param {import('@vue/compiler-dom').TemplateChildNode} node
  * @param {import('@whyframe/core').Attr[]} attrs
  */
-function stringifyAttrs(attrs) {
-  let str = ''
+function addAttrs(s, node, attrs) {
+  const attrNames = node.props.map((p) =>
+    p.name !== 'bind' ? p.name : p.arg.content
+  )
+
+  const safeAttrs = []
+  const mixedAttrs = []
   for (const attr of attrs) {
-    if (attr.type === 'static') {
-      str += ` ${attr.name}=${JSON.stringify(escapeAttr(attr.value))}`
-    } else if (typeof attr.value === 'string') {
-      const [value, ...extra] = attr.value.split(' ')
-      // prettier-ignore
-      str += ` :${attr.name}="$attrs.${value} || $props.${value} ${escapeAttr(extra.join(''))}"`
+    if (attrNames.includes(attr.name)) {
+      mixedAttrs.push(attr)
     } else {
-      str += ` :${attr.name}="${escapeAttr(JSON.stringify(attr.value))}"`
+      safeAttrs.push(attr)
     }
   }
-  return str
+
+  s.appendLeft(
+    node.loc.start.offset + node.tag.length + 1,
+    safeAttrs.map((a) => ` :${a.name}="${parseAttrToString(a)}"`).join('')
+  )
+
+  for (const attr of mixedAttrs) {
+    const attrNode = node.props.find((p) => p.arg?.content === attr.name)
+    if (!attrNode) continue
+    const expNode = attrNode.exp
+    if (!expNode) continue
+
+    // :foo={foo && bar} -> :foo="(foo && bar) || &quot;fallback&quot;"
+    s.overwrite(
+      expNode.loc.start.offset,
+      expNode.loc.end.offset,
+      `(${expNode.content}) || ${parseAttrToString(attr)}`
+    )
+  }
+}
+
+/**
+ * @param {import('@whyframe/core').Attr} attr
+ */
+function parseAttrToString(attr) {
+  if (attr.type === 'dynamic' && typeof attr.value === 'string') {
+    // i hate this
+    const [value, ...extra] = attr.value.split(' ')
+    return `$attrs.${value} || $props.${value} ${escapeAttr(extra.join(''))}`
+  } else {
+    return `${escapeAttr(JSON.stringify(attr.value))}`
+  }
 }

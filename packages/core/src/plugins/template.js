@@ -66,7 +66,7 @@ function templateBuildPlugin() {
   return {
     name: 'whyframe:template:build',
     apply: 'build',
-    config() {
+    config(c) {
       // write default template if user didn't specify their own
       const haveExistingInput = c.build?.rollupOptions?.input
       const input = haveExistingInput ? {} : { index: 'index.html' }
