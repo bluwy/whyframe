@@ -78,7 +78,10 @@ export function whyframeVue(options) {
                   c.content?.trimLeft().startsWith('<slot')
                 )
               ) {
-                const attrs = api.getProxyIframeAttrs()
+                const attrNames = node.props.map((a) => a.name)
+                const attrs = api
+                  .getProxyIframeAttrs()
+                  .filter((a) => !attrNames.includes(a.name))
                 s.appendLeft(
                   node.loc.start.offset + `<iframe`.length,
                   stringifyAttrs(attrs)
@@ -132,7 +135,7 @@ export function createApp(el) {
               )
 
               // inject  props
-            /** @type {string[]} */
+              /** @type {string[]} */
               const attrNames = node.props.map((p) => p.name)
               const shouldAddSource = attrNames.includes('data-why-source')
               const attrs = api

@@ -59,7 +59,10 @@ export function whyframeSvelte(options) {
             // if contains slot, it implies that it's accepting the component's
             // slot as iframe content, we need to proxy them
             if (node.children?.some((c) => c.type === 'Slot')) {
-              const attrs = api.getProxyIframeAttrs()
+              const attrNames = node.attributes.map((a) => a.name)
+              const attrs = api
+                .getProxyIframeAttrs()
+                .filter((a) => !attrNames.includes(a.name))
               s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
               this.skip()
               return
@@ -159,8 +162,10 @@ function stringifyAttrs(attrs) {
   for (const attr of attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}=${JSON.stringify(attr.value)}`
-    } else {
+    } else if (typeof attr.value === 'string') {
       str += ` ${attr.name}={$$props.${attr.value}}`
+    } else {
+      str += ` ${attr.name}={${JSON.stringify(attr.value)}}`
     }
   }
   return str

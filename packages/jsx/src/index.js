@@ -126,7 +126,10 @@ export function whyframeJsx(options) {
                 /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
               )
             ) {
-              const attrs = api.getProxyIframeAttrs()
+              const attrNames = node.attributes.map((a) => a.name)
+              const attrs = api
+                .getProxyIframeAttrs()
+                .filter((a) => !attrNames.includes(a))
               s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
               this.skip()
               return
