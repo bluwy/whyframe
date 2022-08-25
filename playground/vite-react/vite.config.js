@@ -8,9 +8,6 @@ export default defineConfig({
   plugins: [
     inspect(),
     whyframe({
-      template: {
-        basic: '/frames/basic/index.html'
-      },
       components: ['Story']
     }),
     whyframeJsx({
@@ -27,3 +24,5 @@ export default defineConfig({
     }
   }
 })
+
+Error.stackTraceLimit=100

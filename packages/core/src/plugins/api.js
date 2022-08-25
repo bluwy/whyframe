@@ -89,16 +89,22 @@ export function apiPlugin(options) {
       getProxyIframeAttrs() {
         /** @type {import('..').Attr[]} */
         return [
-          { type: 'dynamic', name: 'src', value: '_why.src' },
+          {
+            type: 'dynamic',
+            name: 'src',
+            value: `_why?.src || ${JSON.stringify(
+              options.defaultSrc || '/' + templateDefaultId
+            )}`
+          },
           {
             type: 'dynamic',
             name: 'data-why-id',
-            value: '_why.id'
+            value: '_why?.id'
           },
           {
             type: 'dynamic',
             name: 'data-why-source',
-            value: '_why.source'
+            value: '_why?.source'
           }
         ]
       },

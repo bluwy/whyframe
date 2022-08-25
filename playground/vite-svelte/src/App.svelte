@@ -18,7 +18,7 @@
   <Counter />
 </iframe>
 
-<iframe data-why title="World" data-why-template="basic">
+<iframe data-why title="World" src="/frames/basic/index.html">
   <p>Do not go over {max}</p>
   <Counter {max} on:max={warn} />
 </iframe>
@@ -28,7 +28,7 @@
   <Counter />
 </Story>
 
-<Story whyTemplate="basic" title="Bar">
+<Story title="Bar" src="/frames/basic/index.html">
   <p>Do not go over {max}</p>
   <Counter {max} on:max={warn} />
 </Story>

@@ -126,10 +126,12 @@ export function whyframeJsx(options) {
                 /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
               )
             ) {
-              const attrNames = node.attributes.map((a) => a.name)
+              const attrNames = node.openingElement.attributes.map(
+                (a) => a.name.name
+              )
               const attrs = api
                 .getProxyIframeAttrs()
-                .filter((a) => !attrNames.includes(a))
+                .filter((a) => !attrNames.includes(a.name))
               s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
               this.skip()
               return
@@ -206,7 +208,9 @@ export function whyframeJsx(options) {
 
             // inject template props
             /** @type {string[]} */
-            const attrNames = node.openingElement.attributes.map((a) => a.name)
+            const attrNames = node.openingElement.attributes.map(
+              (a) => a.name.name
+            )
             const shouldAddSource = attrNames.includes('data-why-source')
             const attrs = api
               .getMainIframeAttrs(
@@ -324,8 +328,10 @@ function stringifyAttrs(attrs) {
   for (const attr of attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}=${JSON.stringify(attr.value)}`
-    } else {
+    } else if (typeof attr.value === 'string') {
       str += ` ${attr.name}={arguments[0].${attr.value}}`
+    } else {
+      str += ` ${attr.name}={${JSON.stringify(attr.value)}}`
     }
   }
   return str

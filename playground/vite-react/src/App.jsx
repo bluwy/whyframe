@@ -19,7 +19,7 @@ export function App() {
         <Counter />
       </iframe>
 
-      <iframe data-why title="World" data-why-template="basic">
+      <iframe data-why title="World" src="/frames/basic/index.html">
         <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
       </iframe>
@@ -29,7 +29,7 @@ export function App() {
         <Counter />
       </Story>
 
-      <Story title="World" whyTemplate="basic">
+      <Story title="World" src="/frames/basic/index.html">
         <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
       </Story>

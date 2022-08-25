@@ -78,7 +78,9 @@ export function whyframeVue(options) {
                   c.content?.trimLeft().startsWith('<slot')
                 )
               ) {
-                const attrNames = node.props.map((a) => a.name)
+                const attrNames = node.props.map((p) =>
+                  p.name !== 'bind' ? p.name : p.arg.content
+                )
                 const attrs = api
                   .getProxyIframeAttrs()
                   .filter((a) => !attrNames.includes(a.name))
@@ -136,7 +138,9 @@ export function createApp(el) {
 
               // inject  props
               /** @type {string[]} */
-              const attrNames = node.props.map((p) => p.name)
+              const attrNames = node.props.map((p) =>
+                p.name !== 'bind' ? p.name : p.arg.content
+              )
               const shouldAddSource = attrNames.includes('data-why-source')
               const attrs = api
                 .getMainIframeAttrs(
@@ -175,8 +179,10 @@ function stringifyAttrs(attrs) {
   for (const attr of attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}=${JSON.stringify(escapeAttr(attr.value))}`
-    } else {
+    } else if (typeof attr.value === 'string') {
       str += ` :${attr.name}="$attrs.${attr.value} || $props.${attr.value}"`
+    } else {
+      str += ` :${attr.name}="${escapeAttr(JSON.stringify(attr.value))}"`
     }
   }
   return str

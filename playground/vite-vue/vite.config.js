@@ -8,9 +8,6 @@ export default defineConfig({
   plugins: [
     inspect(),
     whyframe({
-      template: {
-        basic: '/frames/basic/index.html'
-      },
       components: ['Story']
     }),
     whyframeVue(),
