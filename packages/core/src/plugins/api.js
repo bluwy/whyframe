@@ -46,7 +46,7 @@ export function apiPlugin(options) {
         const attrs = []
         attrs.push({
           type: 'static',
-          name: isComponent ? 'whyframeSrc' : 'src',
+          name: isComponent ? '_why.src' : 'src',
           value:
             options?.template?.[templateName || 'default'] || templateDefaultId
         })
@@ -54,38 +54,52 @@ export function apiPlugin(options) {
           hashToEntryIds.set(hash, entryId)
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeAppId' : 'data-why-app-id',
+            name: isComponent ? '_why.id' : 'data-why-app-id',
             value: hash
           })
         } else {
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeAppId' : 'data-why-app-id',
+            name: isComponent ? '_why.id' : 'data-why-app-id',
             value: `/@id/__${entryId}`
           })
         }
         if (rawSource) {
           attrs.push({
             type: 'static',
-            name: isComponent ? 'whyframeRawSource' : 'data-why-raw-source',
+            name: isComponent ? '_why.source' : 'data-why-raw-source',
             value: rawSource
           })
         }
-        return attrs
+        if (isComponent) {
+          const whyProp = {}
+          for (const attr of attrs) {
+            whyProp[attr.name.slice('_why.'.length)] = attr.value
+          }
+          return [
+            {
+              type: 'dynamic',
+              name: '_why',
+              value: whyProp
+            }
+          ]
+        } else {
+          return attrs
+        }
       },
       getProxyIframeAttrs() {
         /** @type {import('..').Attr[]} */
         return [
-          { type: 'dynamic', name: 'src', value: 'whyframeSrc' },
+          { type: 'dynamic', name: 'src', value: '_why.src' },
           {
             type: 'dynamic',
             name: 'data-why-app-id',
-            value: 'whyframeAppId'
+            value: '_why.id'
           },
           {
             type: 'dynamic',
             name: 'data-why-raw-source',
-            value: 'whyframeRawSource'
+            value: '_why.source'
           }
         ]
       },

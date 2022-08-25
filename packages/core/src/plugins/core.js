@@ -80,7 +80,7 @@ export function corePlugin(options) {
 
 const devCode = `\
 export async function createApp(el) {
-  const url = window.frameElement.dataset.whyAppId
+  const url = window.frameElement.dataset.whyId
   const data = await import(/* @vite-ignore */ url)
   const result = await data.createApp(el)
   return result
@@ -89,7 +89,7 @@ export async function createApp(el) {
 const buildCode = `\
 import hashToImportMap from 'whyframe:build-data'
 export async function createApp(el) {
-  const hash = window.frameElement.dataset.whyAppId
+  const hash = window.frameElement.dataset.whyId
   const importApp = hashToImportMap[hash]
   if (!importApp) throw new Error('no app found')
   const data = await importApp()
