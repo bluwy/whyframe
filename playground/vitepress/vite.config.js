@@ -7,10 +7,7 @@ export default defineConfig({
   plugins: [
     inspect(),
     whyframe({
-      template: {
-        default: '/frames/basic', // vitepress doesn't support whyframe default template
-        basic: '/frames/basic'
-      },
+      defaultSrc: '/frames/basic', // vitepress doesn't support whyframe default html
       components: ['Story']
     }),
     whyframeVue({

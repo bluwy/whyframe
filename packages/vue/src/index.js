@@ -180,7 +180,9 @@ function stringifyAttrs(attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}=${JSON.stringify(escapeAttr(attr.value))}`
     } else if (typeof attr.value === 'string') {
-      str += ` :${attr.name}="$attrs.${attr.value} || $props.${attr.value}"`
+      const [value, ...extra] = attr.value.split(' ')
+      // prettier-ignore
+      str += ` :${attr.name}="$attrs.${value} || $props.${value} ${escapeAttr(extra.join(''))}"`
     } else {
       str += ` :${attr.name}="${escapeAttr(JSON.stringify(attr.value))}"`
     }

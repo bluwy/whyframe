@@ -9,9 +9,6 @@ export default defineConfig({
     inspect(),
     sveltekit(),
     whyframe({
-      template: {
-        basic: '/frames/basic'
-      },
       components: ['Story']
     }),
     whyframeSvelte()

@@ -17,7 +17,7 @@ function warn() {
   <Counter />
 </iframe>
 
-<iframe data-why data-why-template="basic">
+<iframe data-why src="/frames/basic">
   <p>Do not go over {{ max }}</p>
   <Counter :max="max" @max="warn" />
 </iframe>
@@ -27,7 +27,7 @@ function warn() {
   <Counter />
 </Story>
 
-<Story whyTemplate="basic" title="Bar">
+<Story title="Bar" src="/frames/basic">
   <p>Do not go over {{ max }}</p>
   <Counter :max="max" @max="warn" />
 </Story>

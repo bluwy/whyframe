@@ -9,10 +9,7 @@ export default defineNuxtConfig({
     plugins: [
       inspect(),
       whyframe({
-        template: {
-          default: '/frames/basic', // nuxt doesn't support whyframe default template in build
-          basic: '/frames/basic'
-        },
+        defaultSrc: '/frames/basic', // nuxt doesn't support whyframe default template in build
         components: ['Story']
       }),
       whyframeVue()
