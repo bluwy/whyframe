@@ -17,10 +17,7 @@ export default defineConfig({
     plugins: [
       inspect(),
       whyframe({
-        template: {
-          default: '/frames/basic',
-          basic: '/frames/basic'
-        },
+        defaultSrc: '/frames/basic',
         components: ['Story']
       }),
       whyframeAstro({

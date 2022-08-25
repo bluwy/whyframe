@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from 'astro'
 const headings: MarkdownHeading[] = Astro.props.headings
 const h2s = headings.filter((h) => h.depth === 2)
+const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 ---
 
 <div id="toc-desktop-spacer"></div>
@@ -19,7 +20,7 @@ const h2s = headings.filter((h) => h.depth === 2)
   </ul>
 </aside>
 
-<script is:inline data-htwo={JSON.stringify(h2s.map((h) => h.slug))}>
+<script is:inline data-htwo={htwoData}>
   /** @type {string[]} */
   const data = JSON.parse(document.currentScript.getAttribute('data-htwo'))
   let enabled = false

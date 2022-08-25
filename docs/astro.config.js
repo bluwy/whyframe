@@ -20,11 +20,7 @@ export default defineConfig({
     plugins: [
       inspect(),
       whyframe({
-        template: {
-          default: '/frames/basic',
-          hero: '/frames/hero',
-          basic: '/frames/basic'
-        },
+        defaultSrc: '/frames/basic',
         components: ['Story']
       }),
       whyframeAstro({

@@ -102,7 +102,10 @@ export function whyframeAstro(options) {
                 c.value?.trimLeft().startsWith('<slot')
               )
             ) {
-              const attrs = api.getProxyIframeAttrs()
+              const attrNames = node.attributes.map((a) => a.name)
+              const attrs = api
+                .getProxyIframeAttrs()
+                .filter((a) => !attrNames.includes(a.name))
               s.appendLeft(
                 node.position.start.offset + `<iframe`.length,
                 stringifyAttrs(attrs)
@@ -176,20 +179,17 @@ export function whyframeAstro(options) {
               createEntry(entryComponentId, framework)
             )
 
-            // inject template props
-            const templatePropName = isIframeComponent
-              ? 'whyTemplate'
-              : 'data-why-template'
-            const templateName = node.attributes.find(
-              (a) => a.name === templatePropName
-            )?.value
-            const attrs = api.getMainIframeAttrs(
-              entryId,
-              finalHash,
-              templateName,
-              dedent(iframeContent),
-              isIframeComponent
-            )
+            // inject  props
+            const attrNames = node.attributes.map((a) => a.name)
+            const shouldAddSource = attrNames.includes('data-why-source')
+            const attrs = api
+              .getMainIframeAttrs(
+                entryId,
+                finalHash,
+                shouldAddSource ? dedent(iframeContent) : undefined,
+                isIframeComponent
+              )
+              .filter((a) => !attrNames.includes(a.name))
             s.appendLeft(
               node.position.start.offset + node.name.length + 1,
               stringifyAttrs(attrs, framework)
@@ -332,8 +332,10 @@ function stringifyAttrs(attrs, framework) {
   for (const attr of attrs) {
     if (attr.type === 'static') {
       str += ` ${attr.name}=${JSON.stringify(escape(attr.value))}`
-    } else {
+    } else if (typeof attr.value === 'string') {
       str += ` ${attr.name}={Astro.props.${attr.value}}`
+    } else {
+      str += ` ${attr.name}={${JSON.stringify(escape(attr.value))}}`
     }
   }
   return str
