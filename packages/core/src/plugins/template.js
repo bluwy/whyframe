@@ -12,7 +12,7 @@ export const templateDefaultBuildPath = path.resolve(
  * @returns {import('vite').Plugin[]}
  */
 export function templatePlugin(options) {
-  if (!options?.template?.default) {
+  if (!options?.defaultSrc) {
     return [templateServePlugin(), templateBuildPlugin()]
   }
 }

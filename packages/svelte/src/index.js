@@ -108,23 +108,18 @@ export function createApp(el) {
 }`
             )
 
-            // inject template props
-            const templatePropName = isIframeComponent
-              ? 'whyTemplate'
-              : 'data-why-template'
-            const templateName = node.attributes
-              .find((a) => a.name === templatePropName)
-              ?.value.find((v) => v.type === 'Text')?.data
-            const shouldAddSource = node.attributes.some(
-              (a) => a.name === 'data-why-source'
-            )
-            const attrs = api.getMainIframeAttrs(
-              entryId,
-              finalHash,
-              templateName,
-              shouldAddSource ? dedent(iframeContent) : undefined,
-              isIframeComponent
-            )
+            // inject props
+            /** @type {string[]} */
+            const attrNames = node.attributes.map((a) => a.name)
+            const shouldAddSource = attrNames.includes('data-why-source')
+            const attrs = api
+              .getMainIframeAttrs(
+                entryId,
+                finalHash,
+                shouldAddSource ? dedent(iframeContent) : undefined,
+                isIframeComponent
+              )
+              .filter((a) => !attrNames.includes(a.name))
             s.appendLeft(
               node.start + node.name.length + 1,
               stringifyAttrs(attrs)

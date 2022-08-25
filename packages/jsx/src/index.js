@@ -202,22 +202,17 @@ export function whyframeJsx(options) {
             )
 
             // inject template props
-            const templatePropName = isIframeComponent
-              ? 'whyTemplate'
-              : 'data-why-template'
-            const templateName = node.openingElement.attributes.find(
-              (a) => a.name.name === templatePropName
-            )?.value.value
-            const shouldAddSource = node.openingElement.attributes.some(
-              (a) => a.name === 'data-why-source'
-            )
-            const attrs = api.getMainIframeAttrs(
-              entryId,
-              finalHash,
-              templateName,
-              shouldAddSource ? dedent(iframeContent) : undefined,
-              isIframeComponent
-            )
+            /** @type {string[]} */
+            const attrNames = node.openingElement.attributes.map((a) => a.name)
+            const shouldAddSource = attrNames.includes('data-why-source')
+            const attrs = api
+              .getMainIframeAttrs(
+                entryId,
+                finalHash,
+                shouldAddSource ? dedent(iframeContent) : undefined,
+                isIframeComponent
+              )
+              .filter((a) => !attrNames.includes(a.name))
             s.appendLeft(
               node.start + node.openingElement.name.name.length + 1,
               stringifyAttrs(attrs)

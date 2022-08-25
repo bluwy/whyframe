@@ -15,10 +15,7 @@ export interface Attr {
 }
 
 export interface Options {
-  /**
-   * A map of template names to the serving url path.
-   */
-  template?: Record<string, string>
+  defaultSrc?: string
   /**
    * A list of component names that contains an `iframe` that renders
    * what's passed into the component, e.g. via slots or children.
@@ -46,8 +43,7 @@ export interface Api {
   getMainIframeAttrs: (
     entryId: string,
     hash: string,
-    templateName: string,
-    rawSource: string | undefined,
+    source: string | undefined,
     isComponent: boolean
   ) => Attr[]
   /**

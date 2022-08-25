@@ -41,14 +41,13 @@ export function apiPlugin(options) {
             !!options.components?.some((n) => code.includes(`<${n}`)))
         )
       },
-      getMainIframeAttrs(entryId, hash, templateName, rawSource, isComponent) {
+      getMainIframeAttrs(entryId, hash, source, isComponent) {
         /** @type {import('..').Attr[]} */
         const attrs = []
         attrs.push({
           type: 'static',
           name: isComponent ? '_why.src' : 'src',
-          value:
-            options?.template?.[templateName || 'default'] || templateDefaultId
+          value: options.defaultSrc || templateDefaultId
         })
         if (isBuild) {
           hashToEntryIds.set(hash, entryId)
@@ -64,11 +63,11 @@ export function apiPlugin(options) {
             value: `/@id/__${entryId}`
           })
         }
-        if (rawSource) {
+        if (source) {
           attrs.push({
             type: 'static',
-            name: isComponent ? '_why.source' : 'data-why-raw-source',
-            value: rawSource
+            name: isComponent ? '_why.source' : 'data-why-source',
+            value: source
           })
         }
         if (isComponent) {
@@ -98,7 +97,7 @@ export function apiPlugin(options) {
           },
           {
             type: 'dynamic',
-            name: 'data-why-raw-source',
+            name: 'data-why-source',
             value: '_why.source'
           }
         ]
