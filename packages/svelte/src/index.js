@@ -59,11 +59,8 @@ export function whyframeSvelte(options) {
             // if contains slot, it implies that it's accepting the component's
             // slot as iframe content, we need to proxy them
             if (node.children?.some((c) => c.type === 'Slot')) {
-              const attrNames = node.attributes.map((a) => a.name)
-              const attrs = api
-                .getProxyIframeAttrs()
-                .filter((a) => !attrNames.includes(a.name))
-              s.appendLeft(node.start + `<iframe`.length, stringifyAttrs(attrs))
+              const attrs = api.getProxyIframeAttrs()
+              addAttrs(s, node, attrs)
               this.skip()
               return
             }
@@ -112,21 +109,15 @@ export function createApp(el) {
             )
 
             // inject props
-            /** @type {string[]} */
-            const attrNames = node.attributes.map((a) => a.name)
-            const shouldAddSource = attrNames.includes('data-why-source')
-            const attrs = api
-              .getMainIframeAttrs(
-                entryId,
-                finalHash,
-                shouldAddSource ? dedent(iframeContent) : undefined,
-                isIframeComponent
-              )
-              .filter((a) => !attrNames.includes(a.name))
-            s.appendLeft(
-              node.start + node.name.length + 1,
-              stringifyAttrs(attrs)
+            const attrs = api.getMainIframeAttrs(
+              entryId,
+              finalHash,
+              node.attributes.some((a) => a.name === 'data-why-source')
+                ? dedent(iframeContent)
+                : undefined,
+              isIframeComponent
             )
+            addAttrs(s, node, attrs)
           }
         }
       })
@@ -155,18 +146,61 @@ export function createApp(el) {
 }
 
 /**
+ * @param {MagicString} s
+ * @param {any} node
  * @param {import('@whyframe/core').Attr[]} attrs
  */
-function stringifyAttrs(attrs) {
-  let str = ''
+function addAttrs(s, node, attrs) {
+  const attrNames = node.attributes.map((a) => a.name)
+
+  const safeAttrs = []
+  const mixedAttrs = []
   for (const attr of attrs) {
-    if (attr.type === 'static') {
-      str += ` ${attr.name}=${JSON.stringify(attr.value)}`
-    } else if (typeof attr.value === 'string') {
-      str += ` ${attr.name}={$$props.${attr.value}}`
+    if (attrNames.includes(attr.name)) {
+      mixedAttrs.push(attr)
     } else {
-      str += ` ${attr.name}={${JSON.stringify(attr.value)}}`
+      safeAttrs.push(attr)
     }
   }
-  return str
+
+  s.appendLeft(
+    node.start + node.name.length + 1,
+    safeAttrs.map((a) => ` ${a.name}={${parseAttrToString(a)}}`).join('')
+  )
+
+  for (const attr of mixedAttrs) {
+    const attrNode = node.attributes.find((a) => a.name === attr.name)
+    if (!attrNode) continue
+    const valueNode = attrNode.value?.[0]
+    if (!valueNode) continue
+
+    if (valueNode.type === 'MustacheTag') {
+      // foo={foo && bar} -> foo={(foo && bar) || "fallback"}
+      const expression = s.original.slice(valueNode.start + 1, valueNode.end - 1)
+      s.overwrite(
+        valueNode.start,
+        valueNode.end,
+        `{(${expression}) || ${parseAttrToString(attr)}}`
+      )
+    } else if (valueNode.type === 'AttributeShorthand') {
+      // {foo} -> foo={foo || "fallback"}
+      const expression = valueNode.expression.name
+      s.overwrite(
+        attrNode.start,
+        attrNode.end,
+        `${expression}={${expression} || ${parseAttrToString(attr)}}`
+      )
+    }
+  }
+}
+
+/**
+ * @param {import('@whyframe/core').Attr} attr
+ */
+function parseAttrToString(attr) {
+  if (attr.type === 'dynamic' && typeof attr.value === 'string') {
+    return `$$props.${attr.value}`
+  } else {
+    return JSON.stringify(attr.value)
+  }
 }

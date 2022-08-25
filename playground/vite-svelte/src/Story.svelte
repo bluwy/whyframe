@@ -1,6 +1,6 @@
 <script>
   export let title
-  export let src = $$props._why?.src
+  export let src
 </script>
 
 <div>
