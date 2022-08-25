@@ -46,34 +46,34 @@ export function apiPlugin(options) {
         const attrs = []
         attrs.push({
           type: 'static',
-          name: isComponent ? '_why.src' : 'src',
-          value: options.defaultSrc || templateDefaultId
+          name: isComponent ? '_why?.src' : 'src',
+          value: options.defaultSrc || '/' + templateDefaultId
         })
         if (isBuild) {
           hashToEntryIds.set(hash, entryId)
           attrs.push({
             type: 'static',
-            name: isComponent ? '_why.id' : 'data-why-app-id',
+            name: isComponent ? '_why?.id' : 'data-why-id',
             value: hash
           })
         } else {
           attrs.push({
             type: 'static',
-            name: isComponent ? '_why.id' : 'data-why-app-id',
+            name: isComponent ? '_why?.id' : 'data-why-id',
             value: `/@id/__${entryId}`
           })
         }
         if (source) {
           attrs.push({
             type: 'static',
-            name: isComponent ? '_why.source' : 'data-why-source',
+            name: isComponent ? '_why?.source' : 'data-why-source',
             value: source
           })
         }
         if (isComponent) {
           const whyProp = {}
           for (const attr of attrs) {
-            whyProp[attr.name.slice('_why.'.length)] = attr.value
+            whyProp[attr.name.slice('_why?.'.length)] = attr.value
           }
           return [
             {
@@ -92,7 +92,7 @@ export function apiPlugin(options) {
           { type: 'dynamic', name: 'src', value: '_why.src' },
           {
             type: 'dynamic',
-            name: 'data-why-app-id',
+            name: 'data-why-id',
             value: '_why.id'
           },
           {
