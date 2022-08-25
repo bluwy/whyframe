@@ -2,9 +2,8 @@
 const max = 10
 
 function warn() {
-  // NOTE: will affect callee's iframe, not this parent document.
-  // TODO: does it make sense to be the latter?
-  document.body.style.backgroundColor = 'yellow'
+  // NOTE: will affect callee's iframe, not this parent document
+  console.log('warn!')
 }
 </script>
 
