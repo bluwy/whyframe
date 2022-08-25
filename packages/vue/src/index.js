@@ -204,7 +204,7 @@ function addAttrs(s, node, attrs) {
  */
 function parseAttrToString(attr) {
   if (attr.type === 'dynamic' && typeof attr.value === 'string') {
-    // i hate this
+    // TODO: i hate this
     const [value, ...extra] = attr.value.split(' ')
     return `$attrs.${value} || $props.${value} ${escapeAttr(extra.join(''))}`
   } else {

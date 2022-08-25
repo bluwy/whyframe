@@ -102,13 +102,11 @@ export function whyframeAstro(options) {
                 c.value?.trimLeft().startsWith('<slot')
               )
             ) {
-              const attrNames = node.attributes.map((a) => a.name)
-              const attrs = api
-                .getProxyIframeAttrs()
-                .filter((a) => !attrNames.includes(a.name))
-              s.appendLeft(
-                node.position.start.offset + `<iframe`.length,
-                stringifyAttrs(attrs)
+              const attrs = api.getProxyIframeAttrs()
+              addAttrs(s, node, attrs)
+              s.remove(
+                node.children[0].position.start.offset,
+                node.position.end.offset - `</`.length // astro position ends until </
               )
               this.skip()
               return
@@ -179,21 +177,16 @@ export function whyframeAstro(options) {
               createEntry(entryComponentId, framework)
             )
 
-            // inject  props
-            const attrNames = node.attributes.map((a) => a.name)
-            const shouldAddSource = attrNames.includes('data-why-source')
-            const attrs = api
-              .getMainIframeAttrs(
-                entryId,
-                finalHash,
-                shouldAddSource ? dedent(iframeContent) : undefined,
-                isIframeComponent
-              )
-              .filter((a) => !attrNames.includes(a.name))
-            s.appendLeft(
-              node.position.start.offset + node.name.length + 1,
-              stringifyAttrs(attrs, framework)
+            // inject props
+            const attrs = api.getMainIframeAttrs(
+              entryId,
+              finalHash,
+              node.attributes.some((a) => a.name === 'data-why-source')
+                ? dedent(iframeContent)
+                : undefined,
+              isIframeComponent
             )
+            addAttrs(s, node, attrs)
           }
         }
       })
@@ -323,20 +316,59 @@ const Astro = {
 }`
 
 /**
+ * @param {MagicString} s
+ * @param {any} node
  * @param {import('@whyframe/core').Attr[]} attrs
- * @param {import('.').Options['defaultFramework']} framework
  */
-function stringifyAttrs(attrs, framework) {
-  let str = ''
-  const escape = framework === 'vue' ? escapeAttr : (s) => s
+function addAttrs(s, node, attrs) {
+  const attrNames = node.attributes.map((a) => a.name)
+
+  const safeAttrs = []
+  const mixedAttrs = []
   for (const attr of attrs) {
-    if (attr.type === 'static') {
-      str += ` ${attr.name}=${JSON.stringify(escape(attr.value))}`
-    } else if (typeof attr.value === 'string') {
-      str += ` ${attr.name}={Astro.props.${attr.value}}`
+    if (attrNames.includes(attr.name)) {
+      mixedAttrs.push(attr)
     } else {
-      str += ` ${attr.name}={${JSON.stringify(escape(attr.value))}}`
+      safeAttrs.push(attr)
     }
   }
-  return str
+
+  s.appendLeft(
+    node.position.start.offset + node.name.length + 1,
+    safeAttrs.map((a) => ` ${a.name}={${parseAttrToString(a)}}`).join('')
+  )
+
+  for (const attr of mixedAttrs) {
+    const attrNodeIndex = node.attributes.findIndex((a) => a.name === attr.name)
+    if (attrNodeIndex === -1) continue
+    const attrNode = node.attributes[attrNodeIndex]
+
+    if (attrNode.kind === 'expression' || node.kind === 'shorthand') {
+      const start = attrNode.position.start.offset
+      // boy if only astro gave us end
+      const end =
+        (node.attributes[attrNodeIndex + 1]?.position.start.offset ??
+          node.children?.[0].position.start.offset ??
+          attrNode.name.length + `={}`.length + attrNode.value + 1) - 1
+      // foo={foo && bar} -> foo={(foo && bar) || "fallback"}
+      // {foo} -> foo={foo || "fallback"}
+      s.overwrite(
+        start,
+        end,
+        // prettier-ignore
+        `${attrNode.name}={(${attrNode.value || attrNode.name}) || ${parseAttrToString(attr)}}`
+      )
+    }
+  }
+}
+
+/**
+ * @param {import('@whyframe/core').Attr} attr
+ */
+function parseAttrToString(attr) {
+  if (attr.type === 'dynamic' && typeof attr.value === 'string') {
+    return `Astro.props.${attr.value}`
+  } else {
+    return JSON.stringify(attr.value)
+  }
 }
