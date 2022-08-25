@@ -128,6 +128,10 @@ export function whyframeJsx(options) {
             ) {
               const attrs = api.getProxyIframeAttrs()
               addAttrs(s, node, attrs)
+              s.remove(
+                node.children[0].start,
+                node.children[node.children.length - 1].end
+              )
               this.skip()
               return
             }

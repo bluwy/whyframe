@@ -80,6 +80,10 @@ export function whyframeVue(options) {
               ) {
                 const attrs = api.getProxyIframeAttrs()
                 addAttrs(s, node, attrs)
+                s.remove(
+                  node.children[0].loc.start.offset,
+                  node.children[node.children.length - 1].loc.end.offset
+                )
                 return
               }
             }

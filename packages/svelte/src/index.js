@@ -61,6 +61,10 @@ export function whyframeSvelte(options) {
             if (node.children?.some((c) => c.type === 'Slot')) {
               const attrs = api.getProxyIframeAttrs()
               addAttrs(s, node, attrs)
+              s.remove(
+                node.children[0].start,
+                node.children[node.children.length - 1].end
+              )
               this.skip()
               return
             }
@@ -176,7 +180,10 @@ function addAttrs(s, node, attrs) {
 
     if (valueNode.type === 'MustacheTag') {
       // foo={foo && bar} -> foo={(foo && bar) || "fallback"}
-      const expression = s.original.slice(valueNode.start + 1, valueNode.end - 1)
+      const expression = s.original.slice(
+        valueNode.start + 1,
+        valueNode.end - 1
+      )
       s.overwrite(
         valueNode.start,
         valueNode.end,
