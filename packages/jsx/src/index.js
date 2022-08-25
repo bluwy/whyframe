@@ -33,7 +33,7 @@ export function whyframeJsx(options) {
       const ext = path.extname(id)
 
       const framework =
-        validateFramework(code.match(/@jsxImportSource\s*(\S+)/)[1]) ||
+        validateFramework(code.match(/@jsxImportSource\s*(\S+)/)?.[1]) ||
         fallbackFramework
 
       if (!framework) {
@@ -238,14 +238,13 @@ export function whyframeJsx(options) {
  * @return {import('.').Options['framework'] | undefined}
  */
 function guessFrameworkFromTsconfig() {
-  try {
-    const tsconfig = fs.readFileSync(
-      path.join(process.cwd(), 'tsconfig.json'),
-      'utf8'
-    )
-    const source = tsconfig.match(/"jsxImportSource":\s*"(.*?)"/)[1]
-    return validateFramework(source)
-  } catch {}
+  for (const file of ['tsconfig.json', 'jsconfig.json']) {
+    try {
+      const tsconfig = fs.readFileSync(path.join(process.cwd(), file), 'utf8')
+      const source = tsconfig.match(/"jsxImportSource":\s*"(.*?)"/)?.[1]
+      return validateFramework(source)
+    } catch {}
+  }
 }
 
 /**
