@@ -1,6 +1,12 @@
 <script>
+  import { getWhyframeSource } from '@whyframe/core/utils'
+
   export let title
   export let src
+
+  /** @type {HTMLIFrameElement}*/
+  let iframe
+  $: source = iframe ? getWhyframeSource(iframe) : undefined
 </script>
 
 <div>
@@ -8,7 +14,12 @@
     This is a story of {title}:
   </p>
 
-  <iframe data-why {title} {src}>
+  <iframe bind:this={iframe} data-why {title} {src}>
     <slot />
   </iframe>
+
+  <details>
+    <summary>source</summary>
+    <pre>{source}</pre>
+  </details>
 </div>

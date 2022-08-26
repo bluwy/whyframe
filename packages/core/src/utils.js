@@ -12,7 +12,7 @@ export function createIframeRpc(iframe) {
   }
 
   if (iframe) {
-    handler = iframe.contentWindow.addEventListener('message', handler)
+    iframe.contentWindow.addEventListener('message', handler)
   } else {
     window.addEventListener('message', handler)
   }
@@ -41,12 +41,7 @@ export function createIframeRpc(iframe) {
   }
 }
 
-/** @type {import('./utils').getWhyframeRawSource} */
-export function getWhyframeRawSource(iframe) {
-  return iframe.dataset.whyRawSource
-}
-
-/** @type {import('./utils').reloadWhyframe} */
-export function reloadWhyframe(iframe) {
-  iframe.contentWindow.location.reload()
+/** @type {import('./utils').getWhyframeSource} */
+export function getWhyframeSource(iframe) {
+  return iframe.dataset.whySource
 }

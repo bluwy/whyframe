@@ -31,7 +31,7 @@ export function apiPlugin(options) {
         return hashToEntryIds
       },
       getComponent(componentName) {
-        return !!options.components?.find((c) => c.name === componentName)
+        return options.components?.find((c) => c.name === componentName)
       },
       moduleMayHaveIframe(id, code) {
         return (

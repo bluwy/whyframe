@@ -17,7 +17,7 @@ export function dedent(str) {
   }
   const indent = Math.min(...match.map((x) => x.length))
   const re = new RegExp(`^[ \\t]{${indent}}`, 'gm')
-  return str.replace(re, '')
+  return str.replace(re, '').trim()
 }
 
 // Credit: https://github.com/sveltejs/svelte/blob/012d639b42f6562f1df42d5bc9f3c79dbc0fd899/src/runtime/internal/ssr.ts#L72-L96
