@@ -8,7 +8,7 @@ export default defineConfig({
     inspect(),
     whyframe({
       defaultSrc: '/frames/basic', // vitepress doesn't support whyframe default html
-      components: ['Story']
+      components: [{ name: 'Story', source: true }]
     }),
     whyframeVue({
       include: /\.(?:vue|md)$/

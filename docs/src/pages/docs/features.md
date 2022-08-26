@@ -79,7 +79,7 @@ export default defineConfig({
     whyframe({
       // when whyframe sees a `<Story>` component, it knows that
       // it'll contain an `iframe` with a `<slot />`
-      components: ['Story']
+      components: [{ name: 'Story' }]
     })
   ]
 })

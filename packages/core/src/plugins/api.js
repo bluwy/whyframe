@@ -30,8 +30,8 @@ export function apiPlugin(options) {
       _getHashToEntryIds() {
         return hashToEntryIds
       },
-      isIframeComponent(componentName) {
-        return !!options.components?.includes(componentName)
+      getComponent(componentName) {
+        return !!options.components?.find((c) => c.name === componentName)
       },
       moduleMayHaveIframe(id, code) {
         return (
@@ -40,6 +40,9 @@ export function apiPlugin(options) {
           (code.includes('<iframe') ||
             !!options.components?.some((n) => code.includes(`<${n}`)))
         )
+      },
+      getDefaultShowSource() {
+        return options?.defaultShowSource ?? false
       },
       getMainIframeAttrs(entryId, hash, source, isComponent) {
         /** @type {import('..').Attr[]} */

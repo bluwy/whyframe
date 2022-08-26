@@ -114,7 +114,7 @@ export function whyframeAstro(options) {
           }
 
           const isIframeComponent =
-            node.type === 'component' && api.isIframeComponent(node.name)
+            node.type === 'component' && api.getComponent(node.name)
 
           if (isIframeElement || isIframeComponent) {
             // .astro requires a value for data-why to render as a specific framework

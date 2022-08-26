@@ -21,7 +21,7 @@ export default defineConfig({
       inspect(),
       whyframe({
         defaultSrc: '/frames/basic',
-        components: ['Story']
+        components: [{ name: 'Story', source: true }]
       }),
       whyframeAstro({
         defaultFramework: 'svelte'

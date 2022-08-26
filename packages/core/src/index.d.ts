@@ -14,13 +14,42 @@ export interface Attr {
   value: string
 }
 
+export interface Component {
+  /**
+   * The name of the component used to detect via `<${name} />`
+   */
+  name: string
+  /**
+   * Whether to attach metadata of the raw source code by default. This defaults
+   * to the root `defaultShowSource` option, but can be overidden here. When a
+   * function is provided, a raw tag string like `<Component foo="bar">` will be
+   * passed and the function get decide whether to show the source or not, e.g.
+   * loosely checking for a prop to exist.
+   */
+  showSource?: boolean | ((openTag: string) => boolean)
+}
+
 export interface Options {
+  /**
+   * The default iframe src if one is not provided. For supported frameworks,
+   * this will default to a generic internal whyframe html. Otherwise, a custom
+   * html is required to be passed.
+   */
   defaultSrc?: string
+  /**
+   * Whether to attach metadata of the raw source code for all iframes or
+   * components by default. Since the source can't be treeshaken by default,
+   * this is false by default.
+   *
+   * For iframes, this can be enabled or disabled individually using the `data-why-show-source`
+   * attribute. For components, this can be configured via its `showSource` option.
+   */
+  defaultShowSource?: boolean
   /**
    * A list of component names that contains an `iframe` that renders
    * what's passed into the component, e.g. via slots or children.
    */
-  components?: string[]
+  components?: Component[]
 }
 
 export interface Api {
@@ -31,11 +60,12 @@ export interface Api {
   /**
    * Check if a component name contains an iframe.
    */
-  isIframeComponent: (componentName: string) => boolean
+  getComponent: (componentName: string) => Component | undefined
   /**
    * A utility to check if a module may contain an iframe to quickly skip parsing.
    */
   moduleMayHaveIframe: (id: string, code: string) => boolean
+  getDefaultShowSource: () => boolean
   /**
    * Get the main iframe attrs, including `<iframe>` and custom `<Story>`.
    * This should be differentiated via `isComponent`.

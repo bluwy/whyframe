@@ -137,11 +137,11 @@ export function whyframeJsx(options) {
             }
           }
 
-          const isIframeComponent =
+          const iframeComponent =
             node.type === 'JSXElement' &&
-            api.isIframeComponent(node.openingElement.name.name)
+            api.getComponent(node.openingElement.name.name)
 
-          if (isIframeElement || isIframeComponent) {
+          if (isIframeElement || iframeComponent) {
             // extract iframe html
             let iframeContent = ''
             if (node.children.length > 0) {
@@ -205,16 +205,38 @@ export function whyframeJsx(options) {
               createEntry(entryComponentId, framework)
             )
 
+            let showSource = api.getDefaultShowSource()
+            if (isIframeElement) {
+              const attr = node.openingElement.attributes.find(
+                (p) => p.name.name === 'data-why-show-source'
+              )
+              if (attr) {
+                if (attr.value === null) {
+                  showSource = true
+                } else if (attr.value?.value) {
+                  showSource = attr.value.value === 'true'
+                } else if (attr.value?.expression) {
+                  showSource = attr.value.expression.value === true
+                }
+              }
+            } else if (iframeComponent) {
+              if (typeof iframeComponent.source === 'boolean') {
+                showSource = iframeComponent.source
+              } else if (typeof iframeComponent.source === 'function') {
+                const openTag = code.slice(
+                  node.openingElement.start,
+                  node.openingElement.end
+                )
+                showSource = iframeComponent.source(openTag)
+              }
+            }
+
             // inject props
             const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
-              node.openingElement.attributes.some(
-                (a) => a.name.name === 'data-why-source'
-              )
-                ? dedent(iframeContent)
-                : undefined,
-              isIframeComponent
+              showSource ? dedent(iframeContent) : undefined,
+              !!iframeComponent
             )
             addAttrs(s, node, attrs)
           }
