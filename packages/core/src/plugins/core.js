@@ -68,14 +68,15 @@ export async function createApp(el) {
   const result = await data.createApp(el)
   return result
 }
-
-new MutationObserver((mutations) => {
-  for (const m of mutations) {
-    if (m.type === 'attributes' && m.attributeName === 'data-why-id') {
-      window.location.reload()
+if (typeof window !== 'undefined') {
+  new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.type === 'attributes' && m.attributeName === 'data-why-id') {
+        window.location.reload()
+      }
     }
-  }
-}).observe(window.frameElement, { attributes: true })`
+  }).observe(window.frameElement, { attributes: true })
+}`
 
 const buildCode = `\
 import hashToImportMap from 'whyframe:build-data'
