@@ -30,7 +30,7 @@
     "@whyframe/core": "workspace:^"
   },
   "dependencies": {
-    "@astrojs/compiler": "^0.23.3",
+    "@astrojs/compiler": "^0.23.4",
     "estree-walker": "^3.0.1",
     "magic-string": "^0.26.2"
   },
