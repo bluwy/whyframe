@@ -7,7 +7,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 
 <div id="toc-desktop-spacer"></div>
 
-<aside>
+<aside id="toc-desktop">
   <h2>On this page</h2>
   <ul>
     {
@@ -28,6 +28,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
   let h2s = []
   document.addEventListener('DOMContentLoaded', () => {
     handleResize()
+    handleScroll()
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleScroll)
   })
@@ -36,10 +37,10 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
     h2s = data
       .map((slug) => {
         const h2 = document.querySelector(`h2[id="${slug}"]`)
-        const toc = document.querySelector(`a[href="#${slug}"]`)
+        const toc = document.querySelector(`#toc-desktop a[href="#${slug}"]`)
         return {
           toc,
-          top: h2.getBoundingClientRect().top
+          top: h2.getBoundingClientRect().top + window.scrollY
         }
       })
       .reverse()
@@ -53,6 +54,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
       for (const h of h2s) {
         h.toc.classList.remove('active')
       }
+      h2s[h2s.length - 1]?.toc.classList.add('active')
     } else if (
       window.scrollY >=
       document.documentElement.scrollHeight -
