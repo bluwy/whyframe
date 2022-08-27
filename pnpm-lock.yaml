@@ -66,7 +66,7 @@ importers:
   packages/astro:
     specifiers:
       '@astrojs/compiler': ^0.23.4
-      '@whyframe/core': workspace:^0.0.1
+      '@whyframe/core': workspace:^
       estree-walker: ^3.0.1
       magic-string: ^0.26.2
       vite: ^3.0.9
@@ -87,7 +87,7 @@ importers:
   packages/jsx:
     specifiers:
       '@babel/parser': ^7.18.13
-      '@whyframe/core': workspace:^0.0.1
+      '@whyframe/core': workspace:^
       estree-walker: ^3.0.1
       magic-string: ^0.26.2
       vite: ^3.0.9
@@ -101,7 +101,7 @@ importers:
 
   packages/svelte:
     specifiers:
-      '@whyframe/core': workspace:^0.0.1
+      '@whyframe/core': workspace:^
       magic-string: ^0.26.2
       svelte: ^3.49.0
       vite: ^3.0.9
@@ -115,7 +115,7 @@ importers:
   packages/vue:
     specifiers:
       '@vue/compiler-dom': ^3.2.37
-      '@whyframe/core': workspace:^0.0.1
+      '@whyframe/core': workspace:^
       magic-string: ^0.26.2
       vite: ^3.0.9
     dependencies:
