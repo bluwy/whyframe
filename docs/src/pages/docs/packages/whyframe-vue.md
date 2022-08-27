@@ -4,3 +4,22 @@ layout: ../../../layouts/DocsLayout.astro
 ---
 
 # @whyframe/vue
+
+### include
+
+- **Type:** `string | RegExp | (string | RegExp)[]`
+- **Default:** `/\.vue$/`
+
+A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files the plugin should operate on.
+
+### exclude
+
+- **Type:** `string | RegExp | (string | RegExp)[]`
+
+A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files to be ignored by the plugin.
+
+### parserOptions
+
+- **Type:** [`ParserOptions`](https://github.com/vuejs/core/blob/main/packages/compiler-core/src/options.ts)
+
+Custom parser options to be passed to `@vue/compiler-dom`.
