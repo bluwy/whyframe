@@ -15,6 +15,7 @@
 		"vue": "^3.2.37"
 	},
 	"devDependencies": {
+		"@astrojs/mdx": "^0.10.2",
 		"@astrojs/preact": "^1.0.2",
 		"@astrojs/react": "^1.0.0",
 		"@astrojs/solid-js": "^1.0.0",

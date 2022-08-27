@@ -1,6 +1,7 @@
 // @ts-nocheck
 import path from 'node:path'
 import { defineConfig } from 'astro/config'
+import mdx from '@astrojs/mdx'
 import svelte from '@astrojs/svelte'
 import vue from '@astrojs/vue'
 import solid from '@astrojs/solid-js'
@@ -15,7 +16,7 @@ import { whyframeJsx } from '@whyframe/jsx'
 
 export default defineConfig({
   site: 'https://whyframe.dev',
-  integrations: [svelte(), vue(), solid(), preact(), react()],
+  integrations: [mdx(), svelte(), vue(), solid(), preact(), react()],
   vite: {
     plugins: [
       inspect(),

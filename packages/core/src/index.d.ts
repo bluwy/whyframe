@@ -38,16 +38,16 @@ export interface Options {
   defaultSrc?: string
   /**
    * Whether to attach metadata of the raw source code for all iframes or
-   * components by default. Since the source can't be treeshaken by default,
-   * this is false by default.
+   * components by default. Since the source can't be treeshaken, this is false
+   * by default.
    *
    * For iframes, this can be enabled or disabled individually using the `data-why-show-source`
    * attribute. For components, this can be configured via its `showSource` option.
    */
   defaultShowSource?: boolean
   /**
-   * A list of component names that contains an `iframe` that renders
-   * what's passed into the component, e.g. via slots or children.
+   * A list of components that contain an `iframe` that renders what's passed
+   * to the component, e.g. via slots or children.
    */
   components?: Component[]
 }

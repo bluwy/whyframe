@@ -127,7 +127,7 @@ button.primary:active,
 
 .markdown-container ul li,
 .markdown-container ol li {
-  margin: 0.2rem 0;
+  margin: 0.5rem 0;
 }
 
 .markdown-container code::before,
@@ -146,7 +146,7 @@ button.primary:active,
 }
 
 .markdown-container > .astro-code {
-  margin: 0 -1rem;
+  margin: 1rem -1rem;
 }
 
 .markdown-container .astro-code > code::before,

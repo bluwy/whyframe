@@ -1,0 +1,73 @@
+---
+title: '@whyframe/core'
+layout: ../../../layouts/DocsLayout.astro
+---
+
+import { Code } from 'astro/components'
+import {
+  coreComponentDts,
+  coreUtilsDts,
+  corePluginutilsDts,
+  coreApiDts
+} from './_utils.js'
+
+# @whyframe/core
+
+The core library for `whyframe`. Contains features and utilities shared among integration packages.
+
+## Options
+
+### defaultSrc
+
+- **Type:** `string`
+
+The default `iframe` `src` if one is not provided. For supported frameworks, this will default to a generic internal `whyframe` html. Otherwise, a custom html is required to be passed.
+
+See respective integration guides if a framework requires a custom html.
+
+### defaultShowSource
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Whether to attach metadata of the raw source code for all iframes or components by default. Since the source can't be treeshaken, this is false by default.
+
+For iframes, this can be enabled or disabled individually using the `data-why-show-source` attribute. For components, this can be configured via its `showSource` option.
+
+### components
+
+- **Type:** `Component[]`
+
+A list of components that contain an `iframe` that renders what's passed to the component, e.g. via slots or children.
+
+See [Abstracting components](/docs/features#abstracting-components) for more details.
+
+<Code code={coreComponentDts} lang="ts" />
+
+## Utilities
+
+`@whyframe/core/utils` exports common utilities when working with `whyframe`.
+
+<Code code={coreUtilsDts} lang="ts" />
+
+## Plugin utilities
+
+`@whyframe/core/pluginutils` exports utilities when builidng integration plugins.
+
+<Code code={corePluginutilsDts} lang="ts" />
+
+## Plugin API
+
+Integration plugins would usually interact with a `whyframe:api` plugin to hook into `whyframe`'s development and build logic. This can be done with:
+
+```js
+const vitePlugin = {
+  configResolved(c) {
+    api = c.plugins.find((p) => p.name === 'whyframe:api')?.api
+  }
+}
+```
+
+And the API would have these:
+
+<Code code={coreApiDts} lang="ts" />
