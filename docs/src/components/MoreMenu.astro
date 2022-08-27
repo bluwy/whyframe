@@ -1,15 +1,15 @@
 ---
-import { getGuideAdjacentLink, githubRepoDocsUrl } from '@/utils/constants'
+import { getGuideAdjacentLink } from '@/utils/constants'
 
-const currentPage = Astro.url.pathname
-const currentFile = `src/pages${currentPage.replace(/\/$/, '')}.md`
-const githubEditUrl = githubRepoDocsUrl + currentFile
+export interface Props {
+  githubEditUrl: string
+}
 
-const adjacentLink = getGuideAdjacentLink(currentPage)
+const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
 ---
 
 <p class="edit-on-github">
-  <a class="link" href={githubEditUrl} target="_blank">
+  <a class="link" href={Astro.props.githubEditUrl} target="_blank">
     <span>Edit this page on GitHub</span>
   </a>
 </p>

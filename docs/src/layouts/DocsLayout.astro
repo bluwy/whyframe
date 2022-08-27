@@ -1,10 +1,15 @@
 ---
+import path from 'node:path'
 import '../assets/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import LeftSidebar from '@/components/LeftSidebar.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 import MoreMenu from '@/components/MoreMenu.astro'
+import { githubRepoDocsUrl } from '@/utils/constants'
+
+const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
+const githubEditUrl = githubRepoDocsUrl + relativeFile
 ---
 
 <!DOCTYPE html>
@@ -25,7 +30,7 @@ import MoreMenu from '@/components/MoreMenu.astro'
           <div class="markdown-container">
             <slot />
           </div>
-          <MoreMenu />
+          <MoreMenu githubEditUrl={githubEditUrl} />
           <Footer />
         </main>
         <TableOfContents headings={Astro.props.headings} />
