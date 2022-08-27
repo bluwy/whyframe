@@ -31,6 +31,17 @@ export function createIframeRpc(iframe) {
       }
       nameToCallbacks.get(name).push(callback)
     },
+    off(name, callback) {
+      if (!callback) {
+        nameToCallbacks.delete(name)
+      } else if (nameToCallbacks.has(name)) {
+        const callbacks = nameToCallbacks.get(name)
+        const index = callbacks.indexOf(callback)
+        if (index > -1) {
+          callbacks.splice(index, 1)
+        }
+      }
+    },
     teardown() {
       if (iframe) {
         iframe.contentWindow.removeEventListener('message', handler)
