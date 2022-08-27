@@ -1,11 +1,11 @@
 ---
-title: Getting started
+title: Astro
 layout: ../../../layouts/DocsLayout.astro
 ---
 
-# Nuxt
+# Astro
 
-All features are supported in Astro, except for the fallback `iframe` HTML feature, which will be covered in the [Setup](#setup) section.
+[GitHub](https://github.com/withastro/astro). [Website](https://astro.build).
 
 ## Scaffold your app
 
@@ -21,7 +21,7 @@ $ npm create astro@latest
 
 ## Install
 
-`whyframe` comes in two packages, one for the core library and one for the framework, in this case, Astro.
+`whyframe` comes in two packages,bthe core library and the framework integration, in this case, Astro.
 
 ```bash
 # Install the core library
@@ -31,13 +31,13 @@ $ npm install -D @whyframe/core
 $ npm install -D @whyframe/astro
 ```
 
-Since `iframe`s are dynamic, you need a UI framework setup for Astro, e.g. [Svelte](https://docs.astro.build/en/guides/integrations-guide/svelte/), [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/), [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/), etc. This will render contents within the `iframe` as a Svelte component, for example.
+Since `iframe`s are dynamic, you need a UI framework setup for Astro, e.g. [Svelte](https://docs.astro.build/en/guides/integrations-guide/svelte/), [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/), [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/), etc. This will render HTML within the `iframe` using the framework.
 
-Since Astro is also UI framework-agnostic, you can also install other integrations like `@whyframe/svelte` so it runs on Svelte files too! The difference between `@whyframe/astro` is that that `@whyframe/svelte` scans inside `.svelte` files, while `@whyframe/astro` scans `.astro` files only.
+Since Astro is also UI framework-agnostic, you can also install other integrations like `@whyframe/svelte` so it runs on Svelte files too! The difference between it and `@whyframe/astro` is that `@whyframe/svelte` scans `.svelte` files only, and `@whyframe/astro` scans `.astro` files only.
 
 ## Setup
 
-`whyframe` works at the bundler level, so the packages are Vite plugins. You can initialize these plugins in your `astro.config.mjs`:
+`whyframe` works on the bundler level, so the packages are simply Vite plugins. You can initialize these plugins in your `astro.config.mjs`:
 
 ```js
 import { defineConfig } from 'astro/config'
@@ -51,27 +51,23 @@ export default defineConfig({
     plugins: [
       // Initialize core plugin
       whyframe({
-        template: {
-          default: '/frames/default' // provide our own default template
-        }
+        defaultSrc: '/frames/default' // provide our own html
       }),
 
       // Initialize Vue integration plugin
       whyframeAstro({
-        // Render `iframe` as Svelte components by default, can be changed via `data-why="vue"`
+        // Render `iframe`s as Svelte components by default,
+        // can be changed via `data-why="vue"`
         defaultFramework: 'svelte'
-      }),
-
-      // Optional: Initialize Svelte integration plugin
-      whyframeSvelte()
+      })
     ]
   }
 })
 ```
 
-To setup `/frames/default`, it simply represents a route, e.g. `http://localhost:5173/frames/default`, that `whyframe` will use. To create the route in Astro:
+As `whyframe`'s default HTML doesn't work in Astro, a custom HTML source is required. See [HTML source](http://localhost:3000/docs/features#html-source) for more information.
 
-Create `src/pages/frames/default.astro`:
+To setup `/frames/default`, or in other words `http://localhost:3000/frames/default`, create an empty `src/pages/frames/default.astro` file:
 
 ```html
 <!DOCTYPE html>
@@ -84,34 +80,36 @@ Create `src/pages/frames/default.astro`:
   <body>
     <div id="app"></div>
     <script>
+      // Special api to mount the app
       import { createApp } from 'whyframe:app'
-
+      // Mount the app to `<div id="app"></div>`
       createApp(document.getElementById('app'))
     </script>
   </body>
 </html>
 ```
 
-And done! You can add styles to `src/pages/frames/default.astro` to customize it where you see fit.
+And done! You can also add more code and styles to `src/pages/frames/default.astro` if you prefer.
 
 ## Usage
 
-In `src/pages/index.astro`, you can create an `iframe` like below:
+In `src/pages/index.astro` (or any other page), you can create an `iframe` like below:
 
+<!-- prettier-ignore -->
 ```html
 <iframe data-why>
-  <div>Test</div>
+  Hello world!
 </iframe>
 ```
 
-Start your app with `npm run dev` and watch `<div>Test</div>` rendered within the `iframe` as-is!
+Also, make sure the HTML inside the `iframe` is strictly the UI framework syntax. This is because Astro code is exclusively server-side and can't be rendered dynamically in the browser. For example, if using Vue:
 
-> NOTE: The markup within the `iframe` must be strictly the UI framework syntax, e.g. in Vue:
->
-> ```html
-> <iframe data-why>
->   <div @click="something">Test</div>
-> </iframe>
-> ```
+```html
+<iframe data-why="vue">
+  <p @click="something">Hello world!</p>
+</iframe>
+```
 
-This is the basis of `whyframe`. It provides a low-level primitive to do one thing well. From here, you can style your iframe, add styles _within_ the iframe, author different iframe HTML templates, cross-interact with the iframe, and many more more!
+Start your app with `npm run dev` and watch `Hello world!` rendered within the `iframe` as-is!
+
+Check out [Features](/docs/features) for more things you can do with `whyframe`.

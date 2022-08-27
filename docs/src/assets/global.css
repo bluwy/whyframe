@@ -142,8 +142,11 @@ button.primary:active,
 .markdown-container .astro-code {
   padding: 1rem;
   border-radius: 0.5rem;
-  margin: 0 -1rem;
   line-height: 1.6;
+}
+
+.markdown-container > .astro-code {
+  margin: 0 -1rem;
 }
 
 .markdown-container .astro-code > code::before,

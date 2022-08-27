@@ -1,11 +1,11 @@
 ---
-title: Getting started
+title: SvelteKit
 layout: ../../../layouts/DocsLayout.astro
 ---
 
 # SvelteKit
 
-All features are supported in SvelteKit.
+[GitHub](https://github.com/sveltejs/svelte). [Website](https://kit.svelte.dev).
 
 ## Scaffold your app
 
@@ -21,7 +21,7 @@ $ npm create svelte@latest
 
 ## Install
 
-`whyframe` comes in two packages, one for the core library and one for the UI framework, in this case, Svelte.
+`whyframe` comes in two packages, the core library and the UI framework integration, in this case, Svelte.
 
 ```bash
 # Install the core library
@@ -33,7 +33,7 @@ $ npm install -D @whyframe/svelte
 
 ## Setup
 
-`whyframe` works at the bundler level, so the packages are Vite plugins. You can initialize these plugins in your `vite.config.js`:
+`whyframe` works on the bundler level, so the packages are simply Vite plugins. You can initialize these plugins in your `vite.config.js`:
 
 ```js
 import { defineConfig } from 'vite'
@@ -56,14 +56,15 @@ export default defineConfig({
 
 ## Usage
 
-In `src/routes/+page.svelte`, you can create an `iframe` like below:
+In `src/routes/+page.svelte` (or any page), you can create an `iframe` like below:
 
+<!-- prettier-ignore -->
 ```html
 <iframe data-why>
-  <div>Test</div>
+  Hello world!
 </iframe>
 ```
 
-Start your app with `npm run dev` and watch `<div>Test</div>` rendered within the `iframe` as-is!
+Start your app with `npm run dev` and watch `Hello world!` rendered within the `iframe` as-is!
 
-This is the basis of `whyframe`. It provides a low-level primitive to do one thing well. From here, you can style your iframe, add styles _within_ the iframe, author different iframe HTML templates, cross-interact with the iframe, and many more more!
+Check out [Features](/docs/features) for more things you can do with `whyframe`.

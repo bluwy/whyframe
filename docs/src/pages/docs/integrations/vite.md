@@ -1,11 +1,11 @@
 ---
-title: Getting started
+title: Vite
 layout: ../../../layouts/DocsLayout.astro
 ---
 
 # Vite
 
-All features are supported in Vite.
+[GitHub](https://github.com/vitejs/vite). [Website](https://vitejs.dev).
 
 ## Scaffold your app
 
@@ -17,15 +17,13 @@ Create a new Vite project with:
 $ npm create vite@latest
 ```
 
-Choose any framework of choice (except Lit) to start with! `whyframe` supports most UI frameworks out-of-the-box.
+Choose any framework of choice to start. `whyframe` supports all UI frameworks except Lit.
 
 `cd` into your project directory and install dependencies with `npm install`.
 
 ## Install
 
-`whyframe` comes in two packages, one for the core library and one for the UI framework.
-
-<!-- TODO: make toggle for frameworks? -->
+`whyframe` comes in two packages, the core library and the UI framework integration.
 
 ```bash
 # Install the core library
@@ -43,7 +41,7 @@ $ npm install -D @whyframe/jsx
 
 ## Setup
 
-`whyframe` works at the bundler level, so the packages are Vite plugins. You can initialize these plugins in your `vite.config.js`:
+`whyframe` works on the bundler level, so the packages are simply Vite plugins. You can initialize these plugins in your `vite.config.js`:
 
 ```js
 import { defineConfig } from 'vite'
@@ -63,8 +61,8 @@ export default defineConfig({
     // Or initialize Vue integration plugin
     whyframeVue(),
 
-    // Or initialize JSX integration plugin (also specify the UI framework used)
-    whyframeJSX({ framework: 'solid' })
+    // Or initialize JSX integration plugin (also specify the UI framework)
+    whyframeJSX({ framework: 'react' })
   ]
 })
 ```
@@ -73,12 +71,13 @@ export default defineConfig({
 
 Depending on which UI framework you're using, you can edit `App.svelte`, `App.vue`, or `App.jsx` to start creating an `iframe`. For example:
 
+<!-- prettier-ignore -->
 ```html
 <iframe data-why>
-  <div>Test</div>
+  Hello world!
 </iframe>
 ```
 
-Start your app with `npm run dev` and watch `<div>Test</div>` rendered within the `iframe` as-is!
+Start your app with `npm run dev` and watch `Hello world!` rendered within the `iframe` as-is!
 
-This is the basis of `whyframe`. It provides a low-level primitive to do one thing well. From here, you can style your iframe, add styles _within_ the iframe, author different iframe HTML templates, cross-interact with the iframe, and many more more!
+Check out [Features](/docs/features) for more things you can do with `whyframe`.
