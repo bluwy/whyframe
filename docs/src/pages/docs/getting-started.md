@@ -7,7 +7,7 @@ layout: ../../layouts/DocsLayout.astro
 
 ## What is whyframe?
 
-`whyframe` is a tool to enable rendering HTML within `iframe`s. For example:
+`whyframe` allows seamless rendering of HTML within `iframe`s. For example:
 
 <!-- prettier-ignore -->
 ```html
@@ -16,7 +16,7 @@ layout: ../../layouts/DocsLayout.astro
 </iframe>
 ```
 
-`"Hello world!"` will be rendered within the `iframe` as expected. Traditionally, browsers don't handle this and will simply render a blank `iframe`.
+`"Hello world!"` will be rendered within the `iframe` as it should! Without `whyframe`, browsers would usually just render a blank `iframe`.
 
 ## How does it work?
 

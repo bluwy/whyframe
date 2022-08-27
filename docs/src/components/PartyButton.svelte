@@ -23,8 +23,8 @@
   }
 
   button:hover {
-    background-color: #ced1ff;
-    border-color: #646cff;
+    background-color: white;
+    border-color: #b2b2b2;
   }
 
   button:focus,

@@ -135,6 +135,10 @@ button.primary:active,
   content: '`';
 }
 
+.markdown-container code {
+  color: white;
+}
+
 .markdown-container .astro-code {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -145,6 +149,10 @@ button.primary:active,
 .markdown-container .astro-code > code::before,
 .markdown-container .astro-code > code::after {
   content: '';
+}
+
+.markdown-container .astro-code > code {
+  color: initial;
 }
 
 .markdown-container blockquote {
