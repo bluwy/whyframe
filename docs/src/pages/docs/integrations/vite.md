@@ -62,7 +62,7 @@ export default defineConfig({
     whyframeVue(),
 
     // Or initialize JSX integration plugin (also specify the UI framework)
-    whyframeJSX({ framework: 'react' })
+    whyframeJSX({ defaultFramework: 'react' })
   ]
 })
 ```

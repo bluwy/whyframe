@@ -14,7 +14,8 @@ export function whyframeJsx(options) {
   let api
 
   const filter = createFilter(options?.include || /\.[jt]sx$/, options?.exclude)
-  const fallbackFramework = options?.framework || guessFrameworkFromTsconfig()
+  const fallbackFramework =
+    options?.defaultFramework || guessFrameworkFromTsconfig()
 
   return {
     name: 'whyframe:jsx',
@@ -32,17 +33,9 @@ export function whyframeJsx(options) {
 
       const ext = path.extname(id)
 
-      const framework =
+      const moduleFallbackFramework =
         validateFramework(code.match(/@jsxImportSource\s*(\S+)/)?.[1]) ||
         fallbackFramework
-
-      if (!framework) {
-        console.warn(
-          `Unable to determine JSX framework for ${id}. ` +
-            `Fix this by specifying a fallback framework in whyframeJsx's framework option. ` +
-            `Skipping whyframe transform.`
-        )
-      }
 
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
@@ -118,6 +111,9 @@ export function whyframeJsx(options) {
                 attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
             )
 
+          /** @type {import('.').Options['defaultFramework']} */
+          let framework = moduleFallbackFramework
+
           if (isIframeElement) {
             // if contains children, it implies that it's accepting the component's
             // children as iframe content, we need to proxy them
@@ -135,6 +131,22 @@ export function whyframeJsx(options) {
               this.skip()
               return
             }
+
+            // if iframe element has value for framework to render via `data-why=""`
+            // take highest priority
+            framework =
+              node.openingElement.attributes.find(
+                (attr) =>
+                  attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
+              )?.value?.value || framework
+          }
+
+          if (!framework) {
+            throw new Error(
+              `Unable to determine JSX framework for ${id}. ` +
+                `Fix this by specifying a fallback framework in whyframeJsx's framework option. ` +
+                `Skipping whyframe transform.`
+            )
           }
 
           const iframeComponent =
@@ -254,7 +266,7 @@ export function whyframeJsx(options) {
 }
 
 /**
- * @return {import('.').Options['framework'] | undefined}
+ * @return {import('.').Options['defaultFramework'] | undefined}
  */
 function guessFrameworkFromTsconfig() {
   for (const file of ['tsconfig.json', 'jsconfig.json']) {
@@ -268,7 +280,7 @@ function guessFrameworkFromTsconfig() {
 
 /**
  * @param {string} framework
- * @return {import('.').Options['framework'] | undefined}
+ * @return {import('.').Options['defaultFramework'] | undefined}
  */
 function validateFramework(framework) {
   if (framework === 'solid-js') {
@@ -282,7 +294,7 @@ function validateFramework(framework) {
 
 /**
  * @param {string} entryId
- * @param {import('.').Options['framework']} framework
+ * @param {import('.').Options['defaultFramework']} framework
  */
 function createEntry(entryId, framework) {
   switch (framework) {

@@ -87,7 +87,7 @@ export function whyframeAstro(options) {
           const isIframeElement =
             node.type === 'element' &&
             node.name === 'iframe' &&
-            node.attributes.find((a) => a.name === 'data-why')
+            node.attributes.some((a) => a.name === 'data-why')
 
           if (isIframeElement) {
             // if contains slot, it implies that it's accepting the component's

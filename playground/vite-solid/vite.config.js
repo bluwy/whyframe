@@ -11,7 +11,7 @@ export default defineConfig({
       components: [{ name: 'Story', source: true }]
     }),
     whyframeJsx({
-      framework: 'solid',
+      defaultFramework: 'solid',
     }),
     solid()
   ],

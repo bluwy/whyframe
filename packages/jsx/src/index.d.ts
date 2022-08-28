@@ -5,12 +5,13 @@ export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
   /**
-   * The UI framework for this integration. If not set, it try to fallback to
-   * the `jsxImportSource` option in `tsconfig.json`. This can be overridden
-   * per file with the `@jsxImportSource <framework>` comment at the top of
+   * The default UI framework for this integration. If not set, it try to
+   * fallback to the `jsxImportSource` option in `tsconfig.json` or `jsconfig.json`.
+   * This can be overridden per iframe with `data-why="<framework>"` attribute,
+   * or per file with the `@jsxImportSource <framework>` comment at the top of
    * the JSX file.
    */
-  framework?: 'solid' | 'preact' | 'preact'
+  defaultFramework?: 'solid' | 'preact' | 'preact'
   /**
    * Custom parser options to be passed to `@babel/parser`
    */
