@@ -28,11 +28,11 @@
   ],
   "peerDependencies": {
     "@whyframe/core": "workspace:^",
-    "svelte": "^3.49.0",
-    "vite": "^3.0.4"
+    "vite": "^3.0.0"
   },
   "dependencies": {
-    "magic-string": "^0.26.2"
+    "magic-string": "^0.26.2",
+    "svelte": "^3.49.0"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",

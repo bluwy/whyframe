@@ -31,7 +31,7 @@
   ],
   "peerDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.0.4"
+    "vite": "^3.0.0"
   },
   "dependencies": {
     "@babel/parser": "^7.18.13",
