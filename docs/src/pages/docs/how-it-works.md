@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: How it works
 layout: ../../layouts/DocsLayout.astro
 ---
 

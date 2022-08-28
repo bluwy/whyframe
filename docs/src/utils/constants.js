@@ -12,7 +12,7 @@ export const sidebarGuideLinks = [
   {
     title: 'Introduction',
     children: [
-      { title: 'Getting started', url: '/docs/getting-started' },
+      { title: 'Overview', url: '/docs/overview' },
       { title: 'How it works', url: '/docs/how-it-works' },
       { title: 'Features', url: '/docs/features' }
     ]

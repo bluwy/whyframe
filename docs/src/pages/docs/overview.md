@@ -1,9 +1,9 @@
 ---
-title: Getting started
+title: Overview
 layout: ../../layouts/DocsLayout.astro
 ---
 
-# Getting started
+# Overview
 
 ## What is whyframe?
 
