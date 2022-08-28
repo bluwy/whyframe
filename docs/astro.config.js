@@ -16,7 +16,19 @@ import { whyframeJsx } from '@whyframe/jsx'
 
 export default defineConfig({
   site: 'https://whyframe.dev',
-  integrations: [mdx(), svelte(), vue(), solid(), preact(), react()],
+  integrations: [
+    mdx(),
+    svelte({
+      onwarn: (warning, handler) => {
+        if (warning.code === 'css-unused-selector') return
+        handler(warning)
+      }
+    }),
+    vue(),
+    solid(),
+    preact(),
+    react()
+  ],
   vite: {
     plugins: [
       inspect(),

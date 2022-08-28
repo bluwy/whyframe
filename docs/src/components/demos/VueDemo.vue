@@ -1,14 +1,9 @@
-<script setup>
-import whyframe from '@/assets/logo.svg'
-import vue from '@/assets/vue.svg'
-</script>
-
 <template>
   <iframe data-why title="Package demo">
     <p>
-      <img :src="whyframe" alt="whyframe" height="80" />
+      <img src="@/assets/logo.svg" alt="whyframe" height="80" />
       <span>+</span>
-      <img :src="vue" alt="vue" height="56" />
+      <img src="@/assets/vue.svg" alt="vue" height="56" />
     </p>
   </iframe>
 </template>

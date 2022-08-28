@@ -67,17 +67,26 @@ function templateBuildPlugin() {
     name: 'whyframe:template:build',
     apply: 'build',
     config(c) {
-      // write default template if user didn't specify their own
-      const haveExistingInput = c.build?.rollupOptions?.input
-      const input = haveExistingInput ? {} : { index: 'index.html' }
-      input['__whyframe'] = templateDefaultBuildPath
-      return {
-        build: {
-          rollupOptions: {
-            input
-          }
-        }
+      if (c.build == null) {
+        c.build = { rollupOptions: {} }
+      } else if (c.build.rollupOptions == null) {
+        c.build.rollupOptions = {}
       }
+
+      let input = c.build.rollupOptions.input
+
+      if (typeof input === 'undefined' || typeof input === 'string') {
+        input = {
+          __whyframe: templateDefaultBuildPath,
+          index: input ?? 'index.html'
+        }
+      } else if (typeof input === 'object') {
+        input.__whyframe = templateDefaultBuildPath
+      } else if (Array.isArray(input)) {
+        input.push(templateDefaultBuildPath)
+      }
+
+      c.build.rollupOptions.input = input
     },
     async buildStart() {
       try {
