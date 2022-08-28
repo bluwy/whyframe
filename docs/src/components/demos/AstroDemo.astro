@@ -5,10 +5,9 @@ import astroDark from '@/assets/astro-dark.svg'
 ---
 
 <iframe data-why title="Package demo">
-  <p> <img src={whyframe} alt="whyframe" height="80" /> <span>+</span> <!--
-  prettier-ignore --> <picture> <source srcset={astroLight}
-  media="(prefers-color-scheme: light)" /> <img src={astroDark} alt="astro"
-  height="64" /> </picture> </p>
+  <p> <img src={whyframe} alt="whyframe" height="80" /> <span>+</span> <picture>
+  <source srcset={astroLight} media="(prefers-color-scheme: light)" /> <img
+  src={astroDark} alt="astro" height="64" /> </picture> </p>
 </iframe>
 
 <style>
@@ -16,6 +15,7 @@ import astroDark from '@/assets/astro-dark.svg'
     width: 100%;
     border: 0;
     height: 150px;
+    border-radius: 0.5rem;
   }
 
   p {

@@ -7,6 +7,7 @@ import LeftSidebar from '@/components/structure/LeftSidebar.astro'
 import TableOfContents from '@/components/structure/TableOfContents.astro'
 import MoreMenu from '@/components/structure/MoreMenu.astro'
 import { githubRepoDocsUrl } from '@/utils/constants'
+import IframeNoFlash from '@/components/IframeNoFlash.astro'
 
 const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
 const githubEditUrl = githubRepoDocsUrl + relativeFile
@@ -36,6 +37,7 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
         <TableOfContents headings={Astro.props.headings} />
       </div>
     </div>
+    <IframeNoFlash />
     <style>
       .content {
         display: flex;

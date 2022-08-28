@@ -1,0 +1,21 @@
+<script is:inline>
+  // TODO: extract as util
+  /** @type {NodeListOf<HTMLIFrameElement>} */
+  const iframes = document.querySelectorAll('iframe[data-why]')
+  for (const iframe of iframes) {
+    iframe.addEventListener(
+      'load',
+      () => {
+        iframe.style.opacity = '1'
+      },
+      { once: true }
+    )
+  }
+</script>
+
+<style is:global>
+  iframe[data-why] {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+</style>
