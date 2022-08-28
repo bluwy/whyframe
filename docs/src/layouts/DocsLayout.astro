@@ -26,7 +26,7 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
     <div id="app">
       <Header stretch />
       <div class="docs-container stretch content">
-        <LeftSidebar url={Astro.url} />
+        <LeftSidebar url={Astro.url} githubEditUrl={githubEditUrl} />
         <main id="main-space" class="docs-container">
           <div class="markdown-container">
             <slot />

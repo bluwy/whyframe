@@ -18,6 +18,14 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
       ))
     }
   </ul>
+
+  <hr />
+
+  <p class="edit-on-github">
+    <a class="link" href={Astro.props.githubEditUrl} target="_blank">
+      <span>Edit this page on GitHub</span>
+    </a>
+  </p>
 </aside>
 
 <script is:inline data-htwo={htwoData}>
@@ -120,6 +128,15 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
   a.active {
     opacity: 1;
     color: var(--primary);
+  }
+
+  .edit-on-github {
+    color: var(--primary);
+  }
+
+   hr {
+    margin: 2rem 0;
+    border-color: var(--gray-dark);
   }
 
   @media (min-width: 1248px) {
