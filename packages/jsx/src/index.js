@@ -65,139 +65,125 @@ export function whyframeJsx(options) {
         plugins: parserPlugins
       })
 
-      /** @type {import('estree-walker').BaseNode | null} */
-      let topLevelFnNode = null
-      /** @type {import('estree-walker').BaseNode | null} */
-      let exportNode = null
+      for (const b of ast.program.body) {
+        /** @type {import('estree-walker').BaseNode} */
+        let topLevelFnNode
+        /** @type {import('estree-walker').BaseNode | null} */
+        let exportNode = null
 
-      walk(ast, {
-        leave(node) {
-          if (
-            node.type === 'FunctionDeclaration' ||
-            node.type === 'ArrowFunctionExpression'
-          ) {
-            topLevelFnNode = null
-            exportNode = null
-          }
-        },
-        enter(node, parent) {
-          if (
-            node.type === 'FunctionDeclaration' ||
-            node.type === 'ArrowFunctionExpression'
-          ) {
-            // nested
-            if (topLevelFnNode) {
-              this.skip()
-            } else {
-              topLevelFnNode = node
-              if (
-                parent.type === 'ExportNamedDeclaration' ||
-                parent.type === 'ExportDefaultDeclaration'
-              ) {
-                exportNode = parent
-              }
-            }
-            return
-          }
+        if (b.type === 'FunctionDeclaration') {
+          topLevelFnNode = b
+        } else if (
+          (b.type === 'ExportNamedDeclaration' ||
+            b.type === 'ExportDefaultDeclaration') &&
+          b.declaration.type === 'FunctionDeclaration'
+        ) {
+          topLevelFnNode = b.declaration
+          exportNode = b
+        } else {
+          continue
+        }
 
-          // only detect jsx in fn
-          if (!topLevelFnNode) return
-
-          const isIframeElement =
-            node.type === 'JSXElement' &&
-            node.openingElement.name.name === 'iframe' &&
-            node.openingElement.attributes.some(
-              (attr) =>
-                attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
-            )
-
-          /** @type {import('.').Options['defaultFramework']} */
-          let framework = moduleFallbackFramework
-
-          if (isIframeElement) {
-            // if contains children, it implies that it's accepting the component's
-            // children as iframe content, we need to proxy them
-            if (
-              node.children?.some((c) =>
-                /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
-              )
-            ) {
-              const attrs = api.getProxyIframeAttrs()
-              addAttrs(s, node, attrs)
-              s.remove(
-                node.children[0].start,
-                node.children[node.children.length - 1].end
-              )
-              this.skip()
-              return
-            }
-
-            // if iframe element has value for framework to render via `data-why=""`
-            // take highest priority
-            framework =
-              node.openingElement.attributes.find(
+        walk(b, {
+          enter(node) {
+            const isIframeElement =
+              node.type === 'JSXElement' &&
+              node.openingElement.name.name === 'iframe' &&
+              node.openingElement.attributes.some(
                 (attr) =>
                   attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
-              )?.value?.value || framework
-          }
+              )
 
-          if (!framework) {
-            throw new Error(
-              `Unable to determine JSX framework for ${id}. ` +
-                `Fix this by specifying a fallback framework in whyframeJsx's framework option. ` +
-                `Skipping whyframe transform.`
-            )
-          }
+            /** @type {import('.').Options['defaultFramework']} */
+            let framework = moduleFallbackFramework
 
-          const iframeComponent =
-            node.type === 'JSXElement' &&
-            api.getComponent(node.openingElement.name.name)
+            if (isIframeElement) {
+              // if contains children, it implies that it's accepting the component's
+              // children as iframe content, we need to proxy them
+              if (
+                node.children?.some((c) =>
+                  /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
+                )
+              ) {
+                const attrs = api.getProxyIframeAttrs()
+                addAttrs(s, node, attrs)
+                s.remove(
+                  node.children[0].start,
+                  node.children[node.children.length - 1].end
+                )
+                this.skip()
+                return
+              }
 
-          if (isIframeElement || iframeComponent) {
-            // extract iframe html
-            let iframeContent = ''
-            if (node.children.length > 0) {
-              const start = node.children[0].start
-              const end = node.children[node.children.length - 1].end
-              iframeContent = code.slice(start, end)
-              s.remove(start, end)
+              // if iframe element has value for framework to render via
+              // `data-why="<framework>"` take highest priority
+              framework =
+                node.openingElement.attributes.find(
+                  (attr) =>
+                    attr.type === 'JSXAttribute' &&
+                    attr.name.name === 'data-why'
+                )?.value?.value || framework
             }
 
-            // ====== start: extract outer code
-            const outScope = exportNode || topLevelFnNode
-            // crawl out of fn, get top to fn start
-            const topCode = code.slice(0, outScope.start)
-            // crawl out of fn, get fn end to bottom
-            const bottomCode = code.slice(outScope.end)
-            // crawl to fn body, get body start to jsx
-            const fnBody = topLevelFnNode.body.body
-            // get return statement that contains tihs iframe node
-            const returnStatement = fnBody.findIndex(
-              (c) =>
-                c.type === 'ReturnStatement' &&
-                astContainsNode(c.argument, node)
-            )
-            if (returnStatement === -1) {
-              this.skip()
-              return
-            }
-            // get the relevant fn code from the body to the return statement
-            const fnCode =
-              returnStatement > 0
-                ? code.slice(fnBody[0].start, fnBody[returnStatement - 1].end)
-                : ''
-            // ====== end: extract outer code
+            const iframeComponent =
+              node.type === 'JSXElement' &&
+              api.getComponent(node.openingElement.name.name)
 
-            // derive final hash per iframe
-            const finalHash = hash(
-              topCode + bottomCode + fnCode + iframeContent
-            )
+            if (isIframeElement || iframeComponent) {
+              if (!framework) {
+                console.warn(
+                  `Unable to determine JSX framework for "${id}". ` +
+                    `Fix this by specifying a fallback framework in whyframeJsx's defaultFramework option. ` +
+                    `Skipping whyframe transform.`
+                )
+                this.skip()
+                return
+              }
 
-            const entryComponentId = api.createEntryComponent(
-              id,
-              finalHash,
-              ext,
-              `\
+              // extract iframe html
+              let iframeContent = ''
+              if (node.children.length > 0) {
+                const start = node.children[0].start
+                const end = node.children[node.children.length - 1].end
+                iframeContent = code.slice(start, end)
+                s.remove(start, end)
+              }
+
+              // ====== start: extract outer code
+              const outScope = exportNode || topLevelFnNode
+              // crawl out of fn, get top to fn start
+              const topCode = code.slice(0, outScope.start)
+              // crawl out of fn, get fn end to bottom
+              const bottomCode = code.slice(outScope.end)
+              // crawl to fn body, get body start to jsx
+              const fnBody = topLevelFnNode.body.body
+              // get return statement that contains tihs iframe node
+              const returnStatement = fnBody.findIndex(
+                (c) =>
+                  c.type === 'ReturnStatement' &&
+                  astContainsNode(c.argument, node)
+              )
+              if (returnStatement === -1) {
+                this.skip()
+                return
+              }
+              // get the relevant fn code from the body to the return statement
+              const fnCode =
+                returnStatement > 0
+                  ? code.slice(fnBody[0].start, fnBody[returnStatement - 1].end)
+                  : ''
+              // ====== end: extract outer code
+
+              // derive final hash per iframe
+              const finalHash = hash(
+                topCode + bottomCode + fnCode + iframeContent
+              )
+
+              const entryComponentId = api.createEntryComponent(
+                id,
+                finalHash,
+                ext,
+                `\
   ${topCode}
   export function WhyframeApp() {
     ${fnCode}
@@ -208,52 +194,53 @@ export function whyframeJsx(options) {
     )
   }
   ${bottomCode}`
-            )
-
-            const entryId = api.createEntry(
-              id,
-              finalHash,
-              '.jsx',
-              createEntry(entryComponentId, framework)
-            )
-
-            let showSource = api.getDefaultShowSource()
-            if (isIframeElement) {
-              const attr = node.openingElement.attributes.find(
-                (p) => p.name.name === 'data-why-show-source'
               )
-              if (attr) {
-                if (attr.value === null) {
-                  showSource = true
-                } else if (attr.value?.value) {
-                  showSource = attr.value.value === 'true'
-                } else if (attr.value?.expression) {
-                  showSource = attr.value.expression.value === true
+
+              const entryId = api.createEntry(
+                id,
+                finalHash,
+                '.jsx',
+                createEntry(entryComponentId, framework)
+              )
+
+              let showSource = api.getDefaultShowSource()
+              if (isIframeElement) {
+                const attr = node.openingElement.attributes.find(
+                  (p) => p.name.name === 'data-why-show-source'
+                )
+                if (attr) {
+                  if (attr.value === null) {
+                    showSource = true
+                  } else if (attr.value?.value) {
+                    showSource = attr.value.value === 'true'
+                  } else if (attr.value?.expression) {
+                    showSource = attr.value.expression.value === true
+                  }
+                }
+              } else if (iframeComponent) {
+                if (typeof iframeComponent.source === 'boolean') {
+                  showSource = iframeComponent.source
+                } else if (typeof iframeComponent.source === 'function') {
+                  const openTag = code.slice(
+                    node.openingElement.start,
+                    node.openingElement.end
+                  )
+                  showSource = iframeComponent.source(openTag)
                 }
               }
-            } else if (iframeComponent) {
-              if (typeof iframeComponent.source === 'boolean') {
-                showSource = iframeComponent.source
-              } else if (typeof iframeComponent.source === 'function') {
-                const openTag = code.slice(
-                  node.openingElement.start,
-                  node.openingElement.end
-                )
-                showSource = iframeComponent.source(openTag)
-              }
-            }
 
-            // inject props
-            const attrs = api.getMainIframeAttrs(
-              entryId,
-              finalHash,
-              showSource ? dedent(iframeContent) : undefined,
-              !!iframeComponent
-            )
-            addAttrs(s, node, attrs)
+              // inject props
+              const attrs = api.getMainIframeAttrs(
+                entryId,
+                finalHash,
+                showSource ? dedent(iframeContent) : undefined,
+                !!iframeComponent
+              )
+              addAttrs(s, node, attrs)
+            }
           }
-        }
-      })
+        })
+      }
 
       if (s.hasChanged()) {
         return {

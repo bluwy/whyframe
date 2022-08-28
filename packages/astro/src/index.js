@@ -43,6 +43,28 @@ export function whyframeAstro(options) {
           delete plugin.enforce
         }
       }
+
+      // run jsx plugin before astro's
+      const astroJsx = c.plugins.find((p) => p.name === 'astro:jsx')
+      if (astroJsx !== -1) {
+        const seenJsxPlugins = new Set()
+        while (true) {
+          const whyframeJsxIndex = c.plugins.findIndex(
+            (p) => p.name === 'whyframe:jsx' && !seenJsxPlugins.has(p)
+          )
+          if (whyframeJsxIndex !== -1) {
+            const whyframeJsx = c.plugins[whyframeJsxIndex]
+            const astroJsxIndex = c.plugins.findIndex(
+              (p) => p.name === 'astro:jsx'
+            )
+            seenJsxPlugins.add(whyframeJsx)
+            c.plugins.splice(whyframeJsxIndex, 1)
+            c.plugins.splice(astroJsxIndex, 0, whyframeJsx)
+          } else {
+            break
+          }
+        }
+      }
     },
     async transform(code, id) {
       if (!filter(id)) return
