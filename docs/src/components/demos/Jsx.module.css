@@ -1,0 +1,17 @@
+.iframe {
+  width: 100%;
+  border: 0;
+  height: 150px;
+}
+
+.p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.span {
+  font-size: 3rem;
+  margin: 0 0.8rem;
+  font-weight: 300;
+}

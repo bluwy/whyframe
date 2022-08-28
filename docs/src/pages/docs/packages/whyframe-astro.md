@@ -5,6 +5,8 @@ layout: ../../../layouts/DocsLayout.astro
 
 # @whyframe/astro
 
+## Options
+
 ### include
 
 - **Type:** `string | RegExp | (string | RegExp)[]`
@@ -23,7 +25,3 @@ A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patt
 - **Type:** `'svelte' | 'vue' | 'solid' | 'preact' | 'react'`
 
 All `iframe`s require a value for `data-why` to render the HTML content using a specific UI framework. If unset, it can fallback to this value.
-
-## Demo
-
-This site is using Astro!

@@ -21,7 +21,7 @@ export default defineConfig({
     plugins: [
       inspect(),
       whyframe({
-        defaultSrc: '/frames/basic',
+        defaultSrc: '/frames/hero',
         components: [{ name: 'Story', source: true }]
       }),
       whyframeAstro({
