@@ -20,7 +20,7 @@ A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patt
 
 ### framework
 
-- **Type:** `'react' | 'preact' | 'solid'`
+- **Type:** `'solid' | 'preact' | 'preact'`
 
 The UI framework for this integration. If not set, it try to fallback to the `jsxImportSource` option in `tsconfig.json`. This can be overridden per file with the `@jsxImportSource <framework>` comment at the top of the JSX file.
 
