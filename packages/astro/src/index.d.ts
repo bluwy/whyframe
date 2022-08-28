@@ -4,13 +4,10 @@ export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
   /**
-   * If `data-why` has no value, use this fallback instead.
+   * All `iframe`s require a value for `data-why` to render the HTML content
+   * using a specific UI framework. If unset, it can fallback to this value.
    */
-  defaultFramework: 'svelte' | 'vue' | 'solid' | 'preact' | 'react'
-  /**
-   * Custom import specifiers to exclude during code extraction
-   */
-  importExclude?: FilterPattern
+  defaultFramework?: 'svelte' | 'vue' | 'solid' | 'preact' | 'react'
 }
 
 export function whyframeAstro(options?: Options): Plugin

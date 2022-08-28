@@ -1,10 +1,9 @@
 import { builtinModules } from 'node:module'
-import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse } from '@astrojs/compiler'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
-import { dedent, escapeAttr, hash } from '@whyframe/core/pluginutils'
+import { dedent, hash } from '@whyframe/core/pluginutils'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
 
@@ -22,9 +21,6 @@ export function whyframeAstro(options) {
   let api
 
   const filter = createFilter(options?.include || /\.astro$/, options?.exclude)
-  const importExcludeFilter = options?.importExclude
-    ? createFilter(options?.importExclude, undefined, { resolve: false })
-    : () => false
 
   /** @type {import('vite').Plugin} */
   const plugin = {
@@ -71,8 +67,7 @@ export function whyframeAstro(options) {
             importSpecifier.endsWith('.astro') ||
             importSpecifier.startsWith('node:') ||
             builtinModules.includes(importSpecifier) ||
-            knownNodeImports.includes(importSpecifier) ||
-            importExcludeFilter(importSpecifier)
+            knownNodeImports.includes(importSpecifier)
           ) {
             return ''
           } else {
