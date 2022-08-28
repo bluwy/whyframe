@@ -1,0 +1,36 @@
+---
+import whyframe from '@/assets/logo.svg'
+import astroLight from '@/assets/astro-light.svg'
+import astroDark from '@/assets/astro-dark.svg'
+---
+
+<iframe data-why title="Package demo">
+  <p> <img src={whyframe} alt="whyframe" height="80" /> <span>+</span> <!--
+  prettier-ignore --> <picture> <source srcset={astroLight}
+  media="(prefers-color-scheme: light)" /> <img src={astroDark} alt="astro"
+  height="64" /> </picture> </p>
+</iframe>
+
+<style>
+  iframe {
+    width: 100%;
+    border: 0;
+    height: 150px;
+  }
+
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  span {
+    font-size: 3rem;
+    margin: 0 0.8rem;
+    font-weight: 300;
+  }
+
+  picture {
+    transform: translateY(4px);
+  }
+</style>

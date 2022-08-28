@@ -98,8 +98,18 @@ export function whyframeAstro(options) {
         })
       }
 
+      let styleCode = ''
+      for (const node of ast.children) {
+        if (node.type === 'element' && node.name === 'style') {
+          styleCode += code.slice(
+            node.position.start.offset - `<`.length,
+            node.position.end.offset + `style>`.length
+          )
+        }
+      }
+
       // generate initial hash
-      const baseHash = hash(frontmatterCode)
+      const baseHash = hash(frontmatterCode + styleCode)
 
       // shim Astro global
       frontmatterCode = shimAstro + '\n\n' + frontmatterCode
@@ -184,7 +194,12 @@ export function whyframeAstro(options) {
                 : framework === 'vue'
                 ? '.vue'
                 : '.tsx',
-              createEntryComponent(frontmatterCode, iframeContent, framework)
+              createEntryComponent(
+                frontmatterCode,
+                styleCode,
+                iframeContent,
+                framework
+              )
             )
 
             const entryId = api.createEntry(
@@ -282,28 +297,38 @@ export function createApp(el) {
 }
 
 /**
- * @param {string} contextCode
+ * @param {string} frontmatterCode
+ * @param {string} styleCode
  * @param {string} iframeHtmlCode
  * @param {import('.').Options['defaultFramework']} framework
  */
-function createEntryComponent(contextCode, iframeHtmlCode, framework) {
+function createEntryComponent(
+  frontmatterCode,
+  styleCode,
+  iframeHtmlCode,
+  framework
+) {
   switch (framework) {
     case 'svelte':
       return `\
 <script>
-  ${contextCode}
+  ${frontmatterCode}
 </script>
 
-${iframeHtmlCode}`
+${iframeHtmlCode}
+
+${styleCode}`
     case 'vue':
       return `\
 <script setup>
-  ${contextCode}
+  ${frontmatterCode}
 </script>
 
 <template>
   ${iframeHtmlCode}
-</template>`
+</template>
+
+${styleCode}`
     case 'solid':
     case 'preact':
     case 'react':
@@ -311,7 +336,7 @@ ${iframeHtmlCode}`
       return `\
 /** @jsxImportSource ${source} */
 
-${contextCode}
+${frontmatterCode}
 
 export function WhyframeApp() {
   return (

@@ -24,7 +24,14 @@ layout: ../../layouts/DocsLayout.astro
 
 ## Project status
 
-Experimental. Works well for Svelte and Vue. Improvements needed for JSX libraries, e.g Solid, Preact, and React. The API may also change during the `v0.x` period. See the [1.0 Roadmap](https://github.com/bluwy/whyframe/discussions/1) for the full details.
+Experimental.
+
+- Works well for Svelte and Vue
+- Improvements needed for JSX libraries, e.g Solid, Preact, and React
+- Astro support requires an overhaul
+- The API may change during the `v0.x` period
+
+See the [1.0 Roadmap](https://github.com/bluwy/whyframe/discussions/1) for the full details.
 
 ## Manual setup
 

@@ -3,7 +3,20 @@ title: '@whyframe/astro'
 layout: ../../../layouts/DocsLayout.astro
 ---
 
+import AstroDemo from '@/components/demos/AstroDemo.astro'
+
 # @whyframe/astro
+
+<AstroDemo />
+
+## Status
+
+Experimental. As there isn't a way to render Astro code dynamically, we rely on `data-why="<framework>"` attributes to pass the `iframe` content as framework code. However, since this is not a 1-to-1 conversion, features like:
+
+- `<style>` is not supported in JSX
+- `<script>` is not support in all frameworks
+
+Ultimately this integration would only render Astro code, and the framework feature would be removed.
 
 ## Options
 
