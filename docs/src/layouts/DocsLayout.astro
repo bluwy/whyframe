@@ -1,11 +1,11 @@
 ---
 import path from 'node:path'
 import '../assets/global.css'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import LeftSidebar from '@/components/LeftSidebar.astro'
-import TableOfContents from '@/components/TableOfContents.astro'
-import MoreMenu from '@/components/MoreMenu.astro'
+import Header from '../components/structure/Header.astro'
+import Footer from '../components/structure/Footer.astro'
+import LeftSidebar from '@/components/structure/LeftSidebar.astro'
+import TableOfContents from '@/components/structure/TableOfContents.astro'
+import MoreMenu from '@/components/structure/MoreMenu.astro'
 import { githubRepoDocsUrl } from '@/utils/constants'
 
 const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
