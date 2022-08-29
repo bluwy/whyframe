@@ -3,9 +3,14 @@
   /** @type {NodeListOf<HTMLIFrameElement>} */
   const iframes = document.querySelectorAll('iframe[data-why]')
   for (const iframe of iframes) {
+    // in case load takes too long or never called
+    const t = setTimeout(() => {
+      iframe.style.opacity = '1'
+    }, 1000)
     iframe.addEventListener(
       'load',
       () => {
+        clearTimeout(t)
         iframe.style.opacity = '1'
       },
       { once: true }
