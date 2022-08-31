@@ -2,23 +2,22 @@
 import Layout from '@/layouts/Layout.astro'
 import HeroDemo from '@/components/demos/HeroDemo.astro'
 import Card from '@/components/Card.astro'
+import vite from '@/assets/vite.svg'
+import svelte from '@/assets/svelte.svg'
+import vue from '@/assets/vue.svg'
+import solid from '@/assets/solid.svg'
+import preact from '@/assets/preact.svg'
+import react from '@/assets/react.svg'
+import sveltekit from '@/assets/sveltekit.svg'
+import astro from '@/assets/astro.svg'
+import vitepress from '@/assets/vitepress.svg'
+import nuxt from '@/assets/nuxt.svg'
+import Hero from '@/components/hero/Hero.astro'
 ---
 
 <Layout title="whyframe" isHero>
-  <HeroDemo />
+  <Hero />
 
-  <section class="docs-container">
-    <div class="intro">
-      <p class="explainer">
-        Nest HTML within iframes and render with true isolation
-      </p>
-
-      <div class="buttons">
-        <a class="button large primary" href="/docs/overview">Get started</a>
-        <a class="button large" href="/docs/how-it-works">How it works</a>
-      </div>
-    </div>
-  </section>
   <section class="docs-container">
     <div class="cards">
       <Card>
@@ -45,6 +44,22 @@ import Card from '@/components/Card.astro'
     </div>
   </section>
 
+  <section>
+    <h2>Works with major frameworks</h2>
+    <p>
+      <img src={vite} alt="vite" height="50" />
+      <img src={svelte} alt="svelte" height="50" />
+      <img src={vue} alt="vue" height="50" />
+      <img src={solid} alt="solid" height="50" />
+      <img src={preact} alt="preact" height="50" />
+      <img src={react} alt="react" height="50" />
+      <img src={sveltekit} alt="sveltekit" height="50" />
+      <img src={astro} alt="astro" height="50" />
+      <img src={vitepress} alt="vitepress" height="50" />
+      <img src={nuxt} alt="nuxt" height="50" />
+    </p>
+  </section>
+
   <section class="docs-container">
     <p class="sponsors-text">
       whyframe is made possible thanks to these fine folks
@@ -63,29 +78,6 @@ import Card from '@/components/Card.astro'
 </Layout>
 
 <style>
-  .intro {
-    margin: 4rem 0;
-  }
-
-  .explainer {
-    text-align: center;
-    font-size: 1.3rem;
-    margin: 3.3rem;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
-  }
-
-  .explainer > span {
-    color: var(--primary-light);
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 5rem;
-  }
-
   .cards {
     display: flex;
     flex-direction: column;

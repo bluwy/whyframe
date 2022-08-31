@@ -1,0 +1,138 @@
+---
+import { Code } from 'astro/components'
+import SvelteHero from './Hero.svelte'
+import svelteCode from './Hero.svelte?raw'
+
+const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
+---
+
+<section class="docs-container">
+  <h1 class="headline">
+    Develop components in <span class="isolate">isolation</span>
+  </h1>
+
+  <div class="wrapper">
+    <div class="code-block">
+      <div></div>
+      <Code code={finalCode} lang="html" />
+    </div>
+    <div class="output-block">
+      <SvelteHero />
+    </div>
+  </div>
+
+  <p class="explainer">
+    whyframe gives iframes superpowers, <br />
+    making it easy to render anything in isolation*
+  </p>
+
+  <div class="buttons">
+    <a class="button large primary" href="/docs/overview">Get started</a>
+    <a class="button large" href="/docs/how-it-works">How it works</a>
+  </div>
+</section>
+
+<style>
+  .headline {
+    font-size: 2.2rem;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .isolate {
+    position: relative;
+    color: var(--primary);
+    margin-left: 0.7rem;
+  }
+
+  .isolate::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -12px;
+    width: calc(100% + 24px);
+    height: calc(100% + 4px);
+    border-radius: 0.5rem;
+    border: 2px dashed var(--primary-light);
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin: 2rem auto;
+    max-width: 700px;
+    box-shadow: 0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
+      0px 0px 5.3px 2px rgba(255, 172, 36, 0.04),
+      0px 0px 10px 2px rgba(255, 172, 36, 0.05),
+      0px 0px 17.9px 2px rgba(255, 172, 36, 0.06),
+      0px 0px 33.4px 2px rgba(255, 172, 36, 0.072),
+      0px 0px 80px 2px rgba(255, 172, 36, 0.1);
+  }
+
+  .code-block {
+    position: relative;
+    isolation: isolate;
+    padding: 0.3rem 1rem;
+    /* shiki */
+    background-color: #0d1117;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    font-size: 1em;
+    width: 50%;
+  }
+
+  .output-block {
+    padding: 1rem 1.2rem;
+    /* shiki */
+    background-color: var(--gray-dark);
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    width: 50%;
+  }
+
+  iframe {
+    border: none;
+    border-radius: 0.5rem;
+    display: block;
+    margin: 0;
+    flex-basis: 67%;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .explainer {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-top: 3.6rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .headline {
+      font-size: 2.5rem;
+      padding: 1.5rem 0;
+    }
+
+    .wrapper {
+      flex-direction: row;
+    }
+
+    .dash {
+      width: 3rem;
+      height: 0;
+    }
+  }
+</style>

@@ -140,10 +140,13 @@ button.primary:active,
   color: white;
 }
 
+.astro-code {
+  line-height: 1.6;
+}
+
 .markdown-container .astro-code {
   padding: 1rem;
   border-radius: 0.5rem;
-  line-height: 1.6;
 }
 
 .markdown-container > .astro-code {
