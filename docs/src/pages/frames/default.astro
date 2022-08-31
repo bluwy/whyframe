@@ -8,6 +8,7 @@
 
   <body>
     <div id="app"></div>
+    <p id="iframe-tag">iframe</p>
     <script>
       import { createApp } from 'whyframe:app'
 
@@ -38,6 +39,19 @@
         background-color: #282828;
         color: #efefef;
         transition: background-color 0.2s ease;
+      }
+
+      #iframe-tag {
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 0.2rem 0.3rem 0.1rem 0.4rem;
+        margin: 0;
+        opacity: 0.5;
+        font-size: 0.8rem;
+        border-bottom-left-radius: 0.5rem;
+        border-left: 1px solid #707070;
+        border-bottom: 1px solid #707070;
       }
     </style>
   </body>
