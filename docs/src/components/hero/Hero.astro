@@ -13,7 +13,6 @@ const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
 
   <div class="wrapper">
     <div class="code-block">
-      <div></div>
       <Code code={finalCode} lang="html" />
     </div>
     <div class="output-block">
@@ -81,6 +80,19 @@ const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
     border-bottom-left-radius: 0.5rem;
     font-size: 1em;
     width: 50%;
+  }
+
+  .code-block :global(code) :global(.line:nth-child(1)),
+  .code-block :global(code) :global(.line:nth-child(2)),
+  .code-block :global(code) :global(.line:nth-child(3)),
+  .code-block :global(code) :global(.line:nth-child(4)),
+  .code-block :global(code) :global(.line:nth-child(5)),
+  .code-block :global(code) :global(.line:nth-child(6)),
+  .code-block :global(code) :global(.line:nth-child(7)),
+  .code-block :global(code) :global(.line:nth-child(11)),
+  .code-block :global(code) :global(.line:nth-child(12)),
+  .code-block :global(code) :global(.line:nth-child(13)) {
+    opacity: 0.6;
   }
 
   .output-block {
