@@ -1,0 +1,112 @@
+---
+import vite from '@/assets/vite.svg'
+import webpack from '@/assets/webpack.svg'
+import rollup from '@/assets/rollup.svg'
+import svelte from '@/assets/svelte.svg'
+import vue from '@/assets/vue.svg'
+import solid from '@/assets/solid.svg'
+import preact from '@/assets/preact.svg'
+import react from '@/assets/react.svg'
+import astro from '@/assets/astro.svg'
+---
+
+<section>
+  <p class="explainer">
+    Browsers ignore iframes with content by default, <br />
+    whyframe leverages <span>modern JavaScript bundlers</span> to make it possible.
+  </p>
+  <p class="imgs">
+    <a href="https://vitejs.dev">
+      <img src={vite} alt="vite logo" height="58" />
+    </a>
+    <a class="tbd" href="https://webpack.js.org">
+      <img src={webpack} alt="webpack logo" height="60" />
+    </a>
+    <a class="tbd rollup" href="https://rollupjs.org">
+      <img src={rollup} alt="rollup logo" height="58" />
+    </a>
+  </p>
+  <p class="explainer framework">Supports most popular UI frameworks!</p>
+  <p class="imgs">
+    <a href="https://svelte.dev">
+      <img src={svelte} alt="svelte" height="50" />
+    </a>
+    <a href="https://vuejs.org">
+      <img src={vue} alt="vue" height="44" />
+    </a>
+    <a href="https://solidjs.com">
+      <img src={solid} alt="solid" height="48" />
+    </a>
+    <a href="https://preactjs.com">
+      <img src={preact} alt="preact" height="50" />
+    </a>
+    <a href="https://reactjs.org">
+      <img src={react} alt="react" height="50" />
+    </a>
+    <a class="astro" href="https://astro.build">
+      <img src={astro} alt="astro" height="50" />
+    </a>
+  </p>
+</section>
+
+<style>
+  section {
+    padding: 4rem 0;
+    margin: 6rem 0;
+    background-color: var(--gray-dark);
+  }
+
+  .explainer {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 2rem 0;
+    opacity: 0.8;
+    line-height: 1.8;
+  }
+
+  .explainer > span {
+    color: var(--primary);
+  }
+
+  .imgs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .rollup {
+    margin-left: 0.3rem;
+  }
+
+  .tbd {
+    position: relative;
+  }
+
+  .tbd > img {
+    opacity: 0.2;
+  }
+
+  .tbd::after {
+    position: absolute;
+    content: 'TBD';
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary);
+    color: var(--dark);
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 0.1rem 0.2rem;
+    border-radius: 0.25rem;
+  }
+
+  .framework {
+    margin-top: 6rem;
+  }
+
+  .astro {
+    transform: translateX(-4px) translateY(3px);
+  }
+</style>

@@ -1,22 +1,13 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import HeroDemo from '@/components/demos/HeroDemo.astro'
 import Card from '@/components/Card.astro'
-import vite from '@/assets/vite.svg'
-import svelte from '@/assets/svelte.svg'
-import vue from '@/assets/vue.svg'
-import solid from '@/assets/solid.svg'
-import preact from '@/assets/preact.svg'
-import react from '@/assets/react.svg'
-import sveltekit from '@/assets/sveltekit.svg'
-import astro from '@/assets/astro.svg'
-import vitepress from '@/assets/vitepress.svg'
-import nuxt from '@/assets/nuxt.svg'
 import Hero from '@/components/hero/Hero.astro'
+import Hero2 from '@/components/hero/Hero2.astro'
 ---
 
 <Layout title="whyframe" isHero>
   <Hero />
+  <Hero2 />
 
   <section class="docs-container">
     <div class="cards">
@@ -42,22 +33,6 @@ import Hero from '@/components/hero/Hero.astro'
         </span>
       </Card>
     </div>
-  </section>
-
-  <section>
-    <h2>Works with major frameworks</h2>
-    <p>
-      <img src={vite} alt="vite" height="50" />
-      <img src={svelte} alt="svelte" height="50" />
-      <img src={vue} alt="vue" height="50" />
-      <img src={solid} alt="solid" height="50" />
-      <img src={preact} alt="preact" height="50" />
-      <img src={react} alt="react" height="50" />
-      <img src={sveltekit} alt="sveltekit" height="50" />
-      <img src={astro} alt="astro" height="50" />
-      <img src={vitepress} alt="vitepress" height="50" />
-      <img src={nuxt} alt="nuxt" height="50" />
-    </p>
   </section>
 
   <section class="docs-container">

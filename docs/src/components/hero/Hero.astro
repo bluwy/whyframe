@@ -1,9 +1,9 @@
 ---
 import { Code } from 'astro/components'
-import SvelteHero from './Hero.svelte'
-import svelteCode from './Hero.svelte?raw'
+import HeroDemo from './HeroDemo.svelte'
+import demoCode from './HeroDemo.svelte?raw'
 
-const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
+const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
 ---
 
 <section class="docs-container">
@@ -16,7 +16,7 @@ const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
       <Code code={finalCode} lang="html" />
     </div>
     <div class="output-block">
-      <SvelteHero />
+      <HeroDemo />
     </div>
   </div>
 
@@ -123,6 +123,7 @@ const finalCode = svelteCode.slice(0, svelteCode.indexOf('\n<style'))
     margin-top: 3.6rem;
     margin-bottom: 2rem;
     opacity: 0.8;
+    line-height: 1.8;
   }
 
   .buttons {
