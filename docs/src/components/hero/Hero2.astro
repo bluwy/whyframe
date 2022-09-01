@@ -11,8 +11,9 @@ import astro from '@/assets/astro.svg'
 ---
 
 <section>
+  <h2>Bundlers</h2>
   <p class="explainer">
-    Browsers ignore iframes with content by default, <br />
+    Browsers ignore content within iframes by default, <br />
     whyframe leverages <span>modern JavaScript bundlers</span> to make it possible.
   </p>
   <p class="imgs">
@@ -26,7 +27,8 @@ import astro from '@/assets/astro.svg'
       <img src={rollup} alt="rollup logo" height="58" />
     </a>
   </p>
-  <p class="explainer framework">Supports most popular UI frameworks!</p>
+  <h2 class="framework">Frameworks</h2>
+  <p class="explainer">Supports most popular UI frameworks!</p>
   <p class="imgs">
     <a class="svelte" href="https://svelte.dev">
       <img src={svelte} alt="svelte" height="50" />
@@ -56,10 +58,15 @@ import astro from '@/assets/astro.svg'
     background-color: var(--gray-dark);
   }
 
+  h2 {
+    text-align: center;
+    color: var(--primary);
+  }
+
   .explainer {
     text-align: center;
-    font-size: 1.3rem;
-    margin: 2rem 0;
+    font-size: 1.1rem;
+    margin: 1rem 0 2rem;
     opacity: 0.8;
     line-height: 1.8;
   }
@@ -103,7 +110,7 @@ import astro from '@/assets/astro.svg'
   }
 
   .framework {
-    margin-top: 5rem;
+    margin-top: 5.5rem;
   }
 
   .astro {
