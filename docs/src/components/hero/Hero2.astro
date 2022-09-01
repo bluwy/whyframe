@@ -16,10 +16,10 @@ import astro from '@/assets/astro.svg'
     whyframe leverages <span>modern JavaScript bundlers</span> to make it possible.
   </p>
   <p class="imgs">
-    <a href="https://vitejs.dev">
+    <a class="vite" href="https://vitejs.dev">
       <img src={vite} alt="vite logo" height="58" />
     </a>
-    <a class="tbd" href="https://webpack.js.org">
+    <a class="tbd webpack" href="https://webpack.js.org">
       <img src={webpack} alt="webpack logo" height="60" />
     </a>
     <a class="tbd rollup" href="https://rollupjs.org">
@@ -28,22 +28,22 @@ import astro from '@/assets/astro.svg'
   </p>
   <p class="explainer framework">Supports most popular UI frameworks!</p>
   <p class="imgs">
-    <a href="https://svelte.dev">
+    <a class="svelte" href="https://svelte.dev">
       <img src={svelte} alt="svelte" height="50" />
     </a>
-    <a href="https://vuejs.org">
+    <a class="vue" href="https://vuejs.org">
       <img src={vue} alt="vue" height="44" />
     </a>
-    <a href="https://solidjs.com">
+    <a class="solid" href="https://solidjs.com">
       <img src={solid} alt="solid" height="48" />
     </a>
-    <a href="https://preactjs.com">
+    <a class="preact" href="https://preactjs.com">
       <img src={preact} alt="preact" height="50" />
     </a>
-    <a href="https://reactjs.org">
+    <a class="react" href="https://reactjs.org">
       <img src={react} alt="react" height="50" />
     </a>
-    <a class="astro" href="https://astro.build">
+    <a class="astro" class="astro" href="https://astro.build">
       <img src={astro} alt="astro" height="50" />
     </a>
   </p>
@@ -51,7 +51,7 @@ import astro from '@/assets/astro.svg'
 
 <style>
   section {
-    padding: 4rem 0;
+    padding: 4rem 0 4.3rem;
     margin: 6rem 0;
     background-color: var(--gray-dark);
   }
@@ -103,10 +103,47 @@ import astro from '@/assets/astro.svg'
   }
 
   .framework {
-    margin-top: 6rem;
+    margin-top: 5rem;
   }
 
   .astro {
     transform: translateX(-4px) translateY(3px);
+  }
+
+  .vite:hover,
+  .vite:focus {
+    filter: drop-shadow(0 0 1em #646cffaa);
+  }
+  .webpack:hover,
+  .webpack:focus {
+    filter: drop-shadow(0 0 1em #8ed6fb88);
+  }
+  .rollup:hover,
+  .rollup:focus {
+    filter: drop-shadow(0 0 1em #efc10088);
+  }
+  .svelte:hover,
+  .svelte:focus {
+    filter: drop-shadow(0 0 1em #ff3e00aa);
+  }
+  .vue:hover,
+  .vue:focus {
+    filter: drop-shadow(0 0 1em #42b883aa);
+  }
+  .solid:hover,
+  .solid:focus {
+    filter: drop-shadow(0 0 1em #4f88c6aa);
+  }
+  .preact:hover,
+  .preact:focus {
+    filter: drop-shadow(0 0 1em #673ab7aa);
+  }
+  .react:hover,
+  .react:focus {
+    filter: drop-shadow(0 0 1em #61dafbaa);
+  }
+  .astro:hover,
+  .astro:focus {
+    filter: drop-shadow(0 0 1em #ff3e00aa);
   }
 </style>
