@@ -4,7 +4,7 @@ import { headerLinks } from '@/utils/constants'
 import Logo from '@/components/Logo.astro'
 ---
 
-<header>
+<header id="the-header">
   <div class={`wrapper docs-container ${Astro.props.stretch ? 'stretch' : ''}`}>
     <Logo />
     <nav>
@@ -33,12 +33,29 @@ import Logo from '@/components/Logo.astro'
 
 <div class="spacing"></div>
 
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('the-header')
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        header.classList.add('blur')
+      } else {
+        header.classList.remove('blur')
+      }
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+  })
+</script>
+
 <style>
   header {
     position: fixed;
-    background-color: rgba(30, 30, 30, 80%); /* --dark */
     width: 100%;
     z-index: 10;
+  }
+  header.blur {
+    background-color: rgba(30, 30, 30, 80%); /* --dark */
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
   }

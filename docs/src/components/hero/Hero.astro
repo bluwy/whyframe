@@ -6,36 +6,49 @@ import demoCode from './HeroDemo.svelte?raw'
 const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
 ---
 
-<section class="docs-container">
-  <h1 class="headline">
-    Develop components in <span class="isolate">isolation</span>
-  </h1>
+<div class="background">
+  <section class="docs-container">
+    <h1 class="headline">
+      Develop components in <span class="isolate">isolation</span>
+    </h1>
 
-  <div class="wrapper">
-    <div class="code-block">
-      <Code code={finalCode} lang="html" />
+    <div class="wrapper">
+      <div class="code-block">
+        <Code code={finalCode} lang="html" />
+      </div>
+      <div class="output-block">
+        <HeroDemo />
+      </div>
     </div>
-    <div class="output-block">
-      <HeroDemo />
+
+    <p class="explainer">
+      whyframe gives iframes superpowers, <br />
+      making it easy to render anything in isolation*
+    </p>
+
+    <div class="buttons">
+      <a class="button large primary" href="/docs/overview">Get started</a>
+      <a class="button large" href="/docs/how-it-works">How it works</a>
     </div>
-  </div>
-
-  <p class="explainer">
-    whyframe gives iframes superpowers, <br />
-    making it easy to render anything in isolation*
-  </p>
-
-  <div class="buttons">
-    <a class="button large primary" href="/docs/overview">Get started</a>
-    <a class="button large" href="/docs/how-it-works">How it works</a>
-  </div>
-</section>
+  </section>
+</div>
 
 <style>
+  .background {
+    background-image: url(@/assets/background.svg);
+    background-position: 0 bottom;
+    margin-top: -3.5rem;
+    padding: 5rem 0;
+  }
+
   .headline {
     font-size: 2.2rem;
     text-align: center;
     padding: 1rem 0;
+  }
+  /* overwrite global style */
+  .headline.headline {
+    margin-top: 0;
   }
 
   .isolate {
@@ -128,7 +141,6 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 5rem;
   }
 
   @media (min-width: 768px) {

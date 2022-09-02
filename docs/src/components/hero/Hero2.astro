@@ -53,9 +53,27 @@ import astro from '@/assets/astro.svg'
 
 <style>
   section {
+    position: relative;
     padding: 4rem 0 4.3rem;
-    margin: 6rem 0;
+    margin-bottom: 6rem;
     background-color: var(--gray-dark);
+    padding: 3rem 0;
+  }
+
+  section::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background-color: var(--gray-light);
+    -webkit-mask-image: url(@/assets/background.svg);
+    mask-image: url(@/assets/background.svg);
+    mask-position: 0 top;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
   }
 
   h2 {
@@ -117,9 +135,10 @@ import astro from '@/assets/astro.svg'
     transform: translateX(-4px) translateY(3px);
   }
 
-  /* Safari clips the filter shadow if not */
   a {
+    /* Safari clips the filter shadow if not */
     will-change: filter;
+    transition: filter 0.15s ease-out;
   }
 
   .vite:hover,
