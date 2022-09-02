@@ -3,61 +3,12 @@ import Layout from '@/layouts/Layout.astro'
 import Hero from '@/components/hero/Hero.astro'
 import Hero2 from '@/components/hero/Hero2.astro'
 import Features from '@/components/hero/Features.astro'
+import Support from '@/components/hero/Support.astro'
 ---
 
 <Layout title="whyframe">
   <Hero />
   <Hero2 />
   <Features />
-
-  <section class="docs-container">
-    <p class="sponsors-text">
-      whyframe is made possible thanks to these fine folks
-    </p>
-    <p class="sponsors-support">
-      <a class="link" href="https://patreon.com/bluwy">
-        Support me on Patreon!
-      </a>
-    </p>
-    <p class="sponsors-img">
-      <a href="https://bjornlu.com/sponsors.svg">
-        <img src="https://bjornlu.com/sponsors.svg" alt="Sponsors" />
-      </a>
-    </p>
-  </section>
+  <Support />
 </Layout>
-
-<style>
-  .cards {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .sponsors-text {
-    opacity: 0.8;
-    text-align: center;
-    margin-top: 8rem;
-    margin-bottom: 0.7rem;
-    font-size: 1.3rem;
-  }
-
-  .sponsors-support {
-    opacity: 0.8;
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 0.7rem;
-  }
-
-  .sponsors-img {
-    text-align: center;
-  }
-
-  .sponsors-img img {
-    max-width: calc(100vw - 2rem);
-  }
-
- 
-</style>
