@@ -1,0 +1,98 @@
+---
+import Card from '../Card.astro'
+---
+
+<div class="background">
+  <section class="docs-container">
+    <h2>Features</h2>
+    <div class="cards">
+      <Card>
+        <span slot="title">Isolated</span>
+        <span>
+          Anything within an iframe is isolated. Prevents scripts and styles
+          from leaking out.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Seamless</span>
+        <span>
+          Wrap anything with an iframe and it will just work. No context
+          switching needed.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Compatible</span>
+        <span>
+          Out-of-the-box support for major frameworks like Vite, SvelteKit,
+          Astro, VitePress, and Nuxt.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Performant</span>
+        <span>
+          Renders with your framework of choice as-is. Everything else is done
+          in compile-time.
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Flexible</span>
+        <span>
+          Reuse iframes with components. Add custom styles and logic. Make it
+          whatever you want!
+        </span>
+      </Card>
+      <Card>
+        <span slot="title">Atomic</span>
+        <span>
+          An iframe is simply a primitive. Build over it and bring your own
+          opinions.
+        </span>
+      </Card>
+    </div>
+  </section>
+</div>
+
+<style>
+  .background {
+    position: relative;
+    padding: 1rem 0;
+  }
+
+  .background::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background: linear-gradient(to bottom, var(--gray-light), transparent 80px);
+    -webkit-mask-image: url(@/assets/background.svg);
+    mask-image: url(@/assets/background.svg);
+    -webkit-mask-position: 0 top;
+    mask-position: 0 top;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+  }
+
+  h2 {
+    text-align: center;
+    margin: 4rem 0 3rem;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .cards {
+      flex-direction: row;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+  }
+</style>

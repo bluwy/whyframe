@@ -1,39 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import Card from '@/components/Card.astro'
 import Hero from '@/components/hero/Hero.astro'
 import Hero2 from '@/components/hero/Hero2.astro'
+import Features from '@/components/hero/Features.astro'
 ---
 
-<Layout title="whyframe" isHero>
+<Layout title="whyframe">
   <Hero />
   <Hero2 />
-
-  <section class="docs-container">
-    <div class="cards">
-      <Card>
-        <span slot="title">📦 Just works</span>
-        <span>
-          Out-of-the-box support for Vite, SvelteKit, Astro, VitePress, and
-          Nuxt.
-        </span>
-      </Card>
-      <Card>
-        <span slot="title">🛠 Flexible</span>
-        <span>
-          Wrap it with a component. Add custom styles and logic. Make it
-          whatever you want!
-        </span>
-      </Card>
-      <Card>
-        <span slot="title">⚡️ Performant</span>
-        <span>
-          Renders with your framework of choice as-is. Everything else is done
-          in compile-time.
-        </span>
-      </Card>
-    </div>
-  </section>
+  <Features />
 
   <section class="docs-container">
     <p class="sponsors-text">
@@ -84,10 +59,5 @@ import Hero2 from '@/components/hero/Hero2.astro'
     max-width: calc(100vw - 2rem);
   }
 
-  @media (min-width: 768px) {
-    .cards {
-      flex-direction: row;
-      align-items: stretch;
-    }
-  }
+ 
 </style>
