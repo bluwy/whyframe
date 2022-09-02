@@ -1,14 +1,14 @@
 <br>
 
 <p align="center">
-  <img src="./docs/src/assets/logo.svg" height="80">
+  <img src="./docs/src/assets/logo.svg" height="100">
 </p>
 
 <h1 align="center">
   whyframe
 </h1>
 
-`whyframe` allows seamless rendering of HTML within `iframe`. Simply:
+`whyframe` allows rendering any markup within an `iframe` when writing with your UI framework, e.g. Svelte, Vue, Solid, Preact, and React. Simply:
 
 <!-- prettier-ignore -->
 ```html
@@ -25,7 +25,7 @@
 - ⚡️ Fast runtime
 - ✨ Just works!
 
-Read the [documentation](https://whyframe.dev) for more info!
+Read the [documentation](https://whyframe.dev) for more information!
 
 ## Packages
 
@@ -36,6 +36,14 @@ Read the [documentation](https://whyframe.dev) for more info!
 | [@whyframe/vue](./packages/vue)       | [Changelog](./packages/vue/CHANGELOG.md)    |
 | [@whyframe/jsx](./packages/jsx)       | [Changelog](./packages/jsx/CHANGELOG.md)    |
 | [@whyframe/astro](./packages/astro)   | [Changelog](./packages/astro/CHANGELOG.md)  |
+
+## Attributions
+
+Thanks:
+
+- [dominikg](https://github.com/dominikg) for the casual chat and feedback.
+- [Jutanium](https://github.com/Jutanium) for the documentation feedback.
+- [kiaking](https://github.com/kiaking) for the documentation design.
 
 ## Sponsors
 
