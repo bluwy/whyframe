@@ -84,6 +84,6 @@
     border: none;
     padding: 0;
     margin: 0;
-    margin-left: .8rem;
+    margin-left: 0.8rem;
   }
 </style>

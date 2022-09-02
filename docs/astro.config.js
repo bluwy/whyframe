@@ -21,6 +21,7 @@ export default defineConfig({
     svelte({
       onwarn: (warning, handler) => {
         if (warning.code === 'css-unused-selector') return
+        if (warning.filename?.includes('HeroDemo.svelte')) return
         handler(warning)
       }
     }),

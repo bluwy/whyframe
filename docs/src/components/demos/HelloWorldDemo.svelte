@@ -1,6 +1,6 @@
 <!-- prettier-ignore -->
-<iframe data-why title="Package demo">
-  Hello world
+<iframe data-why title="Demo">
+  Hello world!
 </iframe>
 
 <style>

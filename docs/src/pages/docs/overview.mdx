@@ -27,14 +27,14 @@ Without `whyframe`, browsers would only render a blank `iframe`.
 
 It's useful if you're:
 
-- Building documentation for a component library and you need to show isolated examples.
-- Writing an article that requires showing static isolated examples.
-- Building your a [Storybook](https://storybook.js.org) clone.
+- Building documentation for a component library that shows isolated usage examples.
+- Writing an article that shows static isolated examples.
+- Building a [Storybook](https://storybook.js.org)/[Histoire](https://histoire.dev) clone.
 
 It cannot be used to:
 
 - Build interactive code examples. It only works in compile-time.
-- Create `iframe`s dynamically or using through a CDN. It requires a JavaScript bundler.
+- Create `iframe`s dynamically or using `whyframe` through a CDN. It requires a JavaScript bundler.
 - Mix UI frameworks. You can't write React code and inside the iframe, write Svelte code.
 
 ## How does it work?
