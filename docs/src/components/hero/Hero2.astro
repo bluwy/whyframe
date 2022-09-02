@@ -117,6 +117,11 @@ import astro from '@/assets/astro.svg'
     transform: translateX(-4px) translateY(3px);
   }
 
+  /* Safari clips the filter shadow if not */
+  a {
+    will-change: filter;
+  }
+
   .vite:hover,
   .vite:focus {
     filter: drop-shadow(0 0 1em #646cffaa);
@@ -151,6 +156,6 @@ import astro from '@/assets/astro.svg'
   }
   .astro:hover,
   .astro:focus {
-    filter: drop-shadow(0 0 1em #ff3e00aa);
+    filter: drop-shadow(0 0 1em #ffffffaa);
   }
 </style>

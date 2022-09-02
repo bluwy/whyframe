@@ -61,13 +61,15 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
     justify-content: center;
     align-items: stretch;
     margin: 2rem auto;
-    max-width: 700px;
-    box-shadow: 0px 0px 2.2px 2px rgba(255, 172, 36, 0.028),
-      0px 0px 5.3px 2px rgba(255, 172, 36, 0.04),
-      0px 0px 10px 2px rgba(255, 172, 36, 0.05),
-      0px 0px 17.9px 2px rgba(255, 172, 36, 0.06),
-      0px 0px 33.4px 2px rgba(255, 172, 36, 0.072),
-      0px 0px 80px 2px rgba(255, 172, 36, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    max-width: 400px;
+    box-shadow: 0px 1px 2.2px 2px rgba(255, 237, 36, 0.128),
+      0px 1px 5.3px 2px rgba(255, 237, 36, 0.14),
+      0px 1px 10px 2px rgba(255, 237, 36, 0.15),
+      0px 1px 17.9px 2px rgba(255, 237, 36, 0.16),
+      0px 1px 33.4px 2px rgba(255, 237, 36, 0.272),
+      0px 1px 80px 2px rgba(255, 237, 36, 0.3);
   }
 
   .code-block {
@@ -76,10 +78,8 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
     padding: 0.3rem 1rem;
     /* shiki */
     background-color: #0d1117;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
     font-size: 1em;
-    width: 50%;
+    width: 100%;
   }
 
   .code-block :global(code) :global(.line:nth-child(1)),
@@ -99,9 +99,7 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
     padding: 1rem 1.2rem;
     /* shiki */
     background-color: var(--gray-dark);
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    width: 50%;
+    width: 100%;
   }
 
   iframe {
@@ -141,11 +139,12 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
 
     .wrapper {
       flex-direction: row;
+      max-width: 700px;
     }
 
-    .dash {
-      width: 3rem;
-      height: 0;
+    .code-block,
+    .output-block {
+      width: 50%;
     }
   }
 </style>
