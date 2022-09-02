@@ -3,20 +3,24 @@ title: Overview
 layout: ../../layouts/DocsLayout.astro
 ---
 
+import HelloWorldDemo from '@/components/demos/HelloWorldDemo.svelte'
+
 # Overview
 
 ## What is whyframe?
 
-`whyframe` allows seamless rendering of HTML within `iframe`s. For example:
+`whyframe` allows rendering any markup within an `iframe` when writing with your UI framework, e.g. Svelte, Vue, Solid, Preact, and React. For example:
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 ```html
 <iframe data-why>
   Hello world!
 </iframe>
 ```
 
-`"Hello world!"` will be rendered within the `iframe` as it should! Without `whyframe`, browsers would usually just render a blank `iframe`.
+<HelloWorldDemo />
+
+Without `whyframe`, browsers would only render a blank `iframe`.
 
 ## How does it work?
 
