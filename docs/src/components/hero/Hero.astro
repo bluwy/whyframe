@@ -42,9 +42,10 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
   }
 
   .headline {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     text-align: center;
     padding: 1rem 0;
+    line-height: 1.6;
   }
   /* overwrite global style */
   .headline.headline {
@@ -102,7 +103,7 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
   .code-block :global(code) :global(.line:nth-child(5)),
   .code-block :global(code) :global(.line:nth-child(6)),
   .code-block :global(code) :global(.line:nth-child(7)),
-  .code-block :global(code) :global(.line:nth-child(11)),
+  .code-block :global(code) :global(.line:nth-child(8)),
   .code-block :global(code) :global(.line:nth-child(12)),
   .code-block :global(code) :global(.line:nth-child(13)) {
     opacity: 0.6;
@@ -130,7 +131,7 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
 
   .explainer {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin-top: 3.6rem;
     margin-bottom: 2rem;
     opacity: 0.8;
@@ -157,6 +158,10 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
     .code-block,
     .output-block {
       width: 50%;
+    }
+
+    .explainer {
+      font-size: 1.3rem;
     }
   }
 </style>

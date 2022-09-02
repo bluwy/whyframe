@@ -35,7 +35,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #1e1e1e;
+    background-color: #090909;
     z-index: 1;
     display: flex;
     justify-content: center;
@@ -63,6 +63,7 @@
     font-weight: 500;
     font-family: inherit;
     background-color: #f9f9f9;
+    color: #1e1e1e;
     cursor: pointer;
     transition: background-color 0.2s, border-color 0.25s;
   }

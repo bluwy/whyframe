@@ -84,7 +84,7 @@ import astro from '@/assets/astro.svg'
 
   .explainer {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     margin: 1rem 0 2rem;
     opacity: 0.8;
     line-height: 1.8;
@@ -98,8 +98,10 @@ import astro from '@/assets/astro.svg'
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 2rem;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 260px;
   }
 
   .rollup {
@@ -177,5 +179,15 @@ import astro from '@/assets/astro.svg'
   .astro:hover,
   .astro:focus {
     filter: drop-shadow(0 0 1em #ffffffaa);
+  }
+
+  @media (min-width: 768px) {
+    .explainer {
+      font-size: 1.1rem;
+    }
+
+    .imgs {
+      max-width: none;
+    }
   }
 </style>

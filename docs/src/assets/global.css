@@ -150,7 +150,7 @@ button.primary:active,
 }
 
 .markdown-container > .astro-code {
-  margin: 1rem -1rem;
+  margin: 1rem 0;
 }
 
 .markdown-container .astro-code > code::before,
@@ -208,5 +208,9 @@ button.primary:active,
 @media (min-width: 768px) {
   .markdown-container p {
     font-size: 1.02em;
+  }
+
+  .markdown-container > .astro-code {
+    margin: 1rem -1rem;
   }
 }
