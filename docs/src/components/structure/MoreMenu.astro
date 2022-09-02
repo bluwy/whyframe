@@ -21,13 +21,13 @@ const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
     >
       {adjacentLink.prevLink && (
         <a class="adjacent-box left" href={adjacentLink.prevLink.url}>
-          <h2>Previous page</h2>
+          <h2>Previous</h2>
           <p>{adjacentLink.prevLink.title}</p>
         </a>
       )}
       {adjacentLink.nextLink && (
         <a class="adjacent-box right" href={adjacentLink.nextLink.url}>
-          <h2>Next page</h2>
+          <h2>Next</h2>
           <p>{adjacentLink.nextLink.title}</p>
         </a>
       )}
