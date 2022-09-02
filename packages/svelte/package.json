@@ -1,8 +1,7 @@
 {
   "name": "@whyframe/svelte",
-  "private": true,
   "description": "Svelte support for whyframe",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Bjorn Lu",
   "type": "module",
   "types": "./src/index.d.ts",
