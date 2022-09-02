@@ -19,6 +19,9 @@
       "import": "./src/utils.js"
     }
   },
+  "files": [
+    "src"
+  ],
   "funding": "https://bjornlu.com/sponsor",
   "homepage": "https://whyframe.dev",
   "repository": {
