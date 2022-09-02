@@ -29,13 +29,13 @@ Read the [documentation](https://whyframe.dev) for more information!
 
 ## Packages
 
-| Package                               | Changelog                                   |
-| ------------------------------------- | ------------------------------------------- |
-| [@whyframe/core](./packages/core)     | [Changelog](./packages/core/CHANGELOG.md)   |
-| [@whyframe/svelte](./packages/svelte) | [Changelog](./packages/svelte/CHANGELOG.md) |
-| [@whyframe/vue](./packages/vue)       | [Changelog](./packages/vue/CHANGELOG.md)    |
-| [@whyframe/jsx](./packages/jsx)       | [Changelog](./packages/jsx/CHANGELOG.md)    |
-| [@whyframe/astro](./packages/astro)   | [Changelog](./packages/astro/CHANGELOG.md)  |
+| Package                               | Changelog                                                                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| [@whyframe/core](./packages/core)     | [![whyframe core version](https://img.shields.io/npm/v/@whyframe/core.svg?label=%20)](./packages/core/CHANGELOG.md)       |
+| [@whyframe/svelte](./packages/svelte) | [![whyframe svelte version](https://img.shields.io/npm/v/@whyframe/svelte.svg?label=%20)](./packages/svelte/CHANGELOG.md) |
+| [@whyframe/vue](./packages/vue)       | [![whyframe vue version](https://img.shields.io/npm/v/@whyframe/vue.svg?label=%20)](./packages/vue/CHANGELOG.md)          |
+| [@whyframe/jsx](./packages/jsx)       | [![whyframe jsx version](https://img.shields.io/npm/v/@whyframe/jsx.svg?label=%20)](./packages/jsx/CHANGELOG.md)          |
+| [@whyframe/astro](./packages/astro)   | [![whyframe astro version](https://img.shields.io/npm/v/@whyframe/astro.svg?label=%20)](./packages/astro/CHANGELOG.md)    |
 
 ## Thanks
 
