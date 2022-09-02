@@ -54,6 +54,7 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
 
   .isolate {
     position: relative;
+    display: inline-block;
     color: var(--primary);
     margin-left: 0.7rem;
   }
@@ -61,10 +62,10 @@ const finalCode = demoCode.slice(0, demoCode.indexOf('\n<style'))
   .isolate::before {
     content: '';
     position: absolute;
-    top: -2px;
+    top: 0;
     left: -12px;
     width: calc(100% + 24px);
-    height: calc(100% + 4px);
+    height: 100%;
     border-radius: 0.5rem;
     border: 2px dashed var(--primary-light);
   }
