@@ -9,6 +9,8 @@ import MoreMenu from '@/components/structure/MoreMenu.astro'
 import { githubRepoDocsUrl } from '@/utils/constants'
 import IframeNoFlash from '@/components/IframeNoFlash.astro'
 
+const ogImage = new URL('/og-image.png', Astro.site).href
+const ogUrl = Astro.site.origin
 const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
 const githubEditUrl = githubRepoDocsUrl + relativeFile
 ---
@@ -19,7 +21,11 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.png" />
-    <title>{Astro.props.title}</title>
+    <title>{Astro.props.frontmatter.title} | whyframe</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="whyframe" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={ogUrl} />
   </head>
 
   <body>

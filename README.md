@@ -37,9 +37,7 @@ Read the [documentation](https://whyframe.dev) for more information!
 | [@whyframe/jsx](./packages/jsx)       | [Changelog](./packages/jsx/CHANGELOG.md)    |
 | [@whyframe/astro](./packages/astro)   | [Changelog](./packages/astro/CHANGELOG.md)  |
 
-## Attributions
-
-Thanks:
+## Thanks
 
 - [dominikg](https://github.com/dominikg) for the casual chat and feedback.
 - [Jutanium](https://github.com/Jutanium) for the documentation feedback.

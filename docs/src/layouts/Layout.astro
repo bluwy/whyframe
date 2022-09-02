@@ -3,6 +3,9 @@ import '../assets/global.css'
 import Header from '../components/structure/Header.astro'
 import Footer from '../components/structure/Footer.astro'
 import IframeNoFlash from '@/components/IframeNoFlash.astro'
+
+const ogImage = new URL('/og-image.png', Astro.site).href
+const ogUrl = Astro.site.origin
 ---
 
 <!DOCTYPE html>
@@ -12,6 +15,10 @@ import IframeNoFlash from '@/components/IframeNoFlash.astro'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.png" />
     <title>{Astro.props.title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="whyframe" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={ogUrl} />
   </head>
 
   <body>
