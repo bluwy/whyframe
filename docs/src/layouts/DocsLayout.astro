@@ -41,7 +41,7 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
           <MoreMenu githubEditUrl={githubEditUrl} />
           <Footer />
         </main>
-        <TableOfContents headings={Astro.props.headings} />
+        <TableOfContents headings={Astro.props.headings} githubEditUrl={githubEditUrl} />
       </div>
     </div>
     <IframeNoFlash />
