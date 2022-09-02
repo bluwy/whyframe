@@ -3,6 +3,7 @@
   "description": "Svelte support for whyframe",
   "version": "0.1.0",
   "author": "Bjorn Lu",
+  "license": "MIT",
   "type": "module",
   "types": "./src/index.d.ts",
   "exports": {
