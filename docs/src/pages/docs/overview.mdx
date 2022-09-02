@@ -4,6 +4,7 @@ layout: ../../layouts/DocsLayout.astro
 ---
 
 import HelloWorldDemo from '@/components/demos/HelloWorldDemo.svelte'
+import '@/assets/overview.css'
 
 # Overview
 
@@ -21,6 +22,20 @@ import HelloWorldDemo from '@/components/demos/HelloWorldDemo.svelte'
 <HelloWorldDemo />
 
 Without `whyframe`, browsers would only render a blank `iframe`.
+
+## When do I use this?
+
+It's useful if you're:
+
+- Building documentation for a component library and you need to show isolated examples.
+- Writing an article that requires showing static isolated examples.
+- Building your a [Storybook](https://storybook.js.org) clone.
+
+It cannot be used to:
+
+- Build interactive code examples. It only works in compile-time.
+- Create `iframe`s dynamically or using through a CDN. It requires a JavaScript bundler.
+- Mix UI frameworks. You can't write React code and inside the iframe, write Svelte code.
 
 ## How does it work?
 
