@@ -37,6 +37,10 @@ Read the [documentation](https://whyframe.dev) for more information!
 | [@whyframe/jsx](./packages/jsx)       | [![whyframe jsx version](https://img.shields.io/npm/v/@whyframe/jsx.svg?label=%20)](./packages/jsx/CHANGELOG.md)          |
 | [@whyframe/astro](./packages/astro)   | [![whyframe astro version](https://img.shields.io/npm/v/@whyframe/astro.svg?label=%20)](./packages/astro/CHANGELOG.md)    |
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Thanks
 
 - [dominikg](https://github.com/dominikg) for the casual chat and feedback.
