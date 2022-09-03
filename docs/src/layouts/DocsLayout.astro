@@ -6,7 +6,7 @@ import Footer from '../components/structure/Footer.astro'
 import LeftSidebar from '@/components/structure/LeftSidebar.astro'
 import TableOfContents from '@/components/structure/TableOfContents.astro'
 import MoreMenu from '@/components/structure/MoreMenu.astro'
-import { githubRepoDocsUrl } from '@/utils/constants'
+import { appDesc, appName, githubRepoDocsUrl } from '@/utils/constants'
 import IframeNoFlash from '@/components/IframeNoFlash.astro'
 
 const ogImage = new URL('/og-image.png', Astro.site).href
@@ -21,7 +21,9 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.png" />
-    <title>{Astro.props.frontmatter.title} | whyframe</title>
+    <title>{Astro.props.frontmatter.title} | {appName}</title>
+    <meta name="description" content={appDesc} />
+    <meta property="og:description" content={appDesc} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="whyframe" />
     <meta property="og:image" content={ogImage} />
@@ -41,7 +43,10 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
           <MoreMenu githubEditUrl={githubEditUrl} />
           <Footer />
         </main>
-        <TableOfContents headings={Astro.props.headings} githubEditUrl={githubEditUrl} />
+        <TableOfContents
+          headings={Astro.props.headings}
+          githubEditUrl={githubEditUrl}
+        />
       </div>
     </div>
     <IframeNoFlash />
