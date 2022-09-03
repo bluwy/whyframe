@@ -5,7 +5,7 @@ import { templateDefaultId } from './template.js'
  * @param {import('..').Options} [options]
  * @returns {import('vite').Plugin}
  */
-export function apiPlugin(options) {
+export function apiPlugin(options = {}) {
   /** @type {Map<string, string>} */
   const virtualIdToCode = new Map()
 
