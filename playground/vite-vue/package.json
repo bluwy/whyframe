@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "vue": "^3.2.38"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
     "@whyframe/core": "workspace:*",
     "@whyframe/vue": "workspace:*",
     "vite": "^3.0.9",
-    "vite-plugin-inspect": "^0.6.0"
+    "vite-plugin-inspect": "^0.6.1"
   }
 }
