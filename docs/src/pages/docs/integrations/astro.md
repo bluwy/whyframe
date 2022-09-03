@@ -54,7 +54,7 @@ export default defineConfig({
         defaultSrc: '/frames/default' // provide our own html
       }),
 
-      // Initialize Vue integration plugin
+      // Initialize Astro integration plugin
       whyframeAstro({
         // Render `iframe`s as Svelte components by default,
         // can be changed via `data-why="vue"`
