@@ -7,7 +7,7 @@ layout: ../../layouts/DocsLayout.astro
 
 ## Simple explanation
 
-`whyframe` extracts out the HTML within `iframe`s, which is processed as a separate module by the bundler, and the `iframe` would then load a different HTML with a custom script that loads that separate module as a new entrypoint.
+`whyframe` extracts the HTML within an `iframe`, which is processed as a separate module by the bundler, and the `iframe` would then load a different HTML with a custom script that loads that separate module as a new entrypoint.
 
 ## Detailed explanation
 
