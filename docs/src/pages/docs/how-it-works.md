@@ -19,7 +19,7 @@ Within the `iframe` HTML, `whyframe:app` is a custom script that's used to read 
 
 ## Background
 
-When I was building a Storybook alternative, component isolation has been a frustrating problem to solve that had me stumped for weeks. Some of the ideas were:
+When I was building a [Storybook](https://storybook.js.org) alternative, component isolation has been a frustrating problem to solve that had me stumped for weeks. Some of the ideas were:
 
 ### 1. Manual runtime isolation and separation
 
