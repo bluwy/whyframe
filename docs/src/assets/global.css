@@ -32,24 +32,30 @@ body,
 }
 
 h1 {
+  position: relative;
   font-weight: 500;
   margin-top: 3rem;
   margin-bottom: 1rem;
+  scroll-margin-top: 4.2rem;
 }
 h1:first-child {
   margin-top: 1.5rem;
 }
 
 h2 {
+  position: relative;
   font-weight: 500;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
+  scroll-margin-top: 4.2rem;
 }
 
 h3 {
+  position: relative;
   font-weight: 500;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  scroll-margin-top: 4.2rem;
 }
 
 .docs-container {
@@ -75,6 +81,24 @@ h3 {
 .markdown-container a:hover,
 .markdown-container a:active {
   color: var(--primary-light);
+}
+
+/* Heading autolink */
+.markdown-container a.anchor {
+  display: inline-block;
+  opacity: 0.2;
+  padding-left: 0.25rem;
+  color: var(--primary);
+  transition: opacity 0.2s ease;
+  transform: translateY(4px);
+}
+
+.markdown-container a.anchor:hover {
+  opacity: 1;
+}
+
+.markdown-container a.anchor svg {
+  display: block;
 }
 
 button,
@@ -212,5 +236,26 @@ button.primary:active,
 
   .markdown-container > .astro-code {
     margin: 1rem -1rem;
+  }
+
+  .markdown-container a.anchor {
+    position: absolute;
+    top: calc(50%);
+    right: 100%;
+    padding-left: 0;
+    padding-right: 8px;
+    transform: translateY(-50%);
+  }
+}
+
+@media (pointer: fine) {
+  .markdown-container a.anchor {
+    opacity: 0;
+  }
+
+  .markdown-container h1:hover > a.anchor,
+  .markdown-container h2:hover > a.anchor,
+  .markdown-container h3:hover > a.anchor {
+    opacity: 1;
   }
 }

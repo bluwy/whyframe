@@ -13,6 +13,8 @@ import { whyframeAstro } from '@whyframe/astro'
 import { whyframeSvelte } from '@whyframe/svelte'
 import { whyframeVue } from '@whyframe/vue'
 import { whyframeJsx } from '@whyframe/jsx'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 export default defineConfig({
   site: 'https://whyframe.dev',
@@ -48,5 +50,41 @@ export default defineConfig({
         '@': path.resolve('./src')
       }
     }
+  },
+  markdown: {
+    extendDefaultPlugins: true,
+    rehypePlugins: [
+      rehypeSlug, // NOTE: this is required for autolink-headings for .md files only
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          test: ['h2', 'h3'],
+          properties: {
+            ariaHidden: 'true',
+            tabIndex: -1,
+            className: 'anchor'
+          },
+          content: {
+            type: 'element',
+            tagName: 'svg',
+            properties: {
+              width: '24',
+              height: '24',
+              fill: 'currentColor'
+            },
+            children: [
+              {
+                type: 'element',
+                tagName: 'use',
+                properties: {
+                  href: '#autolink-icon' // Symbol defined in Icons.svelte
+                }
+              }
+            ]
+          }
+        }
+      ]
+    ]
   }
 })

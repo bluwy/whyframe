@@ -28,6 +28,8 @@
 		"@whyframe/vue": "workspace:*",
 		"astro": "^1.1.5",
 		"preact-render-to-string": "^5.2.2",
+		"rehype-autolink-headings": "^6.1.1",
+		"rehype-slug": "^5.0.1",
 		"shiki": "^0.11.1",
 		"svelte": "^3.50.0",
 		"vite-plugin-inspect": "^0.6.1"

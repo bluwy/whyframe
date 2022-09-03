@@ -37,6 +37,20 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
       <div class="docs-container stretch content">
         <LeftSidebar url={Astro.url} githubEditUrl={githubEditUrl} />
         <main id="main-space" class="docs-container">
+          <div style="display: none">
+            <svg>
+              <symbol
+                id="autolink-icon"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path
+                  d="M14.828 12l1.414 1.414 2.828-2.828a4 4 0 0 0-5.657-5.657l-2.828 2.828L12 9.172l2.828-2.828a2 2 0 0 1 2.828 2.828L14.828 12zM12 14.83l1.414 1.414-2.828 2.828a4 4 0 0 1-5.657-5.657l2.828-2.828L9.172 12l-2.828 2.83a2 2 0 0 0 2.828 2.828L12 14.83zm2.83-4.244a1 1 0 1 0-1.414-1.414l-4.243 4.243a1 1 0 0 0 1.414 1.414l4.243-4.243z"
+                ></path>
+              </symbol>
+            </svg>
+          </div>
           <div class="markdown-container">
             <slot />
           </div>
