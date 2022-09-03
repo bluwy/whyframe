@@ -68,7 +68,7 @@ export async function createApp(el) {
   const result = await data.createApp(el)
   return result
 }
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && window.frameElement) {
   new MutationObserver((mutations) => {
     for (const m of mutations) {
       if (m.type === 'attributes' && m.attributeName === 'data-why-id') {
