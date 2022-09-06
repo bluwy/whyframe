@@ -1,4 +1,4 @@
-/** @type {import('./utils').createIframeRpc} */
+/** @type {import('../utils').createIframeRpc} */
 export function createIframeRpc(iframe) {
   const nameToCallbacks = new Map()
 
@@ -52,7 +52,7 @@ export function createIframeRpc(iframe) {
   }
 }
 
-/** @type {import('./utils').getWhyframeSource} */
+/** @type {import('../utils').getWhyframeSource} */
 export function getWhyframeSource(iframe) {
   return iframe.dataset.whySource
 }

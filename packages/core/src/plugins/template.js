@@ -8,12 +8,14 @@ export const templateDefaultBuildPath = path.resolve(
 )
 
 /**
- * @param {import('..').Options} [options]
+ * @param {import('../..').Options} [options]
  * @returns {import('vite').Plugin[]}
  */
 export function templatePlugin(options) {
   if (!options?.defaultSrc) {
     return [templateServePlugin(), templateBuildPlugin()]
+  } else {
+    return []
   }
 }
 
@@ -80,10 +82,10 @@ function templateBuildPlugin() {
           __whyframe: templateDefaultBuildPath,
           index: input ?? 'index.html'
         }
-      } else if (typeof input === 'object') {
-        input.__whyframe = templateDefaultBuildPath
       } else if (Array.isArray(input)) {
         input.push(templateDefaultBuildPath)
+      } else if (typeof input === 'object') {
+        input.__whyframe = templateDefaultBuildPath
       }
 
       c.build.rollupOptions.input = input
@@ -92,17 +94,13 @@ function templateBuildPlugin() {
       try {
         await fs.writeFile(templateDefaultBuildPath, templateDefaultHtml)
       } catch {
-        // TODO: use debug
         console.log('Failed to write default template')
       }
     },
     async buildEnd() {
       try {
         await fs.rm(templateDefaultBuildPath)
-      } catch {
-        // TODO: use debug
-        console.log('Failed to remove default template')
-      }
+      } catch {}
     }
   }
 }

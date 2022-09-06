@@ -5,12 +5,12 @@ import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
 
 /**
- * @type {import('.').whyframeSvelte}
+ * @type {import('..').whyframeSvelte}
  */
 export function whyframeSvelte(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
-  /** @type {Parameters<import('@whyframe/core').Api['getIframeLoadHandler']>[0]} */
+  /** @type {any} */
   let ctx
 
   const filter = createFilter(options?.include || /\.svelte$/, options?.exclude)
@@ -127,14 +127,14 @@ export function createApp(el) {
                 }
               }
             } else if (iframeComponent) {
-              if (typeof iframeComponent.source === 'boolean') {
-                showSource = iframeComponent.source
-              } else if (typeof iframeComponent.source === 'function') {
+              if (typeof iframeComponent.showSource === 'boolean') {
+                showSource = iframeComponent.showSource
+              } else if (typeof iframeComponent.showSource === 'function') {
                 const openTag = code.slice(
                   node.start,
                   node.children[0]?.start ?? node.end
                 )
-                showSource = iframeComponent.source(openTag)
+                showSource = iframeComponent.showSource(openTag)
               }
             }
 

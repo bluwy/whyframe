@@ -7,7 +7,7 @@ import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
 
 /**
- * @type {import('.').whyframeJsx}
+ * @type {import('..').whyframeJsx}
  */
 export function whyframeJsx(options) {
   /** @type {import('@whyframe/core').Api} */
@@ -72,18 +72,22 @@ export function whyframeJsx(options) {
         let exportNode = null
 
         if (b.type === 'FunctionDeclaration') {
+          // @ts-expect-error
           topLevelFnNode = b
         } else if (
           (b.type === 'ExportNamedDeclaration' ||
             b.type === 'ExportDefaultDeclaration') &&
           b.declaration.type === 'FunctionDeclaration'
         ) {
+          // @ts-expect-error
           topLevelFnNode = b.declaration
+          // @ts-expect-error
           exportNode = b
         } else {
           continue
         }
 
+          // @ts-expect-error
         walk(b, {
           enter(node) {
             const isIframeElement =
@@ -94,7 +98,7 @@ export function whyframeJsx(options) {
                   attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
               )
 
-            /** @type {import('.').Options['defaultFramework']} */
+            /** @type {import('..').Options['defaultFramework']} */
             let framework = moduleFallbackFramework
 
             if (isIframeElement) {
@@ -218,14 +222,14 @@ export function whyframeJsx(options) {
                   }
                 }
               } else if (iframeComponent) {
-                if (typeof iframeComponent.source === 'boolean') {
-                  showSource = iframeComponent.source
-                } else if (typeof iframeComponent.source === 'function') {
+                if (typeof iframeComponent.showSource === 'boolean') {
+                  showSource = iframeComponent.showSource
+                } else if (typeof iframeComponent.showSource === 'function') {
                   const openTag = code.slice(
                     node.openingElement.start,
                     node.openingElement.end
                   )
-                  showSource = iframeComponent.source(openTag)
+                  showSource = iframeComponent.showSource(openTag)
                 }
               }
 
@@ -253,7 +257,7 @@ export function whyframeJsx(options) {
 }
 
 /**
- * @return {import('.').Options['defaultFramework'] | undefined}
+ * @return {import('..').Options['defaultFramework'] | undefined}
  */
 function guessFrameworkFromTsconfig() {
   for (const file of ['tsconfig.json', 'jsconfig.json']) {
@@ -267,7 +271,7 @@ function guessFrameworkFromTsconfig() {
 
 /**
  * @param {string} framework
- * @return {import('.').Options['defaultFramework'] | undefined}
+ * @return {import('..').Options['defaultFramework'] | undefined}
  */
 function validateFramework(framework) {
   if (framework === 'solid-js') {
@@ -281,7 +285,7 @@ function validateFramework(framework) {
 
 /**
  * @param {string} entryId
- * @param {import('.').Options['defaultFramework']} framework
+ * @param {import('..').Options['defaultFramework']} framework
  */
 function createEntry(entryId, framework) {
   switch (framework) {

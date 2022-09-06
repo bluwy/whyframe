@@ -5,23 +5,24 @@
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
-  "types": "./src/index.d.ts",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
+      "types": "./index.d.ts",
       "import": "./src/index.js"
     },
     "./pluginutils": {
-      "types": "./src/pluginutils.d.ts",
+      "types": "./pluginutils.d.ts",
       "import": "./src/pluginutils.js"
     },
     "./utils": {
-      "types": "./src/utils.d.ts",
+      "types": "./utils.d.ts",
       "import": "./src/utils.js"
     }
   },
   "files": [
-    "src"
+    "src",
+    "*.d.ts"
   ],
   "funding": "https://bjornlu.com/sponsor",
   "homepage": "https://whyframe.dev",

@@ -9,7 +9,7 @@ export default defineConfig({
     inspect(),
     sveltekit(),
     whyframe({
-      components: [{ name: 'Story', source: true }]
+      components: [{ name: 'Story', showSource: true }]
     }),
     whyframeSvelte()
   ]

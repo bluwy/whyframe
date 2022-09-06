@@ -5,7 +5,7 @@ import MagicString from 'magic-string'
 import { dedent, escapeAttr, hash } from '@whyframe/core/pluginutils'
 
 /**
- * @type {import('.').whyframeVue}
+ * @type {import('..').whyframeVue}
  */
 export function whyframeVue(options) {
   /** @type {import('@whyframe/core').Api} */
@@ -37,7 +37,9 @@ export function whyframeVue(options) {
         isVitepress = true
         const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:vue')
         if (myIndex !== -1) {
+          // @ts-expect-error hack
           c.plugins.splice(myIndex, 1)
+          // @ts-expect-error hack
           c.plugins.splice(vitepress, 0, plugin)
           delete plugin.enforce
         }
@@ -147,14 +149,14 @@ export function createApp(el) {
                   }
                 }
               } else if (iframeComponent) {
-                if (typeof iframeComponent.source === 'boolean') {
-                  showSource = iframeComponent.source
-                } else if (typeof iframeComponent.source === 'function') {
+                if (typeof iframeComponent.showSource === 'boolean') {
+                  showSource = iframeComponent.showSource
+                } else if (typeof iframeComponent.showSource === 'function') {
                   const openTag = code.slice(
                     node.loc.start.offset,
                     node.children[0]?.start ?? node.end
                   )
-                  showSource = iframeComponent.source(openTag)
+                  showSource = iframeComponent.showSource(openTag)
                 }
               }
 

@@ -4,7 +4,7 @@
 export function corePlugin() {
   /** @type {boolean} */
   let isBuild
-  /** @type {import('..').Api} */
+  /** @type {import('../..').Api} */
   let api
 
   return {

@@ -38,7 +38,9 @@ export function whyframeAstro(options) {
       if (astro !== -1) {
         const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:astro')
         if (myIndex !== -1) {
+          // @ts-ignore-error hack
           c.plugins.splice(myIndex, 1)
+          // @ts-ignore-error hack
           c.plugins.splice(astro, 0, plugin)
           delete plugin.enforce
         }
@@ -46,7 +48,7 @@ export function whyframeAstro(options) {
 
       // run jsx plugin before astro's
       const astroJsx = c.plugins.find((p) => p.name === 'astro:jsx')
-      if (astroJsx !== -1) {
+      if (astroJsx) {
         const seenJsxPlugins = new Set()
         while (true) {
           const whyframeJsxIndex = c.plugins.findIndex(
@@ -58,7 +60,9 @@ export function whyframeAstro(options) {
               (p) => p.name === 'astro:jsx'
             )
             seenJsxPlugins.add(whyframeJsx)
+            // @ts-ignore-error hack
             c.plugins.splice(whyframeJsxIndex, 1)
+            // @ts-ignore-error hack
             c.plugins.splice(astroJsxIndex, 0, whyframeJsx)
           } else {
             break
@@ -140,12 +144,12 @@ export function whyframeAstro(options) {
             }
           }
 
-          const isIframeComponent =
+          const iframeComponent =
             node.type === 'component' && api.getComponent(node.name)
 
-          if (isIframeElement || isIframeComponent) {
+          if (isIframeElement || iframeComponent) {
             // .astro requires a value for data-why to render as a specific framework
-            const whyPropName = isIframeComponent ? 'why' : 'data-why'
+            const whyPropName = iframeComponent ? 'why' : 'data-why'
 
             /** @type {import('.').Options['defaultFramework']} */
             const framework =
@@ -216,7 +220,7 @@ export function whyframeAstro(options) {
               node.attributes.some((a) => a.name === 'data-why-source')
                 ? dedent(iframeContent)
                 : undefined,
-              isIframeComponent
+              !!iframeComponent
             )
             addAttrs(s, node, attrs)
           }

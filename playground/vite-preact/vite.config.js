@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     inspect(),
     whyframe({
-      components: [{ name: 'Story', source: true }]
+      components: [{ name: 'Story', showSource: true }]
     }),
     whyframeJsx({
       defaultFramework: 'preact',

@@ -13,7 +13,8 @@
     }
   },
   "files": [
-    "src"
+    "src",
+    "*.d.ts"
   ],
   "funding": "https://bjornlu.com/sponsor",
   "homepage": "https://whyframe.dev",

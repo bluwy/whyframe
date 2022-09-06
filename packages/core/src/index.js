@@ -3,8 +3,8 @@ import { corePlugin } from './plugins/core.js'
 import { templatePlugin } from './plugins/template.js'
 
 /**
- * @type {import('.').whyframe}
+ * @type {import('..').whyframe}
  */
 export function whyframe(options) {
-  return [apiPlugin(options), corePlugin(), templatePlugin(options)]
+  return [apiPlugin(options), corePlugin(), ...templatePlugin(options)]
 }

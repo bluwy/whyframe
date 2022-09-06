@@ -11,7 +11,7 @@ type LoadResult = Awaited<ReturnType<NonNullable<Plugin['load']>>>
 export interface Attr {
   type: 'static' | 'dynamic'
   name: string
-  value: string
+  value: string | Record<string, any>
 }
 
 export interface Component {
