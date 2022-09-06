@@ -1,4 +1,3 @@
-// @ts-nocheck
 import path from 'node:path'
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'

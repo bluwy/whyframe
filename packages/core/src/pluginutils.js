@@ -1,15 +1,11 @@
 import { createHash } from 'node:crypto'
 
-/**
- * @param {string} str
- */
+/** @type {import('../pluginutils').hash} */
 export function hash(str) {
   return createHash('sha256').update(str).digest('hex').substring(0, 8)
 }
 
-/**
- * @param {string} str
- */
+/** @type {import('../pluginutils').dedent} */
 export function dedent(str) {
   const match = str.match(/^[ \t]*(?=\S)/gm)
   if (!match) {
@@ -24,9 +20,7 @@ export function dedent(str) {
 const ATTR_REGEX = /[&"]/g
 
 // credit: Svelte
-/**
- * @param {string} value
- */
+/** @type {import('../pluginutils').escapeAttr} */
 export function escapeAttr(value) {
   const str = String(value)
 
