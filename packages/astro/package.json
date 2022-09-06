@@ -5,10 +5,10 @@
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
-  "types": "./src/index.d.ts",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
+      "types": "./index.d.ts",
       "import": "./src/index.js"
     }
   },

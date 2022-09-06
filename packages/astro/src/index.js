@@ -14,7 +14,7 @@ const importsRE =
   /(?<!\/\/.*)(?<=^|;|\*\/)\s*import(?!\s+type)([\w*{}\n\r\t, ]+)from\s*\s*("[^"]+"|'[^']+')\s*(?=$|;|\/\/|\/\*)/gm
 
 /**
- * @type {import('.').whyframeAstro}
+ * @type {import('..').whyframeAstro}
  */
 export function whyframeAstro(options) {
   /** @type {import('@whyframe/core').Api} */
@@ -151,7 +151,7 @@ export function whyframeAstro(options) {
             // .astro requires a value for data-why to render as a specific framework
             const whyPropName = iframeComponent ? 'why' : 'data-why'
 
-            /** @type {import('.').Options['defaultFramework']} */
+            /** @type {import('..').Options['defaultFramework']} */
             const framework =
               node.attributes.find((a) => a.name === whyPropName)?.value ||
               options?.defaultFramework
@@ -253,7 +253,7 @@ function getEntryExtension(framework) {
 
 /**
  * @param {string} entryId
- * @param {import('.').Options['defaultFramework']} framework
+ * @param {import('..').Options['defaultFramework']} framework
  */
 function createEntry(entryId, framework) {
   switch (framework) {
@@ -304,7 +304,7 @@ export function createApp(el) {
  * @param {string} frontmatterCode
  * @param {string} styleCode
  * @param {string} iframeHtmlCode
- * @param {import('.').Options['defaultFramework']} framework
+ * @param {import('..').Options['defaultFramework']} framework
  */
 function createEntryComponent(
   frontmatterCode,
