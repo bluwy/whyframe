@@ -42,7 +42,7 @@ export function apiPlugin(options = {}) {
         )
       },
       getDefaultShowSource() {
-        return options?.defaultShowSource ?? false
+        return options.defaultShowSource ?? false
       },
       getMainIframeAttrs(entryId, hash, source, isComponent) {
         /** @type {import('../..').Attr[]} */
