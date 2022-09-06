@@ -1,7 +1,7 @@
 {
   "name": "@whyframe/astro",
   "description": "Astro support for whyframe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
@@ -13,7 +13,8 @@
     }
   },
   "files": [
-    "src"
+    "src",
+    "*.d.ts"
   ],
   "funding": "https://bjornlu.com/sponsor",
   "homepage": "https://whyframe.dev",
