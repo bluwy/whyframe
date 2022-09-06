@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 (2022-09-06)
+
+- Fix non-NodeNext type resolution
+
 ## 0.1.2 (2022-09-03)
 
 - Allow no options by default
