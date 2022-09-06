@@ -6,7 +6,8 @@
     "checkJs": true,
     "allowJs": true,
     "noEmit": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strictNullChecks": true
   },
   "include": ["./packages/**/*", "./packages/core/src/all.d.ts"],
 }

@@ -56,7 +56,7 @@ export function whyframeVue(options) {
 
       // collect code needed for virtual imports, assume all these have side effects
       const notTemplateTags = ast.children.filter(
-        (node) => node.tag !== 'template'
+        (node) => node['tag'] !== 'template'
       )
       const notTemplateCode = notTemplateTags
         .map((node) => node.loc.source)
@@ -67,7 +67,7 @@ export function whyframeVue(options) {
 
       transform(ast, {
         nodeTransforms: [
-          (node) => {
+          (/** @type {import('@vue/compiler-dom').ElementNode} */ node) => {
             const isIframeElement =
               node.tag === 'iframe' &&
               node.props.some((a) => a.name === 'data-why')
@@ -77,7 +77,7 @@ export function whyframeVue(options) {
               // slot as iframe content, we need to proxy them
               if (
                 node.children?.some((c) =>
-                  c.content?.trimLeft().startsWith('<slot')
+                  c['content']?.trimLeft().startsWith('<slot')
                 )
               ) {
                 const attrs = api.getProxyIframeAttrs()
@@ -140,12 +140,12 @@ export function createApp(el) {
                   (p) => p.name === 'data-why-show-source'
                 )
                 if (prop) {
-                  if (prop.value === undefined) {
+                  if (prop['value'] === undefined) {
                     showSource = true
-                  } else if (prop.value?.content) {
-                    showSource = prop.value.content === 'true'
-                  } else if (prop.value[0]?.expression) {
-                    showSource = prop.value[0].expression.value === true
+                  } else if (prop['value']?.content) {
+                    showSource = prop['value'].content === 'true'
+                  } else if (prop['value'][0]?.expression) {
+                    showSource = prop['value'][0].expression.value === true
                   }
                 }
               } else if (iframeComponent) {
@@ -154,7 +154,7 @@ export function createApp(el) {
                 } else if (typeof iframeComponent.showSource === 'function') {
                   const openTag = code.slice(
                     node.loc.start.offset,
-                    node.children[0]?.start ?? node.end
+                    node.children[0]?.loc.start.offset ?? node.loc.end.offset
                   )
                   showSource = iframeComponent.showSource(openTag)
                 }
@@ -187,12 +187,12 @@ export function createApp(el) {
 
 /**
  * @param {MagicString} s
- * @param {import('@vue/compiler-dom').TemplateChildNode} node
+ * @param {import('@vue/compiler-dom').ElementNode} node
  * @param {import('@whyframe/core').Attr[]} attrs
  */
 function addAttrs(s, node, attrs) {
   const attrNames = node.props.map((p) =>
-    p.name !== 'bind' ? p.name : p.arg.content
+    p.name !== 'bind' ? p.name : p['arg'].content
   )
 
   const safeAttrs = []
@@ -211,9 +211,9 @@ function addAttrs(s, node, attrs) {
   )
 
   for (const attr of mixedAttrs) {
-    const attrNode = node.props.find((p) => p.arg?.content === attr.name)
+    const attrNode = node.props.find((p) => p['arg']?.content === attr.name)
     if (!attrNode) continue
-    const expNode = attrNode.exp
+    const expNode = attrNode['exp']
     if (!expNode) continue
 
     // :foo={foo && bar} -> :foo="(foo && bar) || &quot;fallback&quot;"

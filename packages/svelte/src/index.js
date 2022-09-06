@@ -49,7 +49,7 @@ export function whyframeSvelte(options) {
       const baseHash = hash(scriptCode + moduleScriptCode + cssCode)
 
       walk(ast.html, {
-        enter(node) {
+        enter(/** @type any */ node) {
           const isIframeElement =
             node.type === 'Element' &&
             node.name === 'iframe' &&
@@ -165,7 +165,7 @@ export function createApp(el) {
   plugin.api = {
     sveltePreprocess: {
       markup({ content, filename }) {
-        return _transform.apply(ctx, [content, filename])
+        return _transform?.apply(ctx, [content, filename])
       }
     }
   }

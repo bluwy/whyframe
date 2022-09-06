@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createFilter } from 'vite'
 import { parse } from '@babel/parser'
+import t from '@babel/types'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
@@ -66,33 +67,31 @@ export function whyframeJsx(options) {
       })
 
       for (const b of ast.program.body) {
-        /** @type {import('estree-walker').BaseNode} */
+        /** @type {import('@babel/types').FunctionDeclaration} */
         let topLevelFnNode
-        /** @type {import('estree-walker').BaseNode | null} */
+        /** @type {import('@babel/types').ExportNamedDeclaration | import('@babel/types').ExportDefaultDeclaration | null} */
         let exportNode = null
 
-        if (b.type === 'FunctionDeclaration') {
-          // @ts-expect-error
+        if (t.isFunctionDeclaration(b)) {
           topLevelFnNode = b
         } else if (
-          (b.type === 'ExportNamedDeclaration' ||
-            b.type === 'ExportDefaultDeclaration') &&
-          b.declaration.type === 'FunctionDeclaration'
+          (t.isExportNamedDeclaration(b) || t.isExportDefaultDeclaration(b)) &&
+          b.declaration?.type === 'FunctionDeclaration'
         ) {
-          // @ts-expect-error
           topLevelFnNode = b.declaration
-          // @ts-expect-error
           exportNode = b
         } else {
           continue
         }
 
-          // @ts-expect-error
+        // @ts-expect-error
         walk(b, {
           enter(node) {
+            if (!t.isJSXElement(node)) return
+
             const isIframeElement =
               node.type === 'JSXElement' &&
-              node.openingElement.name.name === 'iframe' &&
+              node.openingElement.name['name'] === 'iframe' &&
               node.openingElement.attributes.some(
                 (attr) =>
                   attr.type === 'JSXAttribute' && attr.name.name === 'data-why'
@@ -106,14 +105,16 @@ export function whyframeJsx(options) {
               // children as iframe content, we need to proxy them
               if (
                 node.children?.some((c) =>
-                  /(\{|\.)children\}$/.test(code.slice(c.start, c.end))
+                  /(\{|\.)children\}$/.test(
+                    code.slice(c.start ?? 0, c.end ?? 0)
+                  )
                 )
               ) {
                 const attrs = api.getProxyIframeAttrs()
                 addAttrs(s, node, attrs)
                 s.remove(
-                  node.children[0].start,
-                  node.children[node.children.length - 1].end
+                  node.children[0].start ?? 0,
+                  node.children[node.children.length - 1].end ?? 0
                 )
                 this.skip()
                 return
@@ -124,14 +125,13 @@ export function whyframeJsx(options) {
               framework =
                 node.openingElement.attributes.find(
                   (attr) =>
-                    attr.type === 'JSXAttribute' &&
-                    attr.name.name === 'data-why'
-                )?.value?.value || framework
+                    t.isJSXAttribute(attr) && attr.name.name === 'data-why'
+                )?.['value']?.value || framework
             }
 
             const iframeComponent =
               node.type === 'JSXElement' &&
-              api.getComponent(node.openingElement.name.name)
+              api.getComponent(node.openingElement.name['name'])
 
             if (isIframeElement || iframeComponent) {
               if (!framework) {
@@ -147,8 +147,8 @@ export function whyframeJsx(options) {
               // extract iframe html
               let iframeContent = ''
               if (node.children.length > 0) {
-                const start = node.children[0].start
-                const end = node.children[node.children.length - 1].end
+                const start = node.children[0].start ?? 0
+                const end = node.children[node.children.length - 1].end ?? 0
                 iframeContent = code.slice(start, end)
                 s.remove(start, end)
               }
@@ -156,9 +156,9 @@ export function whyframeJsx(options) {
               // ====== start: extract outer code
               const outScope = exportNode || topLevelFnNode
               // crawl out of fn, get top to fn start
-              const topCode = code.slice(0, outScope.start)
+              const topCode = code.slice(0, outScope.start ?? 0)
               // crawl out of fn, get fn end to bottom
-              const bottomCode = code.slice(outScope.end)
+              const bottomCode = code.slice(outScope.end ?? 0)
               // crawl to fn body, get body start to jsx
               const fnBody = topLevelFnNode.body.body
               // get return statement that contains tihs iframe node
@@ -174,7 +174,10 @@ export function whyframeJsx(options) {
               // get the relevant fn code from the body to the return statement
               const fnCode =
                 returnStatement > 0
-                  ? code.slice(fnBody[0].start, fnBody[returnStatement - 1].end)
+                  ? code.slice(
+                      fnBody[0].start ?? 0,
+                      fnBody[returnStatement - 1].end ?? 0
+                    )
                   : ''
               // ====== end: extract outer code
 
@@ -209,16 +212,21 @@ export function whyframeJsx(options) {
 
               let showSource = api.getDefaultShowSource()
               if (isIframeElement) {
-                const attr = node.openingElement.attributes.find(
-                  (p) => p.name.name === 'data-why-show-source'
-                )
+                const attr =
+                  /** @type {import('@babel/types').JSXAttribute | undefined} */ (
+                    node.openingElement.attributes.find(
+                      (p) =>
+                        t.isJSXAttribute(p) &&
+                        p.name.name === 'data-why-show-source'
+                    )
+                  )
                 if (attr) {
                   if (attr.value === null) {
                     showSource = true
-                  } else if (attr.value?.value) {
-                    showSource = attr.value.value === 'true'
-                  } else if (attr.value?.expression) {
-                    showSource = attr.value.expression.value === true
+                  } else if (attr.value?.['value']) {
+                    showSource = attr.value['value'] === 'true'
+                  } else if (attr.value?.['expression']) {
+                    showSource = attr.value['expression'].value === true
                   }
                 }
               } else if (iframeComponent) {
@@ -226,8 +234,8 @@ export function whyframeJsx(options) {
                   showSource = iframeComponent.showSource
                 } else if (typeof iframeComponent.showSource === 'function') {
                   const openTag = code.slice(
-                    node.openingElement.start,
-                    node.openingElement.end
+                    node.openingElement.start ?? 0,
+                    node.openingElement.end ?? 0
                   )
                   showSource = iframeComponent.showSource(openTag)
                 }
@@ -270,7 +278,7 @@ function guessFrameworkFromTsconfig() {
 }
 
 /**
- * @param {string} framework
+ * @param {any} framework
  * @return {import('..').Options['defaultFramework'] | undefined}
  */
 function validateFramework(framework) {

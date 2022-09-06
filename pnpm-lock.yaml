@@ -89,12 +89,14 @@ importers:
   packages/jsx:
     specifiers:
       '@babel/parser': ^7.18.13
+      '@babel/types': ^7.19.0
       '@whyframe/core': workspace:^
       estree-walker: ^3.0.1
       magic-string: ^0.26.3
       vite: ^3.0.9
     dependencies:
       '@babel/parser': 7.18.13
+      '@babel/types': 7.19.0
       estree-walker: 3.0.1
       magic-string: 0.26.3
     devDependencies:
@@ -865,7 +867,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.18.13
+      '@babel/types': 7.19.0
 
   /@babel/plugin-syntax-import-meta/7.10.4_@babel+core@7.18.13:
     resolution: {integrity: sha512-Yqfm+XDx0+Prh3VSeEQCPU81yC+JWZ2pDPFSS4ZdpfZhp4MkFMaDC1UqseovEKwSUpnIL7+vK+Clp7bfh0iD7g==}
@@ -1069,6 +1071,15 @@ packages:
 
   /@babel/types/7.18.13:
     resolution: {integrity: sha512-ePqfTihzW0W6XAU+aMw2ykilisStJfDnsejDCXRchCcMJ4O0+8DhPXf2YUbZ6wjBlsEmZwLK/sPweWtu8hcJYQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-string-parser': 7.18.10
+      '@babel/helper-validator-identifier': 7.18.6
+      to-fast-properties: 2.0.0
+    dev: true
+
+  /@babel/types/7.19.0:
+    resolution: {integrity: sha512-YuGopBq3ke25BVSiS6fgF49Ul9gH1x70Bcr6bqRLjWCkcX8Hre1/5+z+IiWOIerRMSSEfGZVB9z9kyq7wVs9YA==}
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/helper-string-parser': 7.18.10

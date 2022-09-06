@@ -106,8 +106,8 @@ export function whyframeAstro(options) {
       for (const node of ast.children) {
         if (node.type === 'element' && node.name === 'style') {
           styleCode += code.slice(
-            node.position.start.offset - `<`.length,
-            node.position.end.offset + `style>`.length
+            (node.position?.start.offset ?? 0) - `<`.length,
+            (node.position?.end?.offset ?? 0) + `style>`.length
           )
         }
       }
@@ -119,7 +119,7 @@ export function whyframeAstro(options) {
       frontmatterCode = shimAstro + '\n\n' + frontmatterCode
 
       walk(ast, {
-        enter(node) {
+        enter(/** @type {any} */ node) {
           const isIframeElement =
             node.type === 'element' &&
             node.name === 'iframe' &&
@@ -239,6 +239,9 @@ export function whyframeAstro(options) {
   return plugin
 }
 
+/**
+ * @param {any} framework
+ */
 function getEntryExtension(framework) {
   switch (framework) {
     case 'svelte':
@@ -248,6 +251,8 @@ function getEntryExtension(framework) {
     case 'preact':
     case 'react':
       return '.jsx'
+    default:
+      return '.js'
   }
 }
 
