@@ -7,6 +7,16 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/vitejs/vite). [Website](https://vitejs.dev).
 
+## Quick start
+
+Stackblitz demo:
+
+- [Svelte](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-svelte)
+- [Vue](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-svelte)
+- [Solid](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-solid)
+- [Preact](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-preact)
+- [React](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-react)
+
 ## Scaffold your app
 
 > If you have an existing Vite app, you can skip this step.

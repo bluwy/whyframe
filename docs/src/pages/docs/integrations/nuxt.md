@@ -7,6 +7,10 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/nuxt/framework). [Website](https://v3.nuxtjs.org).
 
+## Quick start
+
+[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/nuxt).
+
 ## Scaffold your app
 
 > If you have an existing Nuxt app, you can skip this step.

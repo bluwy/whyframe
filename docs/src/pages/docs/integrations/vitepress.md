@@ -7,6 +7,10 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/vuejs/vitepress). [Website](https://vitepress.vuejs.org).
 
+## Quick start
+
+[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vitepress).
+
 ## Scaffold your app
 
 > If you have an existing VitePress app, you can skip this step.

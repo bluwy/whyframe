@@ -7,6 +7,10 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/withastro/astro). [Website](https://astro.build).
 
+## Quick start
+
+[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/astro).
+
 ## Scaffold your app
 
 > If you have an existing Astro app, you can skip this step.

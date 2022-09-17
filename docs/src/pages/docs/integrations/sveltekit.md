@@ -7,6 +7,10 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/sveltejs/svelte). [Website](https://kit.svelte.dev).
 
+## Quick start
+
+[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/sveltekit).
+
 ## Scaffold your app
 
 > If you have an existing SvelteKit app, you can skip this step.
