@@ -12,11 +12,11 @@
     "vue": "^3.2.39"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:*",
-    "@whyframe/vue": "workspace:*",
+    "@whyframe/core": "^0.1.3",
+    "@whyframe/vue": "^0.1.1",
     "node-fetch-native": "^0.1.4",
     "nuxt": "3.0.0-rc.8",
     "ufo": "^0.8.5",
-    "vite-plugin-inspect": "^0.6.1"
+    "vite-plugin-inspect": "^0.7.1"
   }
 }

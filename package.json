@@ -13,6 +13,13 @@
     "svelte": "^3.50.1"
   },
   "pnpm": {
+    "overrides": {
+      "@whyframe/astro": "workspace:*",
+      "@whyframe/core": "workspace:*",
+      "@whyframe/jsx": "workspace:*",
+      "@whyframe/svelte": "workspace:*",
+      "@whyframe/vue": "workspace:*"
+    },
     "peerDependencyRules": {
       "ignoreMissing": [
         "@algolia/client-search",

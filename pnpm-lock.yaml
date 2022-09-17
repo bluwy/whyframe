@@ -1,5 +1,12 @@
 lockfileVersion: 5.4
 
+overrides:
+  '@whyframe/astro': workspace:*
+  '@whyframe/core': workspace:*
+  '@whyframe/jsx': workspace:*
+  '@whyframe/svelte': workspace:*
+  '@whyframe/vue': workspace:*
+
 importers:
 
   .:
@@ -37,7 +44,7 @@ importers:
       shiki: ^0.11.1
       solid-js: ^1.5.5
       svelte: ^3.50.1
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vue: ^3.2.39
     dependencies:
       preact: 10.11.0
@@ -63,17 +70,17 @@ importers:
       rehype-slug: 5.0.1
       shiki: 0.11.1
       svelte: 3.50.1
-      vite-plugin-inspect: 0.6.1
+      vite-plugin-inspect: 0.7.1
 
   packages/astro:
     specifiers:
-      '@astrojs/compiler': ^0.23.5
-      '@whyframe/core': workspace:^
+      '@astrojs/compiler': ^0.24.0
+      '@whyframe/core': workspace:*
       estree-walker: ^3.0.1
       magic-string: ^0.26.3
       vite: ^3.1.2
     dependencies:
-      '@astrojs/compiler': 0.23.5
+      '@astrojs/compiler': 0.24.0
       estree-walker: 3.0.1
       magic-string: 0.26.3
     devDependencies:
@@ -90,7 +97,7 @@ importers:
     specifiers:
       '@babel/parser': ^7.19.1
       '@babel/types': ^7.19.0
-      '@whyframe/core': workspace:^
+      '@whyframe/core': workspace:*
       estree-walker: ^3.0.1
       magic-string: ^0.26.3
       vite: ^3.1.2
@@ -105,7 +112,7 @@ importers:
 
   packages/svelte:
     specifiers:
-      '@whyframe/core': workspace:^
+      '@whyframe/core': workspace:*
       magic-string: ^0.26.3
       svelte: ^3.50.1
       vite: ^3.1.2
@@ -119,7 +126,7 @@ importers:
   packages/vue:
     specifiers:
       '@vue/compiler-dom': ^3.2.39
-      '@whyframe/core': workspace:^
+      '@whyframe/core': workspace:*
       magic-string: ^0.26.3
       vite: ^3.1.2
     dependencies:
@@ -148,7 +155,7 @@ importers:
       react-dom: ^18.2.0
       solid-js: ^1.5.5
       svelte: ^3.50.1
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vue: ^3.2.39
     dependencies:
       preact: 10.11.0
@@ -170,7 +177,7 @@ importers:
       astro: 1.2.6
       preact-render-to-string: 5.2.4_preact@10.11.0
       svelte: 3.50.1
-      vite-plugin-inspect: 0.6.1
+      vite-plugin-inspect: 0.7.1
 
   playground/nuxt:
     specifiers:
@@ -179,7 +186,7 @@ importers:
       node-fetch-native: ^0.1.4
       nuxt: 3.0.0-rc.8
       ufo: ^0.8.5
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vue: ^3.2.39
     dependencies:
       vue: 3.2.39
@@ -189,7 +196,7 @@ importers:
       node-fetch-native: 0.1.4
       nuxt: 3.0.0-rc.8
       ufo: 0.8.5
-      vite-plugin-inspect: 0.6.1
+      vite-plugin-inspect: 0.7.1
 
   playground/svelte-kit:
     specifiers:
@@ -199,7 +206,7 @@ importers:
       '@whyframe/svelte': workspace:*
       svelte: ^3.50.1
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.75
       '@sveltejs/kit': 1.0.0-next.484_svelte@3.50.1+vite@3.1.2
@@ -207,7 +214,7 @@ importers:
       '@whyframe/svelte': link:../../packages/svelte
       svelte: 3.50.1
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
 
   playground/vite-preact:
     specifiers:
@@ -216,7 +223,7 @@ importers:
       '@whyframe/jsx': workspace:*
       preact: ^10.11.0
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
     dependencies:
       preact: 10.11.0
     devDependencies:
@@ -224,7 +231,7 @@ importers:
       '@whyframe/core': link:../../packages/core
       '@whyframe/jsx': link:../../packages/jsx
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
 
   playground/vite-react:
     specifiers:
@@ -234,7 +241,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -243,7 +250,7 @@ importers:
       '@whyframe/core': link:../../packages/core
       '@whyframe/jsx': link:../../packages/jsx
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
 
   playground/vite-solid:
     specifiers:
@@ -252,7 +259,7 @@ importers:
       babel-preset-solid: ^1.5.5
       solid-js: ^1.5.5
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vite-plugin-solid: ^2.3.2
     dependencies:
       solid-js: 1.5.5
@@ -261,7 +268,7 @@ importers:
       '@whyframe/jsx': link:../../packages/jsx
       babel-preset-solid: 1.5.5
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
       vite-plugin-solid: 2.3.2_solid-js@1.5.5+vite@3.1.2
 
   playground/vite-svelte:
@@ -271,14 +278,14 @@ importers:
       '@whyframe/svelte': workspace:*
       svelte: ^3.50.1
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.6_svelte@3.50.1+vite@3.1.2
       '@whyframe/core': link:../../packages/core
       '@whyframe/svelte': link:../../packages/svelte
       svelte: 3.50.1
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
 
   playground/vite-vue:
     specifiers:
@@ -286,7 +293,7 @@ importers:
       '@whyframe/core': workspace:*
       '@whyframe/vue': workspace:*
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vue: ^3.2.39
     dependencies:
       vue: 3.2.39
@@ -295,14 +302,14 @@ importers:
       '@whyframe/core': link:../../packages/core
       '@whyframe/vue': link:../../packages/vue
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
 
   playground/vitepress:
     specifiers:
       '@whyframe/core': workspace:*
       '@whyframe/vue': workspace:*
       vite: ^3.1.2
-      vite-plugin-inspect: ^0.6.1
+      vite-plugin-inspect: ^0.7.1
       vitepress: ^1.0.0-alpha.15
       vue: ^3.2.39
     dependencies:
@@ -311,7 +318,7 @@ importers:
       '@whyframe/core': link:../../packages/core
       '@whyframe/vue': link:../../packages/vue
       vite: 3.1.2
-      vite-plugin-inspect: 0.6.1_vite@3.1.2
+      vite-plugin-inspect: 0.7.1_vite@3.1.2
       vitepress: 1.0.0-alpha.15
 
 packages:
@@ -439,10 +446,10 @@ packages:
 
   /@astrojs/compiler/0.23.5:
     resolution: {integrity: sha512-vBMPy9ok4iLapSyCCT1qsZ9dK7LkVFl9mObtLEmWiec9myGHS9h2kQY2xzPeFNJiWXUf9O6tSyQpQTy5As/p3g==}
+    dev: true
 
   /@astrojs/compiler/0.24.0:
     resolution: {integrity: sha512-xZ81C/oMfExdF18I1Tyd2BKKzBqO+qYYctSy4iCwH4UWSo/4Y8A8MAzV1hG67uuE7hFRourSl6H5KUbhyChv/A==}
-    dev: true
 
   /@astrojs/language-server/0.23.3:
     resolution: {integrity: sha512-ROoMKo37NZ76pE/A2xHfjDlgfsNnFmkhL4+Wifs0L855n73SUCbnXz7ZaQktIGAq2Te2TpSjAawiOx0q9L5qeg==}
@@ -8157,17 +8164,18 @@ packages:
       vscode-uri: 3.0.5
     dev: true
 
-  /vite-plugin-inspect/0.6.1:
-    resolution: {integrity: sha512-MQzIgMoPyiPDuHoO6p7QBOrmheBU/ntg0cgtgcnm21S/Xds5oak1CbVLSAvv4fK1ZpetLK+tlJ+2mlFO9fG3SQ==}
+  /vite-plugin-inspect/0.7.1:
+    resolution: {integrity: sha512-mkTw5itsI+89WNJ6og0BpEAaV4ticrOGaoj+oWDR61W72H2mfkuw3MaAdpnnq6s6A7tKfM4nPaMtxjlmw3uXYg==}
     engines: {node: '>=14'}
     peerDependencies:
-      vite: ^3.0.0
+      vite: ^3.1.0
     peerDependenciesMeta:
       vite:
         optional: true
     dependencies:
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
+      fs-extra: 10.1.0
       kolorist: 1.6.0
       sirv: 2.0.2
       ufo: 0.8.5
@@ -8175,17 +8183,18 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-inspect/0.6.1_vite@3.1.2:
-    resolution: {integrity: sha512-MQzIgMoPyiPDuHoO6p7QBOrmheBU/ntg0cgtgcnm21S/Xds5oak1CbVLSAvv4fK1ZpetLK+tlJ+2mlFO9fG3SQ==}
+  /vite-plugin-inspect/0.7.1_vite@3.1.2:
+    resolution: {integrity: sha512-mkTw5itsI+89WNJ6og0BpEAaV4ticrOGaoj+oWDR61W72H2mfkuw3MaAdpnnq6s6A7tKfM4nPaMtxjlmw3uXYg==}
     engines: {node: '>=14'}
     peerDependencies:
-      vite: ^3.0.0
+      vite: ^3.1.0
     peerDependenciesMeta:
       vite:
         optional: true
     dependencies:
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
+      fs-extra: 10.1.0
       kolorist: 1.6.0
       sirv: 2.0.2
       ufo: 0.8.5

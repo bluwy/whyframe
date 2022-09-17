@@ -32,6 +32,6 @@
 		"rehype-slug": "^5.0.1",
 		"shiki": "^0.11.1",
 		"svelte": "^3.50.1",
-		"vite-plugin-inspect": "^0.6.1"
+		"vite-plugin-inspect": "^0.7.1"
 	}
 }
