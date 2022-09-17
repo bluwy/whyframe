@@ -38,13 +38,13 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@babel/parser": "^7.18.13",
+    "@babel/parser": "^7.19.1",
     "@babel/types": "^7.19.0",
     "estree-walker": "^3.0.1",
     "magic-string": "^0.26.3"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.0.9"
+    "vite": "^3.1.2"
   }
 }
