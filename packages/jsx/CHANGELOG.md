@@ -2,7 +2,7 @@
 
 ## 0.1.2 (2022-09-18)
 
-- Re-sort plugin in Astro projects
+- Re-sort plugin in Astro projects ([#8](https://github.com/bluwy/whyframe/issues/8))
 
 ## 0.1.1 (2022-09-06)
 

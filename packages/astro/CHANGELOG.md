@@ -2,7 +2,7 @@
 
 ## 0.2.0 (2022-09-18)
 
-- Move `whyframe:jsx` plugin re-sort handling to the `whyframe:jsx` plugin itself
+- Move `whyframe:jsx` plugin re-sort handling to the `whyframe:jsx` plugin itself ([#8](https://github.com/bluwy/whyframe/issues/8))
 
 ## 0.1.1 (2022-09-06)
 
