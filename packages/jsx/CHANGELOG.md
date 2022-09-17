@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 (2022-09-18)
+
+- Re-sort plugin in Astro projects
+
 ## 0.1.1 (2022-09-06)
 
 - Fix `showSource` handling

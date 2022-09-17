@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (2022-09-18)
+
+- Move `whyframe:jsx` plugin re-sort handling to the `whyframe:jsx` plugin itself
+
 ## 0.1.1 (2022-09-06)
 
 - Fix `showSource` handling

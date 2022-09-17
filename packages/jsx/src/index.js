@@ -18,7 +18,8 @@ export function whyframeJsx(options) {
   const fallbackFramework =
     options?.defaultFramework || guessFrameworkFromTsconfig()
 
-  return {
+  /** @type {import('vite').Plugin} */
+  const plugin = {
     name: 'whyframe:jsx',
     enforce: 'pre',
     configResolved(c) {
@@ -26,6 +27,19 @@ export function whyframeJsx(options) {
       if (!api) {
         // TODO: maybe fail safe
         throw new Error('whyframe() plugin is not installed')
+      }
+
+      // run our plugin before astro's
+      const astro = c.plugins.findIndex((p) => p.name === 'astro:jsx')
+      if (astro !== -1) {
+        const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:jsx')
+        if (myIndex !== -1) {
+          // @ts-ignore-error hack
+          c.plugins.splice(myIndex, 1)
+          // @ts-ignore-error hack
+          c.plugins.splice(astro, 0, plugin)
+          delete plugin.enforce
+        }
       }
     },
     transform(code, id) {
@@ -262,6 +276,8 @@ export function whyframeJsx(options) {
       }
     }
   }
+
+  return plugin
 }
 
 /**
