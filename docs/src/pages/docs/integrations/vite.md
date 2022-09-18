@@ -77,6 +77,8 @@ export default defineConfig({
 })
 ```
 
+> The integration plugin must come before the UI framework plugin, e.g. `whyframeSvelte()` should come before the `svelte()` plugin, as `whyframe` needs to preprocess the raw framework code instead of the compiled code.
+
 ## Usage
 
 Depending on which UI framework you're using, you can edit `App.svelte`, `App.vue`, or `App.jsx` to start creating an `iframe`. For example:
