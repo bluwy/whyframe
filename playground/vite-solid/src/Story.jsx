@@ -1,21 +1,20 @@
 import { getWhyframeSource } from '@whyframe/core/utils'
-import { createEffect, createSignal } from 'solid-js'
+import { createSignal } from 'solid-js'
 
-export function Story({ title, src, children }) {
-  /** @type {HTMLIFrameElement} */
-  const [iframe, setIframe] = createSignal(null)
+export function Story(props) {
   const [source, setSource] = createSignal('')
-
-  createEffect(() => {
-    setSource(iframe() ? getWhyframeSource(iframe()) : '')
-  }, [iframe])
 
   return (
     <div>
-      <p>This is a story of {title}:</p>
+      <p>This is a story of {props.title}:</p>
 
-      <iframe ref={(el) => setIframe(el)} data-why title={title} src={src}>
-        {children}
+      <iframe
+        ref={(el) => setSource(getWhyframeSource(el))}
+        data-why
+        title={props.title}
+        src={props.src}
+      >
+        {props.children}
       </iframe>
 
       <details>
