@@ -12,7 +12,7 @@ export function createIframeRpc(iframe) {
   }
 
   if (iframe) {
-    iframe.contentWindow.addEventListener('message', handler)
+    iframe.contentWindow?.addEventListener('message', handler)
   } else {
     window.addEventListener('message', handler)
   }
@@ -20,7 +20,7 @@ export function createIframeRpc(iframe) {
   return {
     send(name, payload) {
       if (iframe) {
-        iframe.contentWindow.postMessage({ name, payload })
+        iframe.contentWindow?.postMessage({ name, payload })
       } else {
         window.parent.postMessage({ name, payload })
       }
@@ -44,7 +44,7 @@ export function createIframeRpc(iframe) {
     },
     teardown() {
       if (iframe) {
-        iframe.contentWindow.removeEventListener('message', handler)
+        iframe.contentWindow?.removeEventListener('message', handler)
       } else {
         window.removeEventListener('message', handler)
       }
