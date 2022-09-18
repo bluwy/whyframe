@@ -6,7 +6,7 @@ export function Counter(props) {
 
   const increment = () => {
     const newCount = count() + 1
-    if (newCount > (props.max || Infinity)) {
+    if (newCount > (props.max ?? Infinity)) {
       props.onMax?.()
       document.body.style.backgroundColor = 'pink'
       alert('🚨 YOU HAVE BEEN WARNED 🚨')
