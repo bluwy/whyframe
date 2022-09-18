@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Handle `createIframeRpc` types
+
 ## 0.1.3 (2022-09-06)
 
 - Fix non-NodeNext type resolution

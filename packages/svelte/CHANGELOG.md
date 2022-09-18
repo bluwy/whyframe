@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.1.1 (2022-09-06)
 
 - Fix `showSource` handling

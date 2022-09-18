@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.1.2 (2022-09-18)
 
 - Re-sort plugin in Astro projects ([#8](https://github.com/bluwy/whyframe/issues/8))
