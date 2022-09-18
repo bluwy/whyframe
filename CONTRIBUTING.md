@@ -4,6 +4,8 @@
 
 The project requires [`pnpm 7`](https://pnpm.io) and [`Node.js 16`](https://nodejs.org/en/). Run `pnpm install` to install dependencies of all workspace packages.
 
+> Note: If you have limited network usage, you can remove `- playground/*` in the `pnpm-workspace.yaml` file to skip installing the `playground` dependencies. (Make sure not to `git commit` this change)
+
 ## Development
 
 All packages do not need bundling! It's written in plain JavaScript with JSDoc for types, and using handcrafted `.d.ts` files for explicit type declarations. You can edit them directly when testing.
