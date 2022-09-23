@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Handle `createIframeRpc` types
+- Add `@whyframe/core/utils` to `optimizeDeps.include`
 
 ## 0.1.3 (2022-09-06)
 

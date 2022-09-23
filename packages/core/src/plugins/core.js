@@ -11,6 +11,11 @@ export function corePlugin() {
     name: 'whyframe:core',
     config(_, { command }) {
       isBuild = command === 'build'
+      return {
+        optimizeDeps: {
+          include: ['@whyframe/core/utils']
+        }
+      }
     },
     configResolved(c) {
       api = c.plugins.find((p) => p.name === 'whyframe:api')?.api
