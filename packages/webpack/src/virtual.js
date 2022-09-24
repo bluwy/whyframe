@@ -7,8 +7,10 @@ const virtualFsPrefix = path.join(process.cwd(), '__whyframe_virtual__')
 /**
  * @param {import('webpack').Compiler} compiler
  */
-export function makeCreateVirtualModuleFn(compiler) {
+export function makeWriteVirtualModuleFn(compiler) {
+  /** @type {Map<string, string>} */
   const virtualIdToResolvedId = new Map()
+  /** @type {Map<string, string | Promise<string>>} */
   const resolvedIdToCode = new Map()
 
   /** @type {VirtualModulesPlugin} */
@@ -23,12 +25,33 @@ export function makeCreateVirtualModuleFn(compiler) {
 
   // resolve virtual id to resolved id
   compiler.hooks.compilation.tap('VirtualResolvePlugin', (_, ctx) => {
-    ctx.normalModuleFactory.hooks.beforeResolve.tap(
+    ctx.normalModuleFactory.hooks.beforeResolve.tapAsync(
       'VirtualResolvePlugin',
-      (data) => {
+      (data, callback) => {
         if (virtualIdToResolvedId.has(data.request)) {
-          data.request = virtualIdToResolvedId.get(data.request)
+          /** @type {string} */
+          // @ts-ignore
+          const resolvedId = virtualIdToResolvedId.get(data.request)
+          data.request = resolvedId
+
+          /** @type {string | Promise<string>} */
+          // @ts-ignore
+          const code = resolvedIdToCode.get(resolvedId)
+
+          if (typeof code !== 'string') {
+            code
+              .then((actualCode) => {
+                // set to string so that the virtual loader can be sync only
+                resolvedIdToCode.set(resolvedId, actualCode)
+                callback()
+              })
+              .catch((err) => {
+                callback(err)
+              })
+            return
+          }
         }
+        callback()
       }
     )
   })
@@ -49,10 +72,11 @@ export function makeCreateVirtualModuleFn(compiler) {
   })
 
   /**
+   * create or update virtual modules
    * @param {string} id
    * @param {string} code
    */
-  return function createVirtualModule(id, code) {
+  return function writeVirtualModule(id, code) {
     // webpack needs a full valid fs path
     const resolvedId = virtualFsPrefix + encodeURIComponent(id)
     virtualIdToResolvedId.set(id, resolvedId)
