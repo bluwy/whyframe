@@ -1,5 +1,6 @@
 import path from 'node:path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { WhyframePlugin } from '@whyframe/webpack'
 
 /** @type {import('webpack').Configuration} */
 export default {
@@ -9,6 +10,7 @@ export default {
     path: path.resolve('./dist')
   },
   plugins: [
+    new WhyframePlugin(),
     new HtmlWebpackPlugin({
       template: './index.html'
     })
