@@ -2,12 +2,14 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import VirtualModulesPlugin from 'webpack-virtual-modules'
 
+const virtualFsPrefix = path.join(process.cwd(), '__whyframe_virtual__')
+
 /**
  * @param {import('webpack').Compiler} compiler
  */
 export function makeCreateVirtualModuleFn(compiler) {
-  const idToWrappedId = new Map()
-  const wrappedIdToCode = new Map()
+  const virtualIdToResolvedId = new Map()
+  const resolvedIdToCode = new Map()
 
   /** @type {VirtualModulesPlugin} */
   // @ts-ignore
@@ -19,25 +21,28 @@ export function makeCreateVirtualModuleFn(compiler) {
     vmp.apply(compiler)
   }
 
-  // resolve `whyframe:*` virtual paths, ideally this should be generic,
-  // but webpack always treats `whyframe:` as a custom URI protocol
-  compiler.hooks.compilation.tap('WhyframeUriPlugin', (_, ctx) => {
-    ctx.normalModuleFactory.hooks.resolveForScheme
-      .for('whyframe')
-      .tap('WhyframeUriPlugin', (data) => {
-        data.resource = data.path = wrapVirtualId(data.resource)
-        return true
-      })
+  // resolve virtual id to resolved id
+  compiler.hooks.compilation.tap('VirtualResolvePlugin', (_, ctx) => {
+    ctx.normalModuleFactory.hooks.beforeResolve.tap(
+      'VirtualResolvePlugin',
+      (data) => {
+        if (virtualIdToResolvedId.has(data.request)) {
+          data.request = virtualIdToResolvedId.get(data.request)
+        }
+      }
+    )
   })
 
   // load virtual modules with a custom loader
   compiler.options.module.rules.unshift({
-    include: (id) => wrappedIdToCode.has(id),
+    include: (id) => resolvedIdToCode.has(id),
     use: [
       {
+        // webpack only supports cjs loader
+        // https://github.com/webpack/loader-runner/issues/61
         loader: fileURLToPath(new URL('./virtualLoader.cjs', import.meta.url)),
         options: {
-          wrappedIdToCode
+          resolvedIdToCode
         }
       }
     ]
@@ -48,18 +53,11 @@ export function makeCreateVirtualModuleFn(compiler) {
    * @param {string} code
    */
   return function createVirtualModule(id, code) {
-    const wrappedId = wrapVirtualId(id)
-    idToWrappedId.set(id, wrappedId)
-    wrappedIdToCode.set(wrappedId, code)
-    vmp.writeModule(wrappedId, '')
+    // webpack needs a full valid fs path
+    const resolvedId = virtualFsPrefix + encodeURIComponent(id)
+    virtualIdToResolvedId.set(id, resolvedId)
+    resolvedIdToCode.set(resolvedId, code)
+    // write the virtual module to fs so webpack don't panic
+    vmp.writeModule(resolvedId, '')
   }
-}
-
-const vmpPrefix = path.join(process.cwd(), '__whyframe_virtual__')
-
-/**
- * @param {string} id
- */
-function wrapVirtualId(id) {
-  return vmpPrefix + encodeURIComponent(id)
 }
