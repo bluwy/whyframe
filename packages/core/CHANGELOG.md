@@ -4,6 +4,7 @@
 
 - Handle `createIframeRpc` types
 - Add `@whyframe/core/utils` to `optimizeDeps.include`
+- Support custom Vite root
 
 ## 0.1.3 (2022-09-06)
 

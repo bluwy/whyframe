@@ -15,6 +15,8 @@ export function apiPlugin(options = {}) {
 
   /** @type {boolean} */
   let isBuild
+  /** @type {string} */
+  let projectRoot
 
   // used for final import map  generation
   /** @type {Map<string, string>} */
@@ -24,6 +26,9 @@ export function apiPlugin(options = {}) {
     name: 'whyframe:api',
     config(_, { command }) {
       isBuild = command === 'build'
+    },
+    configResolved(c) {
+      projectRoot = c.root
     },
     /** @type {import('../..').Api} */
     api: {
@@ -140,10 +145,10 @@ export function apiPlugin(options = {}) {
       // see createEntryComponent for id signature
       if (id.includes('__whyframe-')) {
         // NOTE: this gets double resolved for some reason
-        if (id.startsWith(process.cwd())) {
+        if (id.startsWith(projectRoot)) {
           return id
         } else {
-          return path.join(process.cwd(), id)
+          return path.join(projectRoot, id)
         }
       }
     },
@@ -171,6 +176,7 @@ export function apiPlugin(options = {}) {
       // NOTE: hot update always come first before transform
       if (originalIdToVirtualIds.has(file)) {
         const staleVirtualIds = originalIdToVirtualIds.get(file)
+        // @ts-ignore
         for (const id of staleVirtualIds) {
           virtualIdToCode.delete(id)
         }
