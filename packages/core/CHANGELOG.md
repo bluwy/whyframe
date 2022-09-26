@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.4 (2022-09-26)
 
 - Handle `createIframeRpc` types
 - Add `@whyframe/core/utils` to `optimizeDeps.include`
