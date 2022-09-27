@@ -18,7 +18,7 @@ export function apiPlugin(options = {}) {
   /** @type {string} */
   let projectRoot
 
-  // used for final import map  generation
+  // used for final import map generation
   /** @type {Map<string, string>} */
   const hashToEntryIds = new Map()
 

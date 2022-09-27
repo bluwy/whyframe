@@ -57,7 +57,7 @@ export function makeWriteVirtualModuleFn(compiler) {
   })
 
   // load virtual modules with a custom loader
-  compiler.options.module.rules.unshift({
+  compiler.options.module.rules.push({
     include: (id) => resolvedIdToCode.has(id),
     use: [
       {
@@ -74,11 +74,13 @@ export function makeWriteVirtualModuleFn(compiler) {
   /**
    * create or update virtual modules
    * @param {string} id
-   * @param {string} code
+   * @param {string | Promise<string>} code
    */
   return function writeVirtualModule(id, code) {
     // webpack needs a full valid fs path
-    const resolvedId = virtualFsPrefix + encodeURIComponent(id)
+    const resolvedId = path.isAbsolute(id)
+      ? id
+      : virtualFsPrefix + encodeURIComponent(id)
     virtualIdToResolvedId.set(id, resolvedId)
     resolvedIdToCode.set(resolvedId, code)
     // write the virtual module to fs so webpack don't panic
