@@ -5,14 +5,26 @@ import { WhyframePlugin } from '@whyframe/webpack'
 /** @type {import('webpack').Configuration} */
 export default {
   mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
-  entry: './src/main.jsx',
+  entry: {
+    index: './src/main.jsx',
+    framesBasicIndex: './frames/basic/main.js'
+  },
   output: {
     path: path.resolve('./dist')
   },
   plugins: [
-    new WhyframePlugin(),
+    new WhyframePlugin({
+      defaultSrc: '/frames/basic/index.html',
+      components: [{ name: 'Story', showSource: true }]
+    }),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      chunks: ['index']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'frames/basic/index.html',
+      template: './frames/basic/index.html',
+      chunks: ['framesBasicIndex']
     })
   ],
   module: {
@@ -20,19 +32,27 @@ export default {
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic'
-                }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-react',
+                  {
+                    runtime: 'automatic'
+                  }
+                ]
               ]
-            ]
+            }
+          },
+          {
+            loader: '@whyframe/jsx/loader',
+            options: {
+              defaultFramework: 'react'
+            }
           }
-        }
+        ]
       },
       {
         test: /\.css$/i,

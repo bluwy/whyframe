@@ -1,5 +1,5 @@
-// import { Counter } from './Counter.jsx'
-// import { Story } from './Story.jsx'
+import { Counter } from './Counter.jsx'
+import { Story } from './Story.jsx'
 
 export function App() {
   const max = 10
@@ -13,7 +13,7 @@ export function App() {
     <>
       <h1>React</h1>
 
-      {/* <iframe data-why title="Hello">
+      <iframe data-why title="Hello">
         <p>Click to increment!</p>
         <Counter />
       </iframe>
@@ -31,7 +31,7 @@ export function App() {
       <Story title="World" src="/frames/basic/index.html">
         <p>Do not go over {max}</p>
         <Counter max={max} onMax={warn} />
-      </Story> */}
+      </Story>
     </>
   )
 }

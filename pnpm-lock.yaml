@@ -101,6 +101,7 @@ importers:
       estree-walker: ^3.0.1
       magic-string: ^0.26.3
       vite: ^3.1.2
+      webpack: ^5.74.0
     dependencies:
       '@babel/parser': 7.19.1
       '@babel/types': 7.19.0
@@ -109,6 +110,7 @@ importers:
     devDependencies:
       '@whyframe/core': link:../core
       vite: 3.1.2
+      webpack: 5.74.0
 
   packages/svelte:
     specifiers:
@@ -333,6 +335,8 @@ importers:
     specifiers:
       '@babel/core': ^7.19.1
       '@babel/preset-react': ^7.18.6
+      '@whyframe/core': workspace:*
+      '@whyframe/jsx': workspace:*
       '@whyframe/webpack': workspace:*
       babel-loader: ^8.2.5
       css-loader: ^6.7.1
@@ -350,6 +354,8 @@ importers:
     devDependencies:
       '@babel/core': 7.19.1
       '@babel/preset-react': 7.18.6_@babel+core@7.19.1
+      '@whyframe/core': link:../../packages/core
+      '@whyframe/jsx': link:../../packages/jsx
       '@whyframe/webpack': link:../../packages/webpack
       babel-loader: 8.2.5_rhsdbzevgb5tizdhlla5jsbgyu
       css-loader: 6.7.1_webpack@5.74.0

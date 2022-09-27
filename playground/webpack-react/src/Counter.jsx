@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { counter } from './Counter.module.css'
+import css from './Counter.module.css'
 
 export function Counter({ max = 0, onMax }) {
   const [count, setCount] = useState(0)
@@ -15,7 +15,7 @@ export function Counter({ max = 0, onMax }) {
   }
 
   return (
-    <button className={counter} onClick={increment}>
+    <button className={css.counter} onClick={increment}>
       Count is {count}
     </button>
   )
