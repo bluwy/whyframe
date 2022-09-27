@@ -10,6 +10,10 @@
     ".": {
       "types": "./index.d.ts",
       "import": "./src/index.js"
+    },
+    "./loader": {
+      "types": "./loader.d.ts",
+      "require": "./src/loader.cjs"
     }
   },
   "files": [
@@ -35,7 +39,16 @@
   ],
   "peerDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.0.0"
+    "vite": "^3.0.0",
+    "webpack": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@babel/parser": "^7.19.1",
@@ -45,6 +58,7 @@
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.1.2"
+    "vite": "^3.1.2",
+    "webpack": "^5.74.0"
   }
 }
