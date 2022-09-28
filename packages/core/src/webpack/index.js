@@ -1,6 +1,5 @@
 import { makeWriteVirtualModuleFn, resolveVirtualId } from './virtual.js'
 
-/** @type {import('../../webpack').WhyframePlugin} */
 export class WhyframePlugin {
   /** @type {import('../../webpack').Options} */
   #options
@@ -39,6 +38,8 @@ export class WhyframePlugin {
     })
   }
 
+  // NOTE: I tried https://stackoverflow.com/questions/35092183/webpack-plugin-how-can-i-modify-and-re-parse-a-module-after-compilation/52906440#52906440
+  // but it doesn't process the injected dynamic imports. Presumably all modules are sealed.
   /**
    * @param {import('webpack').Compilation} compilation
    * @param {string[]} excludeModules
@@ -84,9 +85,12 @@ export class WhyframePlugin {
     )
   }
 
+  /** @type {import('../../index').Api['getComponent']} */
   getComponent(componentName) {
     return this.#options.components?.find((c) => c.name === componentName)
   }
+
+  /** @type {import('../../index').Api['moduleMayHaveIframe']} */
   moduleMayHaveIframe(id, code) {
     return (
       !id.includes('__whyframe:') &&
@@ -95,11 +99,15 @@ export class WhyframePlugin {
         !!this.#options.components?.some((n) => code.includes(`<${n}`)))
     )
   }
+
+  /** @type {import('../../index').Api['getDefaultShowSource']} */
   getDefaultShowSource() {
     return this.#options.defaultShowSource ?? false
   }
+
+  /** @type {import('../../index').Api['getMainIframeAttrs']} */
   getMainIframeAttrs(entryId, hash, source, isComponent) {
-    /** @type {import('../../webpack').Attr[]} */
+    /** @type {import('../../index').Attr[]} */
     const attrs = []
     attrs.push({
       type: 'static',
@@ -135,8 +143,10 @@ export class WhyframePlugin {
       return attrs
     }
   }
+
+  /** @type {import('../../index').Api['getProxyIframeAttrs']} */
   getProxyIframeAttrs() {
-    /** @type {import('../../webpack').Attr[]} */
+    /** @type {import('../../index').Attr[]} */
     return [
       {
         type: 'dynamic',
@@ -155,12 +165,16 @@ export class WhyframePlugin {
       }
     ]
   }
+
+  /** @type {import('../../index').Api['createEntry']} */
   createEntry(originalId, hash, ext, code) {
     // example: whyframe:entry-123456.jsx
     const entryId = `whyframe:entry-${hash}${ext}`
     this.#writeVirtualModule(entryId, code)
     return entryId
   }
+
+  /** @type {import('../../index').Api['createEntryComponent']} */
   createEntryComponent(originalId, hash, ext, code) {
     // example: /User/bjorn/foo/bar/App.svelte__whyframe-123456.svelte
     const entryComponentId = `${originalId}__whyframe-${hash}${ext}`
