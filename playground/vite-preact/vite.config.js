@@ -11,7 +11,7 @@ export default defineConfig({
       components: [{ name: 'Story', showSource: true }]
     }),
     whyframeJsx({
-      defaultFramework: 'preact',
+      defaultFramework: 'preact'
     }),
     preact()
   ],

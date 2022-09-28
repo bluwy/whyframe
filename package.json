@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "prettier **/*.{js,ts,jsx,css,md,vue,svelte,astro} --check --cache --ignore-path .gitignore",
-    "format": "prettier **/*.{js,ts,jsx,css,md,vue,svelte,astro} --write --cache --ignore-path .gitignore"
+    "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache --ignore-path .gitignore",
+    "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache --ignore-path .gitignore"
   },
   "devDependencies": {
     "prettier": "^2.7.1",

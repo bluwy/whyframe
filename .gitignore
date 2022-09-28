@@ -1,2 +1,11 @@
 node_modules
 dist
+
+# ignore for prettier
+.output
+.docusaurus
+.next
+.nuxt
+.svelte-kit
+out
+build

@@ -11,7 +11,7 @@ export default defineConfig({
       components: [{ name: 'Story', showSource: true }]
     }),
     whyframeJsx({
-      defaultFramework: 'react',
+      defaultFramework: 'react'
     }),
     react()
   ],
@@ -25,4 +25,4 @@ export default defineConfig({
   }
 })
 
-Error.stackTraceLimit=100
+Error.stackTraceLimit = 100
