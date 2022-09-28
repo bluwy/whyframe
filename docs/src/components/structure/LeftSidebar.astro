@@ -2,6 +2,10 @@
 import { sidebarGuideLinks } from '@/utils/constants'
 import menuLeft from '@/assets/menu-left.svg?raw'
 import Logo from '@/components/Logo.astro'
+
+function isCurrentPage(url: string) {
+  return url === Astro.url.pathname || url + '/' === Astro.url.pathname
+}
 ---
 
 <!-- for click to close -->
@@ -23,9 +27,7 @@ import Logo from '@/components/Logo.astro'
                 <li class="nav-link">
                   <a
                     href={child.url}
-                    aria-current={
-                      Astro.url.pathname === child.url ? 'page' : 'false'
-                    }
+                    aria-current={isCurrentPage(child.url) ? 'page' : 'false'}
                   >
                     {child.title}
                   </a>
