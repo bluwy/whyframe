@@ -1,8 +1,8 @@
 import { makeWriteVirtualModuleFn, resolveVirtualId } from './virtual.js'
 
-/** @type {import('../index').WhyframePlugin} */
+/** @type {import('../../webpack').WhyframePlugin} */
 export class WhyframePlugin {
-  /** @type {import('../index').Options} */
+  /** @type {import('../../webpack').Options} */
   #options
   /** @type {ReturnType<typeof import('./virtual').makeWriteVirtualModuleFn>} */
   #writeVirtualModule
@@ -99,7 +99,7 @@ export class WhyframePlugin {
     return this.#options.defaultShowSource ?? false
   }
   getMainIframeAttrs(entryId, hash, source, isComponent) {
-    /** @type {import('../index').Attr[]} */
+    /** @type {import('../../webpack').Attr[]} */
     const attrs = []
     attrs.push({
       type: 'static',
@@ -136,7 +136,7 @@ export class WhyframePlugin {
     }
   }
   getProxyIframeAttrs() {
-    /** @type {import('../index').Attr[]} */
+    /** @type {import('../../webpack').Attr[]} */
     return [
       {
         type: 'dynamic',

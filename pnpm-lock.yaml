@@ -90,6 +90,9 @@ importers:
   packages/core:
     specifiers:
       vite: ^3.1.2
+      webpack-virtual-modules: ^0.4.5
+    dependencies:
+      webpack-virtual-modules: 0.4.5
     devDependencies:
       vite: 3.1.2
 
@@ -137,14 +140,6 @@ importers:
     devDependencies:
       '@whyframe/core': link:../core
       vite: 3.1.2
-
-  packages/webpack:
-    specifiers:
-      webpack: ^5.74.0
-      webpack-virtual-modules: ^0.4.5
-    devDependencies:
-      webpack: 5.74.0
-      webpack-virtual-modules: 0.4.5
 
   playground/astro:
     specifiers:
@@ -337,7 +332,6 @@ importers:
       '@babel/preset-react': ^7.18.6
       '@whyframe/core': workspace:*
       '@whyframe/jsx': workspace:*
-      '@whyframe/webpack': workspace:*
       babel-loader: ^8.2.5
       css-loader: ^6.7.1
       html-webpack-plugin: ^5.5.0
@@ -356,7 +350,6 @@ importers:
       '@babel/preset-react': 7.18.6_@babel+core@7.19.1
       '@whyframe/core': link:../../packages/core
       '@whyframe/jsx': link:../../packages/jsx
-      '@whyframe/webpack': link:../../packages/webpack
       babel-loader: 8.2.5_rhsdbzevgb5tizdhlla5jsbgyu
       css-loader: 6.7.1_webpack@5.74.0
       html-webpack-plugin: 5.5.0_webpack@5.74.0
@@ -10019,7 +10012,6 @@ packages:
 
   /webpack-virtual-modules/0.4.5:
     resolution: {integrity: sha512-8bWq0Iluiv9lVf9YaqWQ9+liNgXSHICm+rg544yRgGYaR8yXZTVBaHZkINZSB2yZSWo4b0F6MIxqJezVfOEAlg==}
-    dev: true
 
   /webpack/5.74.0:
     resolution: {integrity: sha512-A2InDwnhhGN4LYctJj6M1JEaGL7Luj6LOmyBHjcI8529cm5p6VXiTIW2sn6ffvEAKmveLzvu4jrihwXtPojlAA==}

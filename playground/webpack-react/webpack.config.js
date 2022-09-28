@@ -1,6 +1,6 @@
 import path from 'node:path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { WhyframePlugin } from '@whyframe/webpack'
+import { WhyframePlugin } from '@whyframe/core/webpack'
 
 /** @type {import('webpack').Configuration} */
 export default {

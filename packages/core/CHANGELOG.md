@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Export webpack plugin
+
 ## 0.1.4 (2022-09-26)
 
 - Handle `createIframeRpc` types
