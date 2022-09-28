@@ -78,12 +78,17 @@ export function makeWriteVirtualModuleFn(compiler) {
    */
   return function writeVirtualModule(id, code) {
     // webpack needs a full valid fs path
-    const resolvedId = path.isAbsolute(id)
-      ? id
-      : virtualFsPrefix + encodeURIComponent(id)
+    const resolvedId = resolveVirtualId(id)
     virtualIdToResolvedId.set(id, resolvedId)
     resolvedIdToCode.set(resolvedId, code)
     // write the virtual module to fs so webpack don't panic
     vmp.writeModule(resolvedId, '')
   }
+}
+
+/**
+ * @param {string} id
+ */
+export function resolveVirtualId(id) {
+  return path.isAbsolute(id) ? id : virtualFsPrefix + encodeURIComponent(id)
 }

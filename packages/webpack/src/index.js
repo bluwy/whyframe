@@ -1,4 +1,4 @@
-import { makeWriteVirtualModuleFn } from './virtual.js'
+import { makeWriteVirtualModuleFn, resolveVirtualId } from './virtual.js'
 
 /** @type {import('../index').WhyframePlugin} */
 export class WhyframePlugin {
@@ -20,23 +20,68 @@ export class WhyframePlugin {
   apply(compiler) {
     this.#writeVirtualModule = makeWriteVirtualModuleFn(compiler)
 
-    compiler.hooks.compilation.tap('WhyframePlugin', () => {
+    compiler.hooks.compilation.tap('WhyframePlugin', (compilation) => {
       // load whyframe:app
       this.#writeVirtualModule('whyframe:app', whyframeAppCode)
       // load whyframe:build-data
-      this.#writeVirtualModule('whyframe:build-data', this.#getBuildData())
+      this.#writeVirtualModule(
+        'whyframe:build-data',
+        this.#waitModulesBuilt(compilation, [
+          resolveVirtualId('whyframe:build-data')
+        ]).then(() => {
+          let final = ''
+          for (const [hash, id] of this.#hashToEntryIds) {
+            final += `"${hash}": () => import("${id}"), `
+          }
+          return `export default {${final}}`
+        })
+      )
     })
   }
 
-  async #getBuildData() {
-    // NOTE: I thought I need to wait here for the compilation before reading
-    // `hashToEntryIds` but turns out webpack compiles multiple times?
-    //  Not sure if this is an issue but I'll take it for now.
-    let final = ''
-    for (const [hash, id] of this.#hashToEntryIds) {
-      final += `"${hash}": () => import("${id}"), `
-    }
-    return `export default {${final}}`
+  /**
+   * @param {import('webpack').Compilation} compilation
+   * @param {string[]} excludeModules
+   */
+  async #waitModulesBuilt(compilation, excludeModules = []) {
+    return /** @type {Promise<void>} */ (
+      new Promise((resolve) => {
+        const processingModules = new Set()
+        let verifyEndTimeout
+
+        // 1. track all building modules
+        const startProcessModule = (module) => {
+          const resource = module.resource
+          if (resource && !excludeModules.includes(resource)) {
+            processingModules.add(resource)
+          }
+        }
+        // 2. untrack modules built (success or fail)
+        const finishProcessModule = (module) => {
+          const resource = module.resource
+          if (resource) {
+            processingModules.delete(resource)
+            // 3. check if no more modules still building. add timeout as finished
+            // modules may import new modules to build.
+            // TODO: timeout if too long
+            if (verifyEndTimeout) clearTimeout(verifyEndTimeout)
+            verifyEndTimeout = setTimeout(() => {
+              if (processingModules.size === 0) {
+                resolve()
+              }
+            }, 500)
+          }
+        }
+
+        // 4. add handlers to compilation hooks
+        const n = 'WhyframePlugin'
+        compilation.hooks.buildModule.tap(n, startProcessModule)
+        compilation.hooks.rebuildModule.tap(n, startProcessModule)
+        compilation.hooks.succeedModule.tap(n, finishProcessModule)
+        compilation.hooks.failedModule.tap(n, finishProcessModule)
+        compilation.hooks.finishRebuildingModule.tap(n, finishProcessModule)
+      })
+    )
   }
 
   getComponent(componentName) {
@@ -67,7 +112,6 @@ export class WhyframePlugin {
       name: isComponent ? '_why?.id' : 'data-why-id',
       value: hash
     })
-
     if (source) {
       attrs.push({
         type: 'static',
