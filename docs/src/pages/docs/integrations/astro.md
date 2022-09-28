@@ -7,6 +7,8 @@ layout: ../../../layouts/DocsLayout.astro
 
 [GitHub](https://github.com/withastro/astro). [Website](https://astro.build).
 
+Status: **Experimental**.
+
 ## Quick start
 
 [Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/astro).

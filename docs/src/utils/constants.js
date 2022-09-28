@@ -1,5 +1,5 @@
 export const appName = 'whyframe'
-export const appDesc = 'A simple primitive to develop components in isolation'
+export const appDesc = 'Develop components in isolation with just an iframe'
 
 export const githubRepoDocsUrl =
   'https://github.com/bluwy/whyframe/blob/master/docs/'
