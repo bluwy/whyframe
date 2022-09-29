@@ -34,7 +34,11 @@ export default function Home() {
       description="Description will go into a meta tag in <head />"
     >
       <HomepageHeader />
-      <main>Ahoy</main>
+      <main>
+        <iframe data-why src="/frames/basic">
+          Hello world
+        </iframe>
+      </main>
     </Layout>
   )
 }

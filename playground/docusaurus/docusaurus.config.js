@@ -139,6 +139,7 @@ async function whyframe() {
     name: 'docusaurus-plugin-whyframe',
     configureWebpack() {
       return {
+        mergeStrategy: { plugins: 'prepend' },
         plugins: [new WhyframePlugin()],
         module: {
           rules: [
@@ -149,7 +150,7 @@ async function whyframe() {
                 {
                   loader: '@whyframe/jsx/loader',
                   options: {
-                    defaultFramework: 'react'
+                    defaultFramework: 'react17'
                   }
                 }
               ]
