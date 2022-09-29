@@ -50,11 +50,20 @@ export class WhyframePlugin {
         const processingModules = new Set()
         let verifyEndTimeout
 
+        // bail if no modules started (could happen if webpack cache enabled)
+        /** @type {NodeJS.Timeout | undefined} */
+        let bailStartTimeout = setTimeout(() => resolve(), 2000)
+
         // 1. track all building modules
         const startProcessModule = (module) => {
           const resource = module.resource
           if (resource && !excludeModules.includes(resource)) {
             processingModules.add(resource)
+            if (bailStartTimeout) {
+              // module started, unbail
+              clearTimeout(bailStartTimeout)
+              bailStartTimeout = undefined
+            }
           }
         }
         // 2. untrack modules built (success or fail)
