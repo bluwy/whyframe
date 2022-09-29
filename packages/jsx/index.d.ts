@@ -11,7 +11,7 @@ export interface Options {
    * or per file with the `@jsxImportSource <framework>` comment at the top of
    * the JSX file.
    */
-  defaultFramework?: 'solid' | 'preact' | 'react'
+  defaultFramework?: 'solid' | 'preact' | 'react' | 'react17'
   /**
    * Custom parser options to be passed to `@babel/parser`
    */

@@ -4,6 +4,7 @@
 
 - Bump dependencies
 - Export webpack loader
+- Support `react17` `defaultFramework`
 
 ## 0.1.2 (2022-09-18)
 

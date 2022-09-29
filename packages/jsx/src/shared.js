@@ -25,7 +25,7 @@ export function transform(code, id, api, options) {
   const ext = path.extname(id)
 
   const moduleFallbackFramework =
-    validateFramework(code.match(/@jsxImportSource\s*(\S+)/)?.[1]) ||
+    validateImportSource(code.match(/@jsxImportSource\s*(\S+)/)?.[1]) ||
     options.fallbackFramework
 
   // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
@@ -254,7 +254,7 @@ export function guessFrameworkFromTsconfig() {
     try {
       const tsconfig = fs.readFileSync(path.join(process.cwd(), file), 'utf8')
       const source = tsconfig.match(/"jsxImportSource":\s*"(.*?)"/)?.[1]
-      return validateFramework(source)
+      return validateImportSource(source)
     } catch {}
   }
 }
@@ -263,7 +263,7 @@ export function guessFrameworkFromTsconfig() {
  * @param {any} framework
  * @return {import('..').Options['defaultFramework'] | undefined}
  */
-function validateFramework(framework) {
+function validateImportSource(framework) {
   if (framework === 'solid-js') {
     return 'solid'
   } else if (framework === 'preact') {
@@ -310,6 +310,18 @@ import { WhyframeApp } from '${entryId}'
 export function createApp(el) {
   const destroy = render(() => <WhyframeApp />, el)
   return { destroy }
+}`
+    case 'react17':
+      return `\
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { WhyframeApp } from '${entryId}'
+
+export function createApp(el) {
+  ReactDOM.render(<WhyframeApp />, el)
+  return {
+    destroy: () => ReactDOM.unmountComponentAtNode(el)
+  }
 }`
   }
 }
