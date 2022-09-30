@@ -10,7 +10,7 @@ export function apiPlugin(options = {}) {
   const virtualIdToCode = new Map()
 
   // secondary map to track stale virtual ids on hot update
-  /** @type {Map<string, string>} */
+  /** @type {Map<string, string[]>} */
   const originalIdToVirtualIds = new Map()
 
   /** @type {boolean} */
@@ -122,7 +122,9 @@ export function apiPlugin(options = {}) {
         virtualIdToCode.set(entryId, code)
         // original id tracking is only needed in dev for hot reloads
         if (!isBuild) {
-          originalIdToVirtualIds.set(originalId, entryId)
+          const virtualIds = originalIdToVirtualIds.get(originalId) ?? []
+          virtualIds.push(entryId)
+          originalIdToVirtualIds.set(originalId, virtualIds)
         }
         return entryId
       },
@@ -132,7 +134,9 @@ export function apiPlugin(options = {}) {
         virtualIdToCode.set(entryComponentId, code)
         // original id tracking is only needed in dev for hot reloads
         if (!isBuild) {
-          originalIdToVirtualIds.set(originalId, entryComponentId)
+          const virtualIds = originalIdToVirtualIds.get(originalId) ?? []
+          virtualIds.push(entryComponentId)
+          originalIdToVirtualIds.set(originalId, virtualIds)
         }
         return entryComponentId
       }
@@ -180,6 +184,7 @@ export function apiPlugin(options = {}) {
         for (const id of staleVirtualIds) {
           virtualIdToCode.delete(id)
         }
+        originalIdToVirtualIds.delete(file)
       }
     }
   }
