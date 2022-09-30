@@ -28,11 +28,13 @@ export class WhyframePlugin {
         this.#waitModulesBuilt(compilation, [
           resolveVirtualId('whyframe:build-data')
         ]).then(() => {
-          let final = ''
-          for (const [hash, id] of this.#hashToEntryIds) {
-            final += `"${hash}": () => import("${id}"), `
+          if (this.#hashToEntryIds.size > 0) {
+            let final = ''
+            for (const [hash, id] of this.#hashToEntryIds) {
+              final += `"${hash}": () => import("${id}"), `
+            }
+            return `export default {${final}}`
           }
-          return `export default {${final}}`
         })
       )
     })

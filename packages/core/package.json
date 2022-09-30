@@ -56,9 +56,6 @@
       "optional": true
     }
   },
-  "dependencies": {
-    "webpack-virtual-modules": "^0.4.5"
-  },
   "devDependencies": {
     "vite": "^3.1.2",
     "webpack": "^5.74.0"

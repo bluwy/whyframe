@@ -91,9 +91,6 @@ importers:
     specifiers:
       vite: ^3.1.2
       webpack: ^5.74.0
-      webpack-virtual-modules: ^0.4.5
-    dependencies:
-      webpack-virtual-modules: 0.4.5
     devDependencies:
       vite: 3.1.2
       webpack: 5.74.0
@@ -14368,6 +14365,7 @@ packages:
 
   /webpack-virtual-modules/0.4.5:
     resolution: {integrity: sha512-8bWq0Iluiv9lVf9YaqWQ9+liNgXSHICm+rg544yRgGYaR8yXZTVBaHZkINZSB2yZSWo4b0F6MIxqJezVfOEAlg==}
+    dev: true
 
   /webpack/5.74.0:
     resolution: {integrity: sha512-A2InDwnhhGN4LYctJj6M1JEaGL7Luj6LOmyBHjcI8529cm5p6VXiTIW2sn6ffvEAKmveLzvu4jrihwXtPojlAA==}

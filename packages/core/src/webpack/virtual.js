@@ -1,17 +1,31 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import VirtualModulesPlugin from 'webpack-virtual-modules'
+import VirtualModulesPlugin from './virtualModule.js'
+import { MapWithCache } from './mapWithCache.js'
 
 const virtualFsPrefix = path.join(process.cwd(), '__whyframe_virtual__')
+const cache1 = path.join(
+  process.cwd(),
+  './node_modules/.cache/whyframe/cache1.json'
+)
+const cache2 = path.join(
+  process.cwd(),
+  './node_modules/.cache/whyframe/cache2.json'
+)
 
 /**
  * @param {import('webpack').Compiler} compiler
  */
 export function makeWriteVirtualModuleFn(compiler) {
+  const needCache =
+    compiler.options.cache && compiler.options.cache.type === 'filesystem'
+
   /** @type {Map<string, string>} */
-  const virtualIdToResolvedId = new Map()
-  /** @type {Map<string, string | Promise<string>>} */
-  const resolvedIdToCode = new Map()
+  const virtualIdToResolvedId = new MapWithCache(needCache ? cache1 : undefined)
+  /** @type {Map<string, string>} */
+  const resolvedIdToCode = new MapWithCache(needCache ? cache2 : undefined)
+  /** @type {Map<string, Promise<string | undefined>>} */
+  const resolvedIdToCodePromise = new Map()
 
   /** @type {VirtualModulesPlugin} */
   // @ts-ignore
@@ -21,6 +35,15 @@ export function makeWriteVirtualModuleFn(compiler) {
   if (!vmp) {
     vmp = new VirtualModulesPlugin()
     vmp.apply(compiler)
+  }
+
+  // init cache virtual modules so can be resolved
+  if (needCache && resolvedIdToCode.size > 0) {
+    compiler.hooks.compilation.tap('VirtualResolvePluginInit', (_, ctx) => {
+      for (const resolvedId of resolvedIdToCode.keys()) {
+        vmp.writeModule(resolvedId, '')
+      }
+    })
   }
 
   // resolve virtual id to resolved id
@@ -34,15 +57,17 @@ export function makeWriteVirtualModuleFn(compiler) {
           const resolvedId = virtualIdToResolvedId.get(data.request)
           data.request = resolvedId
 
-          /** @type {string | Promise<string>} */
-          // @ts-ignore
-          const code = resolvedIdToCode.get(resolvedId)
+          if (resolvedIdToCodePromise.has(resolvedId)) {
+            /** @type {Promise<string | undefined>} */
+            // @ts-ignore
+            const promise = resolvedIdToCodePromise.get(resolvedId)
 
-          if (typeof code !== 'string') {
-            code
-              .then((actualCode) => {
-                // set to string so that the virtual loader can be sync only
-                resolvedIdToCode.set(resolvedId, actualCode)
+            promise
+              .then((code) => {
+                if (code) {
+                  resolvedIdToCode.set(resolvedId, code)
+                  resolvedIdToCodePromise.delete(resolvedId)
+                }
                 callback()
               })
               .catch((err) => {
@@ -74,13 +99,17 @@ export function makeWriteVirtualModuleFn(compiler) {
   /**
    * create or update virtual modules
    * @param {string} id
-   * @param {string | Promise<string>} code
+   * @param {string | undefined | Promise<string | undefined>} code
    */
   return function writeVirtualModule(id, code) {
     // webpack needs a full valid fs path
     const resolvedId = resolveVirtualId(id)
     virtualIdToResolvedId.set(id, resolvedId)
-    resolvedIdToCode.set(resolvedId, code)
+    if (code instanceof Promise) {
+      resolvedIdToCodePromise.set(resolvedId, code)
+    } else if (typeof code === 'string') {
+      resolvedIdToCode.set(resolvedId, code)
+    }
     // write the virtual module to fs so webpack don't panic
     vmp.writeModule(resolvedId, '')
   }
