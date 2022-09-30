@@ -1,13 +1,23 @@
-import { makeWriteVirtualModuleFn, resolveVirtualId } from './virtual.js'
+import path from 'node:path'
+import { MapWithCache } from './mapWithCache.js'
+import { createVirtualModuleManager, resolveVirtualId } from './virtual.js'
+
+const cache3 = path.join(
+  process.cwd(),
+  './node_modules/.cache/whyframe/cache3.json'
+)
 
 export class WhyframePlugin {
   /** @type {import('../../webpack').Options} */
   #options
-  /** @type {ReturnType<typeof import('./virtual').makeWriteVirtualModuleFn>} */
-  #writeVirtualModule
+  /** @type {ReturnType<typeof import('./virtual').createVirtualModuleManager>} */
+  #virtualModuleManager
   // used for final import map generation
   /** @type {Map<string, string>} */
   #hashToEntryIds = new Map()
+  // secondary map to track stale virtual ids on hot update
+  /** @type {Map<string, string[]>} */
+  #originalIdToVirtualIds
 
   constructor(options = {}) {
     this.#options = options
@@ -17,13 +27,43 @@ export class WhyframePlugin {
    * @param {import('webpack').Compiler} compiler
    */
   apply(compiler) {
-    this.#writeVirtualModule = makeWriteVirtualModuleFn(compiler)
+    const needCache =
+      compiler.options.cache && compiler.options.cache.type === 'filesystem'
+
+    this.#virtualModuleManager = createVirtualModuleManager(compiler)
+
+    this.#originalIdToVirtualIds = new MapWithCache(
+      needCache ? cache3 : undefined
+    )
+
+    compiler.hooks.watchRun.tap('WhyframePlugin', ({ modifiedFiles }) => {
+      if (modifiedFiles) {
+        for (const file of modifiedFiles.keys()) {
+          // remove stale virtual ids
+          // NOTE: hot update always come first before transform
+          if (this.#originalIdToVirtualIds.has(file)) {
+            /** @type {string[]} */
+            // @ts-ignore
+            const staleVirtualIds = this.#originalIdToVirtualIds.get(file)
+            for (const id of staleVirtualIds) {
+              this.#virtualModuleManager.delete(id)
+            }
+            for (const [hash, entryId] of this.#hashToEntryIds) {
+              if (staleVirtualIds.includes(entryId)) {
+                this.#hashToEntryIds.delete(hash)
+              }
+            }
+            this.#originalIdToVirtualIds.delete(file)
+          }
+        }
+      }
+    })
 
     compiler.hooks.compilation.tap('WhyframePlugin', (compilation) => {
       // load whyframe:app
-      this.#writeVirtualModule('whyframe:app', whyframeAppCode)
+      this.#virtualModuleManager.set('whyframe:app', whyframeAppCode)
       // load whyframe:build-data
-      this.#writeVirtualModule(
+      this.#virtualModuleManager.set(
         'whyframe:build-data',
         this.#waitModulesBuilt(compilation, [
           resolveVirtualId('whyframe:build-data')
@@ -181,7 +221,12 @@ export class WhyframePlugin {
   createEntry(originalId, hash, ext, code) {
     // example: whyframe:entry-123456.jsx
     const entryId = `whyframe:entry-${hash}${ext}`
-    this.#writeVirtualModule(entryId, code)
+
+    this.#virtualModuleManager.set(entryId, code)
+    // original id tracking is only needed in dev for hot reloads
+    const virtualIds = this.#originalIdToVirtualIds.get(originalId) ?? []
+    virtualIds.push(entryId)
+    this.#originalIdToVirtualIds.set(originalId, virtualIds)
     return entryId
   }
 
@@ -189,7 +234,11 @@ export class WhyframePlugin {
   createEntryComponent(originalId, hash, ext, code) {
     // example: /User/bjorn/foo/bar/App.svelte__whyframe-123456.svelte
     const entryComponentId = `${originalId}__whyframe-${hash}${ext}`
-    this.#writeVirtualModule(entryComponentId, code)
+    this.#virtualModuleManager.set(entryComponentId, code)
+    // original id tracking is only needed in dev for hot reloads
+    const virtualIds = this.#originalIdToVirtualIds.get(originalId) ?? []
+    virtualIds.push(entryComponentId)
+    this.#originalIdToVirtualIds.set(originalId, virtualIds)
     return entryComponentId
   }
 }

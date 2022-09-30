@@ -3,7 +3,7 @@ import path from 'node:path'
 
 export class MapWithCache extends Map {
   /**
-   * @param {string | undefined} cacheFile
+   * @param {string | undefined} [cacheFile]
    */
   constructor(cacheFile) {
     let cache = undefined
@@ -20,6 +20,22 @@ export class MapWithCache extends Map {
   // @ts-ignore
   set(key, value) {
     const result = super.set(key, value)
+    // `super()` may invoke `this.set` in which case `this.cacheFile` and `this.#updateCache`
+    // isn't init yet. accessing `this.#updateCache` also errors so guard it here.
+    if (this.cacheFile) {
+      this.#updateCache()
+    }
+    return result
+  }
+
+  // @ts-ignore
+  delete(key) {
+    const result = super.delete(key)
+    this.#updateCache()
+    return result
+  }
+
+  #updateCache() {
     if (this.cacheFile) {
       try {
         fs.mkdirSync(path.dirname(this.cacheFile), { recursive: true })
@@ -31,6 +47,5 @@ export class MapWithCache extends Map {
         console.log('unable to write to', this.cacheFile, e)
       }
     }
-    return result
   }
 }

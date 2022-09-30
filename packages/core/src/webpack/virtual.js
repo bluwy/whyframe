@@ -16,7 +16,7 @@ const cache2 = path.join(
 /**
  * @param {import('webpack').Compiler} compiler
  */
-export function makeWriteVirtualModuleFn(compiler) {
+export function createVirtualModuleManager(compiler) {
   const needCache =
     compiler.options.cache && compiler.options.cache.type === 'filesystem'
 
@@ -96,22 +96,32 @@ export function makeWriteVirtualModuleFn(compiler) {
     ]
   })
 
-  /**
-   * create or update virtual modules
-   * @param {string} id
-   * @param {string | undefined | Promise<string | undefined>} code
-   */
-  return function writeVirtualModule(id, code) {
-    // webpack needs a full valid fs path
-    const resolvedId = resolveVirtualId(id)
-    virtualIdToResolvedId.set(id, resolvedId)
-    if (code instanceof Promise) {
-      resolvedIdToCodePromise.set(resolvedId, code)
-    } else if (typeof code === 'string') {
-      resolvedIdToCode.set(resolvedId, code)
+  return {
+    /**
+     * create or update a virtual module
+     * @param {string} id
+     * @param {string | undefined | Promise<string | undefined>} code
+     */
+    set(id, code) {
+      // webpack needs a full valid fs path
+      const resolvedId = resolveVirtualId(id)
+      virtualIdToResolvedId.set(id, resolvedId)
+      if (code instanceof Promise) {
+        resolvedIdToCodePromise.set(resolvedId, code)
+      } else if (typeof code === 'string') {
+        resolvedIdToCode.set(resolvedId, code)
+      }
+      // write the virtual module to fs so webpack don't panic
+      vmp.writeModule(resolvedId, '')
+    },
+    /**
+     * delete a virtual module
+     * @param {string} id
+     */
+    delete(id) {
+      virtualIdToResolvedId.delete(id)
+      resolvedIdToCode.delete(resolveVirtualId(id))
     }
-    // write the virtual module to fs so webpack don't panic
-    vmp.writeModule(resolvedId, '')
   }
 }
 
