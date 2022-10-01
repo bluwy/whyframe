@@ -378,6 +378,7 @@ importers:
       babel-loader: ^8.2.5
       css-loader: ^6.7.1
       html-webpack-plugin: ^5.5.0
+      mini-css-extract-plugin: ^2.6.1
       react: ^18.2.0
       react-dom: ^18.2.0
       sirv-cli: ^2.0.2
@@ -396,6 +397,7 @@ importers:
       babel-loader: 8.2.5_wfdvla2jorjoj23kkavho2upde
       css-loader: 6.7.1_webpack@5.74.0
       html-webpack-plugin: 5.5.0_webpack@5.74.0
+      mini-css-extract-plugin: 2.6.1_webpack@5.74.0
       sirv-cli: 2.0.2
       style-loader: 3.3.1_webpack@5.74.0
       webpack: 5.74.0_webpack-cli@4.10.0
@@ -11508,8 +11510,7 @@ packages:
       webpack: ^5.0.0
     dependencies:
       schema-utils: 4.0.0
-      webpack: 5.74.0
-    dev: false
+      webpack: 5.74.0_webpack-cli@4.10.0
 
   /minimalistic-assert/1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
@@ -14607,7 +14608,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.15.0
-      webpack: 5.74.0
+      webpack: 5.74.0_webpack-cli@4.10.0
 
   /terser/5.15.0:
     resolution: {integrity: sha512-L1BJiXVmheAQQy+as0oF3Pwtlo4s3Wi1X2zNZ2NxOB4wx9bdS9Vk67XQENLFdLYGCK/Z2di53mTj/hBafR+dTA==}

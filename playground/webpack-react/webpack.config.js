@@ -1,10 +1,13 @@
 import path from 'node:path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { WhyframePlugin } from '@whyframe/core/webpack'
+
+const isDev = !!process.env.WEBPACK_SERVE
 
 /** @type {import('webpack').Configuration} */
 export default {
-  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+  mode: isDev ? 'development' : 'production',
   entry: {
     index: './src/main.jsx',
     framesBasicIndex: './frames/basic/main.js'
@@ -25,7 +28,8 @@ export default {
       filename: 'frames/basic/index.html',
       template: './frames/basic/index.html',
       chunks: ['framesBasicIndex']
-    })
+    }),
+    new MiniCssExtractPlugin()
   ],
   module: {
     rules: [
@@ -56,7 +60,10 @@ export default {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       }
     ]
   }
