@@ -55,7 +55,7 @@ export default defineConfig({
 })
 ```
 
-As `whyframe`'s default HTML doesn't work in VitePress, a custom HTML source is required. See [HTML source](http://localhost:3000/docs/features#html-source) for more information.
+As `whyframe`'s default HTML doesn't work in VitePress, a custom HTML source is required. See [HTML source](/docs/features#html-source) for more information.
 
 To setup `/frames/default`, or in other words `http://localhost:5173/frames/default`, create an empty `/frames/default.md` file. Since we want to start from an empty layout, some VitePress configuration is required.
 

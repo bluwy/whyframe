@@ -25,7 +25,10 @@ export const sidebarGuideLinks = [
       { title: 'SvelteKit', url: '/docs/integrations/sveltekit' },
       { title: 'Astro', url: '/docs/integrations/astro' },
       { title: 'VitePress', url: '/docs/integrations/vitepress' },
-      { title: 'Nuxt', url: '/docs/integrations/nuxt' }
+      { title: 'Nuxt', url: '/docs/integrations/nuxt' },
+      { title: 'Webpack', url: '/docs/integrations/webpack' },
+      { title: 'Next', url: '/docs/integrations/next' },
+      { title: 'Docusaurus', url: '/docs/integrations/docusaurus' }
     ]
   },
   {

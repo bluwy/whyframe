@@ -71,9 +71,9 @@ export default defineConfig({
 })
 ```
 
-As `whyframe`'s default HTML doesn't work in Astro, a custom HTML source is required. See [HTML source](http://localhost:3000/docs/features#html-source) for more information.
+As `whyframe`'s default HTML doesn't work in Astro, a custom HTML source is required. See [HTML source](/docs/features#html-source) for more information.
 
-To setup `/frames/default`, or in other words `http://localhost:3000/frames/default`, create an empty `src/pages/frames/default.astro` file:
+To setup `/frames/default`, or in other words `http://localhost:3000/frames/default`, create a `src/pages/frames/default.astro` file:
 
 ```html
 <!DOCTYPE html>

@@ -24,7 +24,7 @@ To prevent this, make sure your code have proper null-handling when accessing po
 
 ## HTML source
 
-By default, `whyframe` will inject a fallback `src` to an `iframe` if it's not provided. This makes it easier to start from the get-go. If you have a custom HTML already setup, you're free to use it too by simply specifying a `src` to it!
+`whyframe` relies on plain `iframe` `src` to render the template HTML, which later relies on a special `whyframe:app` module to inject the isolated iframe HTML. You can specify any HTML source:
 
 <!-- prettier-ignore -->
 ```html
@@ -33,15 +33,15 @@ By default, `whyframe` will inject a fallback `src` to an `iframe` if it's not p
 </iframe>
 ```
 
-To have the iframe HTML "connect" to the main page, `/somewhere/else.html` needs JavaScript to import `whyframe:app`. The import should be processed by the bundler as it contains different dev and prod code. You can then initialize like:
+To have the isolated iframe HTML "teleport" into `/somewhere/else.html`, the template HTML needs JavaScript that imports `whyframe:app` to bridge it. The import should be processed by the bundler so it can be properly resolved:
 
 ```js
 import { createApp } from 'whyframe:app'
-// if a `<div id="app">` exists
+// if a `<div id="app">` exists in the template HTML
 createApp(document.getElementById('app'))
 ```
 
-If you'd like `whyframe` to fallback to a specific `src` by default, you can set `@whyframe/core`'s `defaultSrc` option:
+To avoid repeatedly specifying the same `src`, you can set `@whyframe/core`'s `defaultSrc` option:
 
 ```js
 export default {
@@ -52,6 +52,8 @@ export default {
   ]
 }
 ```
+
+And omit the `src` attribute. For Vite projects, a `defaultSrc` is provided out-of-the-box, so no template HTML setup is necessary!
 
 ## Source code
 
@@ -137,9 +139,10 @@ In the current page:
 ```js
 import { createIframeRpc } from '@whyframe/core/utils'
 
+const iframe = document.getElementById('#my-iframe')
 const rpc = createIframeRpc(iframe)
 
-rpc.send('ping', { mgs: 'hello world' })
+rpc.send('ping', { msg: 'hello world' })
 ```
 
 In the iframe:
