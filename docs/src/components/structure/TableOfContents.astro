@@ -8,7 +8,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 <div id="toc-desktop-spacer"></div>
 
 <aside id="toc-desktop">
-  <h2>On this page</h2>
+  <h2 class="on-this">On this page</h2>
   <ul>
     {
       h2s.map((h) => (
@@ -99,7 +99,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
     padding-top: 3.5rem;
   }
 
-  h2 {
+  .on-this {
     font-size: 1rem;
     margin-top: 1.1rem;
   }

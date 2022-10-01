@@ -102,7 +102,7 @@ import docusaurus from '@/assets/docusaurus.svg'
   }
 
   .cards > :global(*) {
-    width: calc(33% - 0.5rem);
+    width: 100%;
   }
 
   .plus {
@@ -126,5 +126,21 @@ import docusaurus from '@/assets/docusaurus.svg'
     font-size: 1.6rem;
     font-weight: 500;
     margin-left: 0.8rem;
+  }
+
+  /*
+    Note: these breakpoints are non-standard throughout the app
+    and that's ok as it looks nicer this way
+  */
+  @media (min-width: 512px) {
+    .cards > :global(*) {
+      width: calc(50% - 0.5rem);
+    }
+  }
+
+  @media (min-width: 852px) {
+    .cards > :global(*) {
+      width: calc(33% - 0.5rem);
+    }
   }
 </style>
