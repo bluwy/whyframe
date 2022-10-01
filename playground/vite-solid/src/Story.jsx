@@ -9,7 +9,7 @@ export function Story(props) {
       <p>This is a story of {props.title}:</p>
 
       <iframe
-        ref={(el) => setSource(getWhyframeSource(el))}
+        ref={(el) => el && setSource(getWhyframeSource(el))}
         data-why
         title={props.title}
         src={props.src}

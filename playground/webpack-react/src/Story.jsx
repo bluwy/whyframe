@@ -1,19 +1,19 @@
 import { getWhyframeSource } from '@whyframe/core/utils'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 export function Story({ title, src, children }) {
-  const iframe = useRef(null)
   const [source, setSource] = useState('')
-
-  useEffect(() => {
-    setSource(iframe.current ? getWhyframeSource(iframe.current) : '')
-  }, [iframe])
 
   return (
     <div>
       <p>This is a story of {title}:</p>
 
-      <iframe ref={iframe} data-why title={title} src={src}>
+      <iframe
+        ref={(el) => el && setSource(getWhyframeSource(el))}
+        data-why
+        title={title}
+        src={src}
+      >
         {children}
       </iframe>
 
