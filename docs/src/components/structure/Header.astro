@@ -10,10 +10,12 @@ import Logo from '@/components/Logo.astro'
     <nav>
       <ul>
         {
-          headerLinks.map(({ title, url }) => (
+          headerLinks.map(({ title, url, button }) => (
             <li>
               <a
-                class={Astro.url.pathname.includes(url) ? 'active' : undefined}
+                class={`${Astro.url.pathname.includes(url) ? 'active' : ''} ${
+                  button ? 'button secondary' : ''
+                }`}
                 href={url}
                 target={url.startsWith('http') ? '_blank' : undefined}
               >

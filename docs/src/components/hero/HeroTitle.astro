@@ -1,0 +1,24 @@
+<div class="background">
+  <section class="docs-container">
+    <h1 class="headline">
+      <slot />
+    </h1>
+  </section>
+</div>
+
+<style>
+  .background {
+    background-image: url(@/assets/background.svg);
+    background-position: 0 bottom;
+    margin-top: -3.5rem;
+    padding: 3rem 0;
+    border-bottom: dashed 2px var(--gray-light);
+  }
+
+  .headline {
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 1rem 0;
+    line-height: 1.6;
+  }
+</style>

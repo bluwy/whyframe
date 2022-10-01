@@ -1,0 +1,130 @@
+---
+import HeroTitle from '@/components/hero/HeroTitle.astro'
+import StartCard from '@/components/hero/StartCard.astro'
+import Layout from '@/layouts/Layout.astro'
+import vite from '@/assets/vite.svg'
+import webpack from '@/assets/webpack.svg'
+import svelte from '@/assets/svelte.svg'
+import vue from '@/assets/vue.svg'
+import solid from '@/assets/solid.svg'
+import preact from '@/assets/preact.svg'
+import react from '@/assets/react.svg'
+import astro from '@/assets/astro-full.svg'
+import sveltekit from '@/assets/sveltekit.svg'
+import next from '@/assets/next.svg'
+import nuxt from '@/assets/nuxt-full.svg'
+import docusaurus from '@/assets/docusaurus.svg'
+---
+
+<Layout title="New | whyframe">
+  <HeroTitle>Quick start</HeroTitle>
+  <section class="docs-container">
+    <div class="tagline markdown-container">
+      <p>Start a new StackBlitz project with <code>whyframe</code>!</p>
+      <p>Click on the GitHub icon to view the source code.</p>
+    </div>
+    <div class="cards">
+      <StartCard playground="vite-svelte">
+        <img src={vite} alt="vite" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={svelte} alt="svelte" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="vite-vue">
+        <img src={vite} alt="vite" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={vue} alt="vue" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="vite-solid">
+        <img src={vite} alt="vite" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={solid} alt="solid" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="vite-preact">
+        <img src={vite} alt="vite" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={preact} alt="preact" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="vite-react">
+        <img src={vite} alt="vite" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={react} alt="react" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="webpack-react">
+        <img src={webpack} alt="webpack" width="48" height="48" />
+        <span class="plus">+</span>
+        <img src={react} alt="react" width="48" height="48" />
+      </StartCard>
+      <StartCard playground="sveltekit">
+        <img src={svelte} alt="svelte" width="48" height="48" />
+        <img
+          class="sveltekit"
+          src={sveltekit}
+          alt="sveltekit"
+          width="150"
+          height="80"
+        />
+      </StartCard>
+      <StartCard playground="astro">
+        <img src={astro} alt="astro" width="140" height="80" />
+      </StartCard>
+      <StartCard playground="vitepress">
+        <span class="vitepress">VitePress</span>
+      </StartCard>
+      <StartCard playground="nuxt">
+        <img src={nuxt} alt="nuxt" width="140" height="80" />
+      </StartCard>
+      <StartCard playground="next">
+        <img src={next} alt="next" width="120" height="80" />
+      </StartCard>
+      <StartCard playground="docusaurus">
+        <img src={docusaurus} alt="docusaurus" width="48" height="48" />
+        <span class="docusaurus">Docusaurus</span>
+      </StartCard>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  section {
+    padding: 5rem 0;
+  }
+
+  .tagline {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .cards > :global(*) {
+    width: calc(33% - 0.5rem);
+  }
+
+  .plus {
+    font-size: 3rem;
+    margin: 0 0.8rem;
+    font-weight: 300;
+    border-bottom: none;
+    color: var(--gray-light);
+  }
+
+  .sveltekit {
+    margin-left: 0.5rem;
+  }
+
+  .vitepress {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .docusaurus {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-left: 0.8rem;
+  }
+</style>

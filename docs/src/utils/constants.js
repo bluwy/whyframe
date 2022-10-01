@@ -6,6 +6,7 @@ export const githubRepoDocsUrl =
 
 export const headerLinks = [
   { title: 'Docs', url: '/docs' },
+  { title: 'Quick start', url: '/new', button: true },
   { title: 'GitHub', url: 'https://github.com/bluwy/whyframe' }
 ]
 
