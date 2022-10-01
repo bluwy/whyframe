@@ -140,7 +140,12 @@ async function whyframe() {
     configureWebpack() {
       return {
         mergeStrategy: { plugins: 'prepend' },
-        plugins: [new WhyframePlugin()],
+        plugins: [
+          new WhyframePlugin({
+            defaultSrc: '/frames/basic',
+            components: [{ name: 'Story', showSource: true }]
+          })
+        ],
         module: {
           rules: [
             {
