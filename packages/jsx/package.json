@@ -14,6 +14,10 @@
     "./loader": {
       "types": "./loader.d.ts",
       "require": "./src/loader.cjs"
+    },
+    "./docusaurus": {
+      "types": "./docusaurus.d.ts",
+      "require": "./src/docusaurus.cjs"
     }
   },
   "files": [
@@ -57,6 +61,7 @@
     "magic-string": "^0.26.5"
   },
   "devDependencies": {
+    "@docusaurus/types": "^2.1.0",
     "@whyframe/core": "workspace:^",
     "vite": "^3.1.4",
     "webpack": "^5.74.0"

@@ -53,7 +53,15 @@ const config = {
     ]
   ],
 
-  plugins: [whyframe],
+  plugins: [
+    [
+      '@whyframe/jsx/docusaurus',
+      {
+        defaultSrc: '/frames/basic',
+        components: [{ name: 'Story', showSource: true }]
+      }
+    ]
+  ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -128,43 +136,6 @@ const config = {
         darkTheme: darkCodeTheme
       }
     })
-}
-
-/**
- * @returns {Promise<import('@docusaurus/types').Plugin>}
- */
-async function whyframe() {
-  const { WhyframePlugin } = await import('@whyframe/core/webpack')
-  return {
-    name: 'docusaurus-plugin-whyframe',
-    configureWebpack() {
-      return {
-        mergeStrategy: { plugins: 'prepend' },
-        plugins: [
-          new WhyframePlugin({
-            defaultSrc: '/frames/basic',
-            components: [{ name: 'Story', showSource: true }]
-          })
-        ],
-        module: {
-          rules: [
-            {
-              test: /\.jsx?$/,
-              exclude: /node_modules/,
-              use: [
-                {
-                  loader: '@whyframe/jsx/loader',
-                  options: {
-                    defaultFramework: 'react17'
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
-  }
 }
 
 module.exports = config
