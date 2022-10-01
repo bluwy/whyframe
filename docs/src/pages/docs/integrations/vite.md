@@ -9,7 +9,7 @@ layout: ../../../layouts/DocsLayout.astro
 
 ## Quick start
 
-Stackblitz demo:
+StackBlitz demo:
 
 - [Svelte](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-svelte)
 - [Vue](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-vue)

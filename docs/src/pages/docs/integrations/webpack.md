@@ -11,7 +11,7 @@ Status: **Experimental**.
 
 ## Quick start
 
-Stackblitz demo:
+StackBlitz demo:
 
 - [React](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/webpack-react)
 

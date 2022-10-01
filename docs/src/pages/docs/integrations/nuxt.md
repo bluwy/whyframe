@@ -9,7 +9,7 @@ layout: ../../../layouts/DocsLayout.astro
 
 ## Quick start
 
-[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/nuxt).
+[StackBlitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/nuxt).
 
 ## Scaffold your app
 

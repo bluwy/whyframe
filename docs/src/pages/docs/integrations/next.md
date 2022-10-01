@@ -11,7 +11,7 @@ Status: **Experimental**.
 
 ## Quick start
 
-[Stackblitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/next)
+[StackBlitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/next)
 
 ## Scaffold your app
 
