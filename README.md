@@ -8,7 +8,7 @@
   whyframe
 </h1>
 
-`whyframe` allows rendering any markup within an `iframe` when writing with your UI framework, e.g. Svelte, Vue, Solid, Preact, and React. Simply:
+`whyframe` enables rendering any UI framework markup within an `iframe`, including Svelte, Vue, Solid, Preact, and React. Simply:
 
 <!-- prettier-ignore -->
 ```html
@@ -23,9 +23,9 @@
 - 🛠 Flexible HTML customization
 - 🪢 Tight bundler integration
 - ⚡️ Fast runtime
-- ✨ Just works!
+- ✨ Compatible with major bundlers and frameworks
 
-Read the [documentation](https://whyframe.dev) for more information!
+Read the [documentation](https://whyframe.dev) for more details!
 
 ## Packages
 
