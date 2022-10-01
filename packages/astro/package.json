@@ -35,12 +35,12 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@astrojs/compiler": "^0.24.0",
+    "@astrojs/compiler": "^0.25.1",
     "estree-walker": "^3.0.1",
-    "magic-string": "^0.26.3"
+    "magic-string": "^0.26.5"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.1.2"
+    "vite": "^3.1.4"
   }
 }

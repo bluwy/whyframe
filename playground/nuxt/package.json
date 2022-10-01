@@ -9,14 +9,14 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "vue": "^3.2.39"
+    "vue": "^3.2.40"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.1.3",
+    "@whyframe/core": "^0.1.4",
     "@whyframe/vue": "^0.1.1",
-    "node-fetch-native": "^0.1.4",
+    "node-fetch-native": "^0.1.7",
     "nuxt": "3.0.0-rc.8",
     "ufo": "^0.8.5",
-    "vite-plugin-inspect": "^0.7.1"
+    "vite-plugin-inspect": "^0.7.4"
   }
 }

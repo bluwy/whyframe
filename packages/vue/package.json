@@ -35,11 +35,11 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@vue/compiler-dom": "^3.2.39",
-    "magic-string": "^0.26.3"
+    "@vue/compiler-dom": "^3.2.40",
+    "magic-string": "^0.26.5"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.1.2"
+    "vite": "^3.1.4"
   }
 }

@@ -51,14 +51,14 @@
     }
   },
   "dependencies": {
-    "@babel/parser": "^7.19.1",
-    "@babel/types": "^7.19.0",
+    "@babel/parser": "^7.19.3",
+    "@babel/types": "^7.19.3",
     "estree-walker": "^3.0.1",
-    "magic-string": "^0.26.3"
+    "magic-string": "^0.26.5"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",
-    "vite": "^3.1.2",
+    "vite": "^3.1.4",
     "webpack": "^5.74.0"
   }
 }

@@ -57,7 +57,7 @@
     }
   },
   "devDependencies": {
-    "vite": "^3.1.2",
+    "vite": "^3.1.4",
     "webpack": "^5.74.0"
   }
 }
