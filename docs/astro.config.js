@@ -17,6 +17,9 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 export default defineConfig({
   site: 'https://whyframe.dev',
+  build: {
+    format: 'file'
+  },
   integrations: [
     mdx(),
     svelte({
