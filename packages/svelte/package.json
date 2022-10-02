@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "magic-string": "^0.26.5",
-    "svelte": "^3.50.1"
+    "svelte": "^3.50.1",
+    "svelte-parse-markup": "^0.1.1"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:^",

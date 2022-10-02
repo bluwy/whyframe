@@ -121,10 +121,12 @@ importers:
       '@whyframe/core': workspace:*
       magic-string: ^0.26.5
       svelte: ^3.50.1
+      svelte-parse-markup: ^0.1.1
       vite: ^3.1.4
     dependencies:
       magic-string: 0.26.5
       svelte: 3.50.1
+      svelte-parse-markup: 0.1.1_svelte@3.50.1
     devDependencies:
       '@whyframe/core': link:../core
       vite: 3.1.4
@@ -14444,6 +14446,14 @@ packages:
     dependencies:
       svelte: 3.50.1
     dev: true
+
+  /svelte-parse-markup/0.1.1_svelte@3.50.1:
+    resolution: {integrity: sha512-xCBSldaZdwi0u0ANASVCUFynCaV8z5D6sQOnzPcYSEoD9dd40MLzOKMBVmuTf/LUuPvc+cUvF132MnwdG7mDig==}
+    peerDependencies:
+      svelte: ^3.0.0
+    dependencies:
+      svelte: 3.50.1
+    dev: false
 
   /svelte-preprocess/4.10.7_dnlyed3grtnuceggogyodrmgvm:
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}

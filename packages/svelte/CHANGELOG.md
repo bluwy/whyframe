@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Remove preprocess trick
 
 ## 0.1.1 (2022-09-06)
 

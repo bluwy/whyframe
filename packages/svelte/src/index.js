@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { createFilter } from 'vite'
-import { parse, walk } from 'svelte/compiler'
+import { walk } from 'svelte/compiler'
+import { parse } from 'svelte-parse-markup'
 import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
 
@@ -10,13 +11,10 @@ import { dedent, hash } from '@whyframe/core/pluginutils'
 export function whyframeSvelte(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
-  /** @type {any} */
-  let ctx
 
   const filter = createFilter(options?.include || /\.svelte$/, options?.exclude)
 
-  /** @type {import('vite').Plugin} */
-  const plugin = {
+  return {
     name: 'whyframe:svelte',
     enforce: 'pre',
     configResolved(c) {
@@ -25,9 +23,6 @@ export function whyframeSvelte(options) {
         // TODO: maybe fail safe
         throw new Error('whyframe() plugin is not installed')
       }
-    },
-    buildStart() {
-      ctx = this
     },
     transform(code, id) {
       if (!filter(id)) return
@@ -158,19 +153,6 @@ export function createApp(el) {
       }
     }
   }
-
-  // convert to vite-plugin-svelte's api so typescript etc are already preprocessed
-  const _transform = plugin.transform
-  delete plugin.transform
-  plugin.api = {
-    sveltePreprocess: {
-      markup({ content, filename }) {
-        return _transform?.apply(ctx, [content, filename])
-      }
-    }
-  }
-
-  return plugin
 }
 
 /**
