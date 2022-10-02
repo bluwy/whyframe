@@ -11,11 +11,11 @@ layout: ../../../layouts/DocsLayout.astro
 
 StackBlitz demo:
 
-- [Svelte](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-svelte)
-- [Vue](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-vue)
-- [Solid](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-solid)
-- [Preact](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-preact)
-- [React](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/vite-react)
+- [Svelte](/new/vite-svelte)
+- [Vue](/new/vite-vue)
+- [Solid](/new/vite-solid)
+- [Preact](/new/vite-preact)
+- [React](/new/vite-react)
 
 ## Scaffold your app
 

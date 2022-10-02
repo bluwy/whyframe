@@ -9,7 +9,7 @@ layout: ../../../layouts/DocsLayout.astro
 
 ## Quick start
 
-[StackBlitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/sveltekit).
+[StackBlitz demo](/new/sveltekit).
 
 ## Scaffold your app
 

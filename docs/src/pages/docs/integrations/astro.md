@@ -11,7 +11,7 @@ Status: **Experimental**.
 
 ## Quick start
 
-[StackBlitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/astro).
+[StackBlitz demo](/new/astro).
 
 ## Scaffold your app
 

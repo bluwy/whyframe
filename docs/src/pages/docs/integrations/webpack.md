@@ -13,7 +13,7 @@ Status: **Experimental**.
 
 StackBlitz demo:
 
-- [React](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/webpack-react)
+- [React](/new/webpack-react)
 
 > Only React is officially tested as other UI frameworks don't actively support Webpack anymore.
 
@@ -23,7 +23,7 @@ StackBlitz demo:
 
 > If you have an existing Webpack app, you can skip this step.
 
-The easiest way to scaffold a vanilla Webpack app is to use the [Stackblitz React demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/webpack-react) above, which already has `whyframe` setup. You can still read below to learn the configuration steps.
+The easiest way to scaffold a vanilla Webpack app is to use the [Stackblitz React demo](/new/webpack-react) above, which already has `whyframe` setup. You can still read below to learn the configuration steps.
 
 ## Install
 

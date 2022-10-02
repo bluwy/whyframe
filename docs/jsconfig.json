@@ -9,9 +9,11 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": false,
-    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

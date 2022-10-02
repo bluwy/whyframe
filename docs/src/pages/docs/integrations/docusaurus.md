@@ -11,7 +11,7 @@ Status: **Experimental**.
 
 ## Quick start
 
-[StackBlitz demo](https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/docusaurus)
+[StackBlitz demo](/new/docusaurus)
 
 ## Scaffold your app
 
