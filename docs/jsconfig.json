@@ -15,5 +15,12 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": [
+    "./src/**/*.js",
+    "./src/**/*.jsx",
+    "./src/**/*.vue",
+    "./src/**/*.svelte",
+    "./src/**/*.astro"
+  ]
 }

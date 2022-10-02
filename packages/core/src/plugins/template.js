@@ -45,7 +45,7 @@ function templateServePlugin() {
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        if (req.url.endsWith(templateDefaultId)) {
+        if (req.url?.endsWith(templateDefaultId)) {
           const html = await server.transformIndexHtml(
             req.url,
             templateDefaultHtml,
@@ -75,6 +75,7 @@ function templateBuildPlugin() {
         c.build.rollupOptions = {}
       }
 
+      // @ts-ignore
       let input = c.build.rollupOptions.input
 
       if (typeof input === 'undefined' || typeof input === 'string') {
@@ -88,6 +89,7 @@ function templateBuildPlugin() {
         input.__whyframe = templateDefaultBuildPath
       }
 
+      // @ts-ignore
       c.build.rollupOptions.input = input
     },
     async buildStart() {
