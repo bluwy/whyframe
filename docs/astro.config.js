@@ -97,7 +97,10 @@ function redirect() {
     name: 'redirect',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url === '/docs') {
+        if (req.url === '/chat') {
+          res.writeHead(302, { Location: 'https://discord.gg/4MqsAe9Hn3' })
+          res.end()
+        } else if (req.url === '/docs') {
           res.writeHead(302, { Location: '/docs/overview' })
           res.end()
         } else if (req.url?.startsWith('/new/')) {

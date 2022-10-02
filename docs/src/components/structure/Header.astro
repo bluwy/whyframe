@@ -1,4 +1,5 @@
 ---
+import discord from '@/assets/discord.svg'
 import github from '@/assets/github.svg'
 import { headerLinks } from '@/utils/constants'
 import Logo from '@/components/Logo.astro'
@@ -21,6 +22,8 @@ import Logo from '@/components/Logo.astro'
               >
                 {title === 'GitHub' ? (
                   <img src={github} alt="GitHub" width="24" height="24" />
+                ) : title === 'Discord' ? (
+                  <img src={discord} alt="Discord" width="22" height="22" />
                 ) : (
                   title
                 )}
@@ -91,7 +94,6 @@ import Logo from '@/components/Logo.astro'
 
   ul img {
     display: block;
-    filter: invert(1);
   }
 
   .spacing {
