@@ -5,7 +5,7 @@ import { appName } from '@/utils/constants'
 
 <a class="logo" href="/">
   <img src={logo} alt="logo" width="40" height="40" />
-  <p>{appName}</p>
+  <p class="name">{appName}</p>
 </a>
 
 <style>
@@ -20,6 +20,16 @@ import { appName } from '@/utils/constants'
   }
 
   .logo > img {
-    margin-right: 0.3rem;
+    margin: 7px 0.3rem 7px 0;
+  }
+
+  .name {
+    display: none;
+  }
+
+  @media (min-width: 512px) {
+    .name {
+      display: block;
+    }
   }
 </style>
