@@ -1,9 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 (2022-10-03)
 
 - Bump dependencies
 - Update types
+- Fix `@whyframe/core` peer dependency version
 
 ## 0.2.0 (2022-09-18)
 

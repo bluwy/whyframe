@@ -1,7 +1,7 @@
 {
   "name": "@whyframe/jsx",
   "description": "JSX support for whyframe",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
@@ -42,7 +42,7 @@
     "solid"
   ],
   "peerDependencies": {
-    "@whyframe/core": "workspace:^",
+    "@whyframe/core": "workspace:^0.1.0",
     "vite": "^3.0.0",
     "webpack": "^5.0.0"
   },
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@docusaurus/types": "^2.1.0",
-    "@whyframe/core": "workspace:^",
+    "@whyframe/core": "workspace:*",
     "vite": "^3.1.4",
     "webpack": "^5.74.0"
   }

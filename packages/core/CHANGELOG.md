@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.5 (2022-10-03)
 
 - Export webpack plugin
 - Fix HMR virtual id invalidation
