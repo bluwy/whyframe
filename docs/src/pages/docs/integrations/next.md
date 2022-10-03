@@ -3,7 +3,7 @@ title: Next.js
 layout: ../../../layouts/DocsLayout.astro
 ---
 
-# Next
+# Next.js
 
 [GitHub](https://github.com/vercel/next.js). [Website](https://nextjs.org).
 

@@ -4,7 +4,7 @@ import menuLeft from '@/assets/menu-left.svg?raw'
 import Logo from '@/components/Logo.astro'
 
 function isCurrentPage(url: string) {
-  return url === Astro.url.pathname || url + '/' === Astro.url.pathname
+  return url === Astro.url.pathname || url + '.html' === Astro.url.pathname
 }
 ---
 

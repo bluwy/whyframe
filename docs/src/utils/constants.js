@@ -29,7 +29,7 @@ export const sidebarGuideLinks = [
       { title: 'Astro', url: '/docs/integrations/astro' },
       { title: 'VitePress', url: '/docs/integrations/vitepress' },
       { title: 'Nuxt', url: '/docs/integrations/nuxt' },
-      { title: 'Next', url: '/docs/integrations/next' },
+      { title: 'Next.js', url: '/docs/integrations/next' },
       { title: 'Docusaurus', url: '/docs/integrations/docusaurus' }
     ]
   },
