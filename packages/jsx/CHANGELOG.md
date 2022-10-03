@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 (2022-10-03)
+
+- Support docusaurus MDX
+- Fix iframe parent function reference
+
 ## 0.1.3 (2022-10-03)
 
 - Bump dependencies
