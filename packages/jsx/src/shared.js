@@ -165,24 +165,28 @@ export function transform(code, id, api, options) {
                   fnBody[returnStatement - 1].end ?? 0
                 )
               : ''
+          const topLevelFnName = topLevelFnNode.id?.name
           // ====== end: extract outer code
 
           // derive final hash per iframe
-          const finalHash = hash(topCode + bottomCode + fnCode + iframeContent)
+          const finalHash = hash(
+            topCode + bottomCode + fnCode + topLevelFnName + iframeContent
+          )
 
           const entryComponentId = api.createEntryComponent(
             id,
             finalHash,
-            ext,
+            ext.startsWith('.md') ? '.jsx' : ext,
             `\
 ${topCode}
+${topLevelFnName ? `function ${topLevelFnName}(){}` : ''}
 export function WhyframeApp() {
-${fnCode}
-return (
-  <>
-    ${iframeContent}
-  </>
-)
+  ${fnCode}
+  return (
+    <>
+      ${iframeContent}
+    </>
+  )
 }
 ${bottomCode}`
           )
