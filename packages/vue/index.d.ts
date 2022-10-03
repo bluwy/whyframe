@@ -7,4 +7,4 @@ export interface Options {
   parserOptions?: ParserOptions
 }
 
-export function whyframeVue(options?: Options): Plugin
+export declare function whyframeVue(options?: Options): Plugin

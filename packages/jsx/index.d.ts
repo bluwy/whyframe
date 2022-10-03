@@ -18,4 +18,4 @@ export interface Options {
   parserOptions?: ParserOptions
 }
 
-export function whyframeJsx(options?: Options): Plugin
+export declare function whyframeJsx(options?: Options): Plugin

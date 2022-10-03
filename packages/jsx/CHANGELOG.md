@@ -6,6 +6,7 @@
 - Export webpack loader
 - Export docusaurus plugin
 - Support `react17` `defaultFramework`
+- Update types
 
 ## 0.1.2 (2022-09-18)
 

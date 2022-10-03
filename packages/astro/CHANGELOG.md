@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Update types
 
 ## 0.2.0 (2022-09-18)
 

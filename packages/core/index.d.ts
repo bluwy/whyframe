@@ -110,4 +110,4 @@ export interface Api {
   ) => string
 }
 
-export function whyframe(options?: Options): Plugin[]
+export declare function whyframe(options?: Options): Plugin[]

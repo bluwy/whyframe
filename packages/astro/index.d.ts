@@ -10,4 +10,4 @@ export interface Options {
   defaultFramework?: 'svelte' | 'vue' | 'solid' | 'preact' | 'react'
 }
 
-export function whyframeAstro(options?: Options): Plugin
+export declare function whyframeAstro(options?: Options): Plugin

@@ -11,9 +11,11 @@ export interface Rpc {
  * via a remote procedure call API. The current page should pass a reference
  * to the iframe as the first parameter, while the iframe can skip it.
  */
-export function createIframeRpc(iframe?: HTMLIFrameElement): Rpc
+export declare function createIframeRpc(iframe?: HTMLIFrameElement): Rpc
 
 /**
  * Get the source of the iframe injected by whyframe
  */
-export function getWhyframeSource(iframe: HTMLIFrameElement): string | undefined
+export declare function getWhyframeSource(
+  iframe: HTMLIFrameElement
+): string | undefined
