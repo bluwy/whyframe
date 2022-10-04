@@ -44,6 +44,7 @@ importers:
       shiki: ^0.11.1
       solid-js: ^1.5.7
       svelte: ^3.50.1
+      vite-plugin-cloudflare-redirect: ^0.1.0
       vite-plugin-inspect: ^0.7.4
       vue: ^3.2.40
     dependencies:
@@ -70,6 +71,7 @@ importers:
       rehype-slug: 5.0.1
       shiki: 0.11.1
       svelte: 3.50.1
+      vite-plugin-cloudflare-redirect: 0.1.0
       vite-plugin-inspect: 0.7.4
 
   packages/astro:
@@ -7587,6 +7589,10 @@ packages:
     engines: {node: '>=0.8'}
     dev: true
 
+  /cloudflare-redirect-parser/0.1.0:
+    resolution: {integrity: sha512-M4pDIvjLX4wuC9SX1CaQ3ClLIgNOa37gaeL4c31cCJpJ2b+GlaXybnB14iUTtuGbhmS+Eu6JGLoWbiJ2PW8g+A==}
+    dev: true
+
   /clsx/1.2.1:
     resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
     engines: {node: '>=6'}
@@ -14618,7 +14624,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.15.0
-      webpack: 5.74.0_webpack-cli@4.10.0
+      webpack: 5.74.0
 
   /terser/5.15.0:
     resolution: {integrity: sha512-L1BJiXVmheAQQy+as0oF3Pwtlo4s3Wi1X2zNZ2NxOB4wx9bdS9Vk67XQENLFdLYGCK/Z2di53mTj/hBafR+dTA==}
@@ -15449,6 +15455,17 @@ packages:
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.7
       vscode-uri: 3.0.5
+    dev: true
+
+  /vite-plugin-cloudflare-redirect/0.1.0:
+    resolution: {integrity: sha512-d3PzoOfOyV0n3ZA6nK1xvD1cFGluD8vHpkxHpRIUu1ikIGnihAoc7nkZ+l4nv9dCXgkGP3DdlozExGcResx87A==}
+    peerDependencies:
+      vite: ^3.0.0
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      cloudflare-redirect-parser: 0.1.0
     dev: true
 
   /vite-plugin-inspect/0.7.4:

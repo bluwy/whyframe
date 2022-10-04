@@ -7,6 +7,7 @@ import solid from '@astrojs/solid-js'
 import preact from '@astrojs/preact'
 import react from '@astrojs/react'
 import inspect from 'vite-plugin-inspect'
+import { cloudflareRedirect } from 'vite-plugin-cloudflare-redirect'
 import { whyframe } from '@whyframe/core'
 import { whyframeAstro } from '@whyframe/astro'
 import { whyframeSvelte } from '@whyframe/svelte'
@@ -36,7 +37,7 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
-      redirect(),
+      cloudflareRedirect(),
       inspect(),
       whyframe({
         defaultSrc: '/frames/default'
@@ -91,31 +92,3 @@ export default defineConfig({
     ]
   }
 })
-
-/**
- * @returns {import('astro').ViteUserConfig['plugins'][number]}
- */
-function redirect() {
-  return {
-    name: 'redirect',
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        if (req.url === '/chat') {
-          res.writeHead(302, { Location: 'https://discord.gg/4MqsAe9Hn3' })
-          res.end()
-        } else if (req.url === '/docs') {
-          res.writeHead(302, { Location: '/docs/overview' })
-          res.end()
-        } else if (req.url?.startsWith('/new/')) {
-          res.writeHead(302, {
-            // prettier-ignore
-            Location: `https://stackblitz.com/fork/github/bluwy/whyframe/tree/master/playground/${req.url.slice(5)}`
-          })
-          res.end()
-        } else {
-          next()
-        }
-      })
-    }
-  }
-}
