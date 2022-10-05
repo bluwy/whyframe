@@ -57,7 +57,6 @@ const config = {
     [
       '@whyframe/jsx/docusaurus',
       {
-        defaultSrc: '/frames/basic',
         components: [{ name: 'Story', showSource: true }]
       }
     ]

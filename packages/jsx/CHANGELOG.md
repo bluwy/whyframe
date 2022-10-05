@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5 (2022-10-05)
+
+- Support `defaultSrc` fallback for docusaurus
+
 ## 0.1.4 (2022-10-03)
 
 - Support docusaurus MDX

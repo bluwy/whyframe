@@ -44,32 +44,13 @@ $ npm install -D @whyframe/jsx
 ```js
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  plugins: [
-    [
-      '@whyframe/jsx/docusaurus',
-      {
-        defaultSrc: '/frames/default' // provide our own html
-      }
-    ]
-  ]
+  plugins: ['@whyframe/jsx/docusaurus']
 }
 
 module.exports = config
 ```
 
-As `whyframe`'s default HTML doesn't work in Docusaurus, a custom HTML source is required. See [HTML source](/docs/features#html-source) for more information.
-
-To setup `/frames/default`, or in other words `http://localhost:3000/frames/default`, create a `src/pages/frames/default/index.js` file:
-
-```jsx
-import { createApp } from 'whyframe:app'
-
-export default function DefaultFrame() {
-  return <div ref={(el) => createApp(el)}></div>
-}
-```
-
-And done! You can also add more code and styles to `src/pages/frames/default/index.js` if you prefer.
+> In some cases, you may need to run the `docusaurus clear` command for the changes to take effect.
 
 ## Usage
 
@@ -83,5 +64,7 @@ You can edit `src/pages/index.js` to start creating an `iframe`. For example:
 ```
 
 Start your app with `npm run dev` and watch `Hello world!` rendered within the `iframe` as-is!
+
+To customize the default `iframe` content, the [StackBlitz demo](/new/docusaurus) has an example of setting up a `/frames/basic` page.
 
 Check out [Features](/docs/features) for more things you can do with `whyframe`.

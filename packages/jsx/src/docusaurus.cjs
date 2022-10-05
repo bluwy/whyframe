@@ -1,15 +1,19 @@
+const path = require('path')
+
 /** @type {import('../docusaurus').default} */
 module.exports = async function whyframe(_, options) {
   const { WhyframePlugin } = await import('@whyframe/core/webpack')
+  const { parserOptions, defaultSrc, ...pluginOptions } = options
   return {
     name: 'docusaurus-plugin-whyframe',
     configureWebpack() {
-      const { parserOptions, ...pluginOptions } = options
-
       return {
         mergeStrategy: { plugins: 'prepend' },
         plugins: [
-          new WhyframePlugin(pluginOptions),
+          new WhyframePlugin({
+            ...pluginOptions,
+            defaultSrc: defaultSrc || '/__whyframe'
+          }),
           new WhyframeDocusaurusPlugin()
         ],
         module: {
@@ -29,6 +33,15 @@ module.exports = async function whyframe(_, options) {
             }
           ]
         }
+      }
+    },
+    contentLoaded({ actions }) {
+      if (!defaultSrc) {
+        actions.addRoute({
+          path: '/__whyframe',
+          component: path.resolve(__dirname, './docusaurusTemplate.jsx'),
+          exact: true
+        })
       }
     }
   }

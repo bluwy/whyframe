@@ -1,7 +1,7 @@
 {
   "name": "@whyframe/jsx",
   "description": "JSX support for whyframe",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
