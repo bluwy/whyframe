@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6 (2022-10-05)
+
+- Fix component name check ([#11](https://github.com/bluwy/whyframe/issues/11))
+
 ## 0.1.5 (2022-10-03)
 
 - Export webpack plugin
