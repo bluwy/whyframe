@@ -3,7 +3,7 @@ title: Docusaurus
 layout: ../../../layouts/DocsLayout.astro
 ---
 
-# Next
+# Docusaurus
 
 [GitHub](https://github.com/facebook/docusaurus). [Website](https://docusaurus.io).
 
