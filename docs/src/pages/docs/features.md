@@ -55,6 +55,8 @@ export default {
 
 For some integrations like Vite, SvelteKit, and Docusaurus, a `defaultSrc` is provided out-of-the-box, so no template HTML setup is necessary!
 
+> To get types for `whyframe:app`, you can add `/// <reference types="@whyframe/core/global" />` to the `global.d.ts` or `vite-env.d.ts` file in your project.
+
 ## Source code
 
 A common usecase with component isolation is to display the source code written to serve as a "write this code to acheive this HTML result" hint.
