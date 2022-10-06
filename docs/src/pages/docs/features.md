@@ -74,6 +74,7 @@ And it can be retrieved with `getWhyframeSource()`:
 
 ```html
 <script>
+  import { onMount } from 'svelte'
   import { getWhyframeSource } from '@whyframe/core/utils'
 
   let iframe = null
@@ -138,16 +139,25 @@ As interacting between an iframe and the current page is a common usecase, `@why
 
 In the current page:
 
-```js
-import { createIframeRpc } from '@whyframe/core/utils'
+```html
+<script>
+  import { onMount } from 'svelte'
+  import { createIframeRpc } from '@whyframe/core/utils'
 
-const iframe = document.getElementById('#my-iframe')
-const rpc = createIframeRpc(iframe)
+  let iframe = null
 
-rpc.send('ping', { msg: 'hello world' })
+  onMount(() => {
+    const rpc = createIframeRpc(iframe)
+    rpc.send('ping', { msg: 'hello world' })
+  })
+</script>
+
+<iframe bind:this="{iframe}" data-why src="/frames/default.html">
+  Talk to me
+</iframe>
 ```
 
-In the iframe:
+In the iframe page, for example a JS file imported by `/frames/default.html`:
 
 ```js
 import { createIframeRpc } from '@whyframe/core/utils'
