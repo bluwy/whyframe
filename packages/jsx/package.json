@@ -58,7 +58,7 @@
     "@babel/parser": "^7.19.3",
     "@babel/types": "^7.19.3",
     "estree-walker": "^3.0.1",
-    "magic-string": "^0.26.5"
+    "magic-string": "^0.26.6"
   },
   "devDependencies": {
     "@docusaurus/types": "^2.1.0",

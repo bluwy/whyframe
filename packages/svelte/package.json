@@ -35,7 +35,7 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "magic-string": "^0.26.5",
+    "magic-string": "^0.26.6",
     "svelte": "^3.50.1",
     "svelte-parse-markup": "^0.1.1"
   },

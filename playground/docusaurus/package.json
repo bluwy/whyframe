@@ -27,8 +27,8 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.1.0",
     "@docusaurus/types": "^2.1.0",
-    "@whyframe/core": "^0.1.4",
-    "@whyframe/jsx": "^0.1.2"
+    "@whyframe/core": "^0.1.6",
+    "@whyframe/jsx": "^0.1.5"
   },
   "browserslist": {
     "production": [

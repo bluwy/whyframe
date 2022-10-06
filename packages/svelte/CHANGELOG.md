@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.1.3 (2022-10-03)
 
 - Fix SvelteKit support

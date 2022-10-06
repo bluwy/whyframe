@@ -11,11 +11,11 @@
     "solid-js": "^1.5.7"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.1.4",
-    "@whyframe/jsx": "^0.1.2",
+    "@whyframe/core": "^0.1.6",
+    "@whyframe/jsx": "^0.1.5",
     "babel-preset-solid": "^1.5.7",
     "vite": "^3.1.4",
-    "vite-plugin-inspect": "^0.7.4",
+    "vite-plugin-inspect": "^0.7.5",
     "vite-plugin-solid": "^2.3.9"
   }
 }

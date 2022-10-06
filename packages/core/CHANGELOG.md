@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.1.6 (2022-10-05)
 
 - Fix component name check ([#11](https://github.com/bluwy/whyframe/issues/11))
