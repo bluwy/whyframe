@@ -33,25 +33,27 @@ $ npm install -D @whyframe/vue
 
 ## Setup
 
-`whyframe` works on the bundler level, so the packages are simply Vite plugins. You can initialize these plugins in your `vite.config.js`:
+`whyframe` works on the bundler level, so the packages are simply Vite plugins. You can initialize these plugins in your `.vitepress/config.js`:
 
 ```js
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitepress'
 import { whyframe } from '@whyframe/core'
 import { whyframeVue } from '@whyframe/vue'
 
 export default defineConfig({
-  plugins: [
-    // Initialize core plugin
-    whyframe({
-      defaultSrc: '/frames/default' // provide our own html
-    }),
+  vite: {
+    plugins: [
+      // Initialize core plugin
+      whyframe({
+        defaultSrc: '/frames/default' // provide our own html
+      }),
 
-    // Initialize Vue integration plugin
-    whyframeVue({
-      include: /\.(?:vue|md)$/ // also scan in markdown files
-    })
-  ]
+      // Initialize Vue integration plugin
+      whyframeVue({
+        include: /\.(?:vue|md)$/ // also scan in markdown files
+      })
+    ]
+  }
 })
 ```
 
