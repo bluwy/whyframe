@@ -41,7 +41,7 @@ import { createApp } from 'whyframe:app'
 createApp(document.getElementById('app'))
 ```
 
-To avoid repeatedly specifying the same `src`, you can set `@whyframe/core`'s `defaultSrc` option:
+To avoid repeatedly specifying the same `src`, you can set `@whyframe/core`'s `defaultSrc` option to set a fallback when a `src` attribute isn't specified:
 
 ```js
 export default {
@@ -53,13 +53,13 @@ export default {
 }
 ```
 
-And omit the `src` attribute. For Vite projects, a `defaultSrc` is provided out-of-the-box, so no template HTML setup is necessary!
+For some integrations like Vite, SvelteKit, and Docusaurus, a `defaultSrc` is provided out-of-the-box, so no template HTML setup is necessary!
 
 ## Source code
 
 A common usecase with component isolation is to display the source code written to serve as a "write this code to acheive this HTML result" hint.
 
-This feature is disabled by default as it introduces non-treehshake-able code. You can enable it in `iframes` with `data-why-source`:
+This feature is disabled by default as it introduces non-treeshake-able code. You can enable it in `iframe`s with `data-why-source`:
 
 <!-- prettier-ignore -->
 ```html
@@ -68,7 +68,7 @@ This feature is disabled by default as it introduces non-treehshake-able code. Y
 </iframe>
 ```
 
-and can be retrieved with `getWhyframeSource()`:
+And it can be retrieved with `getWhyframeSource()`:
 
 ```html
 <script>
