@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Improve runtime error message
 
 ## 0.1.6 (2022-10-05)
 

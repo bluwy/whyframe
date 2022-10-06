@@ -2,7 +2,7 @@
   import { getWhyframeSource } from '@whyframe/core/utils'
 
   export let title
-  export let src
+  export let src = undefined
 
   /** @type {HTMLIFrameElement}*/
   let iframe

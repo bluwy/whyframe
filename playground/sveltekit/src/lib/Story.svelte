@@ -3,8 +3,8 @@
 
   /** @type {string} */
   export let title
-  /** @type {string} */
-  export let src
+  /** @type {string | undefined} */
+  export let src = undefined
 
   /** @type {HTMLIFrameElement}*/
   let iframe

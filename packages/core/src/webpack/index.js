@@ -246,9 +246,12 @@ export class WhyframePlugin {
 const whyframeAppCode = `\
 import hashToImportMap from 'whyframe:build-data'
 export async function createApp(el) {
-  const hash = window.frameElement.dataset.whyId
+  const iframe = window.frameElement
+  if (!iframe) throw new Error('[whyframe] page is not within an iframe')
+  const hash = iframe.dataset.whyId
+  if (!hash) throw new Error('[whyframe] iframe does not have an id')
   const importApp = hashToImportMap[hash]
-  if (!importApp) throw new Error('no app found')
+  if (!importApp) throw new Error('[whyframe] no app found')
   const data = await importApp()
   const result = await data.createApp(el)
   return result

@@ -68,7 +68,10 @@ export function corePlugin() {
 
 const devCode = `\
 export async function createApp(el) {
-  const url = window.frameElement.dataset.whyId
+  const iframe = window.frameElement
+  if (!iframe) throw new Error('[whyframe] page is not within an iframe')
+  const url = iframe.dataset.whyId
+  if (!url) throw new Error('[whyframe] iframe does not have an id')
   const data = await import(/* @vite-ignore */ url)
   const result = await data.createApp(el)
   return result
@@ -86,9 +89,12 @@ if (typeof window !== 'undefined' && window.frameElement) {
 const buildCode = `\
 import hashToImportMap from 'whyframe:build-data'
 export async function createApp(el) {
-  const hash = window.frameElement.dataset.whyId
+  const iframe = window.frameElement
+  if (!iframe) throw new Error('[whyframe] page is not within an iframe')
+  const hash = iframe.dataset.whyId
+  if (!hash) throw new Error('[whyframe] iframe does not have an id')
   const importApp = hashToImportMap[hash]
-  if (!importApp) throw new Error('no app found')
+  if (!importApp) throw new Error('[whyframe] no app found')
   const data = await importApp()
   const result = await data.createApp(el)
   return result
