@@ -22,6 +22,9 @@
     "./utils": {
       "types": "./utils.d.ts",
       "import": "./src/utils.js"
+    },
+    "./global": {
+      "types": "./global.d.ts"
     }
   },
   "files": [

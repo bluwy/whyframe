@@ -1,4 +1,4 @@
-/// <reference types="@whyframe/core" />
+/// <reference types="@whyframe/core/global" />
 /// <reference types="vite/client" />
 
 declare module '*.vue' {

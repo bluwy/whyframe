@@ -1,4 +1,3 @@
-// @ts-ignore
 import { createApp } from 'whyframe:app'
 import React from 'react'
 

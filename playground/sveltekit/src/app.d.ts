@@ -1,4 +1,4 @@
-/// <reference types="@whyframe/core" />
+/// <reference types="@whyframe/core/global" />
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces

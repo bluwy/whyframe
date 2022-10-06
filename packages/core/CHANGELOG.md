@@ -4,6 +4,7 @@
 
 - Bump dependencies
 - Improve runtime error message
+- Export `@whyframe/core/global` for global types
 
 ## 0.1.6 (2022-10-05)
 
