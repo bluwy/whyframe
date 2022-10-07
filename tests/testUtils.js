@@ -64,7 +64,7 @@ async function waitUrlReady(url, request) {
 
   let interval
   const fetchPromise = new Promise((resolve) => {
-    setInterval(() => {
+    interval = setInterval(() => {
       request
         .fetch(url)
         .then((res) => {
