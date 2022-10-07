@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-vite-react",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/vite-react dev",
+    "build": "pnpm --dir ../../playground/vite-react build",
+    "preview": "pnpm --dir ../../playground/vite-react preview"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-vite-preact",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/vite-preact dev",
+    "build": "pnpm --dir ../../playground/vite-preact build",
+    "preview": "pnpm --dir ../../playground/vite-preact preview"
+  }
+}

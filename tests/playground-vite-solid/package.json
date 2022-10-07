@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-vite-solid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/vite-solid dev",
+    "build": "pnpm --dir ../../playground/vite-solid build",
+    "preview": "pnpm --dir ../../playground/vite-solid preview"
+  }
+}
