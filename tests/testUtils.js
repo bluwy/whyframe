@@ -6,7 +6,18 @@ import treeKill from 'tree-kill'
 
 const killPid = promisify(treeKill)
 
-export function setupDevServer() {
+export const isDev = !process.env.TEST_BUILD
+export const isBuild = !!process.env.TEST_BUILD
+
+export function setup() {
+  if (isDev) {
+    setupDevServer()
+  } else {
+    setupPreviewServer()
+  }
+}
+
+function setupDevServer() {
   /** @type {import('execa').ExecaChildProcess<string>} */
   let cp
 
@@ -23,7 +34,7 @@ export function setupDevServer() {
   })
 }
 
-export function setupPreviewServer() {
+function setupPreviewServer() {
   /** @type {import('execa').ExecaChildProcess<string>} */
   let cp
 

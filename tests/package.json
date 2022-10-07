@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "playwright test"
+    "test": "pnpm test:dev && pnpm test:build",
+    "test:dev": "playwright test",
+    "test:build": "TEST_BUILD=true playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.26.1",

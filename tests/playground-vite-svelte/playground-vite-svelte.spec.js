@@ -1,20 +1,9 @@
 import { test, expect } from '@playwright/test'
-import { setupDevServer, setupPreviewServer } from '../testUtils.js'
+import { setup } from '../testUtils.js'
 
-test.describe('dev', () => {
-  setupDevServer()
+setup()
 
-  test('render the page', async ({ page }) => {
-    await page.goto('/')
-    expect(await page.locator('h1').textContent()).toBe('Svelte')
-  })
-})
-
-test.describe('build', () => {
-  setupPreviewServer()
-
-  test('render the page', async ({ page }) => {
-    await page.goto('/')
-    expect(await page.locator('h1').textContent()).toBe('Svelte')
-  })
+test('render the page', async ({ page }) => {
+  await page.goto('/')
+  expect(await page.locator('h1').textContent()).toBe('Svelte')
 })
