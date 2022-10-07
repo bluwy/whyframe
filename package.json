@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "pnpm --dir tests test",
     "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache --ignore-path .gitignore",
     "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache --ignore-path .gitignore"
   },

@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cd ../../playground/vite-vue && pnpm dev",
-    "build": "cd ../../playground/vite-vue && pnpm build",
-    "preview": "cd ../../playground/vite-vue && pnpm preview"
+    "dev": "pnpm --dir ../../playground/vite-vue dev",
+    "build": "pnpm --dir ../../playground/vite-vue build",
+    "preview": "pnpm --dir ../../playground/vite-vue preview"
   }
 }
