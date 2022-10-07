@@ -1,0 +1,13 @@
+{
+  "name": "@whyframe/tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.26.1",
+    "execa": "^6.1.0",
+    "tree-kill": "^1.2.2"
+  }
+}

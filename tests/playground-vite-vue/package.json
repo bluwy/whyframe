@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-vite-vue",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cd ../../playground/vite-vue && pnpm dev",
+    "build": "cd ../../playground/vite-vue && pnpm build",
+    "preview": "cd ../../playground/vite-vue && pnpm preview"
+  }
+}

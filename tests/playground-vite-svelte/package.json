@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-vite-svelte",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cd ../../playground/vite-svelte && pnpm dev",
+    "build": "cd ../../playground/vite-svelte && pnpm build",
+    "preview": "cd ../../playground/vite-svelte && pnpm preview"
+  }
+}
