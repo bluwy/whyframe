@@ -1,8 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.3 (2022-10-08)
 
 - Bump dependencies
+- Fix vitepress build
 
 ## 0.1.2 (2022-10-03)
 

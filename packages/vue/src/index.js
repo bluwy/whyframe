@@ -37,11 +37,11 @@ export function whyframeVue(options) {
         isVitepress = true
         const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:vue')
         if (myIndex !== -1) {
+          const iAmBeforeVitepress = myIndex < vitepress
           // @ts-expect-error hack
           c.plugins.splice(myIndex, 1)
           // @ts-expect-error hack
-          c.plugins.splice(vitepress, 0, plugin)
-          delete plugin.enforce
+          c.plugins.splice(vitepress + (iAmBeforeVitepress ? 0 : 1), 0, plugin)
         }
       }
     },
