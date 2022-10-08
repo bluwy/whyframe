@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-docusaurus",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/docusaurus dev --no-open",
+    "build": "pnpm --dir ../../playground/docusaurus build",
+    "preview": "pnpm --dir ../../playground/docusaurus preview --no-open"
+  }
+}

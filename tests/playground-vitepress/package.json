@@ -1,0 +1,13 @@
+{
+  "name": "@whyframe/tests-playground-vitepress",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/vitepress dev",
+    "build": "pnpm --dir ../../playground/vitepress build",
+    "preview": "pnpm --dir ../../playground/vitepress preview"
+  },
+  "test": {
+    "address": "[::1]"
+  }
+}

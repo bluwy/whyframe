@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-next",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/next dev",
+    "build": "pnpm --dir ../../playground/next build",
+    "preview": "pnpm --dir ../../playground/next preview"
+  }
+}

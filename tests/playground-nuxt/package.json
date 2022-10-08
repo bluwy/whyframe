@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-nuxt",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/nuxt dev",
+    "build": "pnpm --dir ../../playground/nuxt build",
+    "preview": "pnpm --dir ../../playground/nuxt preview"
+  }
+}

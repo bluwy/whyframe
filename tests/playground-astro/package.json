@@ -1,0 +1,10 @@
+{
+  "name": "@whyframe/tests-playground-astro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --dir ../../playground/astro dev",
+    "build": "pnpm --dir ../../playground/astro build",
+    "preview": "pnpm --dir ../../playground/astro preview"
+  }
+}
