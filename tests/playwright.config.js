@@ -4,8 +4,11 @@ import { devices } from '@playwright/test'
 
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 export default {
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 1 : 0,
   use: {
-    ...devices['Desktop Chrome']
+    ...devices['Desktop Chrome'],
+    trace: 'on-first-retry'
   },
   projects: await getProjects()
 }
