@@ -30,9 +30,14 @@ async function getProjects() {
 
   for (const dirent of dirents) {
     if (dirent.isDirectory() && dirent.name !== 'node_modules') {
-      const pkgJson = new URL(`./${dirent.name}/package.json`, testsDir)
-      const testConfig =
-        JSON.parse(await fs.readFile(pkgJson, 'utf8')).test ?? {}
+      const pkgJsonPath = new URL(`./${dirent.name}/package.json`, testsDir)
+      let pkgJson
+      try {
+        pkgJson = JSON.parse(await fs.readFile(pkgJsonPath, 'utf-8'))
+      } catch {
+        continue
+      }
+      const testConfig = pkgJson.test ?? {}
 
       projects.push({
         name: dirent.name,
