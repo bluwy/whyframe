@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { promisify } from 'node:util'
 import { test } from '@playwright/test'
 import { execa, execaCommand } from 'execa'
@@ -22,10 +21,13 @@ function setupDevServer() {
   let cp
 
   test.beforeAll(async ({ request }, info) => {
-    const cwd = path.dirname(info.file)
+    const cwd = info.project.testDir
     const url = info.project.use.baseURL
     const port = url.split(':').pop()
-    cp = execa('pnpm', ['dev', '--port', port], { cwd })
+    cp = execa('pnpm', ['dev', '--port', port], {
+      cwd,
+      env: { PORT: port }
+    })
     await waitUrlReady(url, request)
   })
 
@@ -39,11 +41,14 @@ function setupPreviewServer() {
   let cp
 
   test.beforeAll(async ({ request }, info) => {
-    const cwd = path.dirname(info.file)
+    const cwd = info.project.testDir
     const url = info.project.use.baseURL
     const port = url.split(':').pop()
     await execaCommand(`pnpm build`, { cwd })
-    cp = execa('pnpm', ['preview', '--port', port], { cwd })
+    cp = execa('pnpm', ['preview', '--port', port], {
+      cwd,
+      env: { PORT: port }
+    })
     await waitUrlReady(url, request)
   })
 
@@ -59,7 +64,7 @@ function setupPreviewServer() {
 async function waitUrlReady(url, request) {
   let timeout
   const timeoutPromise = new Promise((_, reject) => {
-    timeout = setTimeout(() => reject(`Timeout for ${url}`), 10000)
+    timeout = setTimeout(() => reject(`Timeout for ${url}`), 20000)
   })
 
   let interval

@@ -17,7 +17,12 @@ async function getProjects() {
   /** @type {import('@playwright/test').PlaywrightTestConfig['projects']} */
   const projects = []
 
-  const address = (await dns.lookup('localhost')).address
+  const defaultAddress = (await dns.lookup('localhost')).address
+  const verbatimAddress = (await dns.lookup('localhost', { verbatim: true }))
+    .address
+  const address =
+    defaultAddress === verbatimAddress ? 'localhost' : defaultAddress
+
   const testsDir = new URL('.', import.meta.url)
   const dirents = await fs.readdir(testsDir, { withFileTypes: true })
 
@@ -25,11 +30,15 @@ async function getProjects() {
 
   for (const dirent of dirents) {
     if (dirent.isDirectory() && dirent.name !== 'node_modules') {
+      const pkgJson = new URL(`./${dirent.name}/package.json`, testsDir)
+      const testConfig =
+        JSON.parse(await fs.readFile(pkgJson, 'utf8')).test ?? {}
+
       projects.push({
         name: dirent.name,
         testDir: `./${dirent.name}`,
         use: {
-          baseURL: `http://${address}:${port++}`
+          baseURL: `http://${testConfig.address ?? address}:${port++}`
         }
       })
     }

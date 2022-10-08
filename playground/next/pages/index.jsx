@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
 
       <div id="app">
-        <h1>React</h1>
+        <h1>Next</h1>
 
         <iframe data-why title="Hello">
           <p>Click to increment!</p>

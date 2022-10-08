@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt'
-import inspect from 'vite-plugin-inspect'
+// import inspect from 'vite-plugin-inspect'
 import { whyframe } from '@whyframe/core'
 import { whyframeVue } from '@whyframe/vue'
 
@@ -7,7 +7,7 @@ import { whyframeVue } from '@whyframe/vue'
 export default defineNuxtConfig({
   vite: {
     plugins: [
-      inspect(),
+      // inspect(),
       whyframe({
         defaultSrc: '/frames/basic', // nuxt doesn't support whyframe default template in build
         components: [{ name: 'Story', showSource: true }]
