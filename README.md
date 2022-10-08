@@ -8,6 +8,15 @@
   whyframe
 </h1>
 
+<p align="center">
+  <a href="https://github.com/bluwy/whyframe/actions/workflows/ci.yml">
+    <img src="https://github.com/bluwy/whyframe/actions/workflows/ci.yml/badge.svg" alt="ci" />
+  </a>
+  <a href="https://whyframe.dev/chat">
+    <img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat">
+  </a>
+</p>
+
 `whyframe` enables rendering any UI framework markup within an `iframe`, including Svelte, Vue, Solid, Preact, and React. Simply:
 
 <!-- prettier-ignore -->
