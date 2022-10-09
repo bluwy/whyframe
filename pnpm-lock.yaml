@@ -15,11 +15,13 @@ importers:
       prettier-plugin-astro: ^0.5.5
       prettier-plugin-svelte: ^2.7.1
       svelte: ^3.50.1
+      uvu: ^0.5.6
     devDependencies:
       prettier: 2.7.1
       prettier-plugin-astro: 0.5.5
       prettier-plugin-svelte: 2.7.1_nk6d2fkgcllkkdynqbuearcure
       svelte: 3.50.1
+      uvu: 0.5.6
 
   docs:
     specifiers:
@@ -124,6 +126,7 @@ importers:
       magic-string: ^0.26.6
       svelte: ^3.50.1
       svelte-parse-markup: ^0.1.1
+      uvu: ^0.5.6
       vite: ^3.1.4
     dependencies:
       magic-string: 0.26.6
@@ -131,6 +134,7 @@ importers:
       svelte-parse-markup: 0.1.1_svelte@3.50.1
     devDependencies:
       '@whyframe/core': link:../core
+      uvu: 0.5.6
       vite: 3.1.4
 
   packages/vue:

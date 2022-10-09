@@ -3,15 +3,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpm --dir tests test",
-    "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache --ignore-path .gitignore",
-    "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache --ignore-path .gitignore"
+    "test": "pnpm test:unit && pnpm test:e2e",
+    "test:unit": "pnpm --filter \"!@whyframe/tests\" run test",
+    "test:unit-update": "pnpm test:unit --update",
+    "test:e2e": "pnpm --dir tests test",
+    "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache",
+    "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.5.5",
     "prettier-plugin-svelte": "^2.7.1",
-    "svelte": "^3.50.1"
+    "svelte": "^3.50.1",
+    "uvu": "^0.5.6"
   },
   "packageManager": "pnpm@7.13.2",
   "pnpm": {

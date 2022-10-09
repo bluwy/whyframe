@@ -42,8 +42,16 @@ jobs:
         run: pnpm playwright install chromium
         working-directory: tests
 
-      - name: Test
-        run: pnpm test
+      - name: Test unit
+        run: pnpm test:unit
+
+      - name: Test e2e dev
+        run: pnpm test:dev
+        working-directory: tests
+
+      - name: Test e2e build
+        run: pnpm test:build
+        working-directory: tests
 
       - name: Archive test results
         if: failure()
