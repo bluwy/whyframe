@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Support typescript for docusaurus
 
 ## 0.1.5 (2022-10-05)
 

@@ -14,12 +14,12 @@ module.exports = async function whyframe(_, options) {
             ...pluginOptions,
             defaultSrc: defaultSrc || '/__whyframe'
           }),
-          new WhyframeDocusaurusPlugin()
+          new WhyframeDocusaurusPlugin(parserOptions)
         ],
         module: {
           rules: [
             {
-              test: /\.jsx?$/,
+              test: /\.[jt]sx?$/,
               exclude: /node_modules/,
               use: [
                 {
@@ -48,27 +48,37 @@ module.exports = async function whyframe(_, options) {
 }
 
 class WhyframeDocusaurusPlugin {
+  #parserOptions
+
+  /**
+   * @param {import('@babel/parser').ParserOptions} [parserOptions]
+   */
+  constructor(parserOptions) {
+    this.#parserOptions = parserOptions
+  }
+
   /**
    * @param {import('webpack').Compiler} compiler
    */
   apply(compiler) {
-    // copy jsx rule above into mdx. exactly between the babel loader and docusaurus mdx loader
+    // inject jsx rule between the babel loader and docusaurus mdx loader
     // so that we can process jsx exactly. mdx -> (whyframe) -> babel.
-    const rules = compiler.options.module.rules
-    const whyframeJsxRule = rules.find((r) =>
-      // @ts-ignore
-      r.use?.[0]?.loader?.includes('@whyframe/jsx/loader')
-    )
-    const docusaurusMdxRule = rules.find(
-      (r) =>
+    for (const rule of compiler.options.module.rules) {
+      if (
         // @ts-ignore
-        r.use?.[0]?.loader?.includes('babel-loader') &&
+        rule.use?.[0]?.loader?.includes('babel-loader') &&
         // @ts-ignore
-        r.use?.[1]?.loader?.includes('@docusaurus/mdx-loader')
-    )
-    if (whyframeJsxRule && docusaurusMdxRule) {
-      // @ts-ignore
-      docusaurusMdxRule.use.splice(1, 0, whyframeJsxRule.use[0])
+        rule.use?.[1]?.loader?.includes('@docusaurus/mdx-loader')
+      ) {
+        // @ts-ignore
+        rule.use.splice(1, 0, {
+          loader: '@whyframe/jsx/loader',
+          options: {
+            defaultFramework: 'react17',
+            parserOptions: this.#parserOptions
+          }
+        })
+      }
     }
   }
 }
