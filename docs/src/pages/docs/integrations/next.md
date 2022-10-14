@@ -53,8 +53,8 @@ export default {
       })
     )
     config.module.rules.push({
-      // Set `/\.jsx?$/` if you want to process .js files as .jsx
-      test: /\.jsx$/,
+      // Set `/\.[jt]sx?$/` if you want to process .js files as .jsx
+      test: /\.[jt]sx$/,
       exclude: /node_modules/,
       use: [
         {
