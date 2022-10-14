@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.6 (2022-10-14)
 
 - Bump dependencies
 - Support typescript for docusaurus
