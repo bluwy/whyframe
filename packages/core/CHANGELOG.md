@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.7 (2022-10-14)
 
 - Bump dependencies
 - Improve runtime error message
