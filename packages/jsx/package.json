@@ -55,15 +55,15 @@
     }
   },
   "dependencies": {
-    "@babel/parser": "^7.19.3",
-    "@babel/types": "^7.19.3",
+    "@babel/parser": "^7.19.4",
+    "@babel/types": "^7.19.4",
     "estree-walker": "^3.0.1",
-    "magic-string": "^0.26.6"
+    "magic-string": "^0.26.7"
   },
   "devDependencies": {
     "@docusaurus/types": "^2.1.0",
     "@whyframe/core": "workspace:*",
-    "vite": "^3.1.4",
+    "vite": "^3.1.8",
     "webpack": "^5.74.0"
   }
 }

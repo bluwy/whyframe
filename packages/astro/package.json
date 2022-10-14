@@ -37,10 +37,10 @@
   "dependencies": {
     "@astrojs/compiler": "^0.25.2",
     "estree-walker": "^3.0.1",
-    "magic-string": "^0.26.6"
+    "magic-string": "^0.26.7"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:*",
-    "vite": "^3.1.4"
+    "vite": "^3.1.8"
   }
 }

@@ -8,6 +8,7 @@
 <button on:click={() => (open = true)}><slot /></button>
 
 {#if open}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="background" on:click={() => (open = false)}>
     <div class="card">
       <p>{content}</p>
