@@ -52,6 +52,10 @@ export interface Api {
    */
   _getHashToEntryIds: () => Map<string, string>
   /**
+   * @internal
+   */
+  _getVirtualIdToCode: () => Map<string, string>
+  /**
    * Check if a component name contains an iframe.
    */
   getComponent: (componentName: string) => Component | undefined

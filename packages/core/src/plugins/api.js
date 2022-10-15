@@ -35,6 +35,9 @@ export function apiPlugin(options = {}) {
       _getHashToEntryIds() {
         return hashToEntryIds
       },
+      _getVirtualIdToCode() {
+        return virtualIdToCode
+      },
       getComponent(componentName) {
         return options.components?.find((c) => c.name === componentName)
       },

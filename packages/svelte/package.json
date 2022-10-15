@@ -31,7 +31,7 @@
     "svelte"
   ],
   "scripts": {
-    "test": "uvu tests"
+    "test": "uvu tests -i fixtures"
   },
   "peerDependencies": {
     "@whyframe/core": "workspace:^0.1.0",

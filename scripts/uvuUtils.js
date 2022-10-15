@@ -74,3 +74,19 @@ export async function* getFixtures(fixturesDir, inputFileName) {
     }
   }
 }
+
+/**
+ * @param {string} code
+ * @param {string} comment
+ * @param {string} ext
+ */
+export function prependComment(code, comment, ext) {
+  switch (ext) {
+    case '.svelte':
+    case '.vue':
+    case '.html':
+      return `<!-- ${comment} -->\n${code}`
+    default:
+      return `// ${comment}\n${code}`
+  }
+}

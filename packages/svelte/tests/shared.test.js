@@ -6,23 +6,42 @@ import {
   assertFixture,
   getFixtures,
   group,
-  groupAsync
+  groupAsync,
+  prependComment
 } from '../../../scripts/uvuUtils.js'
 import { fileURLToPath } from 'node:url'
 
 /** @type {() => import('@whyframe/core').Api} */
-const api = () => whyframe()[0].api
+const createApi = () => whyframe()[0].api
 
 await groupAsync('transform', async (test) => {
   const fixturesDir = fileURLToPath(new URL('./fixtures/', import.meta.url))
   const fixtures = getFixtures(fixturesDir, 'input.svelte')
+
   for await (const { id, code } of fixtures) {
     const shortDirName = path.basename(path.dirname(id))
     test(`fixture: ${shortDirName}`, async () => {
-      const result = transform(code, id, api())
+      const api = createApi()
+      const result = transform(code, id, api)
+
       assert.ok(result)
+
       const outputId = id.replace(/input\.svelte$/, 'output.svelte')
       await assertFixture(result.code, outputId)
+
+      let i = 0
+      for (const [virtualId, virtualCode] of api._getVirtualIdToCode()) {
+        const fileExt = path.extname(virtualId)
+        const fileName = `virtual-${i++}${fileExt}`
+        const virtualOutputId = id.replace(/input\.svelte$/, fileName)
+        const finalCode = prependComment(
+          virtualCode,
+          virtualId,
+          fileExt
+        ).replaceAll(path.dirname(id), '###')
+
+        await assertFixture(finalCode, virtualOutputId)
+      }
     })
   }
 })
