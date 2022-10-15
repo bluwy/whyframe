@@ -107,6 +107,7 @@ importers:
       '@whyframe/core': workspace:*
       estree-walker: ^3.0.1
       magic-string: ^0.26.7
+      uvu: ^0.5.6
       vite: ^3.1.8
       webpack: ^5.74.0
     dependencies:
@@ -117,6 +118,7 @@ importers:
     devDependencies:
       '@docusaurus/types': 2.1.0
       '@whyframe/core': link:../core
+      uvu: 0.5.6
       vite: 3.1.8
       webpack: 5.74.0
 

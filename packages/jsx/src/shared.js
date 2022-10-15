@@ -8,8 +8,8 @@ import { dedent, hash } from '@whyframe/core/pluginutils'
 
 /**
  * @typedef {{
- *   fallbackFramework: import('..').Options['defaultFramework'],
- *   parserOptions: import('..').Options['parserOptions']
+ *   fallbackFramework?: import('..').Options['defaultFramework'],
+ *   parserOptions?: import('..').Options['parserOptions']
  * }} TransformOptions
  */
 
@@ -17,7 +17,7 @@ import { dedent, hash } from '@whyframe/core/pluginutils'
  * @param {string} code
  * @param {string} id
  * @param {import('@whyframe/core').Api} api
- * @param {TransformOptions} options
+ * @param {TransformOptions} [options]
  */
 export function transform(code, id, api, options) {
   if (!api.moduleMayHaveIframe(id, code)) return
@@ -26,7 +26,7 @@ export function transform(code, id, api, options) {
 
   const moduleFallbackFramework =
     validateImportSource(code.match(/@jsxImportSource\s*(\S+)/)?.[1]) ||
-    options.fallbackFramework
+    options?.fallbackFramework
 
   // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
   const s = new MagicString(code)
@@ -34,7 +34,7 @@ export function transform(code, id, api, options) {
   /** @type {import('@babel/parser').ParserPlugin[]} */
   const parserPlugins = [
     // NOTE: got `(intermediate value) is not iterable` error if spread without fallback empty array
-    ...(options.parserOptions?.plugins ?? []),
+    ...(options?.parserOptions?.plugins ?? []),
     'jsx',
     'importMeta',
     // This plugin is applied before esbuild transforms the code,
@@ -50,7 +50,7 @@ export function transform(code, id, api, options) {
   }
 
   const ast = parse(code, {
-    ...options.parserOptions,
+    ...options?.parserOptions,
     sourceType: 'module',
     allowAwaitOutsideFunction: true,
     plugins: parserPlugins
@@ -349,7 +349,7 @@ function astContainsNode(ast, node) {
  * @param {any} node
  * @param {import('@whyframe/core').Attr[]} attrs
  */
-function addAttrs(s, node, attrs) {
+export function addAttrs(s, node, attrs) {
   const attrNames = node.openingElement.attributes.map((a) => a.name.name)
 
   const safeAttrs = []
@@ -393,7 +393,7 @@ function addAttrs(s, node, attrs) {
 /**
  * @param {import('@whyframe/core').Attr} attr
  */
-function parseAttrToString(attr) {
+export function parseAttrToString(attr) {
   if (attr.type === 'dynamic' && typeof attr.value === 'string') {
     return `arguments[0].${attr.value}`
   } else {
