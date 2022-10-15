@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Refactor files for unit tests
 
 ## 0.1.3 (2022-10-03)
 
