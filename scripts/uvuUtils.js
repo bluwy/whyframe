@@ -30,6 +30,23 @@ export async function groupAsync(name, fn) {
 }
 
 /**
+ * @param {import('uvu').Test} test
+ * @param {string} name
+ * @returns {import('uvu').Test['only']}
+ */
+export function smartTest(test, name) {
+  let t = test
+  if (name.endsWith('.only')) {
+    // @ts-ignore
+    t = t.only
+  } else if (name.endsWith('.skip')) {
+    // @ts-ignore
+    t = t.skip
+  }
+  return t
+}
+
+/**
  * @param {string} actual
  * @param {string} outputFile
  * @param {assert.Message} [msg]

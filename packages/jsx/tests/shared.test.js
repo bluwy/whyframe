@@ -7,7 +7,8 @@ import {
   getFixtures,
   group,
   groupAsync,
-  prependComment
+  prependComment,
+  smartTest
 } from '../../../scripts/uvuUtils.js'
 import { fileURLToPath } from 'node:url'
 
@@ -24,7 +25,7 @@ await groupAsync('transform', async (test) => {
       /** @type {import('../index').Options['defaultFramework']} */ (
         shortDirName.split('-')[0]
       )
-    test(`fixture: ${shortDirName}`, async () => {
+    smartTest(test, shortDirName)(`fixture: ${shortDirName}`, async () => {
       const api = createApi()
       const result = transform(code, id, api, {
         fallbackFramework: framework
