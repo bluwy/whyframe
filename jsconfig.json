@@ -10,4 +10,5 @@
     "strictNullChecks": true
   },
   "include": ["./packages/**/*", "./packages/core/src/all.d.ts"],
+  "exclude": ["**/fixtures/**"]
 }

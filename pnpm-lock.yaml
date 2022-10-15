@@ -142,12 +142,14 @@ importers:
       '@vue/compiler-dom': ^3.2.40
       '@whyframe/core': workspace:*
       magic-string: ^0.26.7
+      uvu: ^0.5.6
       vite: ^3.1.8
     dependencies:
       '@vue/compiler-dom': 3.2.40
       magic-string: 0.26.7
     devDependencies:
       '@whyframe/core': link:../core
+      uvu: 0.5.6
       vite: 3.1.8
 
   playground/astro:
