@@ -147,7 +147,7 @@ export class WhyframePlugin {
       !id.includes('__whyframe:') &&
       !id.includes('__whyframe-') &&
       (code.includes('<iframe') ||
-        !!this.#options.components?.some((n) => code.includes(`<${n}`)))
+        !!this.#options.components?.some((c) => code.includes(`<${c.name}`)))
     )
   }
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Fix component name check for webpack ([#14](https://github.com/bluwy/whyframe/issues/14))
+- Refactor files for unit tests
+
 ## 0.1.7 (2022-10-14)
 
 - Bump dependencies

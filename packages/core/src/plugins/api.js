@@ -46,7 +46,7 @@ export function apiPlugin(options = {}) {
           !id.includes('__whyframe:') &&
           !id.includes('__whyframe-') &&
           (code.includes('<iframe') ||
-            !!options.components?.some((n) => code.includes(`<${n.name}`)))
+            !!options.components?.some((c) => code.includes(`<${c.name}`)))
         )
       },
       getDefaultShowSource() {
