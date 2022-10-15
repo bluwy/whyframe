@@ -1,4 +1,4 @@
-// ###/input.jsx__whyframe-8a4ade41.jsx
+// ###/input.jsx__whyframe-541fb21f.jsx
 import { useState } from 'react'
 
 export default function One() {
@@ -31,3 +31,29 @@ export function WhyframeApp() {
 
 
 Two.reference = true
+
+export const Three = () => {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <iframe data-why>
+        <button onClick={() => setCount(count + 1)}>+</button>
+        <button onClick={() => setCount(count - 1)}>-</button>
+        <span>{count}</span>
+      </iframe>
+    </div>
+  )
+}
+
+export const Four = function () {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <iframe data-why>
+        <button onClick={() => setCount(count + 1)}>+</button>
+        <button onClick={() => setCount(count - 1)}>-</button>
+        <span>{count}</span>
+      </iframe>
+    </div>
+  )
+}

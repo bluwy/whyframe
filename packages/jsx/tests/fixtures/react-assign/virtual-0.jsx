@@ -1,19 +1,23 @@
+// ###/input.jsx__whyframe-2cee90df.jsx
 import { useState } from 'react'
 
-export default function One() {
+
+const One = function(){}
+export function WhyframeApp() {
   const [count, setCount] = useState(0)
   return (
-    <div>
-      <iframe data-why>
+    <>
+      
         <button onClick={() => setCount(count + 1)}>+</button>
         <button onClick={() => setCount(count - 1)}>-</button>
         <span>{count}</span>
-      </iframe>
-    </div>
+      
+    </>
   )
 }
 
-export function Two() {
+
+const Two = function () {
   const [count, setCount] = useState(0)
   return (
     <div>
@@ -28,26 +32,21 @@ export function Two() {
 
 Two.reference = true
 
-export const Three = () => {
-  const [count, setCount] = useState(0)
-  return (
-    <div>
-      <iframe data-why>
-        <button onClick={() => setCount(count + 1)}>+</button>
-        <button onClick={() => setCount(count - 1)}>-</button>
-        <span>{count}</span>
-      </iframe>
-    </div>
-  )
-}
+const count = 0
+const Three = () => (
+  <div>
+    <iframe data-why>
+      <span>{count}</span>
+    </iframe>
+  </div>
+)
 
-export const Four = function () {
-  const [count, setCount] = useState(0)
-  return (
+// TODO: support this
+let Dynamic
+if (true) {
+  Dynamic = () => (
     <div>
       <iframe data-why>
-        <button onClick={() => setCount(count + 1)}>+</button>
-        <button onClick={() => setCount(count - 1)}>-</button>
         <span>{count}</span>
       </iframe>
     </div>

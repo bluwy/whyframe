@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Refactor files for unit tests
+- Support variable-style JSX components
 
 ## 0.1.6 (2022-10-14)
 

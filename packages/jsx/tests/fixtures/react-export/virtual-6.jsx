@@ -1,3 +1,4 @@
+// ###/input.jsx__whyframe-120b9287.jsx
 import { useState } from 'react'
 
 export default function One() {
@@ -41,15 +42,18 @@ export const Three = () => {
   )
 }
 
-export const Four = function () {
+
+const Four = function(){}
+export function WhyframeApp() {
   const [count, setCount] = useState(0)
   return (
-    <div>
-      <iframe data-why>
+    <>
+      
         <button onClick={() => setCount(count + 1)}>+</button>
         <button onClick={() => setCount(count - 1)}>-</button>
         <span>{count}</span>
-      </iframe>
-    </div>
+      
+    </>
   )
 }
+

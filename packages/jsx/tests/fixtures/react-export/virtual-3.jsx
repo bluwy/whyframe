@@ -1,7 +1,7 @@
-// whyframe:entry-8a4ade41.jsx
+// whyframe:entry-541fb21f.jsx
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { WhyframeApp } from '###/input.jsx__whyframe-8a4ade41.jsx'
+import { WhyframeApp } from '###/input.jsx__whyframe-541fb21f.jsx'
 
 export function createApp(el) {
   ReactDOM.createRoot(el).render(<WhyframeApp />)

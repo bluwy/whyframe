@@ -57,22 +57,27 @@ export function transform(code, id, api, options) {
   })
 
   for (const b of ast.program.body) {
-    /** @type {import('@babel/types').FunctionDeclaration} */
-    let topLevelFnNode
+    /** @type {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression | undefined} */
+    let functionNode = getFunctionNode(b)
+    let variableNode = t.isVariableDeclaration(b) ? b : undefined
     /** @type {import('@babel/types').ExportNamedDeclaration | import('@babel/types').ExportDefaultDeclaration | null} */
     let exportNode = null
 
-    if (t.isFunctionDeclaration(b)) {
-      topLevelFnNode = b
-    } else if (
-      (t.isExportNamedDeclaration(b) || t.isExportDefaultDeclaration(b)) &&
-      b.declaration?.type === 'FunctionDeclaration'
+    if (
+      !functionNode &&
+      (t.isExportNamedDeclaration(b) || t.isExportDefaultDeclaration(b))
     ) {
-      topLevelFnNode = b.declaration
+      functionNode = getFunctionNode(b.declaration)
+      variableNode = t.isVariableDeclaration(b.declaration)
+        ? b.declaration
+        : undefined
       exportNode = b
-    } else {
-      continue
     }
+
+    if (!functionNode) continue
+
+    /** @type {NonNullable<typeof functionNode>} */
+    const fnNode = functionNode
 
     // @ts-expect-error
     walk(b, {
@@ -141,31 +146,23 @@ export function transform(code, id, api, options) {
           }
 
           // ====== start: extract outer code
-          const outScope = exportNode || topLevelFnNode
+          const outScope = exportNode || variableNode || fnNode
           // crawl out of fn, get top to fn start
           const topCode = code.slice(0, outScope.start ?? 0)
           // crawl out of fn, get fn end to bottom
           const bottomCode = code.slice(outScope.end ?? 0)
-          // crawl to fn body, get body start to jsx
-          const fnBody = topLevelFnNode.body.body
-          // get return statement that contains tihs iframe node
-          const returnStatement = fnBody.findIndex(
-            (c) =>
-              c.type === 'ReturnStatement' && astContainsNode(c.argument, node)
-          )
-          if (returnStatement === -1) {
+          const fnCode = getFunctionCode(fnNode, node, code)
+          if (fnCode == null) {
             this.skip()
             return
           }
-          // get the relevant fn code from the body to the return statement
-          const fnCode =
-            returnStatement > 0
-              ? code.slice(
-                  fnBody[0].start ?? 0,
-                  fnBody[returnStatement - 1].end ?? 0
-                )
-              : ''
-          const topLevelFnName = topLevelFnNode.id?.name
+          const topLevelFnName =
+            // @ts-ignore
+            fnNode.id?.name ??
+            // @ts-ignore
+            variableNode?.declarations?.[0]?.id?.name ??
+            // @ts-ignore
+            exportNode?.declaration?.declarations?.[0]?.id?.name
           // ====== end: extract outer code
 
           // derive final hash per iframe
@@ -179,7 +176,13 @@ export function transform(code, id, api, options) {
             ext.startsWith('.md') ? '.jsx' : ext,
             `\
 ${topCode}
-${topLevelFnName ? `function ${topLevelFnName}(){}` : ''}
+${
+  topLevelFnName
+    ? variableNode
+      ? `${variableNode.kind} ${topLevelFnName} = function(){}`
+      : `function ${topLevelFnName}(){}`
+    : ''
+}
 export function WhyframeApp() {
   ${fnCode}
   return (
@@ -398,5 +401,51 @@ export function parseAttrToString(attr) {
     return `arguments[0].${attr.value}`
   } else {
     return JSON.stringify(attr.value)
+  }
+}
+
+/**
+ * @param {object} b
+ */
+function getFunctionNode(b) {
+  // function Hello() {}
+  if (t.isFunctionDeclaration(b)) {
+    return b
+  }
+  // const Hello = () => {}
+  // const Hello = function() {}
+  // const Hello = () => (<div></div>)
+  else if (
+    t.isVariableDeclaration(b) &&
+    (t.isArrowFunctionExpression(b.declarations[0]?.init) ||
+      t.isFunctionExpression(b.declarations[0]?.init))
+  ) {
+    return b.declarations[0].init
+  }
+}
+
+/**
+ * @param {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression} topNode
+ * @param {any} currentNode
+ * @param {string} code
+ * @returns {string | undefined} if success, returns a string (can be empty if no code). if fail to extract, returns undefined.
+ */
+function getFunctionCode(topNode, currentNode, code) {
+  if (t.isBlockStatement(topNode.body)) {
+    // crawl to fn body, get body start to jsx
+    const fnBody = topNode.body.body
+    // get return statement that contains tihs iframe node
+    const returnStatement = fnBody.findIndex(
+      (c) =>
+        c.type === 'ReturnStatement' && astContainsNode(c.argument, currentNode)
+    )
+    if (returnStatement !== -1) {
+      // get the relevant fn code from the body to the return statement
+      return returnStatement > 0
+        ? code.slice(fnBody[0].start ?? 0, fnBody[returnStatement - 1].end ?? 0)
+        : ''
+    }
+  } else if (t.isJSXElement(topNode.body)) {
+    return 'code.slice(topNode.body.start ?? 0, topNode.body.start ?? 0)'
   }
 }
