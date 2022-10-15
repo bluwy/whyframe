@@ -39,7 +39,7 @@ $ npm install -D @whyframe/jsx
 
 ## Setup
 
-`whyframe` works on the bundler level, so the packages are simply Webpack plugins and loaders. As Docusaurus only allow configuring the Webpack config through a Docusaurus plugin, `@whyframe/jsx/docusaurus` provides a handy plugin to do so:
+As `whyframe` works on the bundler level, `@whyframe/jsx/docusaurus` exports a Docusaurus plugin to add the necessary Webpack plugins and loaders to work:
 
 ```js
 /** @type {import('@docusaurus/types').Config} */
@@ -54,7 +54,7 @@ module.exports = config
 
 ## Usage
 
-You can edit `src/pages/index.js` to start creating an `iframe`. For example:
+You can edit `src/pages/index.js` or `docs/intro.mdx` to start creating an `iframe`. For example:
 
 <!-- prettier-ignore -->
 ```html
