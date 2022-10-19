@@ -25,3 +25,10 @@ A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patt
 - **Type:** `string | RegExp | (string | RegExp)[]`
 
 A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files to be ignored by the plugin.
+
+### preprocess
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Whether to run `whyframe`'s Svelte transformation as a [preprocessor](https://svelte.dev/docs#compile-time-svelte-preprocess). This is only required when using a markup preprocessor that changes the Svelte syntax, e.g. [mdsvex](https://mdsvex.pngwn.io).

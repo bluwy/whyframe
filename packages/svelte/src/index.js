@@ -7,6 +7,8 @@ import { transform } from './shared.js'
 export function whyframeSvelte(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
+  /** @type {any} */
+  let ctx
 
   const filter = createFilter(options?.include || /\.svelte$/, options?.exclude)
 
@@ -14,6 +16,9 @@ export function whyframeSvelte(options) {
   const plugin = {
     name: 'whyframe:svelte',
     enforce: 'pre',
+    buildStart() {
+      ctx = this
+    },
     configResolved(c) {
       api = c.plugins.find((p) => p.name === 'whyframe:api')?.api
       if (!api) {
@@ -36,6 +41,20 @@ export function whyframeSvelte(options) {
     transform(code, id) {
       if (filter(id)) {
         return transform(code, id, api)
+      }
+    }
+  }
+
+  if (options?.preprocess) {
+    // convert to vite-plugin-svelte's api so typescript etc are already preprocessed
+    const _transform = plugin.transform
+    delete plugin.transform
+    plugin.api = {
+      sveltePreprocess: {
+        markup({ content, filename }) {
+          // @ts-expect-error
+          return _transform.apply(ctx, [content, filename])
+        }
       }
     }
   }

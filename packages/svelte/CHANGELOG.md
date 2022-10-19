@@ -4,6 +4,7 @@
 
 - Bump dependencies
 - Refactor files for unit tests
+- Add `preprocess` option for `mdsvex` support
 
 ## 0.1.3 (2022-10-03)
 
