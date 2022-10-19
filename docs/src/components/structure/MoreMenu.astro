@@ -3,14 +3,19 @@ import { getGuideAdjacentLink } from '@/utils/constants'
 
 export interface Props {
   githubEditUrl: string
+  webPublisherEditUrl: string
 }
 
 const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
 ---
 
-<p class="edit-on-github">
+<p class="edit-on">
   <a class="link" href={Astro.props.githubEditUrl} target="_blank">
-    <span>Edit this page on GitHub</span>
+    Edit this page on GitHub
+  </a>
+  or
+  <a class="link" href={Astro.props.webPublisherEditUrl} target="_blank">
+    Web Publisher
   </a>
 </p>
 
@@ -36,8 +41,7 @@ const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
 }
 
 <style>
-  .edit-on-github {
-    color: var(--primary);
+  .edit-on {
     margin-top: 3rem;
   }
 
@@ -98,7 +102,7 @@ const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
   }
 
   @media (min-width: 1248px) {
-    .edit-on-github {
+    .edit-on {
       display: none;
     }
 

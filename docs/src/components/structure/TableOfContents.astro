@@ -21,9 +21,13 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 
   <hr />
 
-  <p class="edit-on-github">
+  <p class="edit-on">
     <a class="link" href={Astro.props.githubEditUrl} target="_blank">
-      <span>Edit this page on GitHub</span>
+      Edit this page on GitHub
+    </a>
+    or
+    <a class="link" href={Astro.props.webPublisherEditUrl} target="_blank">
+      Web Publisher
     </a>
   </p>
 </aside>
@@ -130,8 +134,8 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
     color: var(--primary);
   }
 
-  .edit-on-github {
-    color: var(--primary);
+  .edit-on > a {
+    display: inline;
   }
 
   hr {
