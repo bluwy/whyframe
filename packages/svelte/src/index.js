@@ -46,7 +46,7 @@ export function whyframeSvelte(options) {
   }
 
   if (options?.preprocess) {
-    // convert to vite-plugin-svelte's api so typescript etc are already preprocessed
+    // convert to vite-plugin-svelte's api so markup like mdsvex are already preprocessed
     const _transform = plugin.transform
     delete plugin.transform
     plugin.api = {
