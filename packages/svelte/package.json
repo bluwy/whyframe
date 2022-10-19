@@ -39,12 +39,12 @@
   },
   "dependencies": {
     "magic-string": "^0.26.7",
-    "svelte": "^3.51.0",
+    "svelte": "^3.52.0",
     "svelte-parse-markup": "^0.1.1"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:*",
-    "svelte": "^3.51.0",
+    "svelte": "^3.52.0",
     "uvu": "^0.5.6",
     "vite": "^3.1.8"
   }

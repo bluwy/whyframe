@@ -8,12 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "preact": "^10.11.1"
+    "preact": "^10.11.2"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.4.0",
-    "@whyframe/core": "^0.1.6",
-    "@whyframe/jsx": "^0.1.5",
+    "@whyframe/core": "^0.1.8",
+    "@whyframe/jsx": "^0.1.7",
     "vite": "^3.1.8",
     "vite-plugin-inspect": "^0.7.5"
   }

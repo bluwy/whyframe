@@ -38,7 +38,7 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@vue/compiler-dom": "^3.2.40",
+    "@vue/compiler-dom": "^3.2.41",
     "magic-string": "^0.26.7"
   },
   "devDependencies": {

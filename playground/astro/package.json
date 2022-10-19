@@ -8,26 +8,26 @@
 		"preview": "astro preview"
 	},
 	"dependencies": {
-		"preact": "^10.11.1",
+		"preact": "^10.11.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"solid-js": "^1.5.7",
-		"vue": "^3.2.40"
+		"solid-js": "^1.5.9",
+		"vue": "^3.2.41"
 	},
 	"devDependencies": {
 		"@astrojs/preact": "^1.2.0",
-		"@astrojs/react": "^1.2.0",
-		"@astrojs/solid-js": "^1.2.0",
+		"@astrojs/react": "^1.2.1",
+		"@astrojs/solid-js": "^1.2.1",
 		"@astrojs/svelte": "^1.0.2",
-		"@astrojs/vue": "^1.1.0",
+		"@astrojs/vue": "^1.2.0",
 		"@whyframe/astro": "^0.2.1",
-		"@whyframe/core": "^0.1.6",
-		"@whyframe/jsx": "^0.1.5",
+		"@whyframe/core": "^0.1.8",
+		"@whyframe/jsx": "^0.1.7",
 		"@whyframe/svelte": "^0.1.3",
 		"@whyframe/vue": "^0.1.3",
-		"astro": "^1.5.0",
+		"astro": "^1.5.1",
 		"preact-render-to-string": "^5.2.5",
-		"svelte": "^3.51.0",
+		"svelte": "^3.52.0",
 		"vite-plugin-inspect": "^0.7.5"
 	}
 }
