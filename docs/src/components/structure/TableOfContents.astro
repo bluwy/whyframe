@@ -1,6 +1,13 @@
 ---
 import type { MarkdownHeading } from 'astro'
-const headings: MarkdownHeading[] = Astro.props.headings
+import EditOn from '../EditOn.astro'
+
+export interface Props {
+  file: string
+  headings: MarkdownHeading[]
+}
+
+const headings = Astro.props.headings
 const h2s = headings.filter((h) => h.depth === 2)
 const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 ---
@@ -21,11 +28,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 
   <hr />
 
-  <p class="edit-on-github">
-    <a class="link" href={Astro.props.githubEditUrl} target="_blank">
-      <span>Edit this page on GitHub</span>
-    </a>
-  </p>
+  <EditOn file={Astro.props.file} />
 </aside>
 
 <script is:inline data-htwo={htwoData}>
@@ -127,10 +130,6 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
 
   a.active {
     opacity: 1;
-    color: var(--primary);
-  }
-
-  .edit-on-github {
     color: var(--primary);
   }
 

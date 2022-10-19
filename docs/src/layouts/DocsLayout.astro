@@ -1,18 +1,16 @@
 ---
-import path from 'node:path'
 import '../assets/global.css'
 import Header from '../components/structure/Header.astro'
 import Footer from '../components/structure/Footer.astro'
 import LeftSidebar from '@/components/structure/LeftSidebar.astro'
 import TableOfContents from '@/components/structure/TableOfContents.astro'
 import MoreMenu from '@/components/structure/MoreMenu.astro'
-import { appDesc, appName, githubRepoDocsUrl } from '@/utils/constants'
+import { appDesc, appName } from '@/utils/constants'
 import IframeNoFlash from '@/components/IframeNoFlash.astro'
 
 const ogImage = new URL('/og-image.png', Astro.site).href
 const ogUrl = Astro.site.origin
-const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
-const githubEditUrl = githubRepoDocsUrl + relativeFile
+const file = Astro.props.frontmatter.file
 ---
 
 <!DOCTYPE html>
@@ -35,7 +33,7 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
     <div id="app">
       <Header stretch />
       <div class="docs-container stretch content">
-        <LeftSidebar url={Astro.url} githubEditUrl={githubEditUrl} />
+        <LeftSidebar />
         <main id="main-space" class="docs-container">
           <div style="display: none">
             <svg>
@@ -54,13 +52,10 @@ const githubEditUrl = githubRepoDocsUrl + relativeFile
           <div class="markdown-container">
             <slot />
           </div>
-          <MoreMenu githubEditUrl={githubEditUrl} />
+          <MoreMenu file={file} />
           <Footer />
         </main>
-        <TableOfContents
-          headings={Astro.props.headings}
-          githubEditUrl={githubEditUrl}
-        />
+        <TableOfContents headings={Astro.props.headings} file={file} />
       </div>
     </div>
     <IframeNoFlash />
