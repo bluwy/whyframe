@@ -1,23 +1,17 @@
 ---
 import { getGuideAdjacentLink } from '@/utils/constants'
+import EditOn from '../EditOn.astro'
 
 export interface Props {
-  githubEditUrl: string
-  webPublisherEditUrl: string
+  file: string
 }
 
 const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
 ---
 
-<p class="edit-on">
-  <a class="link" href={Astro.props.githubEditUrl} target="_blank">
-    Edit this page on GitHub
-  </a>
-  or
-  <a class="link" href={Astro.props.webPublisherEditUrl} target="_blank">
-    Web Publisher (beta)
-  </a>
-</p>
+<div class="edit-on">
+  <EditOn file={Astro.props.file} />
+</div>
 
 {
   adjacentLink && (
@@ -43,7 +37,6 @@ const adjacentLink = getGuideAdjacentLink(Astro.url.pathname)
 <style>
   .edit-on {
     margin-top: 3rem;
-    line-height: 1.5;
   }
 
   .adjacent-section {

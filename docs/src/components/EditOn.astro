@@ -1,0 +1,38 @@
+---
+import path from 'node:path'
+import { githubRepoDocsUrl, webPublisherDocsUrl } from '@/utils/constants'
+
+export interface Props {
+  file: string
+}
+
+const relativeFile = path.relative(process.cwd(), Astro.props.file)
+const githubEditUrl = githubRepoDocsUrl + relativeFile
+const webPublisherEditUrl =
+  webPublisherDocsUrl +
+  relativeFile +
+  '?terminal=docs-dev&initialPath=' +
+  Astro.url.pathname
+---
+
+<p class="edit-on">
+  <a class="link" href={githubEditUrl} target="_blank">
+    Edit this page on GitHub
+  </a>
+  or
+  <a class="link" href={webPublisherEditUrl} target="_blank">
+    Web Publisher (beta)
+  </a>
+</p>
+
+<style>
+  .edit-on {
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  .edit-on > a {
+    display: inline;
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,28 +1,16 @@
 ---
-import path from 'node:path'
 import '../assets/global.css'
 import Header from '../components/structure/Header.astro'
 import Footer from '../components/structure/Footer.astro'
 import LeftSidebar from '@/components/structure/LeftSidebar.astro'
 import TableOfContents from '@/components/structure/TableOfContents.astro'
 import MoreMenu from '@/components/structure/MoreMenu.astro'
-import {
-  appDesc,
-  appName,
-  webPublisherDocsUrl,
-  githubRepoDocsUrl
-} from '@/utils/constants'
+import { appDesc, appName } from '@/utils/constants'
 import IframeNoFlash from '@/components/IframeNoFlash.astro'
 
 const ogImage = new URL('/og-image.png', Astro.site).href
 const ogUrl = Astro.site.origin
-const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
-const githubEditUrl = githubRepoDocsUrl + relativeFile
-const webPublisherEditUrl =
-  webPublisherDocsUrl +
-  relativeFile +
-  '?terminal=docs-dev&initialPath=' +
-  Astro.url.pathname
+const file = Astro.props.frontmatter.file
 ---
 
 <!DOCTYPE html>
@@ -64,17 +52,10 @@ const webPublisherEditUrl =
           <div class="markdown-container">
             <slot />
           </div>
-          <MoreMenu
-            githubEditUrl={githubEditUrl}
-            webPublisherEditUrl={webPublisherEditUrl}
-          />
+          <MoreMenu file={file} />
           <Footer />
         </main>
-        <TableOfContents
-          headings={Astro.props.headings}
-          githubEditUrl={githubEditUrl}
-          webPublisherEditUrl={webPublisherEditUrl}
-        />
+        <TableOfContents headings={Astro.props.headings} file={file} />
       </div>
     </div>
     <IframeNoFlash />
