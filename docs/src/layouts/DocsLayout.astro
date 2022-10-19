@@ -19,7 +19,7 @@ const ogUrl = Astro.site.origin
 const relativeFile = path.relative(process.cwd(), Astro.props.frontmatter.file)
 const githubEditUrl = githubRepoDocsUrl + relativeFile
 const webPublisherEditUrl =
-  webPublisherDocsUrl + relativeFile + '?initialPage=' + Astro.url.pathname
+  webPublisherDocsUrl + relativeFile + '?terminal=docs-dev&initialPage=' + Astro.url.pathname
 ---
 
 <!DOCTYPE html>

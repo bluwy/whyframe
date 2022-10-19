@@ -7,6 +7,8 @@
     "test:unit": "pnpm --filter \"!@whyframe/tests\" run test",
     "test:unit-update": "pnpm test:unit --update",
     "test:e2e": "pnpm --dir tests test",
+    "docs-dev": "cd docs && pnpm dev",
+    "docs-build": "cd docs && pnpm build",
     "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache",
     "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
   },
