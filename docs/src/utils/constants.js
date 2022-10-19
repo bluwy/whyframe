@@ -5,7 +5,7 @@ export const githubRepoDocsUrl =
   'https://github.com/bluwy/whyframe/blob/master/docs/'
 
 export const webPublisherDocsUrl =
-  'https://pr.new/bluwy/whyframe/edit/web-publisher/docs/'
+  'https://pr.new/bluwy/whyframe/edit/master/docs/'
 
 export const headerLinks = [
   { title: 'Docs', url: '/docs' },

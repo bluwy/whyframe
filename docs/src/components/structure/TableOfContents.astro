@@ -27,7 +27,7 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
     </a>
     or
     <a class="link" href={Astro.props.webPublisherEditUrl} target="_blank">
-      Web Publisher
+      Web Publisher (beta)
     </a>
   </p>
 </aside>
@@ -132,6 +132,10 @@ const htwoData = JSON.stringify(h2s.map((h) => h.slug))
   a.active {
     opacity: 1;
     color: var(--primary);
+  }
+
+  .edit-on {
+    line-height: 1.5;
   }
 
   .edit-on > a {
