@@ -266,6 +266,7 @@ importers:
       '@sveltejs/kit': ^1.0.0-next.517
       '@whyframe/core': workspace:*
       '@whyframe/svelte': workspace:*
+      mdsvex: ^0.10.6
       svelte: ^3.52.0
       vite: ^3.1.8
       vite-plugin-inspect: ^0.7.5
@@ -274,6 +275,7 @@ importers:
       '@sveltejs/kit': 1.0.0-next.517_svelte@3.52.0+vite@3.1.8
       '@whyframe/core': link:../../packages/core
       '@whyframe/svelte': link:../../packages/svelte
+      mdsvex: 0.10.6_svelte@3.52.0
       svelte: 3.52.0
       vite: 3.1.8
       vite-plugin-inspect: 0.7.5_vite@3.1.8
@@ -10860,6 +10862,18 @@ packages:
   /mdn-data/2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
 
+  /mdsvex/0.10.6_svelte@3.52.0:
+    resolution: {integrity: sha512-aGRDY0r5jx9+OOgFdyB9Xm3EBr9OUmcrTDPWLB7a7g8VPRxzPy4MOBmcVYgz7ErhAJ7bZ/coUoj6aHio3x/2mA==}
+    peerDependencies:
+      svelte: 3.x
+    dependencies:
+      '@types/unist': 2.0.6
+      prism-svelte: 0.4.7
+      prismjs: 1.29.0
+      svelte: 3.52.0
+      vfile-message: 2.0.4
+    dev: true
+
   /mdurl/1.0.1:
     resolution: {integrity: sha512-/sKlQJCBYVY9Ers9hqzKou4H6V5UWc/M59TH2dvkt+84itfnq7uFOMLpOiOS4ujvHP4etln18fmIxA5R5fll0g==}
 
@@ -12663,6 +12677,10 @@ packages:
     dependencies:
       react: 17.0.2
     dev: false
+
+  /prism-svelte/0.4.7:
+    resolution: {integrity: sha512-yABh19CYbM24V7aS7TuPYRNMqthxwbvx6FF/Rw920YbyBWO3tnyPIqRMgHuSVsLmuHkkBS1Akyof463FVdkeDQ==}
+    dev: true
 
   /prismjs/1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}

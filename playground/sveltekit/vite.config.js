@@ -11,6 +11,8 @@ export default defineConfig({
     whyframe({
       components: [{ name: 'Story', showSource: true }]
     }),
-    whyframeSvelte()
+    whyframeSvelte({
+      include: /\.(svelte|svx)$/
+    })
   ]
 })
