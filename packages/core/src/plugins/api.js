@@ -22,6 +22,19 @@ export function apiPlugin(options = {}) {
   /** @type {Map<string, string>} */
   const hashToEntryIds = new Map()
 
+  /**
+   * @param {string} originalId
+   * @param {string} virtualId
+   */
+  function trackVirtualId(originalId, virtualId) {
+    // original id tracking is only needed in dev for hot reloads
+    if (!isBuild) {
+      const virtualIds = originalIdToVirtualIds.get(originalId) ?? []
+      virtualIds.push(virtualId)
+      originalIdToVirtualIds.set(originalId, virtualIds)
+    }
+  }
+
   return {
     name: 'whyframe:api',
     config(_, { command }) {
@@ -123,28 +136,26 @@ export function apiPlugin(options = {}) {
         // example: whyframe:entry-123456.jsx
         const entryId = `whyframe:entry-${hash}${ext}`
         virtualIdToCode.set(entryId, code)
-        // original id tracking is only needed in dev for hot reloads
-        if (!isBuild) {
-          const virtualIds = originalIdToVirtualIds.get(originalId) ?? []
-          virtualIds.push(entryId)
-          originalIdToVirtualIds.set(originalId, virtualIds)
-        }
+        trackVirtualId(originalId, entryId)
         return entryId
       },
       createEntryComponent(originalId, hash, ext, code) {
         // example: /User/bjorn/foo/bar/App.svelte__whyframe-123456.svelte
         const entryComponentId = `${originalId}__whyframe-${hash}${ext}`
         virtualIdToCode.set(entryComponentId, code)
-        // original id tracking is only needed in dev for hot reloads
-        if (!isBuild) {
-          const virtualIds = originalIdToVirtualIds.get(originalId) ?? []
-          virtualIds.push(entryComponentId)
-          originalIdToVirtualIds.set(originalId, virtualIds)
-        }
+        trackVirtualId(originalId, entryComponentId)
         return entryComponentId
+      },
+      createEntryMetadata(originalId, iframeName, code) {
+        // example: whyframe:iframe-{iframeName?}__{importer}
+        const iframeNamePrepend = iframeName ? `-${iframeName}` : ''
+        const iframeId = `whyframe:iframe${iframeNamePrepend}__${originalId}`
+        virtualIdToCode.set(iframeId, code)
+        trackVirtualId(originalId, iframeId)
+        return iframeId
       }
     },
-    resolveId(id) {
+    resolveId(id, importer) {
       // see createEntry for id signature
       if (id.startsWith('whyframe:entry')) {
         return '__' + id
@@ -158,8 +169,12 @@ export function apiPlugin(options = {}) {
           return path.join(projectRoot, id)
         }
       }
+      // see createIframeMetadata for id signature
+      if (id.startsWith('whyframe:iframe-')) {
+        return '__' + id + '__' + importer
+      }
     },
-    load(id) {
+    async load(id) {
       let virtualId
       // see createEntry for id signature
       if (id.startsWith('__whyframe:entry')) {
@@ -169,8 +184,21 @@ export function apiPlugin(options = {}) {
       if (id.includes('__whyframe-')) {
         virtualId = id
       }
+      // see createIframeMetadata for id signature
+      if (id.startsWith('__whyframe:iframe-')) {
+        virtualId = id.slice(2)
+      }
       if (virtualId) {
-        const code = virtualIdToCode.get(virtualId)
+        let code = virtualIdToCode.get(virtualId)
+        // support lazy code
+        if (typeof code === 'function') {
+          code = code()
+          if (code instanceof Promise) {
+            code = await code
+          }
+          virtualIdToCode.set(virtualId, code)
+        }
+        // handle rollup result, no sourcemap needed as it's not mapping to anything
         if (typeof code === 'string') {
           return { code, map: { mappings: '' } }
         } else {

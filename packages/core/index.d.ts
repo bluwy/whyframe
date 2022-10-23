@@ -82,11 +82,12 @@ export interface Api {
    */
   getProxyIframeAttrs: () => Attr[]
   /**
-   * Create a whyframe entry that's imported by the iframe load handler.
-   * This entry must conform to this export dts:
+   * Create an entry for the iframe. This is later imported by `whyframe:app` which
+   * invokes this virtual module's `createApp` function. The entry must conform to
+   * this export dts:
    * ```ts
    * // can return promise if needed, or nothing at all
-   * export function createApp(el: HtmlElement): any
+   * export const createApp: (el: HTMLElement) => { destroy: () => void }
    * ```
    */
   createEntry: (
@@ -96,15 +97,25 @@ export interface Api {
     code: LoadResult
   ) => string
   /**
-   * A component loaded by the entry. You're in charge of importing this
-   * in the entry code. Usually this contains code extracted from the iframe content,
-   * plus any other side-effectful code, like imports, outer functions, etc.
+   * The entry for the iframe would load a virtual component. This creates it.
+   * Usually this contains code extracted from the iframe content, plus any other
+   * side-effectful code, like imports, outer functions, etc.
    */
   createEntryComponent: (
     originalId: string,
     hash: string,
     ext: string,
     code: LoadResult
+  ) => string
+  /**
+   * The entry may contain metadata to be exposed. They can be imported via `whyframe:iframe`
+   * so it can be treeshaken. The third parameter is a function that's lazily called
+   * as it's anticipated to be heavy.
+   */
+  createEntryMetadata: (
+    originalId: string,
+    iframeName: string | undefined,
+    code: () => string | Promise<string>
   ) => string
 }
 

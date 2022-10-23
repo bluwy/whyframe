@@ -221,12 +221,8 @@ export class WhyframePlugin {
   createEntry(originalId, hash, ext, code) {
     // example: whyframe:entry-123456.jsx
     const entryId = `whyframe:entry-${hash}${ext}`
-
     this.#virtualModuleManager.set(entryId, code)
-    // original id tracking is only needed in dev for hot reloads
-    const virtualIds = this.#originalIdToVirtualIds.get(originalId) ?? []
-    virtualIds.push(entryId)
-    this.#originalIdToVirtualIds.set(originalId, virtualIds)
+    this.#trackVirtualId(originalId, entryId)
     return entryId
   }
 
@@ -235,11 +231,29 @@ export class WhyframePlugin {
     // example: /User/bjorn/foo/bar/App.svelte__whyframe-123456.svelte
     const entryComponentId = `${originalId}__whyframe-${hash}${ext}`
     this.#virtualModuleManager.set(entryComponentId, code)
+    this.#trackVirtualId(originalId, entryComponentId)
+    return entryComponentId
+  }
+
+  /** @type {import('../../index').Api['createEntryMetadata']} */
+  createEntryMetadata(originalId, iframeName, code) {
+    // example: whyframe:iframe-{iframeName?}__{importer}
+    const iframeNamePrepend = iframeName ? `-${iframeName}` : ''
+    const iframeId = `whyframe:iframe${iframeNamePrepend}__${originalId}`
+    this.#virtualModuleManager.set(iframeId, code)
+    this.#trackVirtualId(originalId, iframeId)
+    return iframeId
+  }
+
+  /**
+   * @param {string} originalId
+   * @param {string} virtualId
+   */
+  #trackVirtualId(originalId, virtualId) {
     // original id tracking is only needed in dev for hot reloads
     const virtualIds = this.#originalIdToVirtualIds.get(originalId) ?? []
-    virtualIds.push(entryComponentId)
+    virtualIds.push(virtualId)
     this.#originalIdToVirtualIds.set(originalId, virtualIds)
-    return entryComponentId
   }
 }
 

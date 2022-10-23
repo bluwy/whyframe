@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add experimental `whyframe:iframe` support
+
 ## 0.1.8 (2022-10-15)
 
 - Fix component name check for webpack ([#14](https://github.com/bluwy/whyframe/issues/14))

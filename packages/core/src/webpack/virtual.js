@@ -24,8 +24,8 @@ export function createVirtualModuleManager(compiler) {
   const virtualIdToResolvedId = new MapWithCache(needCache ? cache1 : undefined)
   /** @type {Map<string, string>} */
   const resolvedIdToCode = new MapWithCache(needCache ? cache2 : undefined)
-  /** @type {Map<string, Promise<string | undefined>>} */
-  const resolvedIdToCodePromise = new Map()
+  /** @type {Map<string, Promise<string | undefined> | (() => string | undefined | Promise<string | undefined>)>} */
+  const resolvedIdToCodeTemp = new Map()
 
   /** @type {VirtualModulesPlugin} */
   // @ts-ignore
@@ -57,23 +57,29 @@ export function createVirtualModuleManager(compiler) {
           const resolvedId = virtualIdToResolvedId.get(data.request)
           data.request = resolvedId
 
-          if (resolvedIdToCodePromise.has(resolvedId)) {
-            /** @type {Promise<string | undefined>} */
-            // @ts-ignore
-            const promise = resolvedIdToCodePromise.get(resolvedId)
-
-            promise
-              .then((code) => {
-                if (code) {
-                  resolvedIdToCode.set(resolvedId, code)
-                  resolvedIdToCodePromise.delete(resolvedId)
-                }
-                callback()
-              })
-              .catch((err) => {
-                callback(err)
-              })
-            return
+          if (resolvedIdToCodeTemp.has(resolvedId)) {
+            /** @type {any} */
+            let temp = resolvedIdToCodeTemp.get(resolvedId)
+            if (typeof temp === 'function') {
+              temp = temp()
+            }
+            if (temp instanceof Promise) {
+              temp
+                .then((code) => {
+                  if (code) {
+                    resolvedIdToCode.set(resolvedId, code)
+                    resolvedIdToCodeTemp.delete(resolvedId)
+                  }
+                  callback()
+                })
+                .catch((err) => {
+                  callback(err)
+                })
+              return
+            } else if (temp) {
+              resolvedIdToCode.set(resolvedId, temp)
+              resolvedIdToCodeTemp.delete(resolvedId)
+            }
           }
         }
         callback()
@@ -100,16 +106,16 @@ export function createVirtualModuleManager(compiler) {
     /**
      * create or update a virtual module
      * @param {string} id
-     * @param {string | undefined | Promise<string | undefined>} code
+     * @param {string | undefined | Promise<string | undefined> | (() => string | undefined | Promise<string | undefined>)} code
      */
     set(id, code) {
       // webpack needs a full valid fs path
       const resolvedId = resolveVirtualId(id)
       virtualIdToResolvedId.set(id, resolvedId)
-      if (code instanceof Promise) {
-        resolvedIdToCodePromise.set(resolvedId, code)
-      } else if (typeof code === 'string') {
+      if (typeof code === 'string') {
         resolvedIdToCode.set(resolvedId, code)
+      } else if (code) {
+        resolvedIdToCodeTemp.set(resolvedId, code)
       }
       // write the virtual module to fs so webpack don't panic
       vmp.writeModule(resolvedId, '')
