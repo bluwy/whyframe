@@ -57,10 +57,10 @@ export function transform(code, id, api, options) {
   })
 
   for (const b of ast.program.body) {
-    /** @type {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression | undefined} */
+    /** @type {t.FunctionDeclaration | t.FunctionExpression | t.ArrowFunctionExpression | undefined} */
     let functionNode = getFunctionNode(b)
     let variableNode = t.isVariableDeclaration(b) ? b : undefined
-    /** @type {import('@babel/types').ExportNamedDeclaration | import('@babel/types').ExportDefaultDeclaration | null} */
+    /** @type {t.ExportNamedDeclaration | t.ExportDefaultDeclaration | null} */
     let exportNode = null
 
     if (
@@ -216,7 +216,7 @@ ${bottomCode}`
           let showSource = api.getDefaultShowSource()
           if (isIframeElement) {
             const attr =
-              /** @type {import('@babel/types').JSXAttribute | undefined} */ (
+              /** @type {t.JSXAttribute | undefined} */ (
                 node.openingElement.attributes.find(
                   (p) =>
                     t.isJSXAttribute(p) &&
@@ -443,7 +443,7 @@ function getFunctionNode(b) {
 }
 
 /**
- * @param {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression} topNode
+ * @param {t.FunctionDeclaration | t.FunctionExpression | t.ArrowFunctionExpression} topNode
  * @param {any} currentNode
  * @param {string} code
  * @returns {string | undefined} if success, returns a string (can be empty if no code). if fail to extract, returns undefined.
@@ -469,7 +469,7 @@ function getFunctionCode(topNode, currentNode, code) {
 }
 
 /**
- * @param {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression} fn
+ * @param {t.FunctionDeclaration | t.FunctionExpression | t.ArrowFunctionExpression} fn
  * @param {MagicString} s
  * @param {string} filename
  * @returns {string}
