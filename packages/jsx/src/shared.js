@@ -78,6 +78,15 @@ export function transform(code, id, api, options) {
 
     /** @type {NonNullable<typeof functionNode>} */
     const fnNode = functionNode
+    // the identifier string for the first parameter. used for generating dynamic props access
+    // e.g. `arguments[0].why?.src`, for `addAttrs`
+    let _fnFirstParamIdentifier
+    const fnFirstParamIdentifier = () => {
+      if (!_fnFirstParamIdentifier) {
+        _fnFirstParamIdentifier = getFnFirstParamIdentifier(fnNode, s, id)
+      }
+      return _fnFirstParamIdentifier
+    }
 
     // @ts-expect-error
     walk(b, {
@@ -104,7 +113,10 @@ export function transform(code, id, api, options) {
             )
           ) {
             const attrs = api.getProxyIframeAttrs()
-            addAttrs(s, node, attrs)
+            const propsIdentifier = hasDynamicAttrs(attrs)
+              ? fnFirstParamIdentifier()
+              : undefined
+            addAttrs(s, node, attrs, propsIdentifier)
             s.remove(
               node.children[0].start ?? 0,
               node.children[node.children.length - 1].end ?? 0
@@ -239,7 +251,10 @@ ${bottomCode}`
             showSource ? dedent(iframeContent) : undefined,
             !!iframeComponent
           )
-          addAttrs(s, node, attrs)
+          const propsIdentifier = hasDynamicAttrs(attrs)
+            ? fnFirstParamIdentifier()
+            : undefined
+          addAttrs(s, node, attrs, propsIdentifier)
         }
       }
     })
@@ -351,8 +366,9 @@ function astContainsNode(ast, node) {
  * @param {MagicString} s
  * @param {any} node
  * @param {import('@whyframe/core').Attr[]} attrs
+ * @param {string} [propsIdentifier]
  */
-export function addAttrs(s, node, attrs) {
+export function addAttrs(s, node, attrs, propsIdentifier) {
   const attrNames = node.openingElement.attributes.map((a) => a.name.name)
 
   const safeAttrs = []
@@ -367,7 +383,9 @@ export function addAttrs(s, node, attrs) {
 
   s.appendLeft(
     node.start + node.openingElement.name.name.length + 1,
-    safeAttrs.map((a) => ` ${a.name}={${parseAttrToString(a)}}`).join('')
+    safeAttrs
+      .map((a) => ` ${a.name}={${parseAttrToString(a, propsIdentifier)}}`)
+      .join('')
   )
 
   for (const attr of mixedAttrs) {
@@ -387,7 +405,7 @@ export function addAttrs(s, node, attrs) {
       s.overwrite(
         valueNode.start,
         valueNode.end,
-        `{(${expression}) || ${parseAttrToString(attr)}}`
+        `{(${expression}) || ${parseAttrToString(attr, propsIdentifier)}}`
       )
     }
   }
@@ -396,9 +414,9 @@ export function addAttrs(s, node, attrs) {
 /**
  * @param {import('@whyframe/core').Attr} attr
  */
-export function parseAttrToString(attr) {
+export function parseAttrToString(attr, propsIdentifier = 'arguments[0]') {
   if (attr.type === 'dynamic' && typeof attr.value === 'string') {
-    return `arguments[0].${attr.value}`
+    return `${propsIdentifier}.${attr.value}`
   } else {
     return JSON.stringify(attr.value)
   }
@@ -448,4 +466,86 @@ function getFunctionCode(topNode, currentNode, code) {
   } else if (t.isJSXElement(topNode.body)) {
     return 'code.slice(topNode.body.start ?? 0, topNode.body.start ?? 0)'
   }
+}
+
+/**
+ * @param {import('@babel/types').FunctionDeclaration | import('@babel/types').FunctionExpression | import('@babel/types').ArrowFunctionExpression} fn
+ * @param {MagicString} s
+ * @param {string} filename
+ * @returns {string}
+ */
+function getFnFirstParamIdentifier(fn, s, filename) {
+  // function Hello() {}
+  // const Hello = function() {}
+  if (!t.isArrowFunctionExpression(fn)) {
+    return 'arguments[0]'
+  }
+
+  // const Hello = () => {}
+  if (fn.params.length === 0) {
+    // convert as: const Hello = ($$props) => {}
+    s.appendRight((fn.start ?? 0) + 1, '$$props')
+    return '$$props'
+  }
+
+  // const Hello = (...args) => {}
+  if (t.isRestElement(fn.params[0])) {
+    // NOTE: `argument` may not have `.name` if it's `...{}` for some reason
+    // @ts-expect-error
+    return `${fn.params[0].argument.name}[0]`
+  }
+
+  /**
+   * @param {any} param
+   */
+  const handleFirstParam = (param) => {
+    // const Hello = (somePropName) => {}
+    if (t.isIdentifier(param)) {
+      // NOTE: this would fail if someone shadows the first param identifier for some reason
+      return param.name
+    }
+    // const Hello = ({ something }) => <iframe></iframe>
+    // const Hello = ({ something }) => {}
+    if (t.isObjectPattern(param)) {
+      const firstParamStart = param.start ?? 0
+      const firstParamEnd = param.end ?? 0
+      const destructure = s.original.slice(firstParamStart, firstParamEnd)
+      // convert as: const Hello = ($$props) => ...
+      s.overwrite(firstParamStart, firstParamEnd, '$$props')
+      // handle return statement
+      // const Hello = ($$props) => {}
+      if (t.isBlockStatement(fn.body)) {
+        // convert as: const Hello = ($$props) => {const { something } = $$props;...}
+        s.prependRight(
+          (fn.body.start ?? 0) + 1,
+          `const ${destructure} = $$props;`
+        )
+      }
+      // const Hello = ($$props) => <iframe></iframe>
+      else {
+        const bodyStart = fn.body.start ?? 0
+        const bodyEnd = fn.body.end ?? 0
+        // convert as: const Hello = ($$props) => {const { something } = $$props;return(...)}
+        s.appendLeft(bodyStart, `{const ${destructure} = $$props;return(`)
+        s.prependRight(bodyEnd, ')}')
+      }
+      return '$$props'
+    }
+
+    console.warn(`[whyframe] unable to transform first param in ${filename}`)
+    return 'arguments[0]'
+  }
+
+  if (t.isAssignmentPattern(fn.params[0])) {
+    return handleFirstParam(fn.params[0].left)
+  }
+
+  return handleFirstParam(fn.params[0])
+}
+
+/**
+ * @param {import('@whyframe/core').Attr[]} attrs
+ */
+function hasDynamicAttrs(attrs) {
+  return attrs.some((attr) => attr.type === 'dynamic')
 }
