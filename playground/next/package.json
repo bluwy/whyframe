@@ -15,6 +15,6 @@
 	"devDependencies": {
 		"@whyframe/core": "^0.1.8",
 		"@whyframe/jsx": "^0.1.7",
-		"next": "^12.3.1"
+		"next": "^12.3.2"
 	}
 }

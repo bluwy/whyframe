@@ -17,6 +17,6 @@
     "node-fetch-native": "^0.1.8",
     "nuxt": "3.0.0-rc.8",
     "ufo": "^0.8.6",
-    "vite-plugin-inspect": "^0.7.5"
+    "vite-plugin-inspect": "^0.7.7"
   }
 }
