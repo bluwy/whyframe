@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.2 (2022-11-03)
 
 - Bump dependencies
 
