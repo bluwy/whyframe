@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.8 (2022-11-03)
 
 - Bump dependencies
 - Fix arrow function usage for components ([#16](https://github.com/bluwy/whyframe/issues/16))
