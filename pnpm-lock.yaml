@@ -12,13 +12,13 @@ importers:
   .:
     specifiers:
       prettier: ^2.7.1
-      prettier-plugin-astro: ^0.6.0
+      prettier-plugin-astro: ^0.7.0
       prettier-plugin-svelte: ^2.8.0
       svelte: ^3.52.0
       uvu: ^0.5.6
     devDependencies:
       prettier: 2.7.1
-      prettier-plugin-astro: 0.6.0
+      prettier-plugin-astro: 0.7.0
       prettier-plugin-svelte: 2.8.0_lrllcp5xtrkmmdzifit4hd52ze
       svelte: 3.52.0
       uvu: 0.5.6
@@ -82,13 +82,13 @@ importers:
 
   packages/astro:
     specifiers:
-      '@astrojs/compiler': ^0.25.2
+      '@astrojs/compiler': ^0.29.9
       '@whyframe/core': workspace:*
       estree-walker: ^3.0.1
       magic-string: ^0.26.7
       vite: ^3.2.2
     dependencies:
-      '@astrojs/compiler': 0.25.2
+      '@astrojs/compiler': 0.29.9
       estree-walker: 3.0.1
       magic-string: 0.26.7
     devDependencies:
@@ -399,7 +399,7 @@ importers:
       '@babel/preset-react': ^7.18.6
       '@whyframe/core': workspace:*
       '@whyframe/jsx': workspace:*
-      babel-loader: ^8.2.5
+      babel-loader: ^9.0.1
       css-loader: ^6.7.1
       html-webpack-plugin: ^5.5.0
       mini-css-extract-plugin: ^2.6.1
@@ -418,7 +418,7 @@ importers:
       '@babel/preset-react': 7.18.6_@babel+core@7.19.6
       '@whyframe/core': link:../../packages/core
       '@whyframe/jsx': link:../../packages/jsx
-      babel-loader: 8.2.5_6zc4kxld457avlfyhj3lzsljlm
+      babel-loader: 9.0.1_6zc4kxld457avlfyhj3lzsljlm
       css-loader: 6.7.1_webpack@5.74.0
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       mini-css-extract-plugin: 2.6.1_webpack@5.74.0
@@ -587,17 +587,8 @@ packages:
     resolution: {integrity: sha512-vBMPy9ok4iLapSyCCT1qsZ9dK7LkVFl9mObtLEmWiec9myGHS9h2kQY2xzPeFNJiWXUf9O6tSyQpQTy5As/p3g==}
     dev: true
 
-  /@astrojs/compiler/0.25.2:
-    resolution: {integrity: sha512-GE7uLvH7rSHuTHdMun+867TWsgYNYsaGuhvXsywcaabl4W4n/3b1kzgzrIsrXYBo51J0k6qD33mVdsHdvwv5rw==}
-    dev: false
-
-  /@astrojs/compiler/0.27.2:
-    resolution: {integrity: sha512-VG4X87cUkcmT40HqEwShQzUgl0VSnVTszobbmnhAOkHzdoWMxhwAm61A2o5fEsv6eEK8M0lW/fGwkSofYM5GcQ==}
-    dev: true
-
   /@astrojs/compiler/0.29.9:
     resolution: {integrity: sha512-/oMQ0z3CJzGg6sv51tQTiHf/ETVsEu8ObN9OA7zs937dQx9Uo4SToYfdw3C4hf6olrLiADuDUsbkKSRe6fLSgA==}
-    dev: true
 
   /@astrojs/language-server/0.26.2:
     resolution: {integrity: sha512-9nkfdd6CMXLDIJojnwbYu5XrYfOI+g63JlktOlpFCwFjFNpm1u0e/+pXXmj6Zs+PkSTo0kV1UM77dRKRS5OC1Q==}
@@ -5712,7 +5703,23 @@ packages:
       loader-utils: 2.0.2
       make-dir: 3.1.0
       schema-utils: 2.7.1
+      webpack: 5.74.0
+
+  /babel-loader/9.0.1_6zc4kxld457avlfyhj3lzsljlm:
+    resolution: {integrity: sha512-szYjslOXFlj/po5KfrVmiuBAcI6GVHFuAgC96Qd6mMPHdwl4lmAJkYtvjQ1RxxPjgdkKjd3LQgXDE4jxEutNuw==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      '@babel/core': ^7.12.0
+      webpack: '>=5'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+    dependencies:
+      '@babel/core': 7.19.6
+      find-cache-dir: 3.3.2
+      schema-utils: 4.0.0
       webpack: 5.74.0_webpack-cli@4.10.0
+    dev: true
 
   /babel-plugin-apply-mdx-type-prop/1.6.22_@babel+core@7.12.9:
     resolution: {integrity: sha512-VefL+8o+F/DfK24lPZMtJctrCVOfgbqLAGZSkxwhazQv4VxPg3Za/i40fu22KR2m8eEda+IfSOlPLUSIiLcnCQ==}
@@ -11986,11 +11993,11 @@ packages:
       synckit: 0.7.3
     dev: true
 
-  /prettier-plugin-astro/0.6.0:
-    resolution: {integrity: sha512-xU67TzyGi1u/pwVbEh55AwoOfcOpsh9BtD2MpUAEVrViAcdrBDcmA9VN0edLgla7f2NYu8ntGakxTSrSNFv1mQ==}
+  /prettier-plugin-astro/0.7.0:
+    resolution: {integrity: sha512-ehCUx7MqHWvkHwUmxxAWLsL35pFaCTM5YXQ8xjG/1W6dY2yBhvEks+2aCfjeI5zmMrZNCXkiMQtpznSlLSLrxw==}
     engines: {node: ^14.15.0 || >=16.0.0, npm: '>=6.14.0'}
     dependencies:
-      '@astrojs/compiler': 0.27.2
+      '@astrojs/compiler': 0.29.9
       prettier: 2.7.1
       sass-formatter: 0.7.5
       synckit: 0.8.4

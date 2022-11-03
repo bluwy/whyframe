@@ -215,14 +215,12 @@ ${bottomCode}`
 
           let showSource = api.getDefaultShowSource()
           if (isIframeElement) {
-            const attr =
-              /** @type {t.JSXAttribute | undefined} */ (
-                node.openingElement.attributes.find(
-                  (p) =>
-                    t.isJSXAttribute(p) &&
-                    p.name.name === 'data-why-show-source'
-                )
+            const attr = /** @type {t.JSXAttribute | undefined} */ (
+              node.openingElement.attributes.find(
+                (p) =>
+                  t.isJSXAttribute(p) && p.name.name === 'data-why-show-source'
               )
+            )
             if (attr) {
               if (attr.value === null) {
                 showSource = true

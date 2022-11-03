@@ -158,7 +158,8 @@ export function whyframeAstro(options) {
             let iframeContent = ''
             if (node.children.length > 0) {
               const start = node.children[0].position.start.offset
-              const end = node.position.end.offset - `</`.length // astro position ends until </
+              const end =
+                node.position.end.offset - node.name.length - `</>`.length
               iframeContent = code.slice(start, end)
               s.remove(start, end)
             }
