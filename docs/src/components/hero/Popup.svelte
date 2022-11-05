@@ -5,7 +5,7 @@
   let open = false
 </script>
 
-<button on:click={() => (open = true)}><slot /></button>
+<button aria-haspopup="dialog" on:click={() => (open = !open)}><slot /></button>
 
 {#if open}
   <!-- svelte-ignore a11y-click-events-have-key-events -->

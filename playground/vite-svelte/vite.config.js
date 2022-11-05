@@ -16,7 +16,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        whyframeBasic: 'frames/basic/index.html',
+        framesSpecial: 'frames/special.html',
         index: 'index.html'
       }
     }
