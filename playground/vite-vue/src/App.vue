@@ -1,35 +1,78 @@
 <script setup>
-import Counter from './Counter.vue'
-import Story from './Story.vue'
-
-const max = 10
-
-function warn() {
-  // NOTE: will affect callee's iframe, not this parent document
-  console.log('warn!')
-}
+import Story from './components/Story.vue'
+import Popup from './components/Popup.vue'
 </script>
 
 <template>
-  <h1>Vue</h1>
+  <main>
+    <div>
+      <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+        <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
+      </a>
+      <a href="https://vuejs.org" target="_blank" rel="noreferrer">
+        <img src="./assets/vue.svg" class="logo vue" alt="vue" height="80" />
+      </a>
+      <a href="https://whyframe.dev" target="_blank" rel="noreferrer">
+        <img
+          src="./assets/whyframe.svg"
+          class="logo whyframe"
+          alt="whyframe"
+          height="80"
+        />
+      </a>
+    </div>
 
-  <iframe data-why title="Hello">
-    <p>Click to increment!</p>
-    <Counter />
-  </iframe>
+    <h1>Vite + Vue + Whyframe</h1>
 
-  <iframe data-why title="World" src="/frames/basic/index.html">
-    <p>Do not go over {{ max }}</p>
-    <Counter :max="max" @max="warn" />
-  </iframe>
+    <p class="docs">
+      Click on the popups below to see component isolation in action!
+      <br />
+      You can view the source code at <code>src/App.vue</code>.
+      <br />
+      Click on the logos to learn more.
+    </p>
 
-  <Story title="Foo">
-    <p>Click to increment!</p>
-    <Counter />
-  </Story>
+    <div class="frames">
+      <iframe data-why title="Popup 1">
+        <Popup content="Hello world">Open popup</Popup>
+      </iframe>
 
-  <Story title="Bar" src="/frames/basic/index.html">
-    <p>Do not go over {{ max }}</p>
-    <Counter :max="max" @max="warn" />
-  </Story>
+      <iframe data-why title="Popup 2" src="/frames/special.html">
+        <Popup content="Hello world">Open popup</Popup>
+      </iframe>
+
+      <Story title="Popup 3">
+        <Popup content="Hello world">Open popup</Popup>
+      </Story>
+
+      <Story title="Popup 4" src="/frames/special.html">
+        <Popup content="Hello world">Open popup</Popup>
+      </Story>
+    </div>
+  </main>
 </template>
+
+<style scoped>
+.logo {
+  margin: 1.5rem;
+  will-change: filter;
+  transition: filter 0.15s ease-out;
+}
+.logo.vite:hover {
+  filter: drop-shadow(0 0 2rem #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+.logo.whyframe:hover {
+  filter: drop-shadow(0 0 2rem #ffed24aa);
+}
+.docs {
+  line-height: 2;
+  opacity: 0.7;
+}
+.frames {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+</style>
