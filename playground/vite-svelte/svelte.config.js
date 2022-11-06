@@ -1,7 +1,8 @@
+import { isWhyframeWarning } from '@whyframe/svelte/utils'
+
 export default {
-  // TODO: export handler from `@whyframe/svelte/utils`
   onwarn(warning, handler) {
-    if (warning.filename?.includes('__whyframe')) return
+    if (isWhyframeWarning(warning)) return
     handler(warning)
   }
 }
