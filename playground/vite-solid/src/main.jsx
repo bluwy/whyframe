@@ -1,6 +1,6 @@
 /* @refresh reload */
-import { render } from 'solid-js/web'
-import { App } from './App.jsx'
 import './main.css'
+import { render } from 'solid-js/web'
+import App from './App'
 
 render(() => <App />, document.getElementById('app'))

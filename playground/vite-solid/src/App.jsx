@@ -1,37 +1,65 @@
-import { Counter } from './Counter.jsx'
-import { Story } from './Story.jsx'
+import './App.css'
+import solidLogo from './assets/solid.svg'
+import whyframeLogo from './assets/whyframe.svg'
+import Story from './components/Story'
+import Popup from './components/Popup'
 
-export function App() {
-  const max = 10
-
-  function warn() {
-    // NOTE: will affect callee's iframe, not this parent document
-    console.log('warn!')
-  }
-
+export default function App() {
   return (
-    <>
-      <h1>Solid</h1>
+    <main>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
+        </a>
+        <a href="https://solidjs.com" target="_blank">
+          <img src={solidLogo} class="logo solid" alt="solid" height="80" />
+        </a>
+        <a href="https://whyframe.dev" target="_blank">
+          <img
+            src={whyframeLogo}
+            class="logo whyframe"
+            alt="whyframe"
+            height="80"
+          />
+        </a>
+      </div>
 
-      <iframe data-why title="Hello">
-        <p>Click to increment!</p>
-        <Counter />
-      </iframe>
+      <h1>Vite + Solid + Whyframe</h1>
 
-      <iframe data-why title="World" src="/frames/basic/index.html">
-        <p>Do not go over {max}</p>
-        <Counter max={max} onMax={warn} />
-      </iframe>
+      <p class="docs">
+        Check out the examples below to see component isolation in action!
+        <br />
+        You can view the source code at <code>src/App.jsx</code>.
+        <br />
+        Click on the logos above to learn more.
+      </p>
 
-      <Story title="Hello">
-        <p>Click to increment!</p>
-        <Counter />
-      </Story>
+      <div class="frames">
+        <iframe data-why title="Popup 1">
+          <p>Simple usage example</p>
+          <Popup content="Hello world">Open popup</Popup>
+        </iframe>
 
-      <Story title="World" src="/frames/basic/index.html">
-        <p>Do not go over {max}</p>
-        <Counter max={max} onMax={warn} />
-      </Story>
-    </>
+        <iframe data-why title="Popup 2" src="/frames/special.html">
+          <p>Custom HTML source</p>
+          <Popup content="Hello world">Open popup</Popup>
+        </iframe>
+
+        <iframe
+          data-why
+          data-why-show-source
+          title="Popup 3"
+          src="/frames/special.html"
+        >
+          <p>Inspect this iframe to view the raw source</p>
+          <Popup content="Hello world">Open popup</Popup>
+        </iframe>
+
+        <Story title="Popup 4">
+          <p>This is a Story component</p>
+          <Popup content="Hello world">Open popup</Popup>
+        </Story>
+      </div>
+    </main>
   )
 }
