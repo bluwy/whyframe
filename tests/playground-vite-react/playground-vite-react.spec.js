@@ -3,7 +3,7 @@ import { setup } from '../testUtils.js'
 
 setup()
 
-test('render the page', async ({ page, baseURL }) => {
+test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('h1').textContent()).toBe('React')
+  expect(await page.locator('h1').textContent()).toBe('Vite + React + Whyframe')
 })

@@ -5,5 +5,5 @@ setup()
 
 test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('h1').textContent()).toBe('Vue')
+  expect(await page.locator('h1').textContent()).toBe('Vite + Vue + Whyframe')
 })
