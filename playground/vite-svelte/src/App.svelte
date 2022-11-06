@@ -26,27 +26,36 @@
   <h1>Vite + Svelte + Whyframe</h1>
 
   <p class="docs">
-    Click on the popups below to see component isolation in action!
+    Check out the examples below to see component isolation in action!
     <br />
     You can view the source code at <code>src/App.svelte</code>.
     <br />
-    Click on the logos to learn more.
+    Click on the logos above to learn more.
   </p>
 
   <div class="frames">
     <iframe data-why title="Popup 1">
+      <p>Simple usage example</p>
       <Popup content="Hello world">Open popup</Popup>
     </iframe>
 
     <iframe data-why title="Popup 2" src="/frames/special.html">
+      <p>Custom HTML source</p>
       <Popup content="Hello world">Open popup</Popup>
     </iframe>
 
-    <Story title="Popup 3">
+    <iframe
+      data-why
+      data-why-show-source
+      title="Popup 3"
+      src="/frames/special.html"
+    >
+      <p>Inspect this iframe to view the raw source</p>
       <Popup content="Hello world">Open popup</Popup>
-    </Story>
+    </iframe>
 
-    <Story title="Popup 4" src="/frames/special.html">
+    <Story title="Popup 4">
+      <p>This is a Story component</p>
       <Popup content="Hello world">Open popup</Popup>
     </Story>
   </div>
@@ -67,12 +76,18 @@
   .logo.whyframe:hover {
     filter: drop-shadow(0 0 2rem #ffed24aa);
   }
+
   .docs {
     line-height: 2;
     opacity: 0.7;
   }
+
   .frames {
     max-width: 900px;
     margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
 </style>

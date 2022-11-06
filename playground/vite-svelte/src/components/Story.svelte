@@ -2,7 +2,7 @@
   import { getWhyframeSource } from '@whyframe/core/utils'
 
   export let title
-  export let src = undefined
+  export let src = '/frames/special.html'
 
   /** @type {HTMLIFrameElement}*/
   let iframe
@@ -73,15 +73,19 @@
 
   .frame {
     position: relative;
+    overflow: hidden;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
   }
 
   iframe {
     display: block;
     margin: 0;
     border: 0;
+    background-color: transparent;
     border-radius: 0;
     width: 100%;
-    height: 100%;
+    height: 167px;
   }
 
   .code {
@@ -93,7 +97,6 @@
     padding: 0 0.5rem;
     background-color: #1e1e1e;
     overflow: auto;
-    border-bottom-left-radius: 0.3rem;
-    border-bottom-right-radius: 0.3rem;
+    text-align: left;
   }
 </style>

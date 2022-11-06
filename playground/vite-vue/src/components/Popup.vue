@@ -23,6 +23,7 @@ const open = ref(false)
 
 <style scoped>
 .activator {
+  display: block;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.5em 1em;

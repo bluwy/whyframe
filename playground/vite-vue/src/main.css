@@ -24,10 +24,8 @@ iframe[data-why],
 .story {
   display: inline-block;
   border: 3px solid #303030;
-  background-color: #303030;
+  background-color: #a2a2a2;
   border-radius: 0.5rem;
   width: 400px;
-  min-height: 200px;
-  max-height: 400px;
-  margin: 0.5rem;
+  height: 200px;
 }

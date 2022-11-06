@@ -7,7 +7,10 @@ defineProps({
     type: String,
     required: true
   },
-  src: String
+  src: {
+    type: String,
+    default: '/frames/special.html'
+  }
 })
 
 const iframe = ref()
@@ -80,15 +83,19 @@ button[aria-pressed='true'] {
 
 .frame {
   position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
 }
 
 iframe {
   display: block;
   margin: 0;
   border: 0;
+  background-color: transparent;
   border-radius: 0;
   width: 100%;
-  height: 100%;
+  height: 167px;
 }
 
 .code {
@@ -100,7 +107,6 @@ iframe {
   padding: 0 0.5rem;
   background-color: #1e1e1e;
   overflow: auto;
-  border-bottom-left-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
+  text-align: left;
 }
 </style>
