@@ -1,7 +1,7 @@
 {
   "name": "@whyframe/svelte",
   "description": "Svelte support for whyframe",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
@@ -10,6 +10,10 @@
     ".": {
       "types": "./index.d.ts",
       "import": "./src/index.js"
+    },
+    "./utils": {
+      "types": "./utils.d.ts",
+      "import": "./src/utils.js"
     }
   },
   "files": [

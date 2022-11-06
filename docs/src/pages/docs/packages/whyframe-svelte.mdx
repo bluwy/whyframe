@@ -3,7 +3,9 @@ title: '@whyframe/svelte'
 layout: ../../../layouts/DocsLayout.astro
 ---
 
+import { Code } from 'astro/components'
 import SvelteDemo from '@/components/demos/SvelteDemo.svelte'
+import utilsDts from '../../../../../packages/svelte/utils.d.ts?raw'
 
 # @whyframe/svelte
 
@@ -32,3 +34,9 @@ A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patt
 - **Default:** `false`
 
 Whether to run `whyframe`'s Svelte transformation as a [preprocessor](https://svelte.dev/docs#compile-time-svelte-preprocess). This is only required when using a markup preprocessor that changes the Svelte syntax, e.g. [mdsvex](https://mdsvex.pngwn.io).
+
+## Utilities
+
+`@whyframe/svelte/utils` exports common utilities when using `whyframe` in a Svelte project.
+
+<Code code={utilsDts} lang="ts" />
