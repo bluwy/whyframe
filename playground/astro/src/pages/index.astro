@@ -1,65 +1,136 @@
 ---
+import whyframeLogo from '../assets/whyframe.svg'
 import Layout from '../layouts/Layout.astro'
-import Story from '../components/Story.astro'
-import CounterSvelte from '../components/Counter.svelte'
-import CounterVue from '../components/Counter.vue'
-import { Counter as CounterSolid } from '../components/CounterSolid.jsx'
-import { Counter as CounterPreact } from '../components/CounterPreact.jsx'
-import { Counter as CounterReact } from '../components/CounterReact.jsx'
-
-const max = 10
+import Story from '../components/Story.svelte'
+import PopupSvelte from '../components/Popup.svelte'
+import PopupVue from '../components/Popup.vue'
+import PopupSolid from '../components/PopupSolid.jsx'
+import PopupPreact from '../components/PopupPreact.jsx'
+import PopupReact from '../components/PopupReact.jsx'
 ---
 
-<Layout title="Astro">
-  <h1>Astro</h1>
+<Layout>
+  <div>
+    <a href="https://astro.build" target="_blank">
+      <img src="/astro.svg" class="logo astro" alt="astro" height="80" />
+    </a>
+    <a href="https://whyframe.dev" target="_blank">
+      <img
+        src={whyframeLogo}
+        class="logo whyframe"
+        alt="whyframe"
+        height="80"
+      />
+    </a>
+  </div>
+
+  <h1>Astro + Whyframe</h1>
+
+  <p class="docs">
+    Check out the examples below to see component isolation in action!
+    <br />
+    You can view the source code at <code>src/pages/index.astro</code>.
+    <br />
+    Click on the logos above to learn more.
+  </p>
 
   <h2>Svelte</h2>
-  <iframe data-why title="Hello">
-    <p>Click to increment!</p> <CounterSvelte />
-  </iframe>
-  <iframe data-why="svelte" title="World" src="/frames/basic">
-    <p>Do not go over {max}</p> <CounterSvelte {max} />
-  </iframe>
+  <div class="frames">
+    <iframe data-why title="Popup 1">
+      <p>Simple usage example</p> <PopupSvelte content="Hello world">Open
+      popup</PopupSvelte>
+    </iframe>
+
+    <Story client:load title="Popup 2">
+      <p>This is a Story component</p>
+      <PopupSvelte content="Hello world">Open popup</PopupSvelte>
+    </Story>
+  </div>
 
   <h2>Vue</h2>
-  <iframe data-why="vue" title="Hello">
-    <p>Click to increment!</p> <CounterVue />
-  </iframe>
-  <iframe data-why="vue" title="World" src="/frames/basic">
-    <p>Do not go over {{max}}</p> <CounterVue :max="max" />
-  </iframe>
+  <div class="frames">
+    <iframe data-why="vue" title="Popup 1">
+      <p>Simple usage example</p> <PopupVue content="Hello world">Open
+      popup</PopupVue>
+    </iframe>
+
+    <Story client:load why="vue" title="Popup 2">
+      <p>This is a Story component</p>
+      <PopupVue content="Hello world">Open popup</PopupVue>
+    </Story>
+  </div>
 
   <h2>Solid</h2>
-  <iframe data-why="solid" title="Hello">
-    <p>Click to increment!</p> <CounterSolid />
-  </iframe>
-  <iframe data-why="solid" title="World" src="/frames/basic">
-    <p>Do not go over {max}</p> <CounterSolid max={max} />
-  </iframe>
+  <div class="frames">
+    <iframe data-why="solid" title="Popup 1">
+      <p>Simple usage example</p> <PopupSolid content="Hello world">Open
+      popup</PopupSolid>
+    </iframe>
+
+    <Story client:load why="solid" title="Popup 2">
+      <p>This is a Story component</p>
+      <PopupSolid content="Hello world">Open popup</PopupSolid>
+    </Story>
+  </div>
 
   <h2>Preact</h2>
-  <iframe data-why="preact" title="Hello">
-    <p>Click to increment!</p> <CounterPreact />
-  </iframe>
-  <iframe data-why="preact" title="World" src="/frames/basic">
-    <p>Do not go over {max}</p> <CounterPreact max={max} />
-  </iframe>
+  <div class="frames">
+    <iframe data-why="preact" title="Popup 1">
+      <p>Simple usage example</p> <PopupPreact content="Hello world">Open
+      popup</PopupPreact>
+    </iframe>
+
+    <Story client:load why="preact" title="Popup 2">
+      <p>This is a Story component</p>
+      <PopupPreact content="Hello world">Open popup</PopupPreact>
+    </Story>
+  </div>
 
   <h2>React</h2>
-  <iframe data-why="react" title="Hello">
-    <p>Click to increment!</p> <CounterReact />
-  </iframe>
-  <iframe data-why="react" title="World" src="/frames/basic">
-    <p>Do not go over {max}</p> <CounterReact max={max} />
-  </iframe>
+  <div class="frames">
+    <iframe data-why="react" title="Popup 1">
+      <p>Simple usage example</p> <PopupReact content="Hello world">Open
+      popup</PopupReact>
+    </iframe>
 
-  <Story title="Hello">
-    <p>Click to increment!</p>
-    <CounterSvelte />
-  </Story>
+    <Story client:load why="react" title="Popup 2">
+      <p>This is a Story component</p>
+      <PopupReact content="Hello world">Open popup</PopupReact>
+    </Story>
+  </div>
 
-  <Story title="World" src="/frames/basic">
-    <p>Do not go over {max}</p>
-    <CounterSvelte {max} />
-  </Story>
+  <style>
+    .logo {
+      margin: 1.5rem;
+      will-change: filter;
+      transition: filter 0.15s ease-out;
+    }
+    .logo.vite:hover {
+      filter: drop-shadow(0 0 2rem #646cffaa);
+    }
+    .logo.svelte:hover {
+      filter: drop-shadow(0 0 2rem #ff3e00aa);
+    }
+    .logo.whyframe:hover {
+      filter: drop-shadow(0 0 2rem #ffed24aa);
+    }
+
+    .docs {
+      line-height: 2;
+      opacity: 0.7;
+    }
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    .frames {
+      max-width: 900px;
+      margin: 1rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+  </style>
 </Layout>

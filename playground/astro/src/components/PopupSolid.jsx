@@ -1,11 +1,11 @@
-import { useState } from 'preact/hooks'
+import { createSignal, Show } from 'solid-js'
 import style from './Popup.module.css'
 
 /**
  * @param {{ content: string, children: any }} props
  */
-export default function Popup({ content, children }) {
-  const [open, setOpen] = useState(false)
+export default function Popup(props) {
+  const [open, setOpen] = createSignal(false)
 
   return (
     <>
@@ -14,14 +14,14 @@ export default function Popup({ content, children }) {
         aria-haspopup="dialog"
         onClick={() => setOpen((v) => !v)}
       >
-        {children}
+        {props.children}
       </button>
 
-      {open && (
+      <Show when={open()}>
         <button class={style.background} onClick={() => setOpen(false)}>
-          <p>{content}</p>
+          <p>{props.content}</p>
         </button>
-      )}
+      </Show>
     </>
   )
 }

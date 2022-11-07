@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 import style from './Popup.module.css'
 
 /**
@@ -10,7 +10,7 @@ export default function Popup({ content, children }) {
   return (
     <>
       <button
-        class={style.activator}
+        className={style.activator}
         aria-haspopup="dialog"
         onClick={() => setOpen((v) => !v)}
       >
@@ -18,7 +18,7 @@ export default function Popup({ content, children }) {
       </button>
 
       {open && (
-        <button class={style.background} onClick={() => setOpen(false)}>
+        <button className={style.background} onClick={() => setOpen(false)}>
           <p>{content}</p>
         </button>
       )}
