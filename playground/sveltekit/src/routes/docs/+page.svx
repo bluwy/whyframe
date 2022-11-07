@@ -1,9 +1,0 @@
-# Markdown
-
-<iframe data-why title="mdsvex">Works in mdsvex too!</iframe>
-
-Simply:
-
-```html
-<iframe data-why title="mdsvex">Works in mdsvex too!</iframe>
-```

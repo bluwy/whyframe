@@ -1,5 +1,5 @@
 <script>
-  import '$lib/main.css'
+  import './style.css'
 </script>
 
 <slot />

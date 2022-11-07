@@ -3,7 +3,7 @@
 
   /** @type {string} */
   export let title
-  export let src = '/frames/special.html'
+  export let src = '/frames/special'
 
   /** @type {HTMLIFrameElement}*/
   let iframe

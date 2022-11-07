@@ -1,5 +1,5 @@
 {
-	"name": "@whyframe/playground-svelte-kit",
+	"name": "@whyframe/playground-sveltekit",
 	"private": true,
 	"type": "module",
 	"scripts": {

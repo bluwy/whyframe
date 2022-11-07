@@ -1,0 +1,14 @@
+<script>
+  import Popup from '$lib/components/Popup.svelte'
+</script>
+
+# Markdown
+
+You can view the source code at `src/routes/(app)/markdown/+page.svelte`.
+
+<iframe data-why title="MDsveX" src="/frames/special">
+  <p>Works in mdsvex too!</p>
+  <Popup content="Hello world">Open popup</Popup>
+</iframe>
+
+[Go back home](/)
