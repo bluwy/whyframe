@@ -40,7 +40,6 @@ importers:
       '@whyframe/vue': workspace:*
       astro: ^1.6.3
       preact: ^10.11.2
-      preact-render-to-string: ^5.2.6
       react: ^18.2.0
       react-dom: ^18.2.0
       rehype-autolink-headings: ^6.1.1
@@ -72,7 +71,6 @@ importers:
       '@whyframe/svelte': link:../packages/svelte
       '@whyframe/vue': link:../packages/vue
       astro: 1.6.3
-      preact-render-to-string: 5.2.6_preact@10.11.2
       rehype-autolink-headings: 6.1.1
       rehype-slug: 5.1.0
       shiki: 0.11.1
@@ -174,7 +172,6 @@ importers:
       '@whyframe/vue': workspace:*
       astro: ^1.6.3
       preact: ^10.11.2
-      preact-render-to-string: ^5.2.6
       react: ^18.2.0
       react-dom: ^18.2.0
       solid-js: ^1.6.1
@@ -201,7 +198,6 @@ importers:
       '@whyframe/svelte': link:../../packages/svelte
       '@whyframe/vue': link:../../packages/vue
       astro: 1.6.3
-      preact-render-to-string: 5.2.6_preact@10.11.2
       svelte: 3.52.0
       vite-plugin-inspect: 0.7.7
 
