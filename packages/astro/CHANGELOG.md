@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3 (2022-11-07)
+
+- Fix source support
+
 ## 0.2.2 (2022-11-03)
 
 - Bump dependencies

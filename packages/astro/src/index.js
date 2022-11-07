@@ -190,13 +190,39 @@ export function whyframeAstro(options) {
               createEntry(entryComponentId, framework)
             )
 
+            let showSource = api.getDefaultShowSource()
+            if (isIframeElement) {
+              const attr = node.attributes.find(
+                (a) => a.name === 'data-why-show-source'
+              )
+              if (attr) {
+                if (attr.kind === 'empty') {
+                  showSource = true
+                } else if (
+                  attr.kind === 'quoted' ||
+                  attr.kind === 'expression'
+                ) {
+                  showSource = attr.value === 'true'
+                }
+              }
+            } else if (iframeComponent) {
+              if (typeof iframeComponent.showSource === 'boolean') {
+                showSource = iframeComponent.showSource
+              } else if (typeof iframeComponent.showSource === 'function') {
+                const openTag = code.slice(
+                  node.position.start.offset,
+                  node.children[0]?.position.start.offset ??
+                    node.position.end.offset
+                )
+                showSource = iframeComponent.showSource(openTag)
+              }
+            }
+
             // inject props
             const attrs = api.getMainIframeAttrs(
               entryId,
               finalHash,
-              node.attributes.some((a) => a.name === 'data-why-source')
-                ? dedent(iframeContent)
-                : undefined,
+              showSource ? dedent(iframeContent) : undefined,
               !!iframeComponent
             )
             addAttrs(s, node, attrs)
