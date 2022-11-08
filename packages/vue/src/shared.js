@@ -203,3 +203,28 @@ export function parseAttrToString(attr) {
     return `${escapeAttr(JSON.stringify(attr.value))}`
   }
 }
+
+/**
+ * @param {{ name: string }[]} plugins
+ * @param {string} pluginAName
+ * @param {'before' | 'after'} order
+ * @param {string} pluginBName
+ */
+// TODO: move this to pluginutils
+export function movePlugin(plugins, pluginAName, order, pluginBName) {
+  const pluginBIndex = plugins.findIndex((p) => p.name === pluginBName)
+  if (pluginBIndex === -1) return
+
+  const pluginAIndex = plugins.findIndex((p) => p.name === pluginAName)
+  if (pluginAIndex === -1) return
+
+  if (order === 'before' && pluginAIndex > pluginBIndex) {
+    const pluginA = plugins.splice(pluginAIndex, 1)[0]
+    plugins.splice(pluginBIndex, 0, pluginA)
+  }
+
+  if (order === 'after' && pluginAIndex < pluginBIndex) {
+    const pluginA = plugins.splice(pluginAIndex, 1)[0]
+    plugins.splice(pluginBIndex, 0, pluginA)
+  }
+}

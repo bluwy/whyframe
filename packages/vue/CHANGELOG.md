@@ -4,6 +4,7 @@
 
 - Bump dependencies
 - Refactor files for unit tests
+- Fix VitePress markdown with styles
 
 ## 0.1.3 (2022-10-08)
 

@@ -1,7 +1,12 @@
 import path from 'node:path'
 import * as assert from 'uvu/assert'
 import { whyframe } from '@whyframe/core'
-import { addAttrs, parseAttrToString, transform } from '../src/shared.js'
+import {
+  addAttrs,
+  movePlugin,
+  parseAttrToString,
+  transform
+} from '../src/shared.js'
 import {
   assertFixture,
   getFixtures,
@@ -56,5 +61,43 @@ group('addAttrs', (test) => {
 group('parseAttrToString', (test) => {
   test('parse attrs to string', () => {
     // todo
+  })
+})
+
+group('movePlugin', (test) => {
+  test('before if before', () => {
+    const plugins = ['a', 'b', 'c', 'd'].map((name) => ({ name }))
+    movePlugin(plugins, 'a', 'before', 'c')
+    assert.equal(
+      plugins.map((p) => p.name),
+      ['a', 'b', 'c', 'd']
+    )
+  })
+
+  test('before if after', () => {
+    const plugins = ['a', 'b', 'c', 'd'].map((name) => ({ name }))
+    movePlugin(plugins, 'd', 'before', 'b')
+    assert.equal(
+      plugins.map((p) => p.name),
+      ['a', 'd', 'b', 'c']
+    )
+  })
+
+  test('after if before', () => {
+    const plugins = ['a', 'b', 'c', 'd'].map((name) => ({ name }))
+    movePlugin(plugins, 'a', 'after', 'c')
+    assert.equal(
+      plugins.map((p) => p.name),
+      ['b', 'c', 'a', 'd']
+    )
+  })
+
+  test('after if after', () => {
+    const plugins = ['a', 'b', 'c', 'd'].map((name) => ({ name }))
+    movePlugin(plugins, 'd', 'after', 'b')
+    assert.equal(
+      plugins.map((p) => p.name),
+      ['a', 'b', 'c', 'd']
+    )
   })
 })

@@ -1,5 +1,5 @@
 import { createFilter } from 'vite'
-import { transform } from './shared.js'
+import { movePlugin, transform } from './shared.js'
 
 /**
  * @type {import('..').whyframeVue}
@@ -11,7 +11,7 @@ export function whyframeVue(options) {
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
 
   /** @type {import('vite').Plugin} */
-  const plugin = {
+  return {
     name: 'whyframe:vue',
     enforce: 'pre',
     configResolved(c) {
@@ -26,17 +26,13 @@ export function whyframeVue(options) {
       // by default, our plugin runs before vitepress, which we only see plain md.
       // we need to see the transformed md -> vue instead, which is between the vitepress
       // plugin and the vue plugin. for us to do so, we move ourself to after vitepress.
-      const vitepress = c.plugins.findIndex((p) => p.name === 'vitepress')
-      if (vitepress !== -1) {
-        const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:vue')
-        if (myIndex !== -1) {
-          const iAmBeforeVitepress = myIndex < vitepress
-          // @ts-expect-error hack
-          c.plugins.splice(myIndex, 1)
-          // @ts-expect-error hack
-          c.plugins.splice(vitepress + (iAmBeforeVitepress ? 0 : 1), 0, plugin)
-        }
-      }
+      // @ts-expect-error ignore readonly type
+      movePlugin(c.plugins, 'whyframe:vue', 'after', 'vitepress')
+
+      // the vue plugin auto returns id if match ?vue, which interferes with whyframe:api
+      // virtual id resolver. make sure we run ours before vue
+      // @ts-expect-error ignore readonly type
+      movePlugin(c.plugins, 'whyframe:api', 'before', 'vite:vue')
     },
     transform(code, id) {
       if (filter(id)) {
@@ -44,6 +40,4 @@ export function whyframeVue(options) {
       }
     }
   }
-
-  return plugin
 }
