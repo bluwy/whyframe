@@ -25,16 +25,23 @@ const open = ref(false)
 .activator {
   display: block;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid black;
   padding: 0.5em 1em;
   font-size: 0.9em;
   font-weight: 500;
   font-family: inherit;
-  color: #efefef;
-  background-color: #1e1e1e;
+  color: #1e1e1e;
+  background-color: #efefef;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.dark .activator {
+  border-color: transparent;
+  color: #efefef;
+  background-color: #1e1e1e;
+}
+
 
 .activator:hover {
   border-color: #ffed24;

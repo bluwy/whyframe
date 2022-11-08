@@ -3,7 +3,7 @@ import Popup from './components/Popup.vue'
 import Story from './components/Story.vue'
 </script>
 
-<div class="logos">
+<div>
   <a href="https://vitepress.vuejs.org" target="_blank">
     <img src="./assets/vue.svg" class="logo vue" alt="vue" height="80" />
   </a>
@@ -51,12 +51,8 @@ Click on the logos above to learn more.
 </Story>
 
 <style scoped>
-.logos {
-  display: flex;
-  margin: 2rem 0;
-}
-
 .logo {
+  display: inline-block;
   height: 80px;
   margin: 1.5rem;
   will-change: filter;

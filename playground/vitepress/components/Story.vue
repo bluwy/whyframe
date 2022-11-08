@@ -62,6 +62,7 @@ h2 {
   margin: 0;
   margin-left: 0.5rem;
   padding-top: 0;
+  color: #efefef;
 }
 
 button {
@@ -96,7 +97,7 @@ iframe {
   background-color: transparent;
   border-radius: 0;
   width: 100%;
-  height: 167px;
+  height: 161px;
 }
 
 .code {

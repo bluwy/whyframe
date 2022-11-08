@@ -5,10 +5,12 @@ layout: false
 <script setup>
 import { ref, onMounted } from 'vue'
 import { createApp } from 'whyframe:app'
+import { trackColorScheme } from './utils'
 
 const el = ref()
 
 onMounted(() => {
+  trackColorScheme()
   createApp(el.value)
 })
 </script>
