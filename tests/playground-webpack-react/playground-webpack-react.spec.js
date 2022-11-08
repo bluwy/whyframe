@@ -5,5 +5,7 @@ setup()
 
 test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('h1').textContent()).toBe('React')
+  expect(await page.locator('h1').textContent()).toBe(
+    'Webpack + React + Whyframe'
+  )
 })

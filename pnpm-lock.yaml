@@ -396,6 +396,7 @@ importers:
       '@whyframe/core': workspace:*
       '@whyframe/jsx': workspace:*
       babel-loader: ^9.1.0
+      copy-webpack-plugin: ^11.0.0
       css-loader: ^6.7.1
       html-webpack-plugin: ^5.5.0
       mini-css-extract-plugin: ^2.6.1
@@ -407,6 +408,7 @@ importers:
       webpack-cli: ^4.10.0
       webpack-dev-server: ^4.11.1
     dependencies:
+      copy-webpack-plugin: 11.0.0_webpack@5.74.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -7793,7 +7795,7 @@ packages:
       normalize-path: 3.0.0
       schema-utils: 4.0.0
       serialize-javascript: 6.0.0
-      webpack: 5.74.0
+      webpack: 5.74.0_webpack-cli@4.10.0
 
   /core-js-compat/3.25.3:
     resolution: {integrity: sha512-xVtYpJQ5grszDHEUU9O7XbjjcZ0ccX3LgQsyqSvTnjX97ZqEgn9F5srmrwwwMtbKzDllyFPL+O+2OFMl1lU4TQ==}
@@ -15108,7 +15110,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.15.0
-      webpack: 5.74.0
+      webpack: 5.74.0_webpack-cli@4.10.0
 
   /terser/5.15.0:
     resolution: {integrity: sha512-L1BJiXVmheAQQy+as0oF3Pwtlo4s3Wi1X2zNZ2NxOB4wx9bdS9Vk67XQENLFdLYGCK/Z2di53mTj/hBafR+dTA==}
