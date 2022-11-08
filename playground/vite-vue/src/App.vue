@@ -6,13 +6,13 @@ import Popup from './components/Popup.vue'
 <template>
   <main>
     <div>
-      <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+      <a href="https://vitejs.dev" target="_blank">
         <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
       </a>
-      <a href="https://vuejs.org" target="_blank" rel="noreferrer">
+      <a href="https://vuejs.org" target="_blank">
         <img src="./assets/vue.svg" class="logo vue" alt="vue" height="80" />
       </a>
-      <a href="https://whyframe.dev" target="_blank" rel="noreferrer">
+      <a href="https://whyframe.dev" target="_blank">
         <img
           src="./assets/whyframe.svg"
           class="logo whyframe"

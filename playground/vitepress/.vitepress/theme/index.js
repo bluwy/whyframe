@@ -1,8 +1,4 @@
-import Theme from 'vitepress/theme'
-import DynamicLayout from '../components/DynamicLayout.vue'
 import './main.css'
+import Theme from 'vitepress/theme'
 
-export default {
-  ...Theme,
-  Layout: DynamicLayout
-}
+export default Theme
