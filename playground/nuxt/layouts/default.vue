@@ -14,7 +14,8 @@
 html,
 body {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #efefef;
+  background-color: #1e1e1e;
+  color: #efefef;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -26,18 +27,13 @@ body {
   text-align: center;
 }
 
-iframe[data-why] {
+iframe[data-why],
+.story {
   display: inline-block;
-  border: none;
-  box-shadow: 2.7px 3.2px 3.6px rgba(0, 0, 0, 0.024),
-    7.5px 8.8px 10px rgba(0, 0, 0, 0.035),
-    18.1px 21.1px 24.1px rgba(0, 0, 0, 0.046),
-    60px 70px 80px rgba(0, 0, 0, 0.07);
-  border-radius: 0.4rem;
+  border: 3px solid #303030;
+  background-color: #a2a2a2;
+  border-radius: 0.5rem;
   width: 400px;
-  min-height: 200px;
-  max-height: 400px;
-  background-color: white;
-  margin: 0.5rem;
+  height: 200px;
 }
 </style>

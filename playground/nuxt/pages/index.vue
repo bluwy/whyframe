@@ -1,32 +1,82 @@
-<script setup>
-const max = 10
-
-function warn() {
-  // NOTE: will affect callee's iframe, not this parent document
-  console.log('warn!')
-}
-</script>
-
 <template>
-  <h1>Nuxt</h1>
+  <main>
+    <div>
+      <a href="https://v3.nuxtjs.dev" target="_blank">
+        <img src="/nuxt.svg" class="logo nuxt" alt="nuxt" height="80" />
+      </a>
+      <a href="https://whyframe.dev" target="_blank">
+        <img
+          src="~/assets/whyframe.svg"
+          class="logo whyframe"
+          alt="whyframe"
+          height="80"
+        />
+      </a>
+    </div>
 
-  <iframe data-why title="Hello">
-    <p>Click to increment!</p>
-    <Counter />
-  </iframe>
+    <h1>Nuxt + Whyframe</h1>
 
-  <iframe data-why title="World" src="/frames/basic">
-    <p>Do not go over {{ max }}</p>
-    <Counter :max="max" @max="warn" />
-  </iframe>
+    <p class="docs">
+      Check out the examples below to see component isolation in action!
+      <br />
+      You can view the source code at <code>pages/index.vue</code>.
+      <br />
+      Click on the logos above to learn more.
+    </p>
 
-  <Story title="Foo">
-    <p>Click to increment!</p>
-    <Counter />
-  </Story>
+    <div class="frames">
+      <iframe data-why title="Popup 1">
+        <p>Simple usage example</p>
+        <Popup content="Hello world">Open popup</Popup>
+      </iframe>
 
-  <Story title="Bar" src="/frames/basic">
-    <p>Do not go over {{ max }}</p>
-    <Counter :max="max" @max="warn" />
-  </Story>
+      <iframe data-why title="Popup 2" src="/frames/special">
+        <p>Custom HTML source</p>
+        <Popup content="Hello world">Open popup</Popup>
+      </iframe>
+
+      <iframe
+        data-why
+        data-why-show-source
+        title="Popup 3"
+        src="/frames/special"
+      >
+        <p>Inspect this iframe to view the raw source</p>
+        <Popup content="Hello world">Open popup</Popup>
+      </iframe>
+
+      <Story title="Popup 4">
+        <p>This is a Story component</p>
+        <Popup content="Hello world">Open popup</Popup>
+      </Story>
+    </div>
+  </main>
 </template>
+
+<style scoped>
+.logo {
+  margin: 1.5rem;
+  will-change: filter;
+  transition: filter 0.15s ease-out;
+}
+.logo.nuxt:hover {
+  filter: drop-shadow(0 0 2rem #42b883aa);
+}
+.logo.whyframe:hover {
+  filter: drop-shadow(0 0 2rem #ffed24aa);
+}
+
+.docs {
+  line-height: 2;
+  opacity: 0.7;
+}
+
+.frames {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+</style>
