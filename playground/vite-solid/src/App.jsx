@@ -1,23 +1,33 @@
-import './App.css'
 import solidLogo from './assets/solid.svg'
 import whyframeLogo from './assets/whyframe.svg'
 import Story from './components/Story'
 import Popup from './components/Popup'
+import style from './App.module.css'
 
 export default function App() {
   return (
     <main>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
+          <img
+            src="/vite.svg"
+            class={`${style.logo} ${style.vite}`}
+            alt="vite"
+            height="80"
+          />
         </a>
         <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} class="logo solid" alt="solid" height="80" />
+          <img
+            src={solidLogo}
+            class={`${style.logo} ${style.solid}`}
+            alt="solid"
+            height="80"
+          />
         </a>
         <a href="https://whyframe.dev" target="_blank">
           <img
             src={whyframeLogo}
-            class="logo whyframe"
+            class={`${style.logo} ${style.whyframe}`}
             alt="whyframe"
             height="80"
           />
@@ -26,7 +36,7 @@ export default function App() {
 
       <h1>Vite + Solid + Whyframe</h1>
 
-      <p class="docs">
+      <p class={style.docs}>
         Check out the examples below to see component isolation in action!
         <br />
         You can view the source code at <code>src/App.jsx</code>.
@@ -34,7 +44,7 @@ export default function App() {
         Click on the logos above to learn more.
       </p>
 
-      <div class="frames">
+      <div class={style.frames}>
         <iframe data-why title="Popup 1">
           <p>Simple usage example</p>
           <Popup content="Hello world">Open popup</Popup>

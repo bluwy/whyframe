@@ -1,23 +1,33 @@
-import './App.css'
 import reactLogo from './assets/react.svg'
 import whyframeLogo from './assets/whyframe.svg'
 import Story from './components/Story'
 import Popup from './components/Popup'
+import style from './App.module.css'
 
 export default function App() {
   return (
     <main>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="vite" height="80" />
+          <img
+            src="/vite.svg"
+            className={`${style.logo} ${style.vite}`}
+            alt="vite"
+            height="80"
+          />
         </a>
         <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="react" height="80" />
+          <img
+            src={reactLogo}
+            className={`${style.logo} ${style.react}`}
+            alt="react"
+            height="80"
+          />
         </a>
         <a href="https://whyframe.dev" target="_blank">
           <img
             src={whyframeLogo}
-            className="logo whyframe"
+            className={`${style.logo} ${style.whyframe}`}
             alt="whyframe"
             height="80"
           />
@@ -26,7 +36,7 @@ export default function App() {
 
       <h1>Vite + React + Whyframe</h1>
 
-      <p className="docs">
+      <p className={style.docs}>
         Check out the examples below to see component isolation in action!
         <br />
         You can view the source code at <code>src/App.jsx</code>.
@@ -34,7 +44,7 @@ export default function App() {
         Click on the logos above to learn more.
       </p>
 
-      <div className="frames">
+      <div className={style.frames}>
         <iframe data-why title="Popup 1">
           <p>Simple usage example</p>
           <Popup content="Hello world">Open popup</Popup>
