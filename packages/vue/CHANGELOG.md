@@ -5,6 +5,7 @@
 - Bump dependencies
 - Refactor files for unit tests
 - Fix VitePress markdown with styles
+- Support Nuxt 3.0.0-rc.12 with `nuxtCompat` option
 
 ## 0.1.3 (2022-10-08)
 

@@ -7,6 +7,7 @@ import { movePlugin, transform } from './shared.js'
 export function whyframeVue(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
+  let isNuxt = false
 
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
 
@@ -33,10 +34,22 @@ export function whyframeVue(options) {
       // virtual id resolver. make sure we run ours before vue
       // @ts-expect-error ignore readonly type
       movePlugin(c.plugins, 'whyframe:api', 'before', 'vite:vue')
+
+      if (options?.nuxtCompat) {
+        isNuxt = c.plugins.some((p) => p.name.startsWith('nuxt:'))
+      }
     },
     transform(code, id) {
       if (filter(id)) {
         return transform(code, id, api, options)
+      }
+      // this is terrible but nuxt is the only vite metaframework that serves vite urls
+      // through `/_nuxt/` instead of the root directly for some reason since 3.0.0-rc.12
+      if (isNuxt && id === '\0whyframe:app') {
+        return code.replace(
+          '/* @vite-ignore */ url',
+          '/* @vite-ignore */ "/_nuxt" + url'
+        )
       }
     }
   }
