@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.4 (2022-11-11)
 
 - Bump dependencies
 - Refactor files for unit tests
