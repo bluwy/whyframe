@@ -5,5 +5,7 @@ setup()
 
 test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('#app > h1').textContent()).toBe('Docusaurus')
+  expect(await page.locator('#app > h1').textContent()).toBe(
+    'Docusaurus + Whyframe'
+  )
 })

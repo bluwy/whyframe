@@ -6,8 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Docusaurus + Whyframe',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -66,17 +65,17 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Docusaurus + Whyframe',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'docusaurus logo',
           src: 'img/logo.svg'
         },
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'markdown',
             position: 'left',
-            label: 'Tutorial'
+            label: 'Markdown'
           },
           {
             href: 'https://github.com/facebook/docusaurus',
@@ -89,11 +88,11 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Markdown',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro'
+                label: 'Markdown',
+                to: '/docs/markdown'
               }
             ]
           },

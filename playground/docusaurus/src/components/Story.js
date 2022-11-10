@@ -1,26 +1,48 @@
+import React, { useEffect, useRef, useState } from 'react'
 import { getWhyframeSource } from '@whyframe/core/utils'
-import React, { useState } from 'react'
+import style from './Story.module.css'
 
-export function Story({ title, src, children }) {
+/**
+ * @param {{ title: string, src?: string, children: any }} props
+ */
+export default function Story(props) {
   const [source, setSource] = useState('')
+  const [showCode, setShowCode] = useState(false)
+
+  const iframe = useRef(null)
+  useEffect(() => {
+    setSource(getWhyframeSource(iframe.current))
+  }, [])
 
   return (
-    <div>
-      <p>This is a story of {title}:</p>
+    <div className={`story ${style.story}`}>
+      <div className={style.bar}>
+        <h2 className={style.h2}>{props.title}</h2>
+        <button
+          className={style.button}
+          aria-pressed={showCode}
+          onClick={() => setShowCode((v) => !v)}
+        >
+          Show code
+        </button>
+      </div>
 
-      <iframe
-        ref={(el) => el && setSource(getWhyframeSource(el))}
-        data-why
-        title={title}
-        src={src}
-      >
-        {children}
-      </iframe>
-
-      <details>
-        <summary>source</summary>
-        <pre>{source}</pre>
-      </details>
+      <div className={style.frame}>
+        <iframe
+          data-why
+          ref={iframe}
+          className={style.iframe}
+          title={props.title}
+          src={props?.src ?? '/frames/special/index.html'}
+        >
+          {props.children}
+        </iframe>
+        {showCode && (
+          <div className={style.code}>
+            <pre>{source}</pre>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
