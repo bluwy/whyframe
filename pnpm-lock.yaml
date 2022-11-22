@@ -253,7 +253,6 @@ importers:
       node-fetch-native: ^1.0.1
       nuxt: ^3.0.0
       ufo: ^1.0.0
-      vite-plugin-inspect: ^0.7.9
       vue: ^3.2.45
       vue-router: ^4.1.6
     dependencies:
@@ -265,7 +264,6 @@ importers:
       node-fetch-native: 1.0.1
       nuxt: 3.0.0_@types+node@18.11.9
       ufo: 1.0.0
-      vite-plugin-inspect: 0.7.9
       vue-router: 4.1.6_vue@3.2.45
 
   playground/sveltekit:
