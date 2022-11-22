@@ -8,14 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "solid-js": "^1.6.1"
+    "solid-js": "^1.6.2"
   },
   "devDependencies": {
     "@whyframe/core": "^0.1.8",
     "@whyframe/jsx": "^0.1.8",
-    "babel-preset-solid": "^1.6.1",
-    "vite": "^3.2.2",
-    "vite-plugin-inspect": "^0.7.7",
+    "babel-preset-solid": "^1.6.2",
+    "vite": "^3.2.4",
+    "vite-plugin-inspect": "^0.7.9",
     "vite-plugin-solid": "^2.4.0"
   }
 }

@@ -8,32 +8,32 @@
 		"preview": "astro preview"
 	},
 	"dependencies": {
-		"preact": "^10.11.2",
+		"preact": "^10.11.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"solid-js": "^1.6.1",
-		"vue": "^3.2.41"
+		"solid-js": "^1.6.2",
+		"vue": "^3.2.45"
 	},
 	"devDependencies": {
-		"@astrojs/mdx": "^0.11.5",
+		"@astrojs/mdx": "^0.11.6",
 		"@astrojs/preact": "^1.2.0",
 		"@astrojs/react": "^1.2.2",
-		"@astrojs/solid-js": "^1.2.2",
+		"@astrojs/solid-js": "^1.2.3",
 		"@astrojs/svelte": "^1.0.2",
 		"@astrojs/vue": "^1.2.1",
 		"@types/react": "^18.0.25",
-		"@types/react-dom": "^18.0.8",
+		"@types/react-dom": "^18.0.9",
 		"@whyframe/astro": "workspace:*",
 		"@whyframe/core": "workspace:*",
 		"@whyframe/jsx": "workspace:*",
 		"@whyframe/svelte": "workspace:*",
 		"@whyframe/vue": "workspace:*",
-		"astro": "^1.6.3",
+		"astro": "^1.6.10",
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-slug": "^5.1.0",
 		"shiki": "^0.11.1",
-		"svelte": "^3.52.0",
+		"svelte": "^3.53.1",
 		"vite-plugin-cloudflare-redirect": "^0.1.0",
-		"vite-plugin-inspect": "^0.7.7"
+		"vite-plugin-inspect": "^0.7.9"
 	}
 }

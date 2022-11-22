@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 import { whyframe } from '@whyframe/core'
 import { whyframeVue } from '@whyframe/vue'
 
