@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.5 (2022-11-30)
 
 - Support `enhanceApp` option for `createApp()` (requires `@whyframe/core` v0.1.9) ([#18](https://github.com/bluwy/whyframe/issues/18))
 
