@@ -42,7 +42,6 @@ const open = ref(false)
   background-color: #1e1e1e;
 }
 
-
 .activator:hover {
   border-color: #ffed24;
 }

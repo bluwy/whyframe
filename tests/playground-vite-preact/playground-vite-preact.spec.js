@@ -5,5 +5,7 @@ setup()
 
 test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('h1').textContent()).toBe('Vite + Preact + Whyframe')
+  expect(await page.locator('h1').textContent()).toBe(
+    'Vite + Preact + Whyframe'
+  )
 })

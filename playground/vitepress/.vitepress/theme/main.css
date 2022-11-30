@@ -8,6 +8,7 @@ iframe[data-why],
   height: 200px;
 }
 
-.dark iframe[data-why], .dark .story {
+.dark iframe[data-why],
+.dark .story {
   border-color: #303030;
 }

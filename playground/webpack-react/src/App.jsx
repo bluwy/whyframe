@@ -7,7 +7,7 @@ import style from './App.module.css'
 export default function App() {
   return (
     <main>
-    <div>
+      <div>
         <a href="https://vitejs.dev" target="_blank">
           <img
             src="/vite.svg"
