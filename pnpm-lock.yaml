@@ -148,6 +148,7 @@ importers:
       magic-string: ^0.26.7
       uvu: ^0.5.6
       vite: ^3.2.4
+      vue: ^3.2.45
     dependencies:
       '@vue/compiler-dom': 3.2.45
       magic-string: 0.26.7
@@ -155,6 +156,7 @@ importers:
       '@whyframe/core': link:../core
       uvu: 0.5.6
       vite: 3.2.4
+      vue: 3.2.45
 
   playground/astro:
     specifiers:
@@ -473,6 +475,21 @@ importers:
 
   tests/playground-webpack-react:
     specifiers: {}
+
+  tests/vite-vue:
+    specifiers:
+      '@vitejs/plugin-vue': ^3.2.0
+      '@whyframe/core': workspace:*
+      '@whyframe/vue': workspace:*
+      vite: ^3.2.4
+      vue: ^3.2.45
+    dependencies:
+      vue: 3.2.45
+    devDependencies:
+      '@vitejs/plugin-vue': 3.2.0_vite@3.2.4+vue@3.2.45
+      '@whyframe/core': link:../../packages/core
+      '@whyframe/vue': link:../../packages/vue
+      vite: 3.2.4
 
 packages:
 
@@ -6270,7 +6287,7 @@ packages:
       '@vue/shared': 3.2.45
       estree-walker: 2.0.2
       magic-string: 0.25.9
-      postcss: 8.4.18
+      postcss: 8.4.19
       source-map: 0.6.1
 
   /@vue/compiler-ssr/3.2.41:
@@ -16131,8 +16148,8 @@ packages:
       terser:
         optional: true
     dependencies:
-      esbuild: 0.15.13
-      postcss: 8.4.18
+      esbuild: 0.15.15
+      postcss: 8.4.19
       resolve: 1.22.1
       rollup: 2.79.1
     optionalDependencies:
