@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add experimental `whyframe:iframe` support
+- Support custom options for `createApp()`
 
 ## 0.1.8 (2022-10-15)
 
