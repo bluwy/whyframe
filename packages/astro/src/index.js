@@ -270,15 +270,25 @@ function createEntry(entryId, framework) {
 import App from '${entryId}'
 
 export function createApp(el) {
-  new App({ target: el })
+  const app = new App({ target: el })
+  return {
+    destroy: () => app.$destroy()
+  }
 }`
     case 'vue':
       return `\
 import { createApp as _createApp } from 'vue'
 import App from '${entryId}'
 
-export function createApp(el) {
-  _createApp(App).mount(el)
+export function createApp(el, opts) {
+  const app = _createApp(App)
+  if (opts?.enhanceApp) {
+    opts.enhanceApp(app)
+  }
+  app.mount(el)
+  return {
+    destroy: () => app.unmount()
+  }
 }`
     case 'react':
       return `\
@@ -288,6 +298,9 @@ import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
   ReactDOM.createRoot(el).render(<WhyframeApp />)
+  return {
+    destroy: () => ReactDOM.createRoot(el).unmount()
+  }
 }`
     case 'preact':
       return `\
@@ -296,6 +309,9 @@ import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
   render(<WhyframeApp />, el)
+  return {
+    destroy: () => render(null, el)
+  }
 }`
     case 'solid':
       return `\
@@ -303,7 +319,8 @@ import { render } from 'solid-js/web'
 import { WhyframeApp } from '${entryId}'
 
 export function createApp(el) {
-  render(() => <WhyframeApp />, el)
+  const destroy = render(() => <WhyframeApp />, el)
+  return { destroy }
 }`
   }
 }

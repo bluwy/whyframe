@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Support framework createApp destroy
+
 ## 0.2.3 (2022-11-07)
 
 - Fix source support
