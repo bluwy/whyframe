@@ -58,8 +58,8 @@
     }
   },
   "dependencies": {
-    "@babel/parser": "^7.20.3",
-    "@babel/types": "^7.20.2",
+    "@babel/parser": "^7.20.5",
+    "@babel/types": "^7.20.5",
     "estree-walker": "^3.0.1",
     "magic-string": "^0.26.7"
   },

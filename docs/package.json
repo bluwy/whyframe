@@ -28,7 +28,7 @@
 		"@whyframe/jsx": "workspace:*",
 		"@whyframe/svelte": "workspace:*",
 		"@whyframe/vue": "workspace:*",
-		"astro": "^1.6.10",
+		"astro": "^1.6.11",
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-slug": "^5.1.0",
 		"shiki": "^0.11.1",

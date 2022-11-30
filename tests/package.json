@@ -8,7 +8,7 @@
     "test:build": "PW_DISABLE_TS_ESM=true TEST_BUILD=true playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.28.0",
+    "@playwright/test": "^1.28.1",
     "execa": "^6.1.0",
     "tree-kill": "^1.2.2"
   }

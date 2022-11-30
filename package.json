@@ -13,7 +13,7 @@
     "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
   },
   "devDependencies": {
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "prettier-plugin-astro": "^0.7.0",
     "prettier-plugin-svelte": "^2.8.1",
     "svelte": "^3.53.1",

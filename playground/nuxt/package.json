@@ -17,7 +17,7 @@
     "@whyframe/vue": "^0.1.4",
     "node-fetch-native": "^1.0.1",
     "nuxt": "^3.0.0",
-    "ufo": "^1.0.0",
+    "ufo": "^1.0.1",
     "vue-router": "^4.1.6"
   }
 }
