@@ -92,37 +92,20 @@ export function createApp(el) {
 }`
         )
 
-        let showSource = api.getDefaultShowSource()
-        if (isIframeElement) {
-          const attr = node.attributes.find(
-            (a) => a.name === 'data-why-show-source'
-          )
-          if (attr) {
-            if (attr.value === true) {
-              showSource = true
-            } else if (attr.value[0]) {
-              showSource = attr.value[0].data === 'true'
-            } else if (attr.value[0]?.expression) {
-              showSource = attr.value[0].expression.value === true
-            }
-          }
-        } else if (iframeComponent) {
-          if (typeof iframeComponent.showSource === 'boolean') {
-            showSource = iframeComponent.showSource
-          } else if (typeof iframeComponent.showSource === 'function') {
-            const openTag = code.slice(
-              node.start,
-              node.children[0]?.start ?? node.end
-            )
-            showSource = iframeComponent.showSource(openTag)
-          }
+        // if <iframe data-why="special-id" />, attach special metadata to be imported
+        // from 'whyframe:metadata:special-id'
+        const whyKey = node.attributes.find((a) => a.name === 'data-why')?.value
+        if (typeof whyKey === 'string' && whyKey) {
+          api.createEntryMetadata(id, whyKey, () => {
+            return `\
+export const rawSource = ${JSON.stringify(dedent(iframeContent))}`
+          })
         }
 
         // inject props
         const attrs = api.getMainIframeAttrs(
           entryId,
           finalHash,
-          showSource ? dedent(iframeContent) : undefined,
           !!iframeComponent
         )
         addAttrs(s, node, attrs)

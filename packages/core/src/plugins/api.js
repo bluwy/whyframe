@@ -62,10 +62,7 @@ export function apiPlugin(options = {}) {
             !!options.components?.some((c) => code.includes(`<${c.name}`)))
         )
       },
-      getDefaultShowSource() {
-        return options.defaultShowSource ?? false
-      },
-      getMainIframeAttrs(entryId, hash, source, isComponent) {
+      getMainIframeAttrs(entryId, hash, isComponent) {
         /** @type {import('../..').Attr[]} */
         const attrs = []
         attrs.push({
@@ -85,13 +82,6 @@ export function apiPlugin(options = {}) {
             type: 'static',
             name: isComponent ? '_why?.id' : 'data-why-id',
             value: `/@id/__${entryId}`
-          })
-        }
-        if (source) {
-          attrs.push({
-            type: 'static',
-            name: isComponent ? '_why?.source' : 'data-why-source',
-            value: source
           })
         }
         if (isComponent) {
@@ -146,13 +136,12 @@ export function apiPlugin(options = {}) {
         trackVirtualId(originalId, entryComponentId)
         return entryComponentId
       },
-      createEntryMetadata(originalId, iframeName, code) {
-        // example: whyframe:iframe-{iframeName?}__{importer}
-        const iframeNamePrepend = iframeName ? `-${iframeName}` : ''
-        const iframeId = `whyframe:iframe${iframeNamePrepend}__${originalId}`
-        virtualIdToCode.set(iframeId, code)
-        trackVirtualId(originalId, iframeId)
-        return iframeId
+      createEntryMetadata(originalId, iframeKey, code) {
+        // example: whyframe:metadata:{iframeName}__{importer}
+        const metadataId = `whyframe:metadata:${iframeKey}__${originalId}`
+        virtualIdToCode.set(metadataId, code)
+        trackVirtualId(originalId, metadataId)
+        return metadataId
       }
     },
     resolveId(id, importer) {
@@ -170,7 +159,7 @@ export function apiPlugin(options = {}) {
         }
       }
       // see createIframeMetadata for id signature
-      if (id.startsWith('whyframe:iframe-')) {
+      if (id.startsWith('whyframe:metadata:')) {
         return '__' + id + '__' + importer
       }
     },
@@ -185,7 +174,7 @@ export function apiPlugin(options = {}) {
         virtualId = id
       }
       // see createIframeMetadata for id signature
-      if (id.startsWith('__whyframe:iframe-')) {
+      if (id.startsWith('__whyframe:metadata:')) {
         virtualId = id.slice(2)
       }
       if (virtualId) {

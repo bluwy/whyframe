@@ -13,14 +13,6 @@ export interface Component {
    * The name of the component used to detect via `<${name} />`
    */
   name: string
-  /**
-   * Whether to attach metadata of the raw source code by default. This defaults
-   * to the root `defaultShowSource` option, but can be overidden here. When a
-   * function is provided, a raw tag string like `<Component foo="bar">` will be
-   * passed and the function get decide whether to show the source or not, e.g.
-   * loosely checking for a prop to exist.
-   */
-  showSource?: boolean | ((openTag: string) => boolean)
 }
 
 export interface Options {
@@ -30,15 +22,6 @@ export interface Options {
    * html is required to be passed.
    */
   defaultSrc?: string
-  /**
-   * Whether to attach metadata of the raw source code for all iframes or
-   * components by default. Since the source can't be treeshaken, this is false
-   * by default.
-   *
-   * For iframes, this can be enabled or disabled individually using the `data-why-show-source`
-   * attribute. For components, this can be configured via its `showSource` option.
-   */
-  defaultShowSource?: boolean
   /**
    * A list of components that contain an `iframe` that renders what's passed
    * to the component, e.g. via slots or children.
@@ -63,7 +46,6 @@ export interface Api {
    * A utility to check if a module may contain an iframe to quickly skip parsing.
    */
   moduleMayHaveIframe: (id: string, code: string) => boolean
-  getDefaultShowSource: () => boolean
   /**
    * Get the main iframe attrs, including `<iframe>` and custom `<Story>`.
    * This should be differentiated via `isComponent`.
@@ -71,7 +53,6 @@ export interface Api {
   getMainIframeAttrs: (
     entryId: string,
     hash: string,
-    source: string | undefined,
     isComponent: boolean
   ) => Attr[]
   /**
@@ -114,7 +95,7 @@ export interface Api {
    */
   createEntryMetadata: (
     originalId: string,
-    iframeName: string | undefined,
+    iframeKey: string,
     code: () => string | Promise<string>
   ) => string
 }
