@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.2.4 (2022-11-30)
 
 - Support framework `createApp()` destroy

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump dependencies
+
 ## 0.1.5 (2022-11-06)
 
 - Export `isWhyframeWarning` from `@whyframe/svelte/utils`

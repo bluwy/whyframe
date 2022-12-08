@@ -11,7 +11,7 @@
 		"preact": "^10.11.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"solid-js": "^1.6.2",
+		"solid-js": "^1.6.3",
 		"vue": "^3.2.45"
 	},
 	"devDependencies": {
@@ -20,15 +20,15 @@
 		"@astrojs/solid-js": "^1.2.3",
 		"@astrojs/svelte": "^1.0.2",
 		"@astrojs/vue": "^1.2.1",
-		"@types/react": "^18.0.25",
+		"@types/react": "^18.0.26",
 		"@types/react-dom": "^18.0.9",
-		"@whyframe/astro": "^0.2.3",
-		"@whyframe/core": "^0.1.8",
+		"@whyframe/astro": "^0.2.4",
+		"@whyframe/core": "^0.1.9",
 		"@whyframe/jsx": "^0.1.8",
 		"@whyframe/svelte": "^0.1.5",
-		"@whyframe/vue": "^0.1.4",
-		"astro": "^1.6.11",
-		"svelte": "^3.53.1",
+		"@whyframe/vue": "^0.1.5",
+		"astro": "^1.6.13",
+		"svelte": "^3.54.0",
 		"vite-plugin-inspect": "^0.7.9"
 	}
 }

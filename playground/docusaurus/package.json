@@ -28,7 +28,7 @@
     "@docusaurus/module-type-aliases": "^2.2.0",
     "@docusaurus/plugin-content-docs": "^2.2.0",
     "@docusaurus/types": "^2.2.0",
-    "@whyframe/core": "^0.1.8",
+    "@whyframe/core": "^0.1.9",
     "@whyframe/jsx": "^0.1.8"
   },
   "browserslist": {

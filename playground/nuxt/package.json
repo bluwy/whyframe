@@ -12,9 +12,9 @@
     "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "@whyframe/core": "^0.1.8",
-    "@whyframe/vue": "^0.1.4",
+    "@types/node": "^18.11.11",
+    "@whyframe/core": "^0.1.9",
+    "@whyframe/vue": "^0.1.5",
     "node-fetch-native": "^1.0.1",
     "nuxt": "^3.0.0",
     "ufo": "^1.0.1",

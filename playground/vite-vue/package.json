@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",
-    "@whyframe/core": "^0.1.8",
-    "@whyframe/vue": "^0.1.4",
-    "vite": "^3.2.4",
+    "@whyframe/core": "^0.1.9",
+    "@whyframe/vue": "^0.1.5",
+    "vite": "^3.2.5",
     "vite-plugin-inspect": "^0.7.9"
   }
 }
