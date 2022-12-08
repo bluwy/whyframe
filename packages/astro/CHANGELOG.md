@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- BREAKING: Specify framework via the `data-why-framework` attribute instead
 - Bump dependencies
 
 ## 0.2.4 (2022-11-30)

@@ -125,7 +125,7 @@ export function whyframeAstro(options) {
 
           if (isIframeElement || iframeComponent) {
             // .astro requires a value for data-why to render as a specific framework
-            const whyPropName = iframeComponent ? 'why' : 'data-why'
+            const whyPropName = iframeComponent ? 'whyFramework' : 'data-why-framework'
 
             /** @type {import('..').Options['defaultFramework']} */
             const framework =
