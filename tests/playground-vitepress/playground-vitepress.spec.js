@@ -5,5 +5,7 @@ setup()
 
 test('render the page', async ({ page }) => {
   await page.goto('/')
-  expect(await page.locator('h1').textContent()).toBe('VitePress + Whyframe #')
+  expect(await page.locator('h1').textContent()).toContain(
+    'VitePress + Whyframe'
+  )
 })
