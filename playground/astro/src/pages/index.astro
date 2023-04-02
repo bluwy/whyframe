@@ -1,4 +1,5 @@
 ---
+import '../assets/global.css'
 import whyframeLogo from '../assets/whyframe.svg'
 import Layout from '../layouts/Layout.astro'
 import Story from '../components/Story.svelte'
@@ -99,38 +100,7 @@ import PopupReact from '../components/PopupReact.jsx'
     </Story>
   </div>
 
-  <style>
-    .logo {
-      margin: 1.5rem;
-      will-change: filter;
-      transition: filter 0.15s ease-out;
-    }
-    .logo.vite:hover {
-      filter: drop-shadow(0 0 2rem #646cffaa);
-    }
-    .logo.svelte:hover {
-      filter: drop-shadow(0 0 2rem #ff3e00aa);
-    }
-    .logo.whyframe:hover {
-      filter: drop-shadow(0 0 2rem #ffed24aa);
-    }
-
-    .docs {
-      line-height: 2;
-      opacity: 0.7;
-    }
-
-    h2 {
-      margin-top: 2rem;
-    }
-
-    .frames {
-      max-width: 900px;
-      margin: 1rem auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-  </style>
+  <p>
+    Go to <a href="/mdx">/mdx</a> for a MDX example.
+  </p>
 </Layout>

@@ -1,9 +1,11 @@
 import { builtinModules } from 'node:module'
 import { createFilter } from 'vite'
-import { parse } from '@astrojs/compiler'
 import { walk } from 'estree-walker'
 import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
+import { fromMarkdown } from 'mdast-util-from-markdown'
+import { mdxFromMarkdown } from 'mdast-util-mdx'
+import { mdxjs } from 'micromark-extension-mdxjs'
 
 const knownFrameworks = ['svelte', 'vue', 'solid', 'preact', 'react']
 
@@ -14,17 +16,17 @@ const importsRE =
   /(?<!\/\/.*)(?<=^|;|\*\/)\s*import(?!\s+type)([\w*{}\n\r\t, ]+)from\s*\s*("[^"]+"|'[^']+')\s*(?=$|;|\/\/|\/\*)/gm
 
 /**
- * @type {import('..').whyframeAstro}
+ * @type {import('..').whyframeAstroMdx}
  */
-export function whyframeAstro(options) {
+export function whyframeAstroMdx(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
 
-  const filter = createFilter(options?.include || /\.astro$/, options?.exclude)
+  const filter = createFilter(options?.include || /\.mdx$/, options?.exclude)
 
   /** @type {import('vite').Plugin} */
   const plugin = {
-    name: 'whyframe:astro',
+    name: 'whyframe:astro-mdx',
     enforce: 'pre',
     configResolved(c) {
       api = c.plugins.find((p) => p.name === 'whyframe:api')?.api
@@ -34,14 +36,16 @@ export function whyframeAstro(options) {
       }
 
       // run our plugin before astro's
-      const astro = c.plugins.findIndex((p) => p.name === 'astro:build')
-      if (astro !== -1) {
-        const myIndex = c.plugins.findIndex((p) => p.name === 'whyframe:astro')
+      const astroMdx = c.plugins.findIndex((p) => p.name === '@mdx-js/rollup')
+      if (astroMdx !== -1) {
+        const myIndex = c.plugins.findIndex(
+          (p) => p.name === 'whyframe:astro-mdx'
+        )
         if (myIndex !== -1) {
           // @ts-ignore-error hack
           c.plugins.splice(myIndex, 1)
           // @ts-ignore-error hack
-          c.plugins.splice(astro, 0, plugin)
+          c.plugins.splice(astroMdx, 0, plugin)
           delete plugin.enforce
         }
       }
@@ -53,16 +57,27 @@ export function whyframeAstro(options) {
       // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
       const s = new MagicString(code)
 
-      const ast = (await parse(code, { position: true })).ast
+      const ast = fromMarkdown(code, {
+        extensions: [mdxjs()],
+        mdastExtensions: [mdxFromMarkdown()]
+      })
 
       // collect code needed for virtual imports, assume all these have side effects
-      let frontmatterCode =
-        ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
+      let mdxEsmCode = ''
+      for (const node of ast.children) {
+        if (node.type === 'mdxjsEsm') {
+          let esmCode = node.value
+          if (esmCode.startsWith('export ')) {
+            esmCode = esmCode.slice(7)
+          }
+          mdxEsmCode += esmCode
+        }
+      }
 
       // we're transferring frontmatter code to framework code (node => browser).
       // so remove potential node imports that may break
-      if (frontmatterCode) {
-        frontmatterCode = frontmatterCode.replace(importsRE, (ori, m1, m2) => {
+      if (mdxEsmCode) {
+        mdxEsmCode = mdxEsmCode.replace(importsRE, (ori, m1, m2) => {
           /** @type {string} */
           const importSpecifier = m2.slice(1, -1)
           if (
@@ -78,54 +93,21 @@ export function whyframeAstro(options) {
         })
       }
 
-      let styleCode = ''
-      for (const node of ast.children) {
-        if (node.type === 'element' && node.name === 'style') {
-          styleCode += code.slice(
-            (node.position?.start.offset ?? 0) - `<`.length,
-            (node.position?.end?.offset ?? 0) + `style>`.length
-          )
-        }
-      }
-
-      // generate initial hash
-      const baseHash = hash(frontmatterCode + styleCode)
-
-      // shim Astro global
-      frontmatterCode = shimAstro + '\n\n' + frontmatterCode
-
       // @ts-expect-error ast can be passed here
       walk(ast, {
         enter(/** @type {any} */ node) {
           const isIframeElement =
-            node.type === 'element' &&
+            node.type === 'mdxJsxFlowElement' &&
             node.name === 'iframe' &&
             node.attributes.some((a) => a.name === 'data-why')
 
-          if (isIframeElement) {
-            // if contains slot, it implies that it's accepting the component's
-            // slot as iframe content, we need to proxy them
-            if (
-              node.children?.some((c) =>
-                c.value?.trimLeft().startsWith('<slot')
-              )
-            ) {
-              const attrs = api.getProxyIframeAttrs()
-              addAttrs(s, node, attrs)
-              s.remove(
-                node.children[0].position.start.offset,
-                node.position.end.offset - `</`.length // astro position ends until </
-              )
-              this.skip()
-              return
-            }
-          }
+          // NOTE: proxy iframe does not apply to MDX files
 
           const iframeComponent =
             node.type === 'component' && api.getComponent(node.name)
 
           if (isIframeElement || iframeComponent) {
-            // .astro requires a value for data-why to render as a specific framework
+            // .mdx requires a value for data-why to render as a specific framework
             const whyPropName = iframeComponent ? 'why' : 'data-why'
 
             /** @type {import('..').Options['defaultFramework']} */
@@ -136,7 +118,7 @@ export function whyframeAstro(options) {
             if (!framework) {
               // TODO: generate frame
               console.warn(
-                `<${node.name} ${whyPropName}> in .astro files must specify a value for ${whyPropName}, e.g. <${node.name} ${whyPropName}="svelte">. ` +
+                `<${node.name} ${whyPropName}> in .mdx files must specify a value for ${whyPropName}, e.g. <${node.name} ${whyPropName}="svelte">. ` +
                   `Supported frameworks include ${knownFrameworks
                     .map((f) => `"${f}"`)
                     .join(', ')}.`
@@ -160,13 +142,13 @@ export function whyframeAstro(options) {
             if (node.children.length > 0) {
               const start = node.children[0].position.start.offset
               const end =
-                node.position.end.offset - node.name.length - `</>`.length
+                node.children[node.children.length - 1].position.end.offset
               iframeContent = code.slice(start, end)
               s.remove(start, end)
             }
 
             // derive final hash per iframe
-            const finalHash = hash(baseHash + iframeContent)
+            const finalHash = hash(mdxEsmCode + iframeContent)
 
             const entryComponentId = api.createEntryComponent(
               id,
@@ -176,12 +158,7 @@ export function whyframeAstro(options) {
                 : framework === 'vue'
                 ? '.vue'
                 : '.tsx',
-              createEntryComponent(
-                frontmatterCode,
-                styleCode,
-                iframeContent,
-                framework
-              )
+              createEntryComponent(mdxEsmCode, iframeContent, framework)
             )
 
             const entryId = api.createEntry(
@@ -196,15 +173,8 @@ export function whyframeAstro(options) {
               const attr = node.attributes.find(
                 (a) => a.name === 'data-why-show-source'
               )
-              if (attr) {
-                if (attr.kind === 'empty') {
-                  showSource = true
-                } else if (
-                  attr.kind === 'quoted' ||
-                  attr.kind === 'expression'
-                ) {
-                  showSource = attr.value === 'true'
-                }
+              if (attr && (attr.value === null || attr.value === 'true')) {
+                showSource = attr.value === 'true'
               }
             } else if (iframeComponent) {
               if (typeof iframeComponent.showSource === 'boolean') {
@@ -212,8 +182,7 @@ export function whyframeAstro(options) {
               } else if (typeof iframeComponent.showSource === 'function') {
                 const openTag = code.slice(
                   node.position.start.offset,
-                  node.children[0]?.position.start.offset ??
-                    node.position.end.offset
+                  node.children[0]?.position.start.offset
                 )
                 showSource = iframeComponent.showSource(openTag)
               }
@@ -226,15 +195,17 @@ export function whyframeAstro(options) {
               showSource ? dedent(iframeContent) : undefined,
               !!iframeComponent
             )
+            console.log('here', node, attrs)
             addAttrs(s, node, attrs)
           }
         }
       })
 
       if (s.hasChanged()) {
+        // console.log(s.toString())
         return {
           code: s.toString(),
-          map: s.generateMap({ hires: true })
+          map: s.generateMap()
         }
       }
     }
@@ -327,38 +298,28 @@ export function createApp(el) {
 }
 
 /**
- * @param {string} frontmatterCode
- * @param {string} styleCode
+ * @param {string} mdxEsmCode
  * @param {string} iframeHtmlCode
  * @param {import('..').Options['defaultFramework']} framework
  */
-function createEntryComponent(
-  frontmatterCode,
-  styleCode,
-  iframeHtmlCode,
-  framework
-) {
+function createEntryComponent(mdxEsmCode, iframeHtmlCode, framework) {
   switch (framework) {
     case 'svelte':
       return `\
 <script>
-  ${frontmatterCode}
+  ${mdxEsmCode}
 </script>
 
-${iframeHtmlCode}
-
-${styleCode}`
+${iframeHtmlCode}`
     case 'vue':
       return `\
 <script setup>
-  ${frontmatterCode}
+  ${mdxEsmCode}
 </script>
 
 <template>
   ${iframeHtmlCode}
-</template>
-
-${styleCode}`
+</template>`
     case 'solid':
     case 'preact':
     case 'react':
@@ -366,7 +327,7 @@ ${styleCode}`
       return `\
 /** @jsxImportSource ${source} */
 
-${frontmatterCode}
+${mdxEsmCode}
 
 export function WhyframeApp() {
   return (
@@ -407,40 +368,8 @@ function addAttrs(s, node, attrs) {
 
   s.appendLeft(
     node.position.start.offset + node.name.length + 1,
-    safeAttrs.map((a) => ` ${a.name}={${parseAttrToString(a)}}`).join('')
+    safeAttrs.map((a) => ` ${a.name}=${JSON.stringify(a)}`).join('')
   )
 
-  for (const attr of mixedAttrs) {
-    const attrNodeIndex = node.attributes.findIndex((a) => a.name === attr.name)
-    if (attrNodeIndex === -1) continue
-    const attrNode = node.attributes[attrNodeIndex]
-
-    if (attrNode.kind === 'expression' || node.kind === 'shorthand') {
-      const start = attrNode.position.start.offset
-      // boy if only astro gave us end
-      const end =
-        (node.attributes[attrNodeIndex + 1]?.position.start.offset ??
-          node.children?.[0].position.start.offset ??
-          attrNode.name.length + `={}`.length + attrNode.value + 1) - 1
-      // foo={foo && bar} -> foo={(foo && bar) || "fallback"}
-      // {foo} -> foo={foo || "fallback"}
-      s.overwrite(
-        start,
-        end,
-        // prettier-ignore
-        `${attrNode.name}={(${attrNode.value || attrNode.name}) || ${parseAttrToString(attr)}}`
-      )
-    }
-  }
-}
-
-/**
- * @param {import('@whyframe/core').Attr} attr
- */
-function parseAttrToString(attr) {
-  if (attr.type === 'dynamic' && typeof attr.value === 'string') {
-    return `Astro.props.${attr.value}`
-  } else {
-    return JSON.stringify(attr.value)
-  }
+  // TODO: figure out of mixedAttrs is needed, likely not because static html always win?
 }

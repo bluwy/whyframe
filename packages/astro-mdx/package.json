@@ -1,0 +1,49 @@
+{
+  "name": "@whyframe/astro-mdx",
+  "description": "Astro MDX support for whyframe",
+  "version": "0.0.1",
+  "author": "Bjorn Lu",
+  "license": "MIT",
+  "type": "module",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "*.d.ts"
+  ],
+  "funding": "https://bjornlu.com/sponsor",
+  "homepage": "https://whyframe.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluwy/whyframe.git",
+    "directory": "packages/astro-mdx"
+  },
+  "bugs": {
+    "url": "https://github.com/bluwy/whyframe/issues"
+  },
+  "keywords": [
+    "whyframe",
+    "astro",
+    "mdx"
+  ],
+  "peerDependencies": {
+    "@whyframe/core": "workspace:^0.1.0",
+    "vite": "^3.0.0"
+  },
+  "dependencies": {
+    "estree-walker": "^3.0.3",
+    "magic-string": "^0.30.0",
+    "mdast-util-from-markdown": "^1.3.0",
+    "mdast-util-mdx": "^2.0.1",
+    "micromark-extension-mdxjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "@whyframe/core": "workspace:*",
+    "vite": "^4.2.1"
+  }
+}

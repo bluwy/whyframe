@@ -1,0 +1,91 @@
+---
+layout: ../layouts/Layout.astro
+---
+
+import '../assets/global.css'
+import Story from '../components/Story.svelte'
+import PopupSvelte from '../components/Popup.svelte'
+import PopupVue from '../components/Popup.vue'
+import PopupSolid from '../components/PopupSolid.jsx'
+import PopupPreact from '../components/PopupPreact.jsx'
+import PopupReact from '../components/PopupReact.jsx'
+
+# Astro + Whyframe + MDX
+
+Check out the examples below to see component isolation in action!
+
+You can view the source code at `src/pages/mdx.mdx`.
+
+Click on the logos above to learn more.
+
+## Svelte
+
+<div class="frames">
+  <iframe data-why title="Popup 1">
+    Simple usage example
+    <PopupSvelte content="Hello world">Open popup</PopupSvelte>
+  </iframe>
+
+  <Story client:load title="Popup 2">
+    This is a Story component
+    <PopupSvelte content="Hello world">Open popup</PopupSvelte>
+  </Story>
+</div>
+
+## Vue
+
+<div class="frames">
+  <iframe data-why="vue" title="Popup 1">
+    Simple usage example
+    <PopupVue content="Hello world">Open popup</PopupVue>
+  </iframe>
+
+  <Story client:load why="vue" title="Popup 2">
+    This is a Story component
+    <PopupVue content="Hello world">Open popup</PopupVue>
+  </Story>
+</div>
+
+## Solid
+
+<div class="frames">
+  <iframe data-why="solid" title="Popup 1">
+    Simple usage example
+    <PopupSolid content="Hello world">Open popup</PopupSolid>
+  </iframe>
+
+  <Story client:load why="solid" title="Popup 2">
+    This is a Story component
+    <PopupSolid content="Hello world">Open popup</PopupSolid>
+  </Story>
+</div>
+
+## Preact
+
+<div class="frames">
+  <iframe data-why="preact" title="Popup 1">
+    Simple usage example
+    <PopupPreact content="Hello world">Open popup</PopupPreact>
+  </iframe>
+
+  <Story client:load why="preact" title="Popup 2">
+    This is a Story component
+    <PopupPreact content="Hello world">Open popup</PopupPreact>
+  </Story>
+</div>
+
+## React
+
+<div class="frames">
+  <iframe data-why="react" title="Popup 1">
+    Simple usage example
+    <PopupReact content="Hello world">Open popup</PopupReact>
+  </iframe>
+
+  <Story client:load why="react" title="Popup 2">
+    This is a Story component
+    <PopupReact content="Hello world">Open popup</PopupReact>
+  </Story>
+</div>
+
+[Go back home](/)
