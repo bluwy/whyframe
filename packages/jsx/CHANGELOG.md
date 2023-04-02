@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.9 (2022-04-03)
 
 - Bump dependencies
 - Allow Vite 4 as peer dependency
