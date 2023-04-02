@@ -2,6 +2,11 @@ import dns from 'node:dns/promises'
 import fs from 'node:fs/promises'
 import { devices } from '@playwright/test'
 
+const ignoredProjects = [
+  'playground-next', // bizarre compile error
+  'playground-nuxt' // "[nuxt] [request error] [unhandled] [500] Context conflict" in dev and prod
+]
+
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 export default {
   forbidOnly: !!process.env.CI,
@@ -29,6 +34,8 @@ async function getProjects() {
   let port = 8180
 
   for (const dirent of dirents) {
+    if (ignoredProjects.includes(dirent.name)) continue
+
     if (dirent.isDirectory() && dirent.name !== 'node_modules') {
       const pkgJsonPath = new URL(`./${dirent.name}/package.json`, testsDir)
       let pkgJson

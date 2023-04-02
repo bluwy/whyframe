@@ -8,11 +8,11 @@ export default function App() {
   return (
     <main>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://webpack.js.org" target="_blank">
           <img
-            src="/vite.svg"
-            className={`${style.logo} ${style.vite}`}
-            alt="vite"
+            src="/webpack.svg"
+            className={`${style.logo} ${style.webpack}`}
+            alt="webpack"
             height="80"
           />
         </a>
