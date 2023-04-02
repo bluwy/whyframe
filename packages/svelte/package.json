@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "magic-string": "^0.27.0",
-    "svelte": "^3.54.0",
+    "svelte": "^3.58.0",
     "svelte-parse-markup": "^0.1.1"
   },
   "devDependencies": {

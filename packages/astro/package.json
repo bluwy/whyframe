@@ -35,8 +35,8 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@astrojs/compiler": "^0.31.0",
-    "estree-walker": "^3.0.1",
+    "@astrojs/compiler": "^0.31.4",
+    "estree-walker": "^3.0.3",
     "magic-string": "^0.27.0"
   },
   "devDependencies": {

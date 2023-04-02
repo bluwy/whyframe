@@ -9,15 +9,15 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@types/node": "^18.11.11",
-    "@whyframe/core": "^0.1.9",
-    "@whyframe/vue": "^0.1.5",
-    "node-fetch-native": "^1.0.1",
-    "nuxt": "^3.0.0",
-    "ufo": "^1.0.1",
+    "@types/node": "^18.15.11",
+    "@whyframe/core": "workspace:*",
+    "@whyframe/vue": "workspace:*",
+    "node-fetch-native": "^1.0.2",
+    "nuxt": "^3.3.2",
+    "ufo": "^1.1.1",
     "vue-router": "^4.1.6"
   }
 }

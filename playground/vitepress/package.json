@@ -8,13 +8,13 @@
 		"preview": "vitepress serve"
 	},
 	"dependencies": {
-		"vue": "^3.2.45"
+		"vue": "^3.2.47"
 	},
 	"devDependencies": {
-		"@whyframe/core": "^0.1.9",
-		"@whyframe/vue": "^0.1.5",
+		"@whyframe/core": "workspace:*",
+		"@whyframe/vue": "workspace:*",
 		"vite": "^3.2.5",
-		"vite-plugin-inspect": "^0.7.9",
-		"vitepress": "^1.0.0-alpha.30"
+		"vite-plugin-inspect": "^0.7.18",
+		"vitepress": "1.0.0-alpha.64"
 	}
 }
