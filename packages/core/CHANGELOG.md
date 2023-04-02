@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Allow Vite 4 as peer dependency
+
 ## 0.1.9 (2022-11-30)
 
 - Add experimental `whyframe:iframe` support

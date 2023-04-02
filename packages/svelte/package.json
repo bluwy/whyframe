@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@whyframe/core": "workspace:^0.1.0",
-    "vite": "^3.0.0"
+    "vite": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "magic-string": "^0.30.0",

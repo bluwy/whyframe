@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump dependencies
+- Allow Vite 4 as peer dependency
 
 ## 0.1.8 (2022-11-03)
 
