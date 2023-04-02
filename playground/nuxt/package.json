@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "@unhead/vue": "^1.1.25",
     "@whyframe/core": "^0.1.9",
     "@whyframe/vue": "^0.1.5",
     "node-fetch-native": "^1.0.2",

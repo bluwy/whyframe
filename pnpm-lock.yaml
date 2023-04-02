@@ -341,6 +341,9 @@ importers:
       '@types/node':
         specifier: ^18.15.11
         version: 18.15.11
+      '@unhead/vue':
+        specifier: ^1.1.25
+        version: 1.1.25(vue@3.2.47)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
