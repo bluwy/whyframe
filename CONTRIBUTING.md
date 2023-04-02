@@ -2,7 +2,7 @@
 
 ## Setup
 
-The project requires [`pnpm 7`](https://pnpm.io) and [`Node.js 16`](https://nodejs.org/en/). Run `pnpm install` to install dependencies of all workspace packages.
+The project requires [`pnpm 8`](https://pnpm.io) and [`Node.js 16`](https://nodejs.org/en/). Run `pnpm install` to install dependencies of all workspace packages.
 
 > Note: If you have limited network usage, you can remove `- playground/*` in the `pnpm-workspace.yaml` file to skip installing the `playground` dependencies. (Make sure not to `git commit` this change)
 
