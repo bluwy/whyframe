@@ -1,34 +1,34 @@
 {
-	"name": "@whyframe/playground-astro",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview"
-	},
-	"dependencies": {
-		"preact": "^10.13.2",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"solid-js": "^1.7.1",
-		"vue": "^3.2.47"
-	},
-	"devDependencies": {
-		"@astrojs/preact": "^2.1.0",
-		"@astrojs/react": "^2.1.1",
-		"@astrojs/solid-js": "^2.1.0",
-		"@astrojs/svelte": "^2.1.0",
-		"@astrojs/vue": "^2.1.0",
-		"@types/react": "^18.0.32",
-		"@types/react-dom": "^18.0.11",
-		"@whyframe/astro": "workspace:*",
-		"@whyframe/core": "workspace:*",
-		"@whyframe/jsx": "workspace:*",
-		"@whyframe/svelte": "workspace:*",
-		"@whyframe/vue": "workspace:*",
-		"astro": "^2.1.9",
-		"svelte": "^3.58.0",
-		"vite-plugin-inspect": "^0.7.18"
-	}
+  "name": "@whyframe/playground-astro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "preact": "^10.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "solid-js": "^1.7.1",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@astrojs/preact": "^2.1.0",
+    "@astrojs/react": "^2.1.1",
+    "@astrojs/solid-js": "^2.1.0",
+    "@astrojs/svelte": "^2.1.0",
+    "@astrojs/vue": "^2.1.0",
+    "@types/react": "^18.0.32",
+    "@types/react-dom": "^18.0.11",
+    "@whyframe/astro": "^0.2.4",
+    "@whyframe/core": "^0.1.9",
+    "@whyframe/jsx": "^0.1.8",
+    "@whyframe/svelte": "^0.1.5",
+    "@whyframe/vue": "^0.1.5",
+    "astro": "^2.1.9",
+    "svelte": "^3.58.0",
+    "vite-plugin-inspect": "^0.7.18"
+  }
 }

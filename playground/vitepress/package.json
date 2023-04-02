@@ -1,20 +1,20 @@
 {
-	"name": "@whyframe/playground-vitepress",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vitepress dev",
-		"build": "vitepress build",
-		"preview": "vitepress serve"
-	},
-	"dependencies": {
-		"vue": "^3.2.47"
-	},
-	"devDependencies": {
-		"@whyframe/core": "workspace:*",
-		"@whyframe/vue": "workspace:*",
-		"vite": "^4.2.1",
-		"vite-plugin-inspect": "^0.7.18",
-		"vitepress": "1.0.0-alpha.64"
-	}
+  "name": "@whyframe/playground-vitepress",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress serve"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@whyframe/core": "^0.1.9",
+    "@whyframe/vue": "^0.1.5",
+    "vite": "^4.2.1",
+    "vite-plugin-inspect": "^0.7.18",
+    "vitepress": "1.0.0-alpha.64"
+  }
 }
