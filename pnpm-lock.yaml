@@ -104,7 +104,7 @@ importers:
         version: 0.1.0
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   packages/astro:
     dependencies:
@@ -122,14 +122,14 @@ importers:
         specifier: workspace:*
         version: link:../core
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
 
   packages/core:
     devDependencies:
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       webpack:
         specifier: ^5.77.0
         version: 5.77.0(webpack-cli@5.0.1)
@@ -159,8 +159,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       webpack:
         specifier: ^5.77.0
         version: 5.77.0(webpack-cli@5.0.1)
@@ -184,8 +184,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
 
   packages/vue:
     dependencies:
@@ -203,8 +203,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -271,7 +271,7 @@ importers:
         version: 3.58.0
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/docusaurus:
     dependencies:
@@ -370,7 +370,7 @@ importers:
         version: 2.0.0(@sveltejs/kit@1.15.0)
       '@sveltejs/kit':
         specifier: ^1.15.0
-        version: 1.15.0(svelte@3.58.0)(vite@4.2.1)
+        version: 1.15.0(svelte@3.58.0)(vite@4.2.3)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -384,11 +384,11 @@ importers:
         specifier: ^3.58.0
         version: 3.58.0
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/vite-preact:
     dependencies:
@@ -398,7 +398,7 @@ importers:
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.5.0
-        version: 2.5.0(preact@10.13.2)(vite@4.2.1)
+        version: 2.5.0(preact@10.13.2)(vite@4.2.3)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -406,11 +406,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/jsx
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/vite-react:
     dependencies:
@@ -423,7 +423,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-react':
         specifier: ^3.1.0
-        version: 3.1.0(vite@4.2.1)
+        version: 3.1.0(vite@4.2.3)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -431,11 +431,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/jsx
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/vite-solid:
     dependencies:
@@ -453,20 +453,20 @@ importers:
         specifier: ^1.7.1
         version: 1.7.1(@babel/core@7.21.4)
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
       vite-plugin-solid:
         specifier: ^2.6.1
-        version: 2.6.1(solid-js@1.7.1)(vite@4.2.1)
+        version: 2.6.1(solid-js@1.7.1)(vite@4.2.3)
 
   playground/vite-svelte:
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^2.0.4
-        version: 2.0.4(svelte@3.58.0)(vite@4.2.1)
+        version: 2.0.4(svelte@3.58.0)(vite@4.2.3)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -477,11 +477,11 @@ importers:
         specifier: ^3.58.0
         version: 3.58.0
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/vite-vue:
     dependencies:
@@ -491,7 +491,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
-        version: 4.1.0(vite@4.2.1)(vue@3.2.47)
+        version: 4.1.0(vite@4.2.3)(vue@3.2.47)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -499,11 +499,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/vue
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
 
   playground/vitepress:
     dependencies:
@@ -518,11 +518,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/vue
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
       vite-plugin-inspect:
         specifier: ^0.7.18
-        version: 0.7.18(vite@4.2.1)
+        version: 0.7.18(vite@4.2.3)
       vitepress:
         specifier: 1.0.0-alpha.64
         version: 1.0.0-alpha.64
@@ -623,7 +623,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
-        version: 4.1.0(vite@4.2.1)(vue@3.2.47)
+        version: 4.1.0(vite@4.2.3)(vue@3.2.47)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -631,8 +631,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/vue
       vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
+        specifier: ^4.2.3
+        version: 4.2.3(@types/node@18.15.11)
 
 packages:
 
@@ -879,7 +879,7 @@ packages:
     dependencies:
       babel-preset-solid: 1.7.1(@babel/core@7.21.4)
       solid-js: 1.7.1
-      vitefu: 0.2.4(vite@4.2.1)
+      vitefu: 0.2.4(vite@4.2.3)
     transitivePeerDependencies:
       - '@babel/core'
       - vite
@@ -892,7 +892,7 @@ packages:
       astro: ^2.1.0
       svelte: ^3.54.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.1)
+      '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.3)
       astro: 2.1.9
       svelte: 3.58.0
       svelte2tsx: 0.5.23(svelte@3.58.0)
@@ -925,8 +925,8 @@ packages:
       astro: ^2.1.0
       vue: ^3.2.30
     dependencies:
-      '@vitejs/plugin-vue': 4.1.0(vite@4.2.1)(vue@3.2.47)
-      '@vitejs/plugin-vue-jsx': 3.0.1(vite@4.2.1)(vue@3.2.47)
+      '@vitejs/plugin-vue': 4.1.0(vite@4.2.3)(vue@3.2.47)
+      '@vitejs/plugin-vue-jsx': 3.0.1(vite@4.2.3)(vue@3.2.47)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.21.4)
       '@vue/compiler-sfc': 3.2.47
       astro: 2.1.9
@@ -3981,8 +3981,8 @@ packages:
     dependencies:
       '@nuxt/kit': 3.3.2(rollup@3.20.2)
       '@rollup/plugin-replace': 5.0.2(rollup@3.20.2)
-      '@vitejs/plugin-vue': 4.1.0(vite@4.2.1)(vue@3.2.47)
-      '@vitejs/plugin-vue-jsx': 3.0.1(vite@4.2.1)(vue@3.2.47)
+      '@vitejs/plugin-vue': 4.1.0(vite@4.2.3)(vue@3.2.47)
+      '@vitejs/plugin-vue-jsx': 3.0.1(vite@4.2.3)(vue@3.2.47)
       autoprefixer: 10.4.14(postcss@8.4.21)
       chokidar: 3.5.3
       clear: 0.1.0
@@ -4011,9 +4011,9 @@ packages:
       strip-literal: 1.0.1
       ufo: 1.1.1
       unplugin: 1.3.1
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
       vite-node: 0.29.8(@types/node@18.15.11)
-      vite-plugin-checker: 0.5.6(vite@4.2.1)
+      vite-plugin-checker: 0.5.6(vite@4.2.3)
       vue: 3.2.47
       vue-bundle-renderer: 1.0.3
     transitivePeerDependencies:
@@ -4060,7 +4060,7 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
 
-  /@preact/preset-vite@2.5.0(preact@10.13.2)(vite@4.2.1):
+  /@preact/preset-vite@2.5.0(preact@10.13.2)(vite@4.2.3):
     resolution: {integrity: sha512-BUhfB2xQ6ex0yPkrT1Z3LbfPzjpJecOZwQ/xJrXGFSZD84+ObyS//41RdEoQCMWsM0t7UHGaujUxUBub7WM1Jw==}
     peerDependencies:
       '@babel/core': 7.x
@@ -4073,13 +4073,13 @@ packages:
     dependencies:
       '@babel/plugin-transform-react-jsx': 7.21.0(@babel/core@7.21.4)
       '@babel/plugin-transform-react-jsx-development': 7.18.6(@babel/core@7.21.4)
-      '@prefresh/vite': 2.2.9(preact@10.13.2)(vite@4.2.1)
+      '@prefresh/vite': 2.2.9(preact@10.13.2)(vite@4.2.3)
       '@rollup/pluginutils': 4.2.1
       babel-plugin-transform-hook-names: 1.0.2
       debug: 4.3.4
       kolorist: 1.7.0
       resolve: 1.22.1
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - preact
       - supports-color
@@ -4114,7 +4114,7 @@ packages:
     resolution: {integrity: sha512-Mb9abhJTOV4yCfkXrMrcgFiFT7MfNOw8sDa+XyZBdq/Ai2p4Zyxqsb3EgHLOEdHpMj6J9aiZ54W8H6FTam1u+A==}
     dev: true
 
-  /@prefresh/vite@2.2.9(preact@10.13.2)(vite@4.2.1):
+  /@prefresh/vite@2.2.9(preact@10.13.2)(vite@4.2.3):
     resolution: {integrity: sha512-1ERBF85Ja9/lkrfaltmo4Gca7R2ClQPSHHDDysFgfvPzHmLUeyB0x9WHwhwov/AA1DnyPhsfYT54z3yQd8XrgA==}
     peerDependencies:
       preact: ^10.4.0
@@ -4129,7 +4129,7 @@ packages:
       '@prefresh/utils': 1.1.3
       '@rollup/pluginutils': 4.2.1
       preact: 10.13.2
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4306,11 +4306,11 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@sveltejs/kit': 1.15.0(svelte@3.58.0)(vite@4.2.1)
+      '@sveltejs/kit': 1.15.0(svelte@3.58.0)(vite@4.2.3)
       import-meta-resolve: 2.2.2
     dev: true
 
-  /@sveltejs/kit@1.15.0(svelte@3.58.0)(vite@4.2.1):
+  /@sveltejs/kit@1.15.0(svelte@3.58.0)(vite@4.2.3):
     resolution: {integrity: sha512-fvDsW9msxWjDU/j9wwLlxEZ6cpXQYcmcQHq7neJMqibMEl39gI1ztVymGnYqM8KLqZXwNmhKtLu8EPheukKtXQ==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
@@ -4322,7 +4322,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.1)
+      '@sveltejs/vite-plugin-svelte': 2.0.4(svelte@3.58.0)(vite@4.2.3)
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.0
@@ -4336,12 +4336,12 @@ packages:
       svelte: 3.58.0
       tiny-glob: 0.2.9
       undici: 5.21.0
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@sveltejs/vite-plugin-svelte@2.0.4(svelte@3.58.0)(vite@4.2.1):
+  /@sveltejs/vite-plugin-svelte@2.0.4(svelte@3.58.0)(vite@4.2.3):
     resolution: {integrity: sha512-pjqhW00KwK2uzDGEr+yJBwut+D+4XfJO/+bHHdHzPRXn9+1Jeq5JcFHyrUiYaXgHtyhX0RsllCTm4ssAx4ZY7Q==}
     engines: {node: ^14.18.0 || >= 16}
     peerDependencies:
@@ -4357,8 +4357,8 @@ packages:
       magic-string: 0.30.0
       svelte: 3.58.0
       svelte-hmr: 0.15.1(svelte@3.58.0)
-      vite: 4.2.1(@types/node@18.15.11)
-      vitefu: 0.2.4(vite@4.2.1)
+      vite: 4.2.3(@types/node@18.15.11)
+      vitefu: 0.2.4(vite@4.2.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4890,7 +4890,7 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-react@3.1.0(vite@4.2.1):
+  /@vitejs/plugin-react@3.1.0(vite@4.2.3):
     resolution: {integrity: sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -4904,12 +4904,12 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6(@babel/core@7.21.4)
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue-jsx@3.0.1(vite@4.2.1)(vue@3.2.47):
+  /@vitejs/plugin-vue-jsx@3.0.1(vite@4.2.3)(vue@3.2.47):
     resolution: {integrity: sha512-+Jb7ggL48FSPS1uhPnJbJwWa9Sr90vQ+d0InW+AhBM22n+cfuYqJZDckBc+W3QSHe1WDvewMZfa4wZOtk5pRgw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -4922,13 +4922,13 @@ packages:
       '@babel/core': 7.21.4
       '@babel/plugin-transform-typescript': 7.21.3(@babel/core@7.21.4)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.21.4)
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
       vue: 3.2.47
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue@4.1.0(vite@4.2.1)(vue@3.2.47):
+  /@vitejs/plugin-vue@4.1.0(vite@4.2.3)(vue@3.2.47):
     resolution: {integrity: sha512-++9JOAFdcXI3lyer9UKUV4rfoQ3T1RN8yDqoCLar86s0xQct5yblxAE+yWgRnU5/0FOlVCpTZpYSBV/bGWrSrQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -4938,7 +4938,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
       vue: 3.2.47
     dev: true
 
@@ -5532,8 +5532,8 @@ packages:
       typescript: 5.0.3
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.2.1(@types/node@18.15.11)
-      vitefu: 0.2.4(vite@4.2.1)
+      vite: 4.2.3(@types/node@18.15.11)
+      vitefu: 0.2.4(vite@4.2.3)
       yargs-parser: 21.1.1
       zod: 3.21.4
     transitivePeerDependencies:
@@ -13171,7 +13171,7 @@ packages:
       mlly: 1.2.0
       pathe: 1.1.0
       picocolors: 1.0.0
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13182,7 +13182,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-checker@0.5.6(vite@4.2.1):
+  /vite-plugin-checker@0.5.6(vite@4.2.3):
     resolution: {integrity: sha512-ftRyON0gORUHDxcDt2BErmsikKSkfvl1i2DoP6Jt2zDO9InfvM6tqO1RkXhSjkaXEhKPea6YOnhFaZxW3BzudQ==}
     engines: {node: '>=14.16'}
     peerDependencies:
@@ -13227,7 +13227,7 @@ packages:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
@@ -13245,7 +13245,7 @@ packages:
       cloudflare-redirect-parser: 0.1.0
     dev: true
 
-  /vite-plugin-inspect@0.7.18(vite@4.2.1):
+  /vite-plugin-inspect@0.7.18(vite@4.2.3):
     resolution: {integrity: sha512-hyIxg2qJaRs0LoB3Tqy9ML8yEublIzTzFVXmNhgw2jsjETJUXeR6iQ4YPHk3Q6kTbbiwgoPPyXimlAfEwektnA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -13261,13 +13261,13 @@ packages:
       kolorist: 1.7.0
       sirv: 2.0.2
       ufo: 1.1.1
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     transitivePeerDependencies:
       - rollup
       - supports-color
     dev: true
 
-  /vite-plugin-solid@2.6.1(solid-js@1.7.1)(vite@4.2.1):
+  /vite-plugin-solid@2.6.1(solid-js@1.7.1)(vite@4.2.3):
     resolution: {integrity: sha512-/khM/ha3B5/pTWQWVJd/0n6ODPIrOcajwhbrD8Gnv37XmJJssu+KA8ssN73raMIicf2eiQKiTAV39w7dSl4Irg==}
     peerDependencies:
       solid-js: ^1.3.17 || ^1.4.0 || ^1.5.0 || ^1.6.0
@@ -13283,14 +13283,14 @@ packages:
       merge-anything: 5.1.4
       solid-js: 1.7.1
       solid-refresh: 0.5.2(solid-js@1.7.1)
-      vite: 4.2.1(@types/node@18.15.11)
-      vitefu: 0.2.4(vite@4.2.1)
+      vite: 4.2.3(@types/node@18.15.11)
+      vitefu: 0.2.4(vite@4.2.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@4.2.1(@types/node@18.15.11):
-    resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
+  /vite@4.2.3(@types/node@18.15.11):
+    resolution: {integrity: sha512-kLU+m2q0Y434Y1kCy3TchefAdtFso0ILi0dLyFV8Us3InXTU11H/B5ZTqCKIQHzSKNxVG/yEx813EA9f1imQ9A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -13323,7 +13323,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitefu@0.2.4(vite@4.2.1):
+  /vitefu@0.2.4(vite@4.2.3):
     resolution: {integrity: sha512-fanAXjSaf9xXtOOeno8wZXIhgia+CZury481LsDaV++lSvcU2R9Ch2bPh3PYFyoHW+w9LqAeYRISVQjUIew14g==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0
@@ -13331,7 +13331,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
     dev: true
 
   /vitepress@1.0.0-alpha.64:
@@ -13340,12 +13340,12 @@ packages:
     dependencies:
       '@docsearch/css': 3.3.3
       '@docsearch/js': 3.3.3
-      '@vitejs/plugin-vue': 4.1.0(vite@4.2.1)(vue@3.2.47)
+      '@vitejs/plugin-vue': 4.1.0(vite@4.2.3)(vue@3.2.47)
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 9.13.0(vue@3.2.47)
       body-scroll-lock: 4.0.0-beta.0
       shiki: 0.14.1
-      vite: 4.2.1(@types/node@18.15.11)
+      vite: 4.2.3(@types/node@18.15.11)
       vue: 3.2.47
     transitivePeerDependencies:
       - '@algolia/client-search'

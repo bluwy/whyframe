@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "@whyframe/core": "workspace:*",
-    "vite": "^4.2.1"
+    "vite": "^4.2.3"
   }
 }

@@ -14,6 +14,6 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "@whyframe/core": "workspace:*",
     "@whyframe/vue": "workspace:*",
-    "vite": "^4.2.1"
+    "vite": "^4.2.3"
   }
 }
