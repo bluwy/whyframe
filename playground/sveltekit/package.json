@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
-    "@sveltejs/kit": "^1.15.0",
+    "@sveltejs/kit": "^1.15.2",
     "@whyframe/core": "^0.1.9",
     "@whyframe/svelte": "^0.1.5",
     "mdsvex": "^0.10.6",
