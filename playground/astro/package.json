@@ -8,27 +8,27 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "preact": "^10.13.2",
+    "preact": "^10.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "solid-js": "^1.7.1",
-    "vue": "^3.2.47"
+    "solid-js": "^1.7.10",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@astrojs/preact": "^2.1.0",
-    "@astrojs/react": "^2.1.1",
-    "@astrojs/solid-js": "^2.1.0",
-    "@astrojs/svelte": "^2.1.0",
-    "@astrojs/vue": "^2.1.0",
-    "@types/react": "^18.0.32",
-    "@types/react-dom": "^18.0.11",
-    "@whyframe/astro": "^0.2.4",
-    "@whyframe/core": "^0.1.9",
-    "@whyframe/jsx": "^0.1.8",
-    "@whyframe/svelte": "^0.1.5",
-    "@whyframe/vue": "^0.1.5",
-    "astro": "^2.1.9",
-    "svelte": "^3.58.0",
-    "vite-plugin-inspect": "^0.7.18"
+    "@astrojs/preact": "^2.2.2",
+    "@astrojs/react": "^2.2.1",
+    "@astrojs/solid-js": "^2.2.0",
+    "@astrojs/svelte": "^3.1.0",
+    "@astrojs/vue": "^2.2.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@whyframe/astro": "workspace:*",
+    "@whyframe/core": "workspace:*",
+    "@whyframe/jsx": "workspace:*",
+    "@whyframe/svelte": "workspace:*",
+    "@whyframe/vue": "workspace:*",
+    "astro": "^2.10.4",
+    "svelte": "^4.1.2",
+    "vite-plugin-inspect": "^0.7.35"
   }
 }

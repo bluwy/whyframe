@@ -14,7 +14,7 @@
     "@whyframe/core": "^0.1.9",
     "@whyframe/jsx": "^0.1.8",
     "babel-preset-solid": "^1.7.1",
-    "vite": "^4.4.8",
+    "vite": "^4.4.9",
     "vite-plugin-inspect": "^0.7.18",
     "vite-plugin-solid": "^2.6.1"
   }

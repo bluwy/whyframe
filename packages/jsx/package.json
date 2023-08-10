@@ -67,7 +67,7 @@
     "@docusaurus/types": "^2.4.0",
     "@whyframe/core": "workspace:*",
     "uvu": "^0.5.6",
-    "vite": "^4.4.8",
+    "vite": "^4.4.9",
     "webpack": "^5.77.0"
   }
 }
