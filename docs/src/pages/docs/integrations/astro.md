@@ -76,7 +76,7 @@ As `whyframe`'s default HTML doesn't work in Astro, a custom HTML source is requ
 To setup `/frames/default`, or in other words `http://localhost:3000/frames/default`, create a `src/pages/frames/default.astro` file:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />

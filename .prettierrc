@@ -5,7 +5,7 @@
   "trailingComma": "none",
   "semi": false,
   "plugins": [
-    "./node_modules/prettier-plugin-svelte",
-    "./node_modules/prettier-plugin-astro"
+    "prettier-plugin-svelte",
+    "prettier-plugin-astro"
   ]
 }
