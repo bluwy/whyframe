@@ -21,9 +21,9 @@ import Logo from '@/components/Logo.astro'
                 target={url.startsWith('http') ? '_blank' : undefined}
               >
                 {title === 'GitHub' ? (
-                  <img src={github} alt="GitHub" width="24" height="24" />
+                  <img src={github.src} alt="GitHub" width="24" height="24" />
                 ) : title === 'Discord' ? (
-                  <img src={discord} alt="Discord" width="22" height="22" />
+                  <img src={discord.src} alt="Discord" width="22" height="22" />
                 ) : (
                   title
                 )}

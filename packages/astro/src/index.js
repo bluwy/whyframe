@@ -19,6 +19,8 @@ const importsRE =
 export function whyframeAstro(options) {
   /** @type {import('@whyframe/core').Api} */
   let api
+  /** @type {string | undefined} */
+  let reactPreambleCode
 
   const filter = createFilter(options?.include || /\.astro$/, options?.exclude)
 
@@ -45,6 +47,8 @@ export function whyframeAstro(options) {
           delete plugin.enforce
         }
       }
+
+      const react = c.plugins.findIndex((p) => p.name === '')
     },
     async transform(code, id) {
       if (!filter(id)) return
@@ -93,7 +97,7 @@ export function whyframeAstro(options) {
 
       // shim Astro global
       frontmatterCode = shimAstro + '\n\n' + frontmatterCode
-
+console.log(frontmatterCode)
       walk(ast, {
         enter(/** @type {any} */ node) {
           const isIframeElement =
@@ -182,6 +186,13 @@ export function whyframeAstro(options) {
                 framework
               )
             )
+
+            console.log( createEntryComponent(
+              frontmatterCode,
+              styleCode,
+              iframeContent,
+              framework
+            ))
 
             const entryId = api.createEntry(
               id,
@@ -366,6 +377,16 @@ ${styleCode}`
 /** @jsxImportSource ${source} */
 
 ${frontmatterCode}
+
+${
+  framework === 'react'
+    ? `import RefreshRuntime from "/@react-refresh"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true`
+    : ''
+}
 
 export function WhyframeApp() {
   return (

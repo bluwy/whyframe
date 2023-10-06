@@ -208,7 +208,7 @@ ${bottomCode}`
 
           const entryId = api.createEntry(
             id,
-            finalHash,
+            `${framework}-${finalHash}`,
             '.jsx',
             createEntry(entryComponentId, framework)
           )

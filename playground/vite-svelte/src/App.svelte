@@ -11,11 +11,11 @@
       <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
     </a>
     <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="svelte" height="80" />
+      <img src={svelteLogo.src} class="logo svelte" alt="svelte" height="80" />
     </a>
     <a href="https://whyframe.dev" target="_blank" rel="noreferrer">
       <img
-        src={whyframeLogo}
+        src={whyframeLogo.src}
         class="logo whyframe"
         alt="whyframe"
         height="80"

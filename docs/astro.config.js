@@ -31,9 +31,15 @@ export default defineConfig({
       }
     }),
     vue(),
-    solid(),
-    preact(),
-    react()
+    solid({
+      include: [
+        '**/solid/**/*',
+        '*__whyframe:entry-solid-*',
+        '**/node_modules/**/*'
+      ]
+    }),
+    preact({ include: ['**/preact/**/*', '*__whyframe:entry-preact-*'] }),
+    react({ include: ['**/react/**/*', '*__whyframe:entry-react-*'] })
   ],
   vite: {
     plugins: [
