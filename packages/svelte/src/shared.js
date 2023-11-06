@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { walk } from 'svelte/compiler'
+import { walk } from 'estree-walker'
 import { parse } from 'svelte-parse-markup'
 import MagicString from 'magic-string'
 import { dedent, hash } from '@whyframe/core/pluginutils'
