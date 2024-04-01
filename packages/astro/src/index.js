@@ -173,8 +173,8 @@ export function whyframeAstro(options) {
               framework === 'svelte'
                 ? '.svelte'
                 : framework === 'vue'
-                ? '.vue'
-                : '.tsx',
+                  ? '.vue'
+                  : '.tsx',
               createEntryComponent(
                 frontmatterCode,
                 styleCode,
