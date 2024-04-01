@@ -16,14 +16,14 @@ importers:
   .:
     devDependencies:
       prettier:
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^3.2.5
+        version: 3.2.5
       prettier-plugin-astro:
         specifier: ^0.11.0
         version: 0.11.0
       prettier-plugin-svelte:
         specifier: ^3.0.3
-        version: 3.0.3(prettier@3.0.1)(svelte@4.2.12)
+        version: 3.0.3(prettier@3.2.5)(svelte@4.2.12)
       svelte:
         specifier: ^4.2.12
         version: 4.2.12
@@ -34,8 +34,8 @@ importers:
   docs:
     dependencies:
       preact:
-        specifier: ^10.16.0
-        version: 10.16.0
+        specifier: ^10.20.1
+        version: 10.20.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -54,10 +54,10 @@ importers:
         version: 0.19.7(astro@2.10.4)
       '@astrojs/preact':
         specifier: ^2.2.2
-        version: 2.2.2(preact@10.16.0)
+        version: 2.2.2(preact@10.20.1)
       '@astrojs/react':
         specifier: ^2.2.1
-        version: 2.2.1(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.2.1(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
       '@astrojs/solid-js':
         specifier: ^2.2.0
         version: 2.2.0(solid-js@1.8.16)
@@ -68,11 +68,11 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(astro@2.10.4)(vue@3.4.21)
       '@types/react':
-        specifier: ^18.2.20
-        version: 18.2.20
+        specifier: ^18.2.73
+        version: 18.2.73
       '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
+        specifier: ^18.2.23
+        version: 18.2.23
       '@whyframe/astro':
         specifier: workspace:*
         version: link:../packages/astro
@@ -97,15 +97,12 @@ importers:
       rehype-slug:
         specifier: ^5.1.0
         version: 5.1.0
-      shiki:
-        specifier: ^0.14.3
-        version: 0.14.3
       svelte:
         specifier: ^4.2.12
         version: 4.2.12
       vite-plugin-cloudflare-redirect:
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       vite-plugin-inspect:
         specifier: ^0.8.3
         version: 0.8.3(vite@5.2.7)
@@ -119,8 +116,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       magic-string:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.30.8
+        version: 0.30.8
     devDependencies:
       '@whyframe/core':
         specifier: workspace:*
@@ -150,8 +147,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       magic-string:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.30.8
+        version: 0.30.8
     devDependencies:
       '@docusaurus/types':
         specifier: ^2.4.0
@@ -175,8 +172,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       magic-string:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.30.8
+        version: 0.30.8
       svelte:
         specifier: ^4.2.12
         version: 4.2.12
@@ -200,8 +197,8 @@ importers:
         specifier: ^3.4.21
         version: 3.4.21
       magic-string:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.30.8
+        version: 0.30.8
     devDependencies:
       '@whyframe/core':
         specifier: workspace:*
@@ -219,8 +216,8 @@ importers:
   playground/astro:
     dependencies:
       preact:
-        specifier: ^10.16.0
-        version: 10.16.0
+        specifier: ^10.20.1
+        version: 10.20.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -236,10 +233,10 @@ importers:
     devDependencies:
       '@astrojs/preact':
         specifier: ^2.2.2
-        version: 2.2.2(preact@10.16.0)
+        version: 2.2.2(preact@10.20.1)
       '@astrojs/react':
         specifier: ^2.2.1
-        version: 2.2.1(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.2.1(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
       '@astrojs/solid-js':
         specifier: ^2.2.0
         version: 2.2.0(solid-js@1.8.16)
@@ -250,11 +247,11 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(astro@2.10.4)(vue@3.4.21)
       '@types/react':
-        specifier: ^18.2.20
-        version: 18.2.20
+        specifier: ^18.2.73
+        version: 18.2.73
       '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
+        specifier: ^18.2.23
+        version: 18.2.23
       '@whyframe/astro':
         specifier: workspace:*
         version: link:../../packages/astro
@@ -403,12 +400,12 @@ importers:
   playground/vite-preact:
     dependencies:
       preact:
-        specifier: ^10.13.2
-        version: 10.13.2
+        specifier: ^10.20.1
+        version: 10.20.1
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.8.2
-        version: 2.8.2(preact@10.13.2)(vite@5.2.7)
+        version: 2.8.2(preact@10.20.1)(vite@5.2.7)
       '@whyframe/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -595,8 +592,8 @@ importers:
         specifier: ^1.32.1
         version: 1.32.1
       execa:
-        specifier: ^7.1.1
-        version: 7.1.1
+        specifier: ^7.2.0
+        version: 7.2.0
       tree-kill:
         specifier: ^1.2.2
         version: 1.2.2
@@ -1024,7 +1021,7 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/preact@2.2.2(preact@10.16.0):
+  /@astrojs/preact@2.2.2(preact@10.20.1):
     resolution: {integrity: sha512-4B9h73z6qNtDokwvw9ztpcpxdowdqJnaXU0GNgjrdkBXlDl57IzqIpJ0JpNd5nP+LUGywyp/n6kJndDnOkWO6w==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -1032,10 +1029,10 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.10)
-      '@preact/signals': 1.2.0(preact@10.16.0)
+      '@preact/signals': 1.2.0(preact@10.20.1)
       babel-plugin-module-resolver: 5.0.0
-      preact: 10.16.0
-      preact-render-to-string: 5.2.6(preact@10.16.0)
+      preact: 10.20.1
+      preact-render-to-string: 5.2.6(preact@10.20.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1047,7 +1044,7 @@ packages:
       prismjs: 1.29.0
     dev: true
 
-  /@astrojs/react@2.2.1(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0):
+  /@astrojs/react@2.2.1(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nq5Zr8iWdwjSp5fh1NReaCplwsnL4w5PXAY5XWu1jE/frxEfF/ycGHrrhwWW0uJHX9G+kUtmQLR0GBhlR4FmAw==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -1065,8 +1062,8 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.10)
-      '@types/react': 18.2.20
-      '@types/react-dom': 18.2.7
+      '@types/react': 18.2.73
+      '@types/react-dom': 18.2.23
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
@@ -3483,7 +3480,7 @@ packages:
       '@docusaurus/react-loadable': 5.5.2(react@17.0.2)
       '@docusaurus/types': 2.4.0(react-dom@17.0.2)(react@17.0.2)
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       '@types/react-router-config': 5.0.6
       '@types/react-router-dom': 5.3.3
       react: 17.0.2
@@ -3876,7 +3873,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       prop-types: 15.8.1
       react: 17.0.2
 
@@ -3957,7 +3954,7 @@ packages:
       '@docusaurus/utils': 2.4.0(@docusaurus/types@2.4.0)
       '@docusaurus/utils-common': 2.4.0(@docusaurus/types@2.4.0)
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       '@types/react-router-config': 5.0.6
       clsx: 1.2.1
       parse-numeric-range: 1.3.0
@@ -4057,7 +4054,7 @@ packages:
         optional: true
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       commander: 5.1.0
       joi: 17.9.1
       react: 17.0.2
@@ -5202,7 +5199,7 @@ packages:
       get-port-please: 3.0.1
       h3: 1.6.4
       knitwork: 1.0.0
-      magic-string: 0.30.0
+      magic-string: 0.30.8
       mlly: 1.2.0
       ohash: 1.0.0
       pathe: 1.1.0
@@ -5270,7 +5267,7 @@ packages:
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
     dev: true
 
-  /@preact/preset-vite@2.8.2(preact@10.13.2)(vite@5.2.7):
+  /@preact/preset-vite@2.8.2(preact@10.20.1)(vite@5.2.7):
     resolution: {integrity: sha512-m3tl+M8IO8jgiHnk+7LSTFl8axdPXloewi7iGVLdmCwf34XOzEUur0bZVewW4DUbUipFjTS2CXu27+5f/oexBA==}
     peerDependencies:
       '@babel/core': 7.x
@@ -5283,7 +5280,7 @@ packages:
     dependencies:
       '@babel/plugin-transform-react-jsx': 7.23.4
       '@babel/plugin-transform-react-jsx-development': 7.22.5
-      '@prefresh/vite': 2.4.5(preact@10.13.2)(vite@5.2.7)
+      '@prefresh/vite': 2.4.5(preact@10.20.1)(vite@5.2.7)
       '@rollup/pluginutils': 4.2.1
       babel-plugin-transform-hook-names: 1.0.2
       debug: 4.3.4
@@ -5303,32 +5300,32 @@ packages:
     resolution: {integrity: sha512-5iYoZBhELLIhUQceZI7sDTQWPb+xcVSn2qk8T/aNl/VMh+A4AiPX9YRSh4XO7fZ6pncrVxl1Iln82poVqYVbbw==}
     dev: true
 
-  /@preact/signals@1.2.0(preact@10.16.0):
+  /@preact/signals@1.2.0(preact@10.20.1):
     resolution: {integrity: sha512-hrPOJ6L4XI/6iFJ++JitYG7W22E0+oNDkWH9W1gCutcKYCJq5tvhKcnxkLShCuctNZkwUBpu4XeIiVr5wC4NnA==}
     peerDependencies:
       preact: 10.x
     dependencies:
       '@preact/signals-core': 1.4.0
-      preact: 10.16.0
+      preact: 10.20.1
     dev: true
 
   /@prefresh/babel-plugin@0.5.1:
     resolution: {integrity: sha512-uG3jGEAysxWoyG3XkYfjYHgaySFrSsaEb4GagLzYaxlydbuREtaX+FTxuIidp241RaLl85XoHg9Ej6E4+V1pcg==}
     dev: true
 
-  /@prefresh/core@1.5.2(preact@10.13.2):
+  /@prefresh/core@1.5.2(preact@10.20.1):
     resolution: {integrity: sha512-A/08vkaM1FogrCII5PZKCrygxSsc11obExBScm3JF1CryK2uDS3ZXeni7FeKCx1nYdUkj4UcJxzPzc1WliMzZA==}
     peerDependencies:
       preact: ^10.0.0
     dependencies:
-      preact: 10.13.2
+      preact: 10.20.1
     dev: true
 
   /@prefresh/utils@1.2.0:
     resolution: {integrity: sha512-KtC/fZw+oqtwOLUFM9UtiitB0JsVX0zLKNyRTA332sqREqSALIIQQxdUCS1P3xR/jT1e2e8/5rwH6gdcMLEmsQ==}
     dev: true
 
-  /@prefresh/vite@2.4.5(preact@10.13.2)(vite@5.2.7):
+  /@prefresh/vite@2.4.5(preact@10.20.1)(vite@5.2.7):
     resolution: {integrity: sha512-iForDVJ2M8gQYnm5pHumvTEJjGGc7YNYC0GVKnHFL+GvFfKHfH9Rpq67nUAzNbjuLEpqEOUuQVQajMazWu2ZNQ==}
     peerDependencies:
       preact: ^10.4.0
@@ -5339,10 +5336,10 @@ packages:
     dependencies:
       '@babel/core': 7.24.3
       '@prefresh/babel-plugin': 0.5.1
-      '@prefresh/core': 1.5.2(preact@10.13.2)
+      '@prefresh/core': 1.5.2(preact@10.20.1)
       '@prefresh/utils': 1.2.0
       '@rollup/pluginutils': 4.2.1
-      preact: 10.13.2
+      preact: 10.20.1
       vite: 5.2.7
     transitivePeerDependencies:
       - supports-color
@@ -5749,7 +5746,7 @@ packages:
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
-      magic-string: 0.30.2
+      magic-string: 0.30.8
       svelte: 4.2.12
       svelte-hmr: 0.15.3(svelte@4.2.12)
       vitefu: 0.2.4(vite@4.4.9)
@@ -6214,37 +6211,36 @@ packages:
   /@types/range-parser@1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
 
-  /@types/react-dom@18.2.7:
-    resolution: {integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA==}
+  /@types/react-dom@18.2.23:
+    resolution: {integrity: sha512-ZQ71wgGOTmDYpnav2knkjr3qXdAFu0vsk8Ci5w3pGAIdj7/kKAyn+VsQDhXsmzzzepAiI9leWMmubXz690AI/A==}
     dependencies:
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
     dev: true
 
   /@types/react-router-config@5.0.6:
     resolution: {integrity: sha512-db1mx37a1EJDf1XeX8jJN7R3PZABmJQXR8r28yUjVMFSjkmnQo6X6pOEEmNl+Tp2gYQOGPdYbFIipBtdElZ3Yg==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       '@types/react-router': 5.1.20
 
   /@types/react-router-dom@5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
       '@types/react-router': 5.1.20
 
   /@types/react-router@5.1.20:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.20
+      '@types/react': 18.2.73
 
-  /@types/react@18.2.20:
-    resolution: {integrity: sha512-WKNtmsLWJM/3D5mG4U84cysVY31ivmyw85dE84fOCk5Hx78wezB/XEjVPWl2JTZ5FkEeaTJf+VgUAUn3PE7Isw==}
+  /@types/react@18.2.73:
+    resolution: {integrity: sha512-XcGdod0Jjv84HOC7N5ziY3x+qL0AfmubvKOZ9hJjJ2yd5EE+KYjWhdOjt387e9HPheHkdggF9atTifMRtyAaRA==}
     dependencies:
       '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
   /@types/resolve@1.20.2:
@@ -6264,9 +6260,6 @@ packages:
     dependencies:
       '@types/node': 17.0.45
     dev: false
-
-  /@types/scheduler@0.16.3:
-    resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
 
   /@types/serve-index@1.9.1:
     resolution: {integrity: sha512-d/Hs3nWDxNL2xAczmOVZNj92YZCS6RGxfBPjKzuu/XirCgXdpKEb88dYNbrYGint6IVWLNP+yonwVAuRC0T2Dg==}
@@ -6534,7 +6527,7 @@ packages:
       '@vue/reactivity-transform': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.2
+      magic-string: 0.30.8
       postcss: 8.4.27
       source-map-js: 1.0.2
     dev: true
@@ -6603,7 +6596,7 @@ packages:
       '@vue/compiler-core': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.2
+      magic-string: 0.30.8
     dev: true
 
   /@vue/reactivity@3.2.47:
@@ -9142,8 +9135,8 @@ packages:
       strip-final-newline: 3.0.0
     dev: true
 
-  /execa@7.1.1:
-    resolution: {integrity: sha512-wH0eMf/UXckdUYnO21+HDztteVv05rq2GXksxT4fCGeHkBhw1DROXh40wcjMcRqDOWE7iPJ4n3M7e2+YFP+76Q==}
+  /execa@7.2.0:
+    resolution: {integrity: sha512-UduyVP7TLB5IcAQl+OzLyLcS/l32W/GLg+AhHJ+ow40FOk2U3SAllPwR44v4vmdFwIWqpdwxxpQbF1n5ta9seA==}
     engines: {node: ^14.18.0 || ^16.14.0 || >=18.0.0}
     dependencies:
       cross-spawn: 7.0.3
@@ -10987,12 +10980,6 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /magic-string@0.30.0:
-    resolution: {integrity: sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.14
-
   /magic-string@0.30.2:
     resolution: {integrity: sha512-lNZdu7pewtq/ZvWUp9Wpf/x7WzMTsR26TWV03BRZrXFsv+BI6dy8RAiKgm1uM/kyR0rCfUcqvOlXKG66KhIGug==}
     engines: {node: '>=12'}
@@ -12194,7 +12181,7 @@ packages:
       hookable: 5.5.3
       jiti: 1.18.2
       knitwork: 1.0.0
-      magic-string: 0.30.0
+      magic-string: 0.30.8
       mlly: 1.2.0
       nitropack: 2.3.2
       nuxi: 3.3.2
@@ -13331,24 +13318,17 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.2.0
 
-  /preact-render-to-string@5.2.6(preact@10.16.0):
+  /preact-render-to-string@5.2.6(preact@10.20.1):
     resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
     peerDependencies:
       preact: '>=10'
     dependencies:
-      preact: 10.16.0
+      preact: 10.20.1
       pretty-format: 3.8.0
     dev: true
 
-  /preact@10.13.2:
-    resolution: {integrity: sha512-q44QFLhOhty2Bd0Y46fnYW0gD/cbVM9dUVtNTDKPcdXSMA7jfY+Jpd6rk3GB0lcQss0z5s/6CmVP0Z/hV+g6pw==}
-
-  /preact@10.16.0:
-    resolution: {integrity: sha512-XTSj3dJ4roKIC93pald6rWuB2qQJO9gO2iLLyTe87MrjQN+HklueLsmskbywEWqCHlclgz3/M4YLL2iBr9UmMA==}
-
   /preact@10.20.1:
     resolution: {integrity: sha512-JIFjgFg9B2qnOoGiYMVBtrcFxHqn+dNXbq76bVmcaHYJFYR4lW67AOcXgAYQQTDYXDOg/kTZrKPNCdRgJ2UJmw==}
-    dev: true
 
   /preferred-pm@3.0.3:
     resolution: {integrity: sha512-+wZgbxNES/KlJs9q40F/1sfOd/j7f1O9JaHcW5Dsn3aUUOZg3L2bjpVUcKV2jvtElYfoTuQiNeMfQJ4kwUAhCQ==}
@@ -13369,7 +13349,7 @@ packages:
     engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
     dependencies:
       '@astrojs/compiler': 1.8.1
-      prettier: 3.0.1
+      prettier: 3.2.5
       sass-formatter: 0.7.7
     dev: true
 
@@ -13383,13 +13363,13 @@ packages:
       synckit: 0.8.5
     dev: true
 
-  /prettier-plugin-svelte@3.0.3(prettier@3.0.1)(svelte@4.2.12):
+  /prettier-plugin-svelte@3.0.3(prettier@3.2.5)(svelte@4.2.12):
     resolution: {integrity: sha512-dLhieh4obJEK1hnZ6koxF+tMUrZbV5YGvRpf2+OADyanjya5j0z1Llo8iGwiHmFWZVG/hLEw/AJD5chXd9r3XA==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0
     dependencies:
-      prettier: 3.0.1
+      prettier: 3.2.5
       svelte: 4.2.12
     dev: true
 
@@ -13399,8 +13379,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.0.1:
-    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -15400,7 +15380,7 @@ packages:
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.1
       local-pkg: 0.4.3
-      magic-string: 0.30.0
+      magic-string: 0.30.8
       mlly: 1.2.0
       pathe: 1.1.0
       pkg-types: 1.0.2
@@ -15882,10 +15862,10 @@ packages:
       vscode-uri: 3.0.7
     dev: true
 
-  /vite-plugin-cloudflare-redirect@0.1.1:
-    resolution: {integrity: sha512-44H2HUhJnxwPe4CVoR+K0QNNaZN/khN8Dl0BMu5q3emJiVF6PBBjVomudiNOFugJ18Q2Okd1MIeRkmGnd0GZxg==}
+  /vite-plugin-cloudflare-redirect@0.1.2:
+    resolution: {integrity: sha512-EgFA8OkfnCLR2VQAStXW7L0Yndl9fQegd51kebxaun7OvMzxcyonT86gA+KMvdkLWYO+1hKmQIrwOSNFAf//mg==}
     peerDependencies:
-      vite: ^3.0.0 || ^4.0.0
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
     peerDependenciesMeta:
       vite:
         optional: true

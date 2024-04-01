@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.32.1",
-    "execa": "^7.1.1",
+    "execa": "^7.2.0",
     "tree-kill": "^1.2.2"
   }
 }

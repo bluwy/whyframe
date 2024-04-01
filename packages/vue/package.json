@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@vue/compiler-dom": "^3.4.21",
-    "magic-string": "^0.30.0"
+    "magic-string": "^0.30.8"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:*",
