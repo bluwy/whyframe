@@ -9,7 +9,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

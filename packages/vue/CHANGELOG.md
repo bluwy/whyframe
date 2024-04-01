@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bump `@vue/compiler-dom` and handle breaking change ([#32](https://github.com/bluwy/whyframe/issues/32))
+
 ## 0.1.6 (2022-04-03)
 
 - Bump dependencies

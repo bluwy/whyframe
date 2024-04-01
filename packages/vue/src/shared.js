@@ -48,7 +48,7 @@ export function transform(code, id, api, options) {
           // slot as iframe content, we need to proxy them
           if (
             node.children?.some((c) =>
-              c['content']?.trimLeft().startsWith('<slot')
+              c.loc.source.trimStart().startsWith('<slot')
             )
           ) {
             const attrs = api.getProxyIframeAttrs()
