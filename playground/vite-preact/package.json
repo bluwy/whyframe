@@ -11,10 +11,10 @@
     "preact": "^10.13.2"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.5.0",
+    "@preact/preset-vite": "^2.8.2",
     "@whyframe/core": "^0.1.9",
     "@whyframe/jsx": "^0.1.8",
-    "vite": "^4.4.9",
-    "vite-plugin-inspect": "^0.7.18"
+    "vite": "^5.2.7",
+    "vite-plugin-inspect": "^0.8.3"
   }
 }

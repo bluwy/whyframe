@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Allow Vite 5 as peer dependency
+
 ## 0.2.5 (2022-04-03)
 
 - Bump dependencies

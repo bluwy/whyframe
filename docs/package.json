@@ -11,7 +11,7 @@
 		"preact": "^10.16.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"solid-js": "^1.7.10",
+		"solid-js": "^1.8.16",
 		"vue": "^3.4.21"
 	},
 	"devDependencies": {
@@ -32,8 +32,8 @@
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-slug": "^5.1.0",
 		"shiki": "^0.14.3",
-		"svelte": "^4.1.2",
+		"svelte": "^4.2.12",
 		"vite-plugin-cloudflare-redirect": "^0.1.1",
-		"vite-plugin-inspect": "^0.7.35"
+		"vite-plugin-inspect": "^0.8.3"
 	}
 }

@@ -12,10 +12,10 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "@whyframe/core": "^0.1.9",
     "@whyframe/jsx": "^0.1.8",
-    "vite": "^4.4.9",
-    "vite-plugin-inspect": "^0.7.18"
+    "vite": "^5.2.7",
+    "vite-plugin-inspect": "^0.8.3"
   }
 }

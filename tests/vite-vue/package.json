@@ -11,9 +11,9 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue": "^5.0.4",
     "@whyframe/core": "workspace:*",
     "@whyframe/vue": "workspace:*",
-    "vite": "^4.4.9"
+    "vite": "^5.2.7"
   }
 }
