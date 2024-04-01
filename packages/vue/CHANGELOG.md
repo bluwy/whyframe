@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.7 (2024-04-01)
 
 - Bump `@vue/compiler-dom` and handle breaking change ([#32](https://github.com/bluwy/whyframe/issues/32))
 - Allow Vite 5 as peer dependency
