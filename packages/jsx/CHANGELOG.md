@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.10 (2024-04-01)
 
 - Allow Vite 5 as peer dependency
 
