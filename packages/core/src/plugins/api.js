@@ -17,6 +17,8 @@ export function apiPlugin(options = {}) {
   let isBuild
   /** @type {string} */
   let projectRoot
+  /** @type {string} */
+  let projectBase
 
   // used for final import map generation
   /** @type {Map<string, string>} */
@@ -42,6 +44,7 @@ export function apiPlugin(options = {}) {
     },
     configResolved(c) {
       projectRoot = c.root
+      projectBase = c.base || '/'
     },
     /** @type {import('../..').Api} */
     api: {
@@ -84,7 +87,7 @@ export function apiPlugin(options = {}) {
           attrs.push({
             type: 'static',
             name: isComponent ? '_why?.id' : 'data-why-id',
-            value: `/@id/__${entryId}`
+            value: `${projectBase}@id/__${entryId}`
           })
         }
         if (source) {
