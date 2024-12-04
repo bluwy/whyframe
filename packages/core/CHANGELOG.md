@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.12 (2024-12-04)
+
+- Fix custom base handling
+
 ## 0.1.11 (2024-04-01)
 
 - Allow Vite 5 as peer dependency
