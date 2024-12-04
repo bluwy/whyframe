@@ -44,7 +44,7 @@ export function apiPlugin(options = {}) {
     },
     configResolved(c) {
       projectRoot = c.root
-      projectBase = c.base || '/'
+      projectBase = c.base
     },
     /** @type {import('../..').Api} */
     api: {
@@ -74,7 +74,7 @@ export function apiPlugin(options = {}) {
         attrs.push({
           type: 'static',
           name: isComponent ? '_why?.src' : 'src',
-          value: options.defaultSrc || '/' + templateDefaultId
+          value: options.defaultSrc || projectBase + templateDefaultId
         })
         if (isBuild) {
           hashToEntryIds.set(hash, entryId)
@@ -120,7 +120,7 @@ export function apiPlugin(options = {}) {
             type: 'dynamic',
             name: 'src',
             value: `_why?.src || ${JSON.stringify(
-              options.defaultSrc || '/' + templateDefaultId
+              options.defaultSrc || projectBase + templateDefaultId
             )}`
           },
           {
