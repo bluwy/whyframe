@@ -18,7 +18,7 @@ export function apiPlugin(options = {}) {
   /** @type {string} */
   let projectRoot
   /** @type {string} */
-  let projectBase
+  let projectBase = '/'
 
   // used for final import map generation
   /** @type {Map<string, string>} */
