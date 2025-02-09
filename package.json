@@ -13,10 +13,10 @@
     "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
+    "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.13.0",
-    "prettier-plugin-svelte": "^3.0.3",
-    "svelte": "^4.2.12",
+    "prettier-plugin-svelte": "^3.3.3",
+    "svelte": "^4.2.19",
     "uvu": "^0.5.6"
   },
   "packageManager": "pnpm@10.2.1",

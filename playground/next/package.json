@@ -9,12 +9,12 @@
     "preview": "next start"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.1.9",
-    "@whyframe/jsx": "^0.1.8",
-    "next": "^13.2.4"
+    "@whyframe/core": "workspace:*",
+    "@whyframe/jsx": "workspace:*",
+    "next": "^13.5.8"
   }
 }
