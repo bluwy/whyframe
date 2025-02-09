@@ -28,8 +28,8 @@
     "@docusaurus/module-type-aliases": "^2.4.3",
     "@docusaurus/plugin-content-docs": "^2.4.3",
     "@docusaurus/types": "^2.4.3",
-    "@whyframe/core": "workspace:*",
-    "@whyframe/jsx": "workspace:*"
+    "@whyframe/core": "^0.1.12",
+    "@whyframe/jsx": "^0.1.10"
   },
   "browserslist": {
     "production": [

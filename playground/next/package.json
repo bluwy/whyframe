@@ -13,8 +13,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@whyframe/core": "workspace:*",
-    "@whyframe/jsx": "workspace:*",
+    "@whyframe/core": "^0.1.12",
+    "@whyframe/jsx": "^0.1.10",
     "next": "^13.5.8"
   }
 }
