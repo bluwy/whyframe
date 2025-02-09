@@ -13,6 +13,8 @@
     "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.12",
+    "@svitejs/changesets-changelog-github-compact": "^1.2.0",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-svelte": "^3.3.3",
@@ -26,7 +28,8 @@
       "@whyframe/core": "workspace:*",
       "@whyframe/jsx": "workspace:*",
       "@whyframe/svelte": "workspace:*",
-      "@whyframe/vue": "workspace:*"
+      "@whyframe/vue": "workspace:*",
+      "prettier": "$prettier"
     },
     "peerDependencyRules": {
       "ignoreMissing": [

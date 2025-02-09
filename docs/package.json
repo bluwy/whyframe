@@ -31,7 +31,7 @@
 		"astro": "^2.10.15",
 		"rehype-autolink-headings": "^6.1.1",
 		"rehype-slug": "^5.1.0",
-		"shiki": "^0.14.7",
+		"shiki": "0.14.3",
 		"svelte": "^4.2.19",
 		"vite-plugin-cloudflare-redirect": "^0.1.2",
 		"vite-plugin-inspect": "^0.8.9"
