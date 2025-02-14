@@ -10,7 +10,6 @@ export const webPublisherDocsUrl =
 export const headerLinks = [
   { title: 'Docs', url: '/docs' },
   { title: 'Quick start', url: '/new', button: true },
-  { title: 'Discord', url: '/chat' },
   { title: 'GitHub', url: 'https://github.com/bluwy/whyframe' }
 ]
 
