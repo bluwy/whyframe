@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.11
+
+### Patch Changes
+
+- Support Vite 6 in peer dependencies range ([`03ffc06`](https://github.com/bluwy/whyframe/commit/03ffc063e6ee3c3f76ade1480a5bc415adb986df))
+
 ## 0.1.10 (2024-04-01)
 
 - Allow Vite 5 as peer dependency
