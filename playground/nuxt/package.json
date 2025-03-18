@@ -12,12 +12,12 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@types/node": "^18.19.75",
-    "@unhead/vue": "^1.11.18",
+    "@types/node": "^18.19.80",
+    "@unhead/vue": "^1.11.20",
     "@whyframe/core": "^0.1.12",
     "@whyframe/vue": "^0.1.7",
     "node-fetch-native": "^1.6.6",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.16.0",
     "ufo": "^1.5.4",
     "vue-router": "^4.5.0"
   }
