@@ -34,7 +34,7 @@
     "test": "uvu tests -i fixtures"
   },
   "peerDependencies": {
-    "@whyframe/core": "^0.1.0",
+    "@whyframe/core": "^0.1.13",
     "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "dependencies": {
