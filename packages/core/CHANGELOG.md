@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.13
+
+### Patch Changes
+
+- Support Vite 6 in peer dependencies range ([`f98c6ef`](https://github.com/bluwy/whyframe/commit/f98c6ef0cf3690c683b28ac19040e8b744dd6c72))
+
 ## 0.1.12 (2024-12-04)
 
 - Fix custom base handling
