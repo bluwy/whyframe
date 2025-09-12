@@ -83,11 +83,12 @@ ${cssCode}`
           '.js',
           `\
 import App from '${entryComponentId}'
+import { mount, unmount } from 'svelte'
 
 export function createApp(el) {
-  const app = new App({ target: el })
+  const app = mount(App, { target: el })
   return {
-    destroy: () => app.$destroy()
+    destroy: () => unmount(app)
   }
 }`
         )
