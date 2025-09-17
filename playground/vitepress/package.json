@@ -13,8 +13,7 @@
   "devDependencies": {
     "@whyframe/core": "^0.1.12",
     "@whyframe/vue": "^0.1.7",
-    "vite": "^5.4.14",
-    "vite-plugin-inspect": "^0.8.9",
-    "vitepress": "1.0.1"
+    "vite-plugin-inspect": "^11.3.3",
+    "vitepress": "^2.0.0-alpha.12"
   }
 }

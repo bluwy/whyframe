@@ -8,14 +8,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.3.1",
-    "@sveltejs/kit": "^2.20.0",
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@sveltejs/adapter-auto": "^6.1.0",
+    "@sveltejs/kit": "^2.42.1",
+    "@sveltejs/vite-plugin-svelte": "^6.2.0",
     "@whyframe/core": "^0.1.12",
     "@whyframe/svelte": "^0.1.7",
-    "mdsvex": "^0.11.2",
+    "mdsvex": "^0.12.6",
     "svelte": "^5.38.10",
-    "vite": "^5.4.14",
-    "vite-plugin-inspect": "^0.8.9"
+    "vite": "^7.1.5",
+    "vite-plugin-inspect": "^11.3.3"
   }
 }
