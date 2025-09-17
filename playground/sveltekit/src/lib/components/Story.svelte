@@ -15,7 +15,7 @@
 <div class="story">
   <div class="bar">
     <h2>{title}</h2>
-    <button aria-pressed={showCode} on:click={() => (showCode = !showCode)}>
+    <button aria-pressed={showCode} onclick={() => (showCode = !showCode)}>
       Show code
     </button>
   </div>

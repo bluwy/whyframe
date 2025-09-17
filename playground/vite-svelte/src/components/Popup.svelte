@@ -8,13 +8,13 @@
 <button
   class="activator"
   aria-haspopup="dialog"
-  on:click={() => (open = !open)}
+  onclick={() => (open = !open)}
 >
   <slot />
 </button>
 
 {#if open}
-  <button class="background" on:click={() => (open = false)}>
+  <button class="background" onclick={() => (open = false)}>
     <p>{content}</p>
   </button>
 {/if}

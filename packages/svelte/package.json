@@ -44,12 +44,11 @@
   "dependencies": {
     "estree-walker": "^3.0.3",
     "magic-string": "^0.30.17",
-    "svelte": "^4.2.19",
+    "svelte": "^5.38.10",
     "svelte-parse-markup": "^0.1.5"
   },
   "devDependencies": {
     "@whyframe/core": "workspace:*",
-    "svelte": "^3.54.0",
     "uvu": "^0.5.6",
     "vite": "^5.4.14"
   }
