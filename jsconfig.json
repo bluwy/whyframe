@@ -9,6 +9,6 @@
     "esModuleInterop": true,
     "strictNullChecks": true
   },
-  "include": ["./packages/**/*", "./packages/core/src/all.d.ts"],
+  "include": ["./packages/**/*"],
   "exclude": ["**/fixtures/**"]
 }

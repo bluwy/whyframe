@@ -5,11 +5,7 @@
   let open = false
 </script>
 
-<button
-  class="activator"
-  aria-haspopup="dialog"
-  onclick={() => (open = !open)}
->
+<button class="activator" aria-haspopup="dialog" onclick={() => (open = !open)}>
   <slot />
 </button>
 
