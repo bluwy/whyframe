@@ -12,7 +12,13 @@ import { whyframeVue } from '@whyframe/vue'
 import { whyframeJsx } from '@whyframe/jsx'
 
 export default defineConfig({
-  integrations: [svelte(), vue(), solid(), preact(), react()],
+  integrations: [
+    svelte(),
+    vue(),
+    solid({ include: ['**/*Solid*'] }),
+    preact({ include: ['**/*Preact*'] }),
+    react({ include: ['**/*React*'] })
+  ],
   vite: {
     plugins: [
       inspect(),

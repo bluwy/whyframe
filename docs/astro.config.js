@@ -21,6 +21,7 @@ export default defineConfig({
   build: {
     format: 'file'
   },
+  devToolbar: { enabled: false },
   integrations: [
     mdx(),
     svelte({
@@ -31,9 +32,9 @@ export default defineConfig({
       }
     }),
     vue(),
-    solid(),
-    preact(),
-    react()
+    solid({ include: ['**/*Solid*'] }),
+    preact({ include: ['**/*Preact*'] }),
+    react({ include: ['**/*React*'] })
   ],
   vite: {
     plugins: [

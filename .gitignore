@@ -13,3 +13,6 @@ build
 
 # playwright
 tests/test-results
+
+# docs
+.astro

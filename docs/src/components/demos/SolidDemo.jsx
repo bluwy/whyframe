@@ -8,9 +8,9 @@ export default function SolidDemo() {
   return (
     <iframe class={css.iframe} data-why title="Package demo">
       <p class={css.p}>
-        <img src={whyframe} alt="whyframe" height="80" />
+        <img src={whyframe.src} alt="whyframe" height="80" />
         <span class={css.span}>+</span>
-        <img src={solid} alt="solid" height="58" />
+        <img src={solid.src} alt="solid" height="58" />
       </p>
     </iframe>
   )

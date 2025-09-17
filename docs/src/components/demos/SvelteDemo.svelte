@@ -5,9 +5,9 @@
 
 <iframe data-why title="Package demo">
   <p>
-    <img src={whyframe} alt="whyframe" height="80" />
+    <img src={whyframe.src} alt="whyframe" height="80" />
     <span>+</span>
-    <img src={svelte} alt="svelte" height="70" />
+    <img src={svelte.src} alt="svelte" height="70" />
   </p>
 </iframe>
 
