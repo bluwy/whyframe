@@ -12,7 +12,7 @@
     "@sveltejs/kit": "^2.42.1",
     "@sveltejs/vite-plugin-svelte": "^6.2.0",
     "@whyframe/core": "^0.1.12",
-    "@whyframe/svelte": "^0.1.7",
+    "@whyframe/svelte": "^0.2.0",
     "mdsvex": "^0.12.6",
     "svelte": "^5.38.10",
     "vite": "^7.1.5",

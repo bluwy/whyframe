@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- Support Svelte 5 only ([#42](https://github.com/bluwy/whyframe/pull/42))
+
+### Patch Changes
+
+- Support Vite 7 ([`50a171f`](https://github.com/bluwy/whyframe/commit/50a171f155e7fdf9a62ab59ef8d721e02a59d65d))
+
+- Updated dependencies [[`50a171f`](https://github.com/bluwy/whyframe/commit/50a171f155e7fdf9a62ab59ef8d721e02a59d65d)]:
+  - @whyframe/core@0.1.14
+
 ## 0.1.8
 
 ### Patch Changes
