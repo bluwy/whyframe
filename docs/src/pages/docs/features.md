@@ -58,7 +58,7 @@ For some integrations like Vite, SvelteKit, and Docusaurus, a `defaultSrc` is pr
 > To get types for `whyframe:app`, you can add ...
 >
 > ```ts
-> /// <reference types="@whyframe/core/global" />`
+> /// <reference types="@whyframe/core/global" />
 > ```
 >
 > ... to the `global.d.ts` or `vite-env.d.ts` file in your project.
