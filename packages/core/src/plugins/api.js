@@ -158,57 +158,68 @@ export function apiPlugin(options = {}) {
         return iframeId
       }
     },
-    resolveId(id, importer) {
-      // see createEntry for id signature
-      if (id.startsWith('whyframe:entry')) {
-        return '__' + id
-      }
-      // see createEntryComponent for id signature
-      if (id.includes('__whyframe-')) {
-        // NOTE: this gets double resolved for some reason
-        if (id.startsWith(projectRoot)) {
-          return id
-        } else {
-          return path.join(projectRoot, id)
+    resolveId: {
+      filter: {
+        id: [/^whyframe:entry-/, /__whyframe-/, /^whyframe:iframe-/]
+      },
+      handler(id, importer) {
+        // see createEntry for id signature
+        if (id.startsWith('whyframe:entry')) {
+          return '__' + id
         }
-      }
-      // see createIframeMetadata for id signature
-      if (id.startsWith('whyframe:iframe-')) {
-        return '__' + id + '__' + importer
-      }
-    },
-    async load(id) {
-      let virtualId
-      // see createEntry for id signature
-      if (id.startsWith('__whyframe:entry')) {
-        virtualId = id.slice(2)
-      }
-      // see createEntryComponent for id signature
-      if (id.includes('__whyframe-')) {
-        virtualId = id
-      }
-      // see createIframeMetadata for id signature
-      if (id.startsWith('__whyframe:iframe-')) {
-        virtualId = id.slice(2)
-      }
-      if (virtualId) {
-        let code = virtualIdToCode.get(virtualId)
-        // support lazy code
-        if (typeof code === 'function') {
-          code = code()
-          if (code instanceof Promise) {
-            code = await code
+        // see createEntryComponent for id signature
+        if (id.includes('__whyframe-')) {
+          // NOTE: this gets double resolved for some reason
+          if (id.startsWith(projectRoot)) {
+            return id
+          } else {
+            return path.join(projectRoot, id)
           }
-          virtualIdToCode.set(virtualId, code)
         }
-        // handle rollup result, no sourcemap needed as it's not mapping to anything
-        if (typeof code === 'string') {
-          return { code, map: { mappings: '' } }
-        } else {
-          return code
+        // see createIframeMetadata for id signature
+        if (id.startsWith('whyframe:iframe-')) {
+          return '__' + id + '__' + importer
         }
       }
     },
+    load: {
+      filter: {
+        id: [/^__whyframe:entry-/, /__whyframe-/, /^__whyframe:iframe-/]
+      },
+      async handler(id) {
+        let virtualId
+        // see createEntry for id signature
+        if (id.startsWith('__whyframe:entry')) {
+          virtualId = id.slice(2)
+        }
+        // see createEntryComponent for id signature
+        if (id.includes('__whyframe-')) {
+          virtualId = id
+        }
+        // see createIframeMetadata for id signature
+        if (id.startsWith('__whyframe:iframe-')) {
+          virtualId = id.slice(2)
+        }
+        if (virtualId) {
+          let code = virtualIdToCode.get(virtualId)
+          // support lazy code
+          if (typeof code === 'function') {
+            code = code()
+            if (code instanceof Promise) {
+              code = await code
+            }
+            virtualIdToCode.set(virtualId, code)
+          }
+          // handle rollup result, no sourcemap needed as it's not mapping to anything
+          if (typeof code === 'string') {
+            return { code, map: { mappings: '' } }
+          } else {
+            return code
+          }
+        }
+      }
+    },
+    // NOTE: probably this needs to be refactored away for vite 8
     handleHotUpdate({ file }) {
       // remove stale virtual ids
       // NOTE: hot update always come first before transform
