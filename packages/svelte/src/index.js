@@ -38,8 +38,15 @@ export function whyframeSvelte(options) {
         }
       }
     },
-    transform(code, id) {
-      if (filter(id)) {
+    transform: {
+      filter: {
+        id: {
+          include: options?.include || /\.svelte$/,
+          exclude: options?.exclude
+        }
+      },
+      async handler(code, id) {
+        if (!filter(id)) return
         return transform(code, id, api)
       }
     }

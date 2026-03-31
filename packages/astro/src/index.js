@@ -46,194 +46,205 @@ export function whyframeAstro(options) {
         }
       }
     },
-    async transform(code, id) {
-      if (!filter(id)) return
-      if (!api.moduleMayHaveIframe(id, code)) return
+    transform: {
+      filter: {
+        id: {
+          include: options?.include || /\.astro$/,
+          exclude: options?.exclude
+        }
+      },
+      async handler(code, id) {
+        if (!filter(id)) return
+        if (!api.moduleMayHaveIframe(id, code)) return
 
-      // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
-      const s = new MagicString(code)
+        // parse instances of `<iframe data-why></iframe>` and extract them out as a virtual import
+        const s = new MagicString(code)
 
-      const ast = (await parse(code, { position: true })).ast
+        const ast = (await parse(code, { position: true })).ast
 
-      // collect code needed for virtual imports, assume all these have side effects
-      let frontmatterCode =
-        ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
+        // collect code needed for virtual imports, assume all these have side effects
+        let frontmatterCode =
+          ast.children[0]?.type === 'frontmatter' ? ast.children[0].value : ''
 
-      // we're transferring frontmatter code to framework code (node => browser).
-      // so remove potential node imports that may break
-      if (frontmatterCode) {
-        frontmatterCode = frontmatterCode.replace(importsRE, (ori, m1, m2) => {
-          /** @type {string} */
-          const importSpecifier = m2.slice(1, -1)
-          if (
-            importSpecifier.endsWith('.astro') ||
-            importSpecifier.startsWith('node:') ||
-            builtinModules.includes(importSpecifier) ||
-            knownNodeImports.includes(importSpecifier)
-          ) {
-            return ''
-          } else {
-            return ori
-          }
-        })
-      }
-
-      let styleCode = ''
-      for (const node of ast.children) {
-        if (node.type === 'element' && node.name === 'style') {
-          styleCode += code.slice(
-            (node.position?.start.offset ?? 0) - `<`.length,
-            (node.position?.end?.offset ?? 0) + `style>`.length
+        // we're transferring frontmatter code to framework code (node => browser).
+        // so remove potential node imports that may break
+        if (frontmatterCode) {
+          frontmatterCode = frontmatterCode.replace(
+            importsRE,
+            (ori, m1, m2) => {
+              /** @type {string} */
+              const importSpecifier = m2.slice(1, -1)
+              if (
+                importSpecifier.endsWith('.astro') ||
+                importSpecifier.startsWith('node:') ||
+                builtinModules.includes(importSpecifier) ||
+                knownNodeImports.includes(importSpecifier)
+              ) {
+                return ''
+              } else {
+                return ori
+              }
+            }
           )
         }
-      }
 
-      // generate initial hash
-      const baseHash = hash(frontmatterCode + styleCode)
-
-      // shim Astro global
-      frontmatterCode = shimAstro + '\n\n' + frontmatterCode
-
-      walk(ast, {
-        enter(/** @type {any} */ node) {
-          const isIframeElement =
-            node.type === 'element' &&
-            node.name === 'iframe' &&
-            node.attributes.some((a) => a.name === 'data-why')
-
-          if (isIframeElement) {
-            // if contains slot, it implies that it's accepting the component's
-            // slot as iframe content, we need to proxy them
-            if (
-              node.children?.some((c) =>
-                c.value?.trimLeft().startsWith('<slot')
-              )
-            ) {
-              const attrs = api.getProxyIframeAttrs()
-              addAttrs(s, node, attrs)
-              s.remove(
-                node.children[0].position.start.offset,
-                node.position.end.offset - `</`.length // astro position ends until </
-              )
-              this.skip()
-              return
-            }
-          }
-
-          const iframeComponent =
-            node.type === 'component' && api.getComponent(node.name)
-
-          if (isIframeElement || iframeComponent) {
-            // .astro requires a value for data-why to render as a specific framework
-            const whyPropName = iframeComponent ? 'why' : 'data-why'
-
-            /** @type {import('..').Options['defaultFramework']} */
-            const framework =
-              node.attributes.find((a) => a.name === whyPropName)?.value ||
-              options?.defaultFramework
-
-            if (!framework) {
-              // TODO: generate frame
-              console.warn(
-                `<${node.name} ${whyPropName}> in .astro files must specify a value for ${whyPropName}, e.g. <${node.name} ${whyPropName}="svelte">. ` +
-                  `Supported frameworks include ${knownFrameworks
-                    .map((f) => `"${f}"`)
-                    .join(', ')}.`
-              )
-              return
-            }
-            if (!knownFrameworks.includes(framework)) {
-              // TODO: generate frame
-              console.warn(
-                `<${node.name} ${whyPropName}="${framework}"> isn't supported. ` +
-                  `Supported frameworks include ${knownFrameworks
-                    .map((f) => `"${f}"`)
-                    .join(', ')}.`
-              )
-              return
-            }
-
-            // extract iframe html
-            // TODO: Astro to framework generation
-            let iframeContent = ''
-            if (node.children.length > 0) {
-              const start = node.children[0].position.start.offset
-              const end =
-                node.position.end.offset - node.name.length - `</>`.length
-              iframeContent = code.slice(start, end)
-              s.remove(start, end)
-            }
-
-            // derive final hash per iframe
-            const finalHash = hash(baseHash + iframeContent)
-
-            const entryComponentId = api.createEntryComponent(
-              id,
-              finalHash,
-              framework === 'svelte'
-                ? '.svelte'
-                : framework === 'vue'
-                  ? '.vue'
-                  : '.tsx',
-              createEntryComponent(
-                frontmatterCode,
-                styleCode,
-                iframeContent,
-                framework
-              )
+        let styleCode = ''
+        for (const node of ast.children) {
+          if (node.type === 'element' && node.name === 'style') {
+            styleCode += code.slice(
+              (node.position?.start.offset ?? 0) - `<`.length,
+              (node.position?.end?.offset ?? 0) + `style>`.length
             )
-
-            const entryId = api.createEntry(
-              id,
-              finalHash,
-              getEntryExtension(framework),
-              createEntry(entryComponentId, framework)
-            )
-
-            let showSource = api.getDefaultShowSource()
-            if (isIframeElement) {
-              const attr = node.attributes.find(
-                (a) => a.name === 'data-why-show-source'
-              )
-              if (attr) {
-                if (attr.kind === 'empty') {
-                  showSource = true
-                } else if (
-                  attr.kind === 'quoted' ||
-                  attr.kind === 'expression'
-                ) {
-                  showSource = attr.value === 'true'
-                }
-              }
-            } else if (iframeComponent) {
-              if (typeof iframeComponent.showSource === 'boolean') {
-                showSource = iframeComponent.showSource
-              } else if (typeof iframeComponent.showSource === 'function') {
-                const openTag = code.slice(
-                  node.position.start.offset,
-                  node.children[0]?.position.start.offset ??
-                    node.position.end.offset
-                )
-                showSource = iframeComponent.showSource(openTag)
-              }
-            }
-
-            // inject props
-            const attrs = api.getMainIframeAttrs(
-              entryId,
-              finalHash,
-              showSource ? dedent(iframeContent) : undefined,
-              !!iframeComponent
-            )
-            addAttrs(s, node, attrs)
           }
         }
-      })
 
-      if (s.hasChanged()) {
-        return {
-          code: s.toString(),
-          map: s.generateMap({ hires: true })
+        // generate initial hash
+        const baseHash = hash(frontmatterCode + styleCode)
+
+        // shim Astro global
+        frontmatterCode = shimAstro + '\n\n' + frontmatterCode
+
+        walk(ast, {
+          enter(/** @type {any} */ node) {
+            const isIframeElement =
+              node.type === 'element' &&
+              node.name === 'iframe' &&
+              node.attributes.some((a) => a.name === 'data-why')
+
+            if (isIframeElement) {
+              // if contains slot, it implies that it's accepting the component's
+              // slot as iframe content, we need to proxy them
+              if (
+                node.children?.some((c) =>
+                  c.value?.trimLeft().startsWith('<slot')
+                )
+              ) {
+                const attrs = api.getProxyIframeAttrs()
+                addAttrs(s, node, attrs)
+                s.remove(
+                  node.children[0].position.start.offset,
+                  node.position.end.offset - `</`.length // astro position ends until </
+                )
+                this.skip()
+                return
+              }
+            }
+
+            const iframeComponent =
+              node.type === 'component' && api.getComponent(node.name)
+
+            if (isIframeElement || iframeComponent) {
+              // .astro requires a value for data-why to render as a specific framework
+              const whyPropName = iframeComponent ? 'why' : 'data-why'
+
+              /** @type {import('..').Options['defaultFramework']} */
+              const framework =
+                node.attributes.find((a) => a.name === whyPropName)?.value ||
+                options?.defaultFramework
+
+              if (!framework) {
+                // TODO: generate frame
+                console.warn(
+                  `<${node.name} ${whyPropName}> in .astro files must specify a value for ${whyPropName}, e.g. <${node.name} ${whyPropName}="svelte">. ` +
+                    `Supported frameworks include ${knownFrameworks
+                      .map((f) => `"${f}"`)
+                      .join(', ')}.`
+                )
+                return
+              }
+              if (!knownFrameworks.includes(framework)) {
+                // TODO: generate frame
+                console.warn(
+                  `<${node.name} ${whyPropName}="${framework}"> isn't supported. ` +
+                    `Supported frameworks include ${knownFrameworks
+                      .map((f) => `"${f}"`)
+                      .join(', ')}.`
+                )
+                return
+              }
+
+              // extract iframe html
+              // TODO: Astro to framework generation
+              let iframeContent = ''
+              if (node.children.length > 0) {
+                const start = node.children[0].position.start.offset
+                const end =
+                  node.position.end.offset - node.name.length - `</>`.length
+                iframeContent = code.slice(start, end)
+                s.remove(start, end)
+              }
+
+              // derive final hash per iframe
+              const finalHash = hash(baseHash + iframeContent)
+
+              const entryComponentId = api.createEntryComponent(
+                id,
+                finalHash,
+                framework === 'svelte'
+                  ? '.svelte'
+                  : framework === 'vue'
+                    ? '.vue'
+                    : '.tsx',
+                createEntryComponent(
+                  frontmatterCode,
+                  styleCode,
+                  iframeContent,
+                  framework
+                )
+              )
+
+              const entryId = api.createEntry(
+                id,
+                finalHash,
+                getEntryExtension(framework),
+                createEntry(entryComponentId, framework)
+              )
+
+              let showSource = api.getDefaultShowSource()
+              if (isIframeElement) {
+                const attr = node.attributes.find(
+                  (a) => a.name === 'data-why-show-source'
+                )
+                if (attr) {
+                  if (attr.kind === 'empty') {
+                    showSource = true
+                  } else if (
+                    attr.kind === 'quoted' ||
+                    attr.kind === 'expression'
+                  ) {
+                    showSource = attr.value === 'true'
+                  }
+                }
+              } else if (iframeComponent) {
+                if (typeof iframeComponent.showSource === 'boolean') {
+                  showSource = iframeComponent.showSource
+                } else if (typeof iframeComponent.showSource === 'function') {
+                  const openTag = code.slice(
+                    node.position.start.offset,
+                    node.children[0]?.position.start.offset ??
+                      node.position.end.offset
+                  )
+                  showSource = iframeComponent.showSource(openTag)
+                }
+              }
+
+              // inject props
+              const attrs = api.getMainIframeAttrs(
+                entryId,
+                finalHash,
+                showSource ? dedent(iframeContent) : undefined,
+                !!iframeComponent
+              )
+              addAttrs(s, node, attrs)
+            }
+          }
+        })
+
+        if (s.hasChanged()) {
+          return {
+            code: s.toString(),
+            map: s.generateMap({ hires: true })
+          }
         }
       }
     }

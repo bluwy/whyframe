@@ -36,8 +36,15 @@ export function whyframeJsx(options) {
         }
       }
     },
-    transform(code, id) {
-      if (filter(id)) {
+    transform: {
+      filter: {
+        id: {
+          include: options?.include || /\.[jt]sx$/,
+          exclude: options?.exclude
+        }
+      },
+      async handler(code, id) {
+        if (!filter(id)) return
         return transform(code, id, api, {
           fallbackFramework,
           parserOptions: options?.parserOptions

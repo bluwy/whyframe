@@ -59,8 +59,10 @@ export function corePlugin() {
               if (info?.isExternal) continue
               modulesToWait.push(this.load({ id }).catch(() => {}))
             }
-            // TODO: timeout if too long
-            await Promise.all(modulesToWait)
+            const timeout = timeoutPromise(15000)
+            await Promise.race([Promise.all(modulesToWait), timeout.promise])
+            timeout.cancel()
+            if (timeout.timedOut) break
           } while (modulesToWait.length > 0)
 
           // generate hash to import map
@@ -109,3 +111,25 @@ export async function createApp(el, opts) {
   const result = await data.createApp(el, opts)
   return result
 }`
+
+/**
+ * @param {number} ms
+ */
+function timeoutPromise(ms) {
+  let timeoutId
+  const returned = {
+    promise: /** @type {Promise<void>} */ (
+      new Promise((resolve) => {
+        timeoutId = setTimeout(() => {
+          returned.timedOut = true
+          resolve()
+        }, ms)
+      })
+    ),
+    timedOut: false,
+    cancel() {
+      clearTimeout(timeoutId)
+    }
+  }
+  return returned
+}
