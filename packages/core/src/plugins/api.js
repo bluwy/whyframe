@@ -24,6 +24,9 @@ export function apiPlugin(options = {}) {
   /** @type {Map<string, string>} */
   const hashToEntryIds = new Map()
 
+  /** @type {RegExp[]} */
+  const skipWaitIds = []
+
   /**
    * @param {string} originalId
    * @param {string} virtualId
@@ -53,6 +56,12 @@ export function apiPlugin(options = {}) {
       },
       _getVirtualIdToCode() {
         return virtualIdToCode
+      },
+      _getSkipWaitIds() {
+        return skipWaitIds
+      },
+      addSkipWaitId(id) {
+        skipWaitIds.push(id)
       },
       getComponent(componentName) {
         return options.components?.find((c) => c.name === componentName)

@@ -1,3 +1,5 @@
+import { isBuiltin } from 'node:module'
+
 /**
  * @returns {import('vite').Plugin}
  */
@@ -55,7 +57,10 @@ export function corePlugin() {
               if (seen.has(id)) continue
               seen.add(id)
               if (id.startsWith('\0')) continue
+              if (isBuiltin(id)) continue
+              if (api._getSkipWaitIds().some((r) => r.test(id))) continue
               const info = this.getModuleInfo(id)
+              // @ts-expect-error isExternal doesn't exist in rolldown
               if (info?.isExternal) continue
               modulesToWait.push(this.load({ id }).catch(() => {}))
             }
