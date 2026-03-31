@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.14
+
+### Patch Changes
+
+- Support Vite 7 ([`50a171f`](https://github.com/bluwy/whyframe/commit/50a171f155e7fdf9a62ab59ef8d721e02a59d65d))
+
 ## 0.1.13
 
 ### Patch Changes
