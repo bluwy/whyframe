@@ -8,7 +8,7 @@ export const templateDefaultBuildPath = path.resolve(
 )
 
 /**
- * @param {import('../..').Options} [options]
+ * @param {import('../../index.js').Options} [options]
  * @returns {import('vite').Plugin[]}
  */
 export function templatePlugin(options) {

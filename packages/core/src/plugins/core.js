@@ -6,7 +6,7 @@ import { isBuiltin } from 'node:module'
 export function corePlugin() {
   /** @type {boolean} */
   let isBuild
-  /** @type {import('../..').Api} */
+  /** @type {import('../../index.js').Api} */
   let api
 
   return {

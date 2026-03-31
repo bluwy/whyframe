@@ -2,11 +2,11 @@ import path from 'node:path'
 import { templateDefaultId } from './template.js'
 
 /**
- * @param {import('../..').Options} [options]
+ * @param {import('../../index.js').Options} [options]
  * @returns {import('vite').Plugin}
  */
 export function apiPlugin(options = {}) {
-  /** @type {Map<string, import('../..').LoadResult>} */
+  /** @type {Map<string, import('../../index.js').LoadResult>} */
   const virtualIdToCode = new Map()
 
   // secondary map to track stale virtual ids on hot update
@@ -49,7 +49,7 @@ export function apiPlugin(options = {}) {
       projectRoot = c.root
       projectBase = c.base
     },
-    /** @type {import('../..').Api} */
+    /** @type {import('../../index.js').Api} */
     api: {
       _getHashToEntryIds() {
         return hashToEntryIds
@@ -78,7 +78,7 @@ export function apiPlugin(options = {}) {
         return options.defaultShowSource ?? false
       },
       getMainIframeAttrs(entryId, hash, source, isComponent) {
-        /** @type {import('../..').Attr[]} */
+        /** @type {import('../../index.js').Attr[]} */
         const attrs = []
         attrs.push({
           type: 'static',
@@ -123,7 +123,7 @@ export function apiPlugin(options = {}) {
         }
       },
       getProxyIframeAttrs() {
-        /** @type {import('../..').Attr[]} */
+        /** @type {import('../../index.js').Attr[]} */
         return [
           {
             type: 'dynamic',
