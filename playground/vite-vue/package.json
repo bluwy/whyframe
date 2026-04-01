@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.5",
-    "@whyframe/core": "^0.1.12",
-    "@whyframe/vue": "^0.1.7",
+    "@whyframe/core": "^0.2.0",
+    "@whyframe/vue": "^1.0.0",
     "vite": "^8.0.0",
     "vite-plugin-inspect": "^11.3.3"
   }

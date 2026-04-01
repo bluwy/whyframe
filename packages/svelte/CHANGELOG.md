@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0
+
+### Minor Changes
+
+- Support Vite v7 and v8, and update plugin hooks with filters for faster performance in rolldown ([#46](https://github.com/bluwy/whyframe/pull/46))
+
+### Patch Changes
+
+- Known issue: mdsvex does not work well with this plugin and vite-plugin-svelte v7 ([#46](https://github.com/bluwy/whyframe/pull/46))
+
+- Updated dependencies [[`3f1aab3`](https://github.com/bluwy/whyframe/commit/3f1aab3119ac5b3343ec1a99e9a7d0817eeca521)]:
+  - @whyframe/core@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes
