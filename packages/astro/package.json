@@ -1,7 +1,7 @@
 {
   "name": "@whyframe/astro",
   "description": "Astro support for whyframe",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "author": "Bjorn Lu",
   "license": "MIT",
   "type": "module",
