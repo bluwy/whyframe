@@ -11,10 +11,10 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-vue": "^6.0.5",
     "@whyframe/core": "^0.1.12",
     "@whyframe/vue": "^0.1.7",
-    "vite": "^7.1.5",
+    "vite": "^8.0.0",
     "vite-plugin-inspect": "^11.3.3"
   }
 }

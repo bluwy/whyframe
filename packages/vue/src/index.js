@@ -10,6 +10,9 @@ export function whyframeVue(options) {
   let isNuxt = false
 
   const filter = createFilter(options?.include || /\.vue$/, options?.exclude)
+  const includeArr = [options?.include || /\.vue$/]
+    .flat()
+    .concat('\0whyframe:app')
 
   /** @type {import('vite').Plugin} */
   return {
@@ -39,17 +42,25 @@ export function whyframeVue(options) {
         isNuxt = c.plugins.some((p) => p.name.startsWith('nuxt:'))
       }
     },
-    transform(code, id) {
-      if (filter(id)) {
-        return transform(code, id, api, options)
-      }
-      // this is terrible but nuxt is the only vite metaframework that serves vite urls
-      // through `/_nuxt/` instead of the root directly for some reason since 3.0.0-rc.12
-      if (isNuxt && id === '\0whyframe:app') {
-        return code.replace(
-          '/* @vite-ignore */ url',
-          '/* @vite-ignore */ "/_nuxt" + url'
-        )
+    transform: {
+      filter: {
+        id: {
+          include: includeArr,
+          exclude: options?.exclude
+        }
+      },
+      async handler(code, id) {
+        if (filter(id)) {
+          return transform(code, id, api, options)
+        }
+        // this is terrible but nuxt is the only vite metaframework that serves vite urls
+        // through `/_nuxt/` instead of the root directly for some reason since 3.0.0-rc.12
+        if (isNuxt && id === '\0whyframe:app') {
+          return code.replace(
+            '/* @vite-ignore */ url',
+            '/* @vite-ignore */ "/_nuxt" + url'
+          )
+        }
       }
     }
   }

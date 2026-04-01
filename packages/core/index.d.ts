@@ -56,6 +56,11 @@ export interface Api {
    */
   _getVirtualIdToCode: () => Map<string, string>
   /**
+   * @internal
+   */
+  _getSkipWaitIds: () => RegExp[]
+  addSkipWaitId: (id: RegExp) => void
+  /**
    * Check if a component name contains an iframe.
    */
   getComponent: (componentName: string) => Component | undefined

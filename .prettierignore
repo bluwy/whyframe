@@ -8,6 +8,7 @@ dist
 .next
 .nuxt
 .svelte-kit
+.vitepress
 out
 build
 

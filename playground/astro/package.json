@@ -28,7 +28,7 @@
     "@whyframe/svelte": "workspace:*",
     "@whyframe/vue": "workspace:*",
     "astro": "^5.13.7",
-    "svelte": "^5.38.10",
+    "svelte": "^5.53.12",
     "vite-plugin-inspect": "^11.3.3"
   }
 }

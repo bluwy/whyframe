@@ -26,6 +26,9 @@ export function whyframeSvelte(options) {
         throw new Error('whyframe() plugin is not installed')
       }
 
+      // In SvelteKit this id can cause the core load to hang post-adapt for some reason
+      api.addSkipWaitId(/^@sveltejs\/kit/)
+
       // run our plugin before svelte's (can happen in sveltekit)
       const svelte = c.plugins.findIndex((p) => p.name === 'vite-plugin-svelte')
       if (svelte !== -1) {
@@ -38,8 +41,15 @@ export function whyframeSvelte(options) {
         }
       }
     },
-    transform(code, id) {
-      if (filter(id)) {
+    transform: {
+      filter: {
+        id: {
+          include: options?.include || /\.svelte$/,
+          exclude: options?.exclude
+        }
+      },
+      async handler(code, id) {
+        if (!filter(id)) return
         return transform(code, id, api)
       }
     }

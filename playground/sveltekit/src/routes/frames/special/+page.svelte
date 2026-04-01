@@ -14,4 +14,4 @@
   <title>Whyframe - Special</title>
 </svelte:head>
 
-<div use:app />
+<div use:app></div>

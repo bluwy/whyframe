@@ -11,9 +11,6 @@ export default defineConfig({
     whyframe({
       components: [{ name: 'Story', showSource: true }]
     }),
-    whyframeSvelte({
-      include: /\.(svelte|svx)$/,
-      preprocess: true // required for Svelte preprocessors that affect markup, e.g. mdsvex
-    })
+    whyframeSvelte()
   ]
 })
