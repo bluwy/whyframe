@@ -43,6 +43,7 @@ jobs:
         with:
           commit: Release packages
           title: Release packages
+          version: pnpm changeset version && node scripts/fix-versions.js
           publish: pnpm changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
