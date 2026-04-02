@@ -21,7 +21,7 @@
     "svelte": "^5.53.12",
     "uvu": "^0.5.6"
   },
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.33.0",
   "pnpm": {
     "overrides": {
       "@whyframe/astro": "workspace:*",
