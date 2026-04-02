@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- Support Vite v7 and v8, and update plugin hooks with filters for faster performance in rolldown ([#46](https://github.com/bluwy/whyframe/pull/46))
+
 ## 0.1.14
 
 ### Patch Changes

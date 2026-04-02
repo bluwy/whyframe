@@ -11,8 +11,8 @@
     "solid-js": "^1.9.5"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.1.12",
-    "@whyframe/jsx": "^0.1.10",
+    "@whyframe/core": "^0.2.0",
+    "@whyframe/jsx": "^0.2.0",
     "babel-preset-solid": "^1.9.5",
     "vite": "^8.0.0",
     "vite-plugin-inspect": "^11.3.3",
