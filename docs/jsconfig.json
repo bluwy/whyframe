@@ -9,9 +9,9 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": false,
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     }
