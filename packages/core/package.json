@@ -32,7 +32,7 @@
     "*.d.ts"
   ],
   "funding": "https://bjornlu.com/sponsor",
-  "homepage": "https://whyframe.dev",
+  "homepage": "https://whyframe.bjornlu.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/bluwy/whyframe.git",

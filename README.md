@@ -25,7 +25,7 @@
 - ⚡️ Fast runtime
 - ✨ Compatible with major bundlers and frameworks
 
-Read the [documentation](https://whyframe.dev) for more details!
+Read the [documentation](https://whyframe.bjornlu.com) for more details!
 
 ## Packages
 

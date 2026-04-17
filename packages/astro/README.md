@@ -1,3 +1,3 @@
 # @whyframe/astro
 
-See https://whyframe.dev/docs/packages/whyframe-astro
+See https://whyframe.bjornlu.com/docs/packages/whyframe-astro

@@ -1,3 +1,3 @@
 # @whyframe/core
 
-See https://whyframe.dev/docs/packages/whyframe-core
+See https://whyframe.bjornlu.com/docs/packages/whyframe-core

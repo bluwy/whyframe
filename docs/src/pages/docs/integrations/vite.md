@@ -5,7 +5,7 @@ layout: ../../../layouts/DocsLayout.astro
 
 # Vite
 
-[GitHub](https://github.com/vitejs/vite). [Website](https://vitejs.dev).
+[GitHub](https://github.com/vitejs/vite). [Website](https://vite.dev).
 
 ## Quick start
 

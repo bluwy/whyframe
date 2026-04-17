@@ -8,7 +8,7 @@ export default function App() {
   return (
     <main>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://vite.dev" target="_blank">
           <img
             src="/vite.svg"
             className={`${style.logo} ${style.vite}`}
@@ -24,7 +24,7 @@ export default function App() {
             height="80"
           />
         </a>
-        <a href="https://whyframe.dev" target="_blank">
+        <a href="https://whyframe.bjornlu.com" target="_blank">
           <img
             src={whyframeLogo}
             className={`${style.logo} ${style.whyframe}`}

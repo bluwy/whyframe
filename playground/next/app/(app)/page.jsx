@@ -17,7 +17,7 @@ export default function App() {
             height="40"
           />
         </a>
-        <a href="https://whyframe.dev" target="_blank">
+        <a href="https://whyframe.bjornlu.com" target="_blank">
           <Image
             src={whyframeLogo}
             className={`${style.logo} ${style.whyframe}`}

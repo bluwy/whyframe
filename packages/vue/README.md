@@ -1,3 +1,3 @@
 # @whyframe/vue
 
-See https://whyframe.dev/docs/packages/whyframe-vue
+See https://whyframe.bjornlu.com/docs/packages/whyframe-vue

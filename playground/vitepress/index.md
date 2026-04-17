@@ -7,7 +7,7 @@ import Story from './components/Story.vue'
   <a href="https://vitepress.vuejs.org" target="_blank">
     <img src="./assets/vue.svg" class="logo vue" alt="vue" height="80" />
   </a>
-  <a href="https://whyframe.dev" target="_blank">
+  <a href="https://whyframe.bjornlu.com" target="_blank">
     <img
       src="./assets/whyframe.svg"
       class="logo whyframe"

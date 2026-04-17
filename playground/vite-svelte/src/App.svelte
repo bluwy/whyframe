@@ -7,13 +7,13 @@
 
 <main>
   <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+    <a href="https://vite.dev" target="_blank" rel="noreferrer">
       <img src="/vite.svg" class="logo vite" alt="vite" height="80" />
     </a>
     <a href="https://svelte.dev" target="_blank" rel="noreferrer">
       <img src={svelteLogo} class="logo svelte" alt="svelte" height="80" />
     </a>
-    <a href="https://whyframe.dev" target="_blank" rel="noreferrer">
+    <a href="https://whyframe.bjornlu.com" target="_blank" rel="noreferrer">
       <img
         src={whyframeLogo}
         class="logo whyframe"

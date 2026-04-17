@@ -6,6 +6,7 @@ import Logo from '@/components/Logo.astro'
 ---
 
 <header id="the-header">
+  <div class="banner">Project in maintenance mode</div>
   <div class={`wrapper docs-container ${Astro.props.stretch ? 'stretch' : ''}`}>
     <Logo />
     <nav>
@@ -63,6 +64,17 @@ import Logo from '@/components/Logo.astro'
     background-color: rgba(30, 30, 30, 30%); /* --dark */
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .banner {
+    background-color: hsl(37, 100%, 43%);
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    word-spacing: 0.4em;
   }
 
   .wrapper {

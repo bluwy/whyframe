@@ -4,7 +4,7 @@
       <a href="https://v3.nuxtjs.dev" target="_blank">
         <img src="/nuxt.svg" class="logo nuxt" alt="nuxt" height="80" />
       </a>
-      <a href="https://whyframe.dev" target="_blank">
+      <a href="https://whyframe.bjornlu.com" target="_blank">
         <img
           src="~/assets/whyframe.svg"
           class="logo whyframe"

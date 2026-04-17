@@ -19,7 +19,7 @@
         height="80"
       />
     </a>
-    <a href="https://whyframe.dev" target="_blank" rel="noreferrer">
+    <a href="https://whyframe.bjornlu.com" target="_blank" rel="noreferrer">
       <img
         src={whyframeLogo}
         class="logo whyframe"
