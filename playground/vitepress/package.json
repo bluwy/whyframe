@@ -8,7 +8,7 @@
     "preview": "vitepress serve"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.32"
   },
   "devDependencies": {
     "@whyframe/core": "^0.2.0",

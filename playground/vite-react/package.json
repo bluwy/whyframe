@@ -15,7 +15,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@whyframe/core": "^0.2.0",
     "@whyframe/jsx": "^0.2.0",
-    "vite": "^8.0.0",
+    "vite": "^8.0.8",
     "vite-plugin-inspect": "^11.3.3"
   }
 }

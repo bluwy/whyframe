@@ -9,10 +9,10 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.32"
   },
   "devDependencies": {
-    "@types/node": "^18.19.80",
+    "@types/node": "^25.6.0",
     "@unhead/vue": "^1.11.20",
     "@whyframe/core": "^0.2.0",
     "@whyframe/vue": "^0.2.0",

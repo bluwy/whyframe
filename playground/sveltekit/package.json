@@ -14,8 +14,8 @@
     "@whyframe/core": "^0.2.0",
     "@whyframe/svelte": "^0.3.0",
     "mdsvex": "^0.12.6",
-    "svelte": "^5.53.12",
-    "vite": "^8.0.0",
+    "svelte": "^5.55.4",
+    "vite": "^8.0.8",
     "vite-plugin-inspect": "^11.3.3"
   }
 }
