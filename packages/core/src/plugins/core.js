@@ -1,4 +1,5 @@
 import { isBuiltin } from 'node:module'
+import path from 'node:path'
 
 /**
  * @returns {import('vite').Plugin}
@@ -62,6 +63,10 @@ export function corePlugin() {
               const info = this.getModuleInfo(id)
               // @ts-expect-error isExternal doesn't exist in rolldown
               if (info?.isExternal) continue
+              // This also works as a fallback isExternal check. We really need to check
+              // this in Rolldown because it hangs on some external packages for some reason.
+              if (info?.id && id === info.id && !path.isAbsolute(info.id))
+                continue
               modulesToWait.push(this.load({ id }).catch(() => {}))
             }
             const timeout = timeoutPromise(15000)
@@ -121,6 +126,7 @@ export async function createApp(el, opts) {
  * @param {number} ms
  */
 function timeoutPromise(ms) {
+  /** @type {NodeJS.Timeout} */
   let timeoutId
   const returned = {
     promise: /** @type {Promise<void>} */ (
