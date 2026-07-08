@@ -42,5 +42,5 @@ jobs:
         with:
           commit: Release packages
           title: Release packages
-          version: pnpm changeset version && node scripts/fix-versions.js
-          publish: pnpm changeset publish
+          version: pnpm ci-release-version
+          publish: pnpm ci-release-publish

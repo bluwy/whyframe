@@ -10,7 +10,9 @@
     "docs-dev": "cd docs && pnpm dev",
     "docs-build": "cd docs && pnpm build",
     "lint": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --check --cache",
-    "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache"
+    "format": "prettier \"**/*.{js,ts,jsx,css,md,vue,svelte,astro}\" --write --cache",
+    "ci-release-version": "changeset version && node scripts/fix-versions.js",
+    "ci-release-publish": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
