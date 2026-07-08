@@ -23,7 +23,7 @@
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@whyframe/astro": "^0.3.0",
-    "@whyframe/core": "^0.2.0",
+    "@whyframe/core": "^0.2.1",
     "@whyframe/jsx": "^0.2.0",
     "@whyframe/svelte": "^0.3.0",
     "@whyframe/vue": "^0.2.0",

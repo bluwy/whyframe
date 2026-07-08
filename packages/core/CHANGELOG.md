@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- Fix build hang in Vite 8 and Rolldown ([`8ad692f`](https://github.com/bluwy/whyframe/commit/8ad692f28f81dbd81208d70191d87c58fdffe35b))
+
 ## 0.2.0
 
 ### Minor Changes

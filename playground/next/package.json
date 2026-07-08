@@ -13,7 +13,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.2.0",
+    "@whyframe/core": "^0.2.1",
     "@whyframe/jsx": "^0.2.0",
     "next": "^13.5.8"
   }
