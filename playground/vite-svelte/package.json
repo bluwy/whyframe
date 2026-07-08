@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
-    "@whyframe/core": "^0.2.0",
+    "@whyframe/core": "^0.2.1",
     "@whyframe/svelte": "^0.3.0",
     "svelte": "^5.55.4",
     "vite": "^8.0.8",

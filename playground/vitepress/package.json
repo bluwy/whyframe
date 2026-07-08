@@ -11,7 +11,7 @@
     "vue": "^3.5.32"
   },
   "devDependencies": {
-    "@whyframe/core": "^0.2.0",
+    "@whyframe/core": "^0.2.1",
     "@whyframe/vue": "^0.2.0",
     "vite-plugin-inspect": "^11.3.3",
     "vitepress": "^2.0.0-alpha.12"
